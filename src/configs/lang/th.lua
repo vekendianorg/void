@@ -1,5 +1,5 @@
 --[[
-  configs/lang/ru.lua — Thailand 
+  configs/lang/th.lua — Thai
 
   Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
   Looked up at runtime via the global T(key, ...) function, e.g.:
@@ -17,7 +17,7 @@
       translated — only user-visible text (dialogs, toasts, buttons,
       module titles/descriptions) lives here.
 
-    This file handles the Thailand localization for the VOID script.
+    This file handles the Thai localization for the VOID script.
 ]]
 
 return {
@@ -265,6 +265,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
+- Русский: NikolayPG (github: Ohranik1Pitorochki)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
@@ -357,5 +358,154 @@ return {
 ["adventure.set_distance.prompt_interval"] = "ดีเลย์ของการวนลูป (หน่วยมิลลิวิต่ำสุด 250)",
 ["adventure.set_distance.over_max_title"] = "ระยะทางเกิน",
 ["adventure.set_distance.over_max_msg"] = "ระยะทางที่ตั้งเกิน 5000 เมตร จะไม่ได้แต้มดาวเพิ่ม\n\nตัวเกมจะบันทึกระยะทางปกติ แต่เต้มดาวจะไม่เพิ่มให้ จะไปต่อไหม?",
+
+["adventure.set_distance.continue_button"] = "ไปต่อ",
+["adventure.set_distance.not_in_adventure"] = "ไปที่แท็บ Adventure แล้วเริ่มแข่งก่อน",
+["adventure.set_distance.start_race_first"] = "เริ่มแข่งก่อนนะ",
+["adventure.set_distance.applied"] = "ตั้งระยะทางแล้ว: %sm",
+["adventure.set_distance.loop_stopped"] = "หยุดลูปตั้งระยะทางแล้ว",
+["adventure.set_distance.loop_running"] = "ลูประยะทางกำลังทำงานอยู่ — กด Set Distance เพื่อหยุด",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "ปรับเวลานับถอยหลัง",
+["cups.adjust_countdown.desc"] = "ปรับเวลานับถอยหลังก่อนเริ่มแข่ง",
+["cups.slider.seconds"] = "วินาที",
+["cups.adjust_countdown.applied"] = "ปรับเวลานับถอยหลังเป็น %ss แล้ว",
+["cups.auto_win.title"] = "ออโต้ชนะ",
+["cups.auto_win.desc"] = "ชนะอัตโนมัติไม่ว่าผลแข่งจะเป็นยังไง",
+["cups.force_boss.title"] = "บังคับบอส",
+["cups.force_boss.desc"] = "บังคับให้บอสออกมาทุกครั้ง",
+["cups.force_cup.title"] = "บังคับถ้วย",
+["cups.force_cup.desc"] = "บังคับเลือกถ้วยที่ต้องการ",
+["cups.force_cup.not_found"] = "หา Force Cup ไม่เจอ ลองใหม่อีกที",
+["cups.force_cup.enabled"] = "เปิดใช้งาน Force Cup แล้ว",
+["cups.force_cup.disabled"] = "ปิดใช้งาน Force Cup แล้ว",
+["cups.unlimited_tasks.title"] = "เควสไม่จำกัด",
+["cups.unlimited_tasks.desc"] = "แช่แข็งเควสทั้งหมดให้เสร็จและกดรับได้ตลอด รับรางวัลซ้ำได้เรื่อยๆ",
+["cups.unlimited_tasks.resolve_failed"] = "ดึงรายการเควสไม่สำเร็จ",
+["cups.unlimited_tasks.none_found"] = "ไม่เจอเควส",
+["cups.unlimited_tasks.enabled"] = "เปิดใช้งานเควสไม่จำกัดแล้ว",
+["cups.unlimited_tasks.disabled"] = "ปิดใช้งานเควสไม่จำกัดแล้ว",
+["cups.unlimited_tasks.none_to_freeze"] = "ไม่มีเควสให้แช่แข็ง",
+["cups.rank_points_bonus.title"] = "+498 แต้มแรงค์",
+["cups.rank_points_bonus.desc"] = "ทำให้เควสลีกทุกอันให้ 498 แต้มแทน 200 แต้ม และตัดรางวัลอื่นออก",
+["cups.rank_points_bonus.none_found"] = "ไม่เจอเควสลีก",
+["cups.rank_points_bonus.boosted"] = "บูสต์แต้มแรงค์แล้ว: %s",
+["cups.rank_points_bonus.no_match"] = "ไม่เจอเควสลีกที่ตรงเงื่อนไข",
+["cups.rank_points_bonus.nothing_to_restore"] = "ไม่มีอะไรให้กู้คืน",
+["cups.rank_points_bonus.restored"] = "กู้คืนแล้ว: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "แพตช์รางวัลอีเว้นท์",
+["event.patch_rewards.desc"] = "แพตช์รางวัลอีเว้นท์สาธารณะตอนนี้ให้เป็นแบบที่ VOID กำหนด (ต้องรีสตาร์ทเกม)",
+["event.restore_events.title"] = "กู้คืนรางวัลอีเว้นท์",
+["event.restore_events.desc"] = "ลบไฟล์ JSON อีเว้นท์ที่แก้ไว้ เพื่อให้เซิร์ฟเวอร์เกมกู้คืนให้ใหม่ (ต้องรีสตาร์ทเกม)",
+
+["event.checking_permissions"] = "กำลังเช็คสิทธิ์การเข้าถึง...",
+["event.scanning_files"] = "กำลังสแกนไฟล์ที่ใช้งานอยู่...",
+["event.decode_rewards_failed"] = "ถอดรหัส JSON รางวัลไม่สำเร็จ",
+["event.workspace_creation_failed"] = "พัง: สร้างโฟลเดอร์ทำงานไม่สำเร็จ: %s",
+["event.workspace_creation_failed_dialog"] = "พัง: สร้างโฟลเดอร์ทำงานไม่ได้\n%s",
+["event.file_inaccessible"] = "เข้าถึงไฟล์ไม่ได้ที่: %s",
+["event.predecrypt_not_found"] = "Pre-decrypt: หาไฟล์ต้นทางไม่เจอ: %s",
+["event.predecrypt_empty"] = "Pre-decrypt: ไฟล์ต้นทางว่างเปล่า (0 ไบต์): %s",
+["event.decode_active_failed"] = "ถอดรหัส active_events.json ไม่สำเร็จที่: %s",
+["event.no_active_events"] = "ไม่เจออีเว้นท์ที่กำลังทำงานอยู่ที่: %s",
+["event.cannot_open_active"] = "เปิด active_events.json ไม่ได้ที่: %s",
+["event.decrypt_active_failed"] = "ถอดรหัส active_events.json ไม่สำเร็จที่: %s",
+["event.root_copy_failed"] = "คัดลอกแบบ root ไม่สำเร็จ: %s",
+
+["event.select_events_patch"] = "เลือกอีเว้นท์ที่จะแพตช์:\nพาธ: %s",
+["event.user_cancelled"] = "ผู้ใช้ยกเลิกการเลือกสำหรับพาธ: %s",
+["event.rewards_unavailable"] = "ไม่มีข้อมูลรางวัลฝังในตัว ข้ามการแพตช์สำหรับพาธ: %s",
+["event.skipped_unreadable"] = "ข้ามอีเว้นท์ที่อ่านไม่ได้: %s",
+["event.predecrypt_event_not_found"] = "Pre-decrypt: หาอีเว้นท์ไม่เจอ: %s",
+["event.predecrypt_event_empty"] = "Pre-decrypt: อีเว้นท์ว่างเปล่า (0 ไบต์): %s",
+["event.processing_failed"] = "ประมวลผล %s ไม่สำเร็จ: %s",
+["event.cannot_open_decrypted"] = "เปิดไฟล์ที่ถอดรหัสแล้วไม่ได้: %s",
+["event.decrypt_event_failed"] = "ถอดรหัสอีเว้นท์ไม่สำเร็จ: %s",
+["event.loop_crash"] = "ลูปประมวลผลไฟล์พังขั้นรุนแรง: %s",
+
+["event.success_header"] = "สำเร็จ:",
+["event.success_removed_header"] = "ลบสำเร็จแล้ว (จะกู้คืนตอนรีสตาร์ท):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "ไม่สำเร็จ:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "ผลการแพตช์",
+["event.restore_results_title"] = "ผลการกู้คืน",
+["event.restart_required_title"] = "ต้องรีสตาร์ท",
+["event.patch_restart_msg"] = "เกมจะถูกปิดและสคริปต์ตัวนี้จะออกด้วย เปิดใหม่อีกรอบเพื่อดูผลแพตช์",
+["event.restore_restart_msg"] = "เกมจะปิดตอนนี้เพื่อให้ซิงค์ไฟล์กับเซิร์ฟเวอร์",
+["event.finishing_tasks_patch"] = "กำลังทำงานเบื้องหลังให้เสร็จ... รอแป๊บนึง",
+["event.finishing_tasks_restore"] = "กำลังทำงานเบื้องหลังให้เสร็จ...",
+["event.patch_failed_msg"] = "แพตช์ไม่สำเร็จ ลองใหม่อีกที",
+
+["event.select_events_restore"] = "เลือกไฟล์ที่จะกู้คืน (ลบ):\nพาธ: %s",
+["event.delete_failed"] = "ลบ %s ไม่สำเร็จ: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "เปลี่ยนชื่อ",
+["account.change_name.desc"] = "เปลี่ยนชื่อตัวละครของนาย",
+["account.change_name.hint"] = "พิมพ์ชื่อ",
+["account.change_name.empty"] = "พิมพ์ชื่อก่อนนะ",
+["account.change_name.too_long_title"] = "ชื่อยาวไป",
+["account.change_name.too_long_msg"] = "ชื่อนายยาวเกินไป ลองสั้นลงหน่อย",
+["account.change_name.resolve_failed"] = "ดึงตัวชี้ชื่อไม่สำเร็จ",
+["account.change_name.applied"] = "เปลี่ยนชื่อเป็น %s แล้ว",
+
+["account.change_gp.title"] = "เปลี่ยน Garage Power",
+["account.change_gp.desc"] = "เปลี่ยน Garage Power ของโปรไฟล์ (จะคงค่าไว้ถ้าสูงกว่าเดิม) ตั้งเป็น 8 เพื่อรีเซ็ตถ้าเกินลิมิต แต่ใช้ได้ก็ต่อเมื่อ GP จริงของนายต่ำกว่าลิมิตอยู่แล้วเท่านั้น",
+["account.change_gp.hint"] = "พิมพ์ Garage Power",
+["account.change_gp.max_int_title"] = "ถึงขีดจำกัด 32bit int แล้ว",
+["account.change_gp.lower_value"] = "ลดค่าลงหน่อย",
+["account.change_gp.too_low_title"] = "ต่ำไป",
+["account.change_gp.higher_value"] = "เพิ่มค่าขึ้นหน่อย",
+["account.change_gp.applied"] = "เปลี่ยน Garage Power เป็น %s แล้ว",
+
+["account.fake_unlock.title"] = "ปลดล็อกปลอม",
+["account.fake_unlock.desc"] = "ปลดล็อกของแต่งทั้งหมดแบบชั่วคราว",
+["account.fake_vip.title"] = "VIP ปลอม",
+["account.fake_vip.desc"] = "สลับสถานะสมาชิก VIP แบบโลคอล",
+["account.fake_rank.title"] = "แรงค์ปลอม",
+["account.fake_rank.desc"] = "ตั้งแรงค์เป็นเลเจนด์ปลอมให้อัตโนมัติ",
+["account.fake_rank.applied"] = "ใส่แรงค์ปลอมเรียบร้อย",
+
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "ปรับช่องใส่อะไหล่",
+["vehicle.parts_slot.desc"] = "ปรับช่องใส่อะไหล่ของรถทุกคัน",
+["vehicle.parts_slot.slider_title"] = "ช่อง",
+["vehicle.parts_slot.no_vehicles"] = "ไม่เจอรถ",
+["vehicle.parts_slot.applied"] = "ปรับช่องอะไหล่แล้ว: %d คัน",
+
+["vehicle.unlock_vehicles.title"] = "ปลดล็อกรถทั้งหมด",
+["vehicle.unlock_vehicles.desc"] = "ปลดล็อกรถทุกคันให้ซื้อด้วยเหรียญได้",
+["vehicle.unlock_vehicles.no_vehicles"] = "ไม่เจอรถ",
+["vehicle.unlock_vehicles.unlocked"] = "ปลดล็อกรถแล้ว: %d คัน",
+["vehicle.unlock_vehicles.none_to_unlock"] = "ไม่มีรถให้ปลดล็อก",
+
+["vehicle.max_vehicles.title"] = "อัพรถสุด",
+["vehicle.max_vehicles.desc"] = "อัพเลเวลรถที่ปลดล็อกแล้วทุกคันถึงสุดทันที",
+["vehicle.max_vehicles.no_vehicles"] = "ดึงรายการรถไม่สำเร็จ",
+["vehicle.max_vehicles.all_maxed"] = "อัพรถสุดหมดแล้ว",
+["vehicle.max_vehicles.failed"] = "อัพรถไม่สำเร็จ",
+
+["vehicle.max_mastery.title"] = "อัพมาสเตอรี่สุด",
+["vehicle.max_mastery.desc"] = "อัพมาสเตอรี่ของรถที่ปลดล็อกและอัพสุดแล้วทุกคันทันที",
+["vehicle.max_mastery.all_maxed"] = "อัพมาสเตอรี่สุดหมดแล้ว",
+["vehicle.max_mastery.failed"] = "อัพมาสเตอรี่ไม่สำเร็จ",
+
+["vehicle.max_parts.title"] = "อัพอะไหล่สุด",
+["vehicle.max_parts.desc"] = "อัพอะไหล่ที่ปลดล็อกแล้วของรถทุกคันถึงสุดทันที",
+["vehicle.max_parts.no_vehicles"] = "ดึงรายการรถไม่สำเร็จ",
+["vehicle.max_parts.all_maxed"] = "อัพอะไหล่สุดหมดแล้ว",
+["vehicle.max_parts.failed"] = "อัพอะไหล่ไม่สำเร็จ",
+
+["vehicle.common.no_vehicles"] = "ไม่เจอรถ",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "ดึงรายการรถไม่สำเร็จ",
+["vehicle.common.no_zero_region"] = "ไม่เจอ zero region",
 
 }
