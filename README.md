@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/void.jpg" alt="Void Logo" width="420"/>
+</p>
+
 # 🌌 Void
 > A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom **Pivot** environment.
 >
