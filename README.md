@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/void.jpg" alt="Void Logo" width="420"/>
+  <img src="./assets/void.png" alt="Void Logo" width="420"/>
 </p>
 
 # 🌌 Void
