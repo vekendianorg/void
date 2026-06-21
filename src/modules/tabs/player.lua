@@ -143,6 +143,62 @@ return function(container)
             done()
         end)
     end)
+    
+    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "input", {
+        {hint = t("fuel.hint"), type = "number"}
+    }, function(done, vals)  -- no aobs.fuel here!
+        scheduler:add(function(finishTask)
+            local TAG = "Fuel"
+            local val = tonumber(vals)
+    
+            if not val or val < 0 or val > 100 then
+                showToast(t("fuel.invalid"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            local b = string.pack("<f", val)
+            local lo = string.unpack("<H", b:sub(1,2))
+            local hi = string.unpack("<H", b:sub(3,4))
+            
+            local NOP = 0xD503201F  
+            local movz = 0x52800000 | (lo << 5) | 8
+            local movk = 0x72A00000 | (hi << 5) | 8
+            local fmov = 0x1E270100
+        
+            local cache = memory:load("fuel")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning")
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber(aobs.fuel[1].scan, 1)
+                gg.refineNumber("h 61", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("fuel", results)
+            end
+    
+            local base = gg.getResults(1)[1].address
+            gg.setValues({
+                {address = base + 4,  flags = 4, value = cast.arm64(movz)},
+                {address = base + 8,  flags = 4, value = cast.arm64(movk)},
+                {address = base + 12, flags = 4, value = cast.arm64(fmov)},
+                {address = base + 16, flags = 4, value = cast.arm64(NOP)},
+            })
+    
+            showToast(t("fuel.applied", val), true)
+            LOG.info(TAG, "Fuel set to " .. tostring(val))
+            gg.clearResults()
+            finishTask()
+            done()
+        end)
+    end)
 
     addModule(container, "zoom", t("zoom.title"), t("zoom.desc"), "slider", {
         {title=t("slider.min"), min=10, max=100, current=20},

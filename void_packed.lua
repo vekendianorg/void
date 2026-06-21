@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-21 20:10:19
+-- Packed by bundle.py  •  2026-06-21 21:45:03
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -23149,6 +23149,11 @@ return {
 ["player.hide_flag.desc"] = "Hide your player flag at race",
 ["player.hide_flag.enabled"] = "Hide Flag Enabled",
 ["player.hide_flag.disabled"] = "Hide Flag Disabled",
+["player.fuel.title"] = "Set Fuel Amount",
+["player.fuel.desc"] = "Set a constant fuel value during race (0.0 – 100.0)",
+["player.fuel.hint"] = "Fuel (0 – 100)",
+["player.fuel.invalid"] = "Invalid value, must be 0 – 100",
+["player.fuel.applied"] = "Fuel locked to %s",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",
@@ -26989,6 +26994,10 @@ return {
             {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
             {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
         },
+        
+        fuel = {
+            {scan = "h 61 56 48 BD 00 C0 22 1E 21 C0 22 1E 00 84 48 1F 00 40 62 1E 60 56 08 BD", offset = 4},
+        },
     },
     offsets = {
         lib_setDistanceBase = 0x200BC58,
@@ -27284,7 +27293,7 @@ return function(container)
         local result = showPrompt(t("set_distance.title"), {
             {t("set_distance.prompt_target"), "number", "5000"},
             {t("set_distance.prompt_loop"),     "switch",  "false"},
-            {t("set_distance.prompt_interval"), "number", "1000"},
+            {t("set_distance.prompt_interval"), "number", "1500"},
         })
 
         if not result then
@@ -28697,6 +28706,62 @@ return function(container)
             end
             gg.clearResults()
             
+            finishTask()
+            done()
+        end)
+    end)
+    
+    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "input", {
+        {hint = t("fuel.hint"), type = "number"}
+    }, function(done, vals)  -- no aobs.fuel here!
+        scheduler:add(function(finishTask)
+            local TAG = "Fuel"
+            local val = tonumber(vals)
+    
+            if not val or val < 0 or val > 100 then
+                showToast(t("fuel.invalid"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            local b = string.pack("<f", val)
+            local lo = string.unpack("<H", b:sub(1,2))
+            local hi = string.unpack("<H", b:sub(3,4))
+            
+            local NOP = 0xD503201F  
+            local movz = 0x52800000 | (lo << 5) | 8
+            local movk = 0x72A00000 | (hi << 5) | 8
+            local fmov = 0x1E270100
+        
+            local cache = memory:load("fuel")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning")
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber(aobs.fuel[1].scan, 1)
+                gg.refineNumber("h 61", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("fuel", results)
+            end
+    
+            local base = gg.getResults(1)[1].address
+            gg.setValues({
+                {address = base + 4,  flags = 4, value = cast.arm64(movz)},
+                {address = base + 8,  flags = 4, value = cast.arm64(movk)},
+                {address = base + 12, flags = 4, value = cast.arm64(fmov)},
+                {address = base + 16, flags = 4, value = cast.arm64(NOP)},
+            })
+    
+            showToast(t("fuel.applied", val), true)
+            LOG.info(TAG, "Fuel set to " .. tostring(val))
+            gg.clearResults()
             finishTask()
             done()
         end)

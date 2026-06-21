@@ -62,7 +62,7 @@ return function(container)
         local result = showPrompt(t("set_distance.title"), {
             {t("set_distance.prompt_target"), "number", "5000"},
             {t("set_distance.prompt_loop"),     "switch",  "false"},
-            {t("set_distance.prompt_interval"), "number", "1000"},
+            {t("set_distance.prompt_interval"), "number", "1500"},
         })
 
         if not result then

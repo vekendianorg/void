@@ -24,6 +24,10 @@ return {
             {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
             {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
         },
+        
+        fuel = {
+            {scan = "h 61 56 48 BD 00 C0 22 1E 21 C0 22 1E 00 84 48 1F 00 40 62 1E 60 56 08 BD", offset = 4},
+        },
     },
     offsets = {
         lib_setDistanceBase = 0x200BC58,
