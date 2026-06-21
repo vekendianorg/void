@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 04:57:08
+-- Packed by bundle.py  •  2026-06-22 05:01:13
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -24628,7 +24628,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
--- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",
