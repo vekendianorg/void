@@ -264,7 +264,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",

@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-21 21:45:03
+-- Packed by bundle.py  •  2026-06-22 04:57:08
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22568,7 +22568,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",
@@ -23083,7 +23083,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",
@@ -23602,7 +23602,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Créditos",
@@ -24115,7 +24115,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Kredit",
@@ -24628,7 +24628,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",
@@ -25142,7 +25142,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: NikolayPG (github: Ohranik1Pitorochki)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
