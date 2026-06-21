@@ -264,6 +264,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Spanisch: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
+- Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
 ["about.credits.title"] = "Credits",
 ["about.credits.desc"] = [[
