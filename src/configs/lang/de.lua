@@ -260,9 +260,9 @@ return {
 ]],
 ["about.script_translator.title"] = "Übersetzer",
 ["about.script_translator.desc"] = [[
-- Englisch: Lazor (github: lazor-git)
+- English: Lazor (github: lazor-git)
 - Bahasa Indonesia: Lazor (github: lazor-git)
-- Spanisch: Jayy2k (github: Jayy2k)
+- Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
 - Русский: NikolayPG (github: Ohranik1Pitorochki)
 - Thai: NaiArt777 (github: artphakkapol-hub)

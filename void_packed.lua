@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-21 19:27:48
+-- Packed by bundle.py  •  2026-06-21 20:10:19
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22564,9 +22564,9 @@ return {
 ]],
 ["about.script_translator.title"] = "Übersetzer",
 ["about.script_translator.desc"] = [[
-- Englisch: Lazor (github: lazor-git)
+- English: Lazor (github: lazor-git)
 - Bahasa Indonesia: Lazor (github: lazor-git)
-- Spanisch: Jayy2k (github: Jayy2k)
+- Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
 - Русский: NikolayPG (github: Ohranik1Pitorochki)
 - Thai: NaiArt777 (github: artphakkapol-hub)
