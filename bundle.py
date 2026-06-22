@@ -154,7 +154,8 @@ def minify_lua(source):
 
 def build_vfs_loader():
     return """\
-local scriptDir = gg.getFile():match("(.*/)") or ""
+local scriptDir = gg.getFile():match("(.*/)" ) or ""
+script_dir = scriptDir  -- bridge for lang.lua and other modules
 
 function loadModule(name)
     local key = name:gsub("^%./", "")

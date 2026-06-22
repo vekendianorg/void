@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 12:37:15
+-- Packed by bundle.py  •  2026-06-22 14:50:39
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -31933,7 +31933,8 @@ end
 
 end
 
-local scriptDir = gg.getFile():match("(.*/)") or ""
+local scriptDir = gg.getFile():match("(.*/)" ) or ""
+script_dir = scriptDir  -- bridge for lang.lua and other modules
 
 function loadModule(name)
     local key = name:gsub("^%./", "")
