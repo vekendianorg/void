@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 14:50:39
+-- Packed by bundle.py  •  2026-06-22 14:58:51
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -26632,11 +26632,7 @@ local AVAILABLE = {
 -- broken language file should silently fall back to English, never crash
 -- the script. This loader returns nil instead of exiting.
 local function tryLoadLangFile(code)
-    local path  = script_dir .. "/configs/lang/" .. code .. ".lua"
-    local chunk = loadfile(path)
-    if not chunk then return nil end
-
-    local ok, result = _safePcall(chunk)
+    local ok, result = pcall(loadModule, "configs/lang/" .. code .. ".lua")
     if not ok or type(result) ~= "table" then return nil end
     return result
 end
