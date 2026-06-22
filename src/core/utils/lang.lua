@@ -33,6 +33,11 @@ local AVAILABLE = {
     { code = "de", name = "Deutsch" },
     { code = "ru", name = "Русский" },
     { code = "th", name = "Thai" },
+    { code = "bn", name = "বাংলা" },
+    { code = "ar", name = "العربية" },
+    { code = "ur", name = "اردو" },
+    { code = "fr", name = "Français" },
+    { code = "uk", name = "Українська" },
     -- more languages soon
 }
 
