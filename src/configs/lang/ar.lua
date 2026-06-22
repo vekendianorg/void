@@ -267,8 +267,11 @@ return {
 - Deutsch: Erik (github: eomthix)
 - Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
-- Bengali: AMR (github: amr-gt)
+- বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "الشكر والتقدير",
 ["about.credits.desc"] = [[
