@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 17:44:21
+-- Packed by bundle.py  •  2026-06-22 18:27:02
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -23300,6 +23300,9 @@ return {
 ["account.fake_unlock.desc"] = "Unlock all customizations temporarily",
 ["account.fake_vip.title"] = "Fake VIP",
 ["account.fake_vip.desc"] = "Toggle vip subscription state locally",
+
+["account.fake_rank.title"] = "Fake Rank",
+["account.fake_rank.desc"] = "Set (fake) rank to legendary instantly",
 ["account.fake_rank.race_warn_title"] = "Race Required",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank should only be applied while a Cups race is actively running.\n\nApplying it outside a race may result in a shadow ban.\n\nMake sure you are already inside a Cups race before continuing.\n\nContinue anyway?",
 ["account.fake_rank.continue_button"] = "Continue",
