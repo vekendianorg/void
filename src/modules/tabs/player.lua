@@ -144,13 +144,49 @@ return function(container)
         end)
     end)
     
-    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "input", {
-        {hint = t("fuel.hint"), type = "number"}
-    }, function(done, vals)  -- no aobs.fuel here!
+    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "button", nil, function(done)
         scheduler:add(function(finishTask)
             local TAG = "Fuel"
-            local val = tonumber(vals)
     
+            local input = showPrompt(t("fuel.title"), {
+                {t("fuel.prompt_amount"), "number", "50"},
+                {t("fuel.prompt_reset"),  "checkbox", "false"},
+            })
+    
+            if not input then
+                finishTask()
+                done()
+                return
+            end
+    
+            -- Reset
+            if input[2] == "true" then
+                local cache = memory:load("fuel")
+                if not cache then
+                    showToast(t("fuel.not_applied"), true)
+                    finishTask()
+                    done()
+                    return
+                end
+                gg.clearResults()
+                gg.loadResults(cache)
+                local base = gg.getResults(1)[1].address
+                gg.setValues({
+                    {address = base + 4,  flags = 4, value = cast.arm64(0x1E22C000)},
+                    {address = base + 8,  flags = 4, value = cast.arm64(0x1E22C021)},
+                    {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
+                    {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
+                })
+                memory:save("fuel", nil)
+                showToast(t("fuel.reset"), true)
+                LOG.info(TAG, "Fuel reset")
+                gg.clearResults()
+                finishTask()
+                done()
+                return
+            end
+    
+            local val = tonumber(input[1])
             if not val or val < 0 or val > 100 then
                 showToast(t("fuel.invalid"), true)
                 finishTask()
@@ -161,12 +197,11 @@ return function(container)
             local b = string.pack("<f", val)
             local lo = string.unpack("<H", b:sub(1,2))
             local hi = string.unpack("<H", b:sub(3,4))
-            
-            local NOP = 0xD503201F  
+            local NOP  = 0xD503201F
             local movz = 0x52800000 | (lo << 5) | 8
             local movk = 0x72A00000 | (hi << 5) | 8
             local fmov = 0x1E270100
-        
+    
             local cache = memory:load("fuel")
             if cache then
                 LOG.dbg(TAG, "Using cached results")

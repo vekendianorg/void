@@ -328,6 +328,163 @@ return function(container)
         end)
     end)
     
+    addArchModule(container, "parts_modifier", t("parts_modifier.title"), t("parts_modifier.desc"), "button", nil,
+    function(done)
+        local TAG = "PartsModifier"
+    
+        -- Build groups from tuning_parts JSON
+        local tuningData = json.decode(loadModule("configs/tuning_parts.lua"))
+        local tp = tuningData.tuningParts
+    
+        local skip = { ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true }
+    
+        local groupMap = {}
+        local groupOrder = {}
+    
+        for key, part in pairs(tp) do
+            local label = part.name and part.name.value or key
+            if not skip[label] then
+                local fromVal, toVal = nil, nil
+    
+                for _, e in ipairs(part.effectStats or {}) do
+                    local stat = e.stat
+                    if type(stat) == "table" and stat["from"] ~= nil then
+                        fromVal, toVal = stat["from"], stat["to"]
+                        break
+                    end
+                end
+                if fromVal == nil then
+                    for _, e in ipairs(part.effects or {}) do
+                        local amt = e.amount
+                        if type(amt) == "table" and amt["from"] ~= nil then
+                            fromVal, toVal = amt["from"], amt["to"]
+                            break
+                        end
+                    end
+                end
+    
+                if fromVal ~= nil then
+                    if not groupMap[label] then
+                        groupMap[label] = {}
+                        table.insert(groupOrder, label)
+                    end
+                    table.insert(groupMap[label], { key = key, fromVal = fromVal, toVal = toVal })
+                end
+            end
+        end
+    
+        table.sort(groupOrder)
+    
+        local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), groupOrder)
+        if not choice or choice == 0 then done() return end
+    
+        local label    = groupOrder[choice]
+        local variants = groupMap[label]
+        local cacheKey = "parts_mod_" .. label:lower():gsub(" ", "_")
+    
+        local result = showPrompt(label, {
+            {t("parts_modifier.prompt_level"),  "slider:1:9",},
+            {t("parts_modifier.prompt_digit0"), "slider:0:9",},
+            {t("parts_modifier.prompt_digit1"), "slider:1:9",},
+            {t("parts_modifier.prompt_reset"),  "checkbox", "false"},
+        })
+    
+        if not result then done() return end
+    
+        local reset    = result[4] == "true"
+        local lvl      = tonumber(result[1]) or 2
+        local digit0   = result[2] or "0"
+        local digit1   = result[3] or "3"
+    
+        -- Build level string e.g. lvl=2, d0=0, d1=3 → "1.03"
+        local power = ""
+        for i = 0, lvl - 2 do power = power .. tostring(digit0) end
+        local userEdits = "1." .. power .. tostring(digit1)
+        local editValue = tonumber(userEdits)
+    
+        if not reset and not editValue then
+            showToast(t("parts_modifier.invalid"), true)
+            done()
+            return
+        end
+    
+        scheduler:add(function(finishTask)
+            local cache = memory:load(cacheKey)
+    
+            if not cache then
+                LOG.dbg(TAG, "Scanning variants for: " .. label)
+                local toEdit = {}
+    
+                gg.setRanges(BaseRegion)
+    
+                for _, variant in ipairs(variants) do
+                    local search1 = variant.fromVal
+                    local search2 = variant.toVal
+                    
+                    gg.clearResults()
+                    gg.searchNumber(BaseLib + offsets.lib_partsLevel, 32)
+                    local refs = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, v in ipairs(refs) do
+                        local vals = gg.getValues({
+                            { address = v.address + 0x8,  flags = 4 },
+                            { address = v.address + 0xC,  flags = 16 },
+                            { address = v.address + 0x10, flags = 16 },
+                        })
+                        if vals
+                            and vals[1].value == 0x40000000
+                            and vals[2].value == search1
+                            and vals[3].value == search2
+                        then
+                            table.insert(toEdit, v.address + 0x8)
+                            LOG.dbg(TAG, string.format("Found %s @ 0x%X", variant.key, v.address + 0x8))
+                        end
+                    end
+                end
+    
+                gg.clearResults()
+                
+                if #toEdit == 0 then
+                    showToast(t("parts_modifier.not_found"), true)
+                    LOG.warn(TAG, "No results for: " .. label)
+                    finishTask()
+                    done()
+                    return
+                end
+    
+                memory:save(cacheKey, toEdit)
+                cache = toEdit
+                LOG.info(TAG, "Cached " .. #toEdit .. " addresses for " .. label)
+            else
+                LOG.dbg(TAG, "Cache hit for: " .. label)
+            end
+    
+            local edits = {}
+            for _, addr in ipairs(cache) do
+                table.insert(edits, {
+                    address = addr,
+                    flags   = 16,
+                    value   = reset and 0x40000000 or editValue
+                })
+            end
+            gg.setValues(edits)
+    
+            if reset then
+                memory:save(cacheKey, nil)
+                showToast(t("parts_modifier.reset", label), true)
+                LOG.info(TAG, "Reset: " .. label)
+            else
+                showToast(t("parts_modifier.applied", label, userEdits), true)
+                LOG.info(TAG, label .. " = " .. userEdits)
+            end
+    
+            gg.clearResults()
+            finishTask()
+            done()
+        end)
+    end)
+    
     addModule(container, "unlock_vehicles", t("unlock_vehicles.title"), t("unlock_vehicles.desc"), "button", nil,
     function(done)
         local TAG = "UnlockVehicles"

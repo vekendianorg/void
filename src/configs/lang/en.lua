@@ -277,6 +277,7 @@ return {
 - AMR (github: amr-gt)
 - Erik (github: eomthix)
 - Sr Romero
+- Profinoobru
 ]],
 ["about.special_thanks.title"] = "Special Thanks",
 ["about.special_thanks.desc"] = [[
@@ -333,11 +334,14 @@ return {
 ["player.hide_flag.desc"] = "Hide your player flag at race",
 ["player.hide_flag.enabled"] = "Hide Flag Enabled",
 ["player.hide_flag.disabled"] = "Hide Flag Disabled",
-["player.fuel.title"] = "Set Fuel Amount",
-["player.fuel.desc"] = "Set a constant fuel value during race (0.0 – 100.0)",
-["player.fuel.hint"] = "Fuel (0 – 100)",
+["player.fuel.title"] = "Fuel",
+["player.fuel.desc"] = "Lock fuel to a constant value during race (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Fuel amount (0 – 100)",
+["player.fuel.prompt_reset"] = "Reset",
 ["player.fuel.invalid"] = "Invalid value, must be 0 – 100",
 ["player.fuel.applied"] = "Fuel locked to %s",
+["player.fuel.reset"] = "Fuel restored",
+["player.fuel.not_applied"] = "Fuel not active",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",
@@ -371,7 +375,9 @@ return {
 ["adventure.set_distance.applied"] = "Distance set: %sm",
 ["adventure.set_distance.loop_stopped"] = "Set Distance loop stopped.",
 ["adventure.set_distance.loop_running"] = "Distance loop running — tap Set Distance to stop",
-
+["adventure.set_distance.loop_warn_title"] = "Distance Loop Warning",
+["adventure.set_distance.loop_warn_msg"] = "Loop mode repeatedly writes memory every %s ms.\n\nUsing a short interval may increase instability, visual glitches, or game crashes.\n\nContinue anyway?",
+    
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Adjust Countdown",
 ["cups.adjust_countdown.desc"] = "Adjust the countdown before starting race",
@@ -386,6 +392,14 @@ return {
 ["cups.force_cup.not_found"] = "Force Cup not found. Try again later.",
 ["cups.force_cup.enabled"] = "Force Cup Enabled",
 ["cups.force_cup.disabled"] = "Force Cup Disabled",
+["cups.set_time.title"] = "Set Time",
+["cups.set_time.desc"] = "Set your race time (not will freeze the time for safety purpose). Must be in an active cup race. (e.g. 1:09.069, 7.284)",
+["cups.set_time.hint"] = "Time (1:09.069 or 7.284)",
+["cups.set_time.invalid_format"] = "Invalid format. Do 1:09.069 or 7.284",
+["cups.set_time.no_negative"] = "No negative values",
+["cups.set_time.not_in_cup"] = "Go to Cups tab and start a race first",
+["cups.set_time.start_race_first"] = "Start a race first",
+["cups.set_time.applied"] = "Time set to %s",
 ["cups.unlimited_tasks.title"] = "Unlimited Tasks",
 ["cups.unlimited_tasks.desc"] = "Freeze all tasks as completed and always claimable. Claim rewards repeatedly.",
 ["cups.unlimited_tasks.resolve_failed"] = "Failed to resolve task list",
@@ -474,10 +488,9 @@ return {
 ["account.fake_unlock.desc"] = "Unlock all customizations temporarily",
 ["account.fake_vip.title"] = "Fake VIP",
 ["account.fake_vip.desc"] = "Toggle vip subscription state locally",
-["account.fake_rank.title"] = "Fake Rank",
-["account.fake_rank.desc"] = "Set your rank to fake legendary automatically",
-["account.fake_rank.applied"] = "Fake Rank has been injected.",
-
+["account.fake_rank.race_warn_title"] = "Race Required",
+["account.fake_rank.race_warn_msg"] = "Fake Rank should only be applied while a Cups race is actively running.\n\nApplying it outside a race may result in a shadow ban.\n\nMake sure you are already inside a Cups race before continuing.\n\nContinue anyway?",
+["account.fake_rank.continue_button"] = "Continue",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Adjust Parts Slot",
@@ -485,6 +498,18 @@ return {
 ["vehicle.parts_slot.slider_title"] = "Slots",
 ["vehicle.parts_slot.no_vehicles"] = "No vehicles found",
 ["vehicle.parts_slot.applied"] = "Parts slot adjusted: %d vehicles",
+
+["vehicle.parts_modifier.title"] = "Parts Modifier",
+["vehicle.parts_modifier.desc"] = "Modify tuning part level values in active race",
+["vehicle.parts_modifier.select"] = "Select a part",
+["vehicle.parts_modifier.prompt_level"] = "Level: ",
+["vehicle.parts_modifier.prompt_digit0"] = "Digit: ",
+["vehicle.parts_modifier.prompt_digit1"] = "Tail: ",
+["vehicle.parts_modifier.prompt_reset"] = "Reset",
+["vehicle.parts_modifier.invalid"] = "Invalid level value",
+["vehicle.parts_modifier.not_found"] = "Part not found in memory",
+["vehicle.parts_modifier.applied"] = "%s set to level %s",
+["vehicle.parts_modifier.reset"] = "%s reset",
 
 ["vehicle.unlock_vehicles.title"] = "Unlock Vehicles",
 ["vehicle.unlock_vehicles.desc"] = "Unlock all vehicles to be available to purchase with coins",

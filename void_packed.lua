@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 05:01:13
+-- Packed by bundle.py  •  2026-06-22 12:37:15
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -23093,6 +23093,7 @@ return {
 - AMR (github: amr-gt)
 - Erik (github: eomthix)
 - Sr Romero
+- Profinoobru
 ]],
 ["about.special_thanks.title"] = "Special Thanks",
 ["about.special_thanks.desc"] = [[
@@ -23149,11 +23150,14 @@ return {
 ["player.hide_flag.desc"] = "Hide your player flag at race",
 ["player.hide_flag.enabled"] = "Hide Flag Enabled",
 ["player.hide_flag.disabled"] = "Hide Flag Disabled",
-["player.fuel.title"] = "Set Fuel Amount",
-["player.fuel.desc"] = "Set a constant fuel value during race (0.0 – 100.0)",
-["player.fuel.hint"] = "Fuel (0 – 100)",
+["player.fuel.title"] = "Fuel",
+["player.fuel.desc"] = "Lock fuel to a constant value during race (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Fuel amount (0 – 100)",
+["player.fuel.prompt_reset"] = "Reset",
 ["player.fuel.invalid"] = "Invalid value, must be 0 – 100",
 ["player.fuel.applied"] = "Fuel locked to %s",
+["player.fuel.reset"] = "Fuel restored",
+["player.fuel.not_applied"] = "Fuel not active",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",
@@ -23187,7 +23191,9 @@ return {
 ["adventure.set_distance.applied"] = "Distance set: %sm",
 ["adventure.set_distance.loop_stopped"] = "Set Distance loop stopped.",
 ["adventure.set_distance.loop_running"] = "Distance loop running — tap Set Distance to stop",
-
+["adventure.set_distance.loop_warn_title"] = "Distance Loop Warning",
+["adventure.set_distance.loop_warn_msg"] = "Loop mode repeatedly writes memory every %s ms.\n\nUsing a short interval may increase instability, visual glitches, or game crashes.\n\nContinue anyway?",
+    
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Adjust Countdown",
 ["cups.adjust_countdown.desc"] = "Adjust the countdown before starting race",
@@ -23202,6 +23208,14 @@ return {
 ["cups.force_cup.not_found"] = "Force Cup not found. Try again later.",
 ["cups.force_cup.enabled"] = "Force Cup Enabled",
 ["cups.force_cup.disabled"] = "Force Cup Disabled",
+["cups.set_time.title"] = "Set Time",
+["cups.set_time.desc"] = "Set your race time (not will freeze the time for safety purpose). Must be in an active cup race. (e.g. 1:09.069, 7.284)",
+["cups.set_time.hint"] = "Time (1:09.069 or 7.284)",
+["cups.set_time.invalid_format"] = "Invalid format. Do 1:09.069 or 7.284",
+["cups.set_time.no_negative"] = "No negative values",
+["cups.set_time.not_in_cup"] = "Go to Cups tab and start a race first",
+["cups.set_time.start_race_first"] = "Start a race first",
+["cups.set_time.applied"] = "Time set to %s",
 ["cups.unlimited_tasks.title"] = "Unlimited Tasks",
 ["cups.unlimited_tasks.desc"] = "Freeze all tasks as completed and always claimable. Claim rewards repeatedly.",
 ["cups.unlimited_tasks.resolve_failed"] = "Failed to resolve task list",
@@ -23290,10 +23304,9 @@ return {
 ["account.fake_unlock.desc"] = "Unlock all customizations temporarily",
 ["account.fake_vip.title"] = "Fake VIP",
 ["account.fake_vip.desc"] = "Toggle vip subscription state locally",
-["account.fake_rank.title"] = "Fake Rank",
-["account.fake_rank.desc"] = "Set your rank to fake legendary automatically",
-["account.fake_rank.applied"] = "Fake Rank has been injected.",
-
+["account.fake_rank.race_warn_title"] = "Race Required",
+["account.fake_rank.race_warn_msg"] = "Fake Rank should only be applied while a Cups race is actively running.\n\nApplying it outside a race may result in a shadow ban.\n\nMake sure you are already inside a Cups race before continuing.\n\nContinue anyway?",
+["account.fake_rank.continue_button"] = "Continue",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Adjust Parts Slot",
@@ -23301,6 +23314,18 @@ return {
 ["vehicle.parts_slot.slider_title"] = "Slots",
 ["vehicle.parts_slot.no_vehicles"] = "No vehicles found",
 ["vehicle.parts_slot.applied"] = "Parts slot adjusted: %d vehicles",
+
+["vehicle.parts_modifier.title"] = "Parts Modifier",
+["vehicle.parts_modifier.desc"] = "Modify tuning part level values in active race",
+["vehicle.parts_modifier.select"] = "Select a part",
+["vehicle.parts_modifier.prompt_level"] = "Level: ",
+["vehicle.parts_modifier.prompt_digit0"] = "Digit: ",
+["vehicle.parts_modifier.prompt_digit1"] = "Tail: ",
+["vehicle.parts_modifier.prompt_reset"] = "Reset",
+["vehicle.parts_modifier.invalid"] = "Invalid level value",
+["vehicle.parts_modifier.not_found"] = "Part not found in memory",
+["vehicle.parts_modifier.applied"] = "%s set to level %s",
+["vehicle.parts_modifier.reset"] = "%s reset",
 
 ["vehicle.unlock_vehicles.title"] = "Unlock Vehicles",
 ["vehicle.unlock_vehicles.desc"] = "Unlock all vehicles to be available to purchase with coins",
@@ -27001,6 +27026,7 @@ return {
     },
     offsets = {
         lib_setDistanceBase = 0x200BC58,
+        lib_partsLevel = 0x2060CA0,
     },
 }
 
@@ -27213,13 +27239,42 @@ return function(container)
     addArchModule(container, "fake_unlock", t("fake_unlock.title"), t("fake_unlock.desc"), "switch", nil, aobs.fakeUnlock)
     
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)
-    
+        
     addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "button", nil, function(done)
+        local TAG = "FakeRank"
+    
+        local activeTab = gg.getValues({
+            { address = BaseGameStatusRaw - 0xD4, flags = 4 }
+        })
+    
+        local isCupsTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1 )   
+        if not isCupsTab then
+            LOG.warn(TAG, "Not in Cups tab.")
+            showToast(t("fake_rank.not_in_cups"))
+            done()
+            return
+        end
+    
+        local confirm = showDialog(
+            t("fake_rank.race_warn_title"),
+            t("fake_rank.race_warn_msg"),
+            {t("fake_rank.continue_button")},
+            {T("common.cancel")}
+        )
+    
+        if confirm ~= 1 then
+            done()
+            return
+        end
+    
         scheduler:add(function(finishTask)
             gg.setValues({
                 { address = BaseGameStatus + 0x200, flags = 16, value = 50.0 }
             })
+    
+            LOG.info(TAG, "Fake rank applied.")
             showToast(t("fake_rank.applied"))
+    
             finishTask()
             done()
         end)
@@ -27293,7 +27348,7 @@ return function(container)
         local result = showPrompt(t("set_distance.title"), {
             {t("set_distance.prompt_target"), "number", "5000"},
             {t("set_distance.prompt_loop"),     "switch",  "false"},
-            {t("set_distance.prompt_interval"), "number", "1500"},
+            {t("set_distance.prompt_interval"), "number", "3500"},
         })
 
         if not result then
@@ -27305,6 +27360,20 @@ return function(container)
         local loop_enabled  = result[2] == "true"
         local loop_interval = math.max(250, tonumber(result[3]) or 1000)
 
+        if loop_enabled then
+            local warn = showDialog(
+                t("set_distance.loop_warn_title"),
+                t("set_distance.loop_warn_msg", tostring(loop_interval)),
+                {t("set_distance.continue_button")},
+                {T("common.cancel")}
+            )
+        
+            if warn ~= 1 then
+                done()
+                return
+            end
+        end
+        
         -- Warn if > 5000m — no stars, but race still counts distance
         if target_meters > 5000 then
             local warn = showDialog(
@@ -27436,6 +27505,7 @@ return function(container)
                 showToast(t("set_distance.start_race_first"))
                 return false
             end
+            
 
             gg.setValues({
                 { address = distanceBase + 0x0,  flags = 4,  value = target_meters },
@@ -27666,6 +27736,147 @@ return function(container)
                 showToast(t("force_cup.disabled"))
             end
 
+            finishTask()
+            done()
+        end)
+    end)
+    
+    addArchModule(container, "set_time", t("set_time.title"), t("set_time.desc"), "input", {
+        {hint = t("set_time.hint"), type = "text"},
+    }, function(done, vals)
+        local TAG = "SetTime"
+        LOG.info(TAG, "Module activated.")
+    
+        local function parseTime(str)
+            str = str:match("^%s*(.-)%s*$")
+            if str:find("-") then return nil, "no_negative" end
+    
+            if str:find(":") then
+                local min, sec, ms = str:match("^(%d+):(%d+)%.(%d+)$")
+                if not min then return nil, "invalid_format" end
+                return tonumber(min) * 60 + tonumber(sec) + tonumber("0." .. ms), nil
+            elseif str:find("%.") then
+                local sec, ms = str:match("^(%d+)%.(%d+)$")
+                if not sec then return nil, "invalid_format" end
+                return tonumber(sec) + tonumber("0." .. ms), nil
+            else
+                local sec = tonumber(str)
+                if not sec then return nil, "invalid_format" end
+                return sec, nil
+            end
+        end
+    
+        local timeSeconds, err = parseTime(vals)
+        if err == "no_negative" then
+            showToast(t("set_time.no_negative"), true)
+            done()
+            return
+        elseif err or not timeSeconds then
+            showToast(t("set_time.invalid_format"), true)
+            done()
+            return
+        end
+    
+        scheduler:add(function(finishTask)
+            local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
+            local isCupTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1)
+    
+            if not isCupTab then
+                showToast(t("set_time.not_in_cup"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            local function resolveBase()
+                local cachedPtr = memory:load("set_time_ptr")
+                if cachedPtr and cachedPtr ~= 0 then
+                    local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
+                    if verify and verify[1] and verify[1].value ~= 0 then
+                        local base = verify[1].value
+                        LOG.dbg(TAG, string.format("Cache hit: ptr=0x%X → base=0x%X", cachedPtr, base))
+                        return base
+                    else
+                        LOG.warn(TAG, "ptr invalid — clearing cache")
+                        memory:save("set_time_ptr", nil)
+                    end
+                end
+    
+                local anchorTarget = BaseLib + offsets.lib_setDistanceBase
+                LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
+    
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber(anchorTarget, 32)
+                local level1Results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+    
+                if #level1Results == 0 then
+                    LOG.warn(TAG, "Level 1: no refs found")
+                    return nil
+                end
+    
+                local resolvedBase = nil
+    
+                for _, ref1 in ipairs(level1Results) do
+                    gg.clearResults()
+                    gg.setRanges(BaseRegion)
+                    gg.searchNumber(ref1.address, 32)
+                    local level2Results = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, ref2 in ipairs(level2Results) do
+                        local offsetAddr = ref2.address - 0xAC
+    
+                        gg.clearResults()
+                        gg.setRanges(gg.REGION_C_ALLOC)
+                        gg.searchNumber(offsetAddr, 32)
+                        local level3Results = gg.getResults(gg.getResultsCount())
+                        gg.clearResults()
+    
+                        if #level3Results > 0 then
+                            local pointerReads = {}
+                            for _, ref3 in ipairs(level3Results) do
+                                table.insert(pointerReads, { address = ref3.address, flags = 32 })
+                            end
+                            local resolvedPointers = gg.getValues(pointerReads)
+                            if resolvedPointers then
+                                for _, ptr in ipairs(resolvedPointers) do
+                                    if ptr and ptr.value and ptr.value ~= 0 then
+                                        memory:save("set_time_ptr", ptr.address)
+                                        resolvedBase = ptr.value
+                                        LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → base=0x%X", ptr.address, resolvedBase))
+                                        break
+                                    end
+                                end
+                            end
+                        end
+    
+                        if resolvedBase then break end
+                    end
+    
+                    if resolvedBase then break end
+                end
+    
+                return resolvedBase
+            end
+    
+            local base = resolveBase()
+            if not base then
+                showToast(t("set_time.start_race_first"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            gg.setValues({
+                { address = base + 0x10, flags = 16, value = timeSeconds },
+                { address = base + 0x14, flags = 16, value = timeSeconds },
+            })
+    
+            LOG.info(TAG, "Time set: " .. tostring(timeSeconds) .. "s (" .. vals .. ")")
+            showToast(t("set_time.applied", vals), true)
+            gg.clearResults()
             finishTask()
             done()
         end)
@@ -28711,13 +28922,49 @@ return function(container)
         end)
     end)
     
-    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "input", {
-        {hint = t("fuel.hint"), type = "number"}
-    }, function(done, vals)  -- no aobs.fuel here!
+    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "button", nil, function(done)
         scheduler:add(function(finishTask)
             local TAG = "Fuel"
-            local val = tonumber(vals)
     
+            local input = showPrompt(t("fuel.title"), {
+                {t("fuel.prompt_amount"), "number", "50"},
+                {t("fuel.prompt_reset"),  "checkbox", "false"},
+            })
+    
+            if not input then
+                finishTask()
+                done()
+                return
+            end
+    
+            -- Reset
+            if input[2] == "true" then
+                local cache = memory:load("fuel")
+                if not cache then
+                    showToast(t("fuel.not_applied"), true)
+                    finishTask()
+                    done()
+                    return
+                end
+                gg.clearResults()
+                gg.loadResults(cache)
+                local base = gg.getResults(1)[1].address
+                gg.setValues({
+                    {address = base + 4,  flags = 4, value = cast.arm64(0x1E22C000)},
+                    {address = base + 8,  flags = 4, value = cast.arm64(0x1E22C021)},
+                    {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
+                    {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
+                })
+                memory:save("fuel", nil)
+                showToast(t("fuel.reset"), true)
+                LOG.info(TAG, "Fuel reset")
+                gg.clearResults()
+                finishTask()
+                done()
+                return
+            end
+    
+            local val = tonumber(input[1])
             if not val or val < 0 or val > 100 then
                 showToast(t("fuel.invalid"), true)
                 finishTask()
@@ -28728,12 +28975,11 @@ return function(container)
             local b = string.pack("<f", val)
             local lo = string.unpack("<H", b:sub(1,2))
             local hi = string.unpack("<H", b:sub(3,4))
-            
-            local NOP = 0xD503201F  
+            local NOP  = 0xD503201F
             local movz = 0x52800000 | (lo << 5) | 8
             local movk = 0x72A00000 | (hi << 5) | 8
             local fmov = 0x1E270100
-        
+    
             local cache = memory:load("fuel")
             if cache then
                 LOG.dbg(TAG, "Using cached results")
@@ -30082,6 +30328,163 @@ return function(container)
                 showToast(t("common.no_vehicles"))
             end
 
+            finishTask()
+            done()
+        end)
+    end)
+    
+    addArchModule(container, "parts_modifier", t("parts_modifier.title"), t("parts_modifier.desc"), "button", nil,
+    function(done)
+        local TAG = "PartsModifier"
+    
+        -- Build groups from tuning_parts JSON
+        local tuningData = json.decode(loadModule("configs/tuning_parts.lua"))
+        local tp = tuningData.tuningParts
+    
+        local skip = { ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true }
+    
+        local groupMap = {}
+        local groupOrder = {}
+    
+        for key, part in pairs(tp) do
+            local label = part.name and part.name.value or key
+            if not skip[label] then
+                local fromVal, toVal = nil, nil
+    
+                for _, e in ipairs(part.effectStats or {}) do
+                    local stat = e.stat
+                    if type(stat) == "table" and stat["from"] ~= nil then
+                        fromVal, toVal = stat["from"], stat["to"]
+                        break
+                    end
+                end
+                if fromVal == nil then
+                    for _, e in ipairs(part.effects or {}) do
+                        local amt = e.amount
+                        if type(amt) == "table" and amt["from"] ~= nil then
+                            fromVal, toVal = amt["from"], amt["to"]
+                            break
+                        end
+                    end
+                end
+    
+                if fromVal ~= nil then
+                    if not groupMap[label] then
+                        groupMap[label] = {}
+                        table.insert(groupOrder, label)
+                    end
+                    table.insert(groupMap[label], { key = key, fromVal = fromVal, toVal = toVal })
+                end
+            end
+        end
+    
+        table.sort(groupOrder)
+    
+        local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), groupOrder)
+        if not choice or choice == 0 then done() return end
+    
+        local label    = groupOrder[choice]
+        local variants = groupMap[label]
+        local cacheKey = "parts_mod_" .. label:lower():gsub(" ", "_")
+    
+        local result = showPrompt(label, {
+            {t("parts_modifier.prompt_level"),  "slider:1:9",},
+            {t("parts_modifier.prompt_digit0"), "slider:0:9",},
+            {t("parts_modifier.prompt_digit1"), "slider:1:9",},
+            {t("parts_modifier.prompt_reset"),  "checkbox", "false"},
+        })
+    
+        if not result then done() return end
+    
+        local reset    = result[4] == "true"
+        local lvl      = tonumber(result[1]) or 2
+        local digit0   = result[2] or "0"
+        local digit1   = result[3] or "3"
+    
+        -- Build level string e.g. lvl=2, d0=0, d1=3 → "1.03"
+        local power = ""
+        for i = 0, lvl - 2 do power = power .. tostring(digit0) end
+        local userEdits = "1." .. power .. tostring(digit1)
+        local editValue = tonumber(userEdits)
+    
+        if not reset and not editValue then
+            showToast(t("parts_modifier.invalid"), true)
+            done()
+            return
+        end
+    
+        scheduler:add(function(finishTask)
+            local cache = memory:load(cacheKey)
+    
+            if not cache then
+                LOG.dbg(TAG, "Scanning variants for: " .. label)
+                local toEdit = {}
+    
+                gg.setRanges(BaseRegion)
+    
+                for _, variant in ipairs(variants) do
+                    local search1 = variant.fromVal
+                    local search2 = variant.toVal
+                    
+                    gg.clearResults()
+                    gg.searchNumber(BaseLib + offsets.lib_partsLevel, 32)
+                    local refs = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, v in ipairs(refs) do
+                        local vals = gg.getValues({
+                            { address = v.address + 0x8,  flags = 4 },
+                            { address = v.address + 0xC,  flags = 16 },
+                            { address = v.address + 0x10, flags = 16 },
+                        })
+                        if vals
+                            and vals[1].value == 0x40000000
+                            and vals[2].value == search1
+                            and vals[3].value == search2
+                        then
+                            table.insert(toEdit, v.address + 0x8)
+                            LOG.dbg(TAG, string.format("Found %s @ 0x%X", variant.key, v.address + 0x8))
+                        end
+                    end
+                end
+    
+                gg.clearResults()
+                
+                if #toEdit == 0 then
+                    showToast(t("parts_modifier.not_found"), true)
+                    LOG.warn(TAG, "No results for: " .. label)
+                    finishTask()
+                    done()
+                    return
+                end
+    
+                memory:save(cacheKey, toEdit)
+                cache = toEdit
+                LOG.info(TAG, "Cached " .. #toEdit .. " addresses for " .. label)
+            else
+                LOG.dbg(TAG, "Cache hit for: " .. label)
+            end
+    
+            local edits = {}
+            for _, addr in ipairs(cache) do
+                table.insert(edits, {
+                    address = addr,
+                    flags   = 16,
+                    value   = reset and 0x40000000 or editValue
+                })
+            end
+            gg.setValues(edits)
+    
+            if reset then
+                memory:save(cacheKey, nil)
+                showToast(t("parts_modifier.reset", label), true)
+                LOG.info(TAG, "Reset: " .. label)
+            else
+                showToast(t("parts_modifier.applied", label, userEdits), true)
+                LOG.info(TAG, label .. " = " .. userEdits)
+            end
+    
+            gg.clearResults()
             finishTask()
             done()
         end)

@@ -90,13 +90,42 @@ return function(container)
     addArchModule(container, "fake_unlock", t("fake_unlock.title"), t("fake_unlock.desc"), "switch", nil, aobs.fakeUnlock)
     
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)
-    
+        
     addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "button", nil, function(done)
+        local TAG = "FakeRank"
+    
+        local activeTab = gg.getValues({
+            { address = BaseGameStatusRaw - 0xD4, flags = 4 }
+        })
+    
+        local isCupsTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1 )   
+        if not isCupsTab then
+            LOG.warn(TAG, "Not in Cups tab.")
+            showToast(t("fake_rank.not_in_cups"))
+            done()
+            return
+        end
+    
+        local confirm = showDialog(
+            t("fake_rank.race_warn_title"),
+            t("fake_rank.race_warn_msg"),
+            {t("fake_rank.continue_button")},
+            {T("common.cancel")}
+        )
+    
+        if confirm ~= 1 then
+            done()
+            return
+        end
+    
         scheduler:add(function(finishTask)
             gg.setValues({
                 { address = BaseGameStatus + 0x200, flags = 16, value = 50.0 }
             })
+    
+            LOG.info(TAG, "Fake rank applied.")
             showToast(t("fake_rank.applied"))
+    
             finishTask()
             done()
         end)

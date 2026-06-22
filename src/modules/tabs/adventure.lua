@@ -62,7 +62,7 @@ return function(container)
         local result = showPrompt(t("set_distance.title"), {
             {t("set_distance.prompt_target"), "number", "5000"},
             {t("set_distance.prompt_loop"),     "switch",  "false"},
-            {t("set_distance.prompt_interval"), "number", "1500"},
+            {t("set_distance.prompt_interval"), "number", "3500"},
         })
 
         if not result then
@@ -74,6 +74,20 @@ return function(container)
         local loop_enabled  = result[2] == "true"
         local loop_interval = math.max(250, tonumber(result[3]) or 1000)
 
+        if loop_enabled then
+            local warn = showDialog(
+                t("set_distance.loop_warn_title"),
+                t("set_distance.loop_warn_msg", tostring(loop_interval)),
+                {t("set_distance.continue_button")},
+                {T("common.cancel")}
+            )
+        
+            if warn ~= 1 then
+                done()
+                return
+            end
+        end
+        
         -- Warn if > 5000m — no stars, but race still counts distance
         if target_meters > 5000 then
             local warn = showDialog(
@@ -205,6 +219,7 @@ return function(container)
                 showToast(t("set_distance.start_race_first"))
                 return false
             end
+            
 
             gg.setValues({
                 { address = distanceBase + 0x0,  flags = 4,  value = target_meters },

@@ -152,6 +152,147 @@ return function(container)
         end)
     end)
     
+    addArchModule(container, "set_time", t("set_time.title"), t("set_time.desc"), "input", {
+        {hint = t("set_time.hint"), type = "text"},
+    }, function(done, vals)
+        local TAG = "SetTime"
+        LOG.info(TAG, "Module activated.")
+    
+        local function parseTime(str)
+            str = str:match("^%s*(.-)%s*$")
+            if str:find("-") then return nil, "no_negative" end
+    
+            if str:find(":") then
+                local min, sec, ms = str:match("^(%d+):(%d+)%.(%d+)$")
+                if not min then return nil, "invalid_format" end
+                return tonumber(min) * 60 + tonumber(sec) + tonumber("0." .. ms), nil
+            elseif str:find("%.") then
+                local sec, ms = str:match("^(%d+)%.(%d+)$")
+                if not sec then return nil, "invalid_format" end
+                return tonumber(sec) + tonumber("0." .. ms), nil
+            else
+                local sec = tonumber(str)
+                if not sec then return nil, "invalid_format" end
+                return sec, nil
+            end
+        end
+    
+        local timeSeconds, err = parseTime(vals)
+        if err == "no_negative" then
+            showToast(t("set_time.no_negative"), true)
+            done()
+            return
+        elseif err or not timeSeconds then
+            showToast(t("set_time.invalid_format"), true)
+            done()
+            return
+        end
+    
+        scheduler:add(function(finishTask)
+            local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
+            local isCupTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1)
+    
+            if not isCupTab then
+                showToast(t("set_time.not_in_cup"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            local function resolveBase()
+                local cachedPtr = memory:load("set_time_ptr")
+                if cachedPtr and cachedPtr ~= 0 then
+                    local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
+                    if verify and verify[1] and verify[1].value ~= 0 then
+                        local base = verify[1].value
+                        LOG.dbg(TAG, string.format("Cache hit: ptr=0x%X → base=0x%X", cachedPtr, base))
+                        return base
+                    else
+                        LOG.warn(TAG, "ptr invalid — clearing cache")
+                        memory:save("set_time_ptr", nil)
+                    end
+                end
+    
+                local anchorTarget = BaseLib + offsets.lib_setDistanceBase
+                LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
+    
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber(anchorTarget, 32)
+                local level1Results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+    
+                if #level1Results == 0 then
+                    LOG.warn(TAG, "Level 1: no refs found")
+                    return nil
+                end
+    
+                local resolvedBase = nil
+    
+                for _, ref1 in ipairs(level1Results) do
+                    gg.clearResults()
+                    gg.setRanges(BaseRegion)
+                    gg.searchNumber(ref1.address, 32)
+                    local level2Results = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, ref2 in ipairs(level2Results) do
+                        local offsetAddr = ref2.address - 0xAC
+    
+                        gg.clearResults()
+                        gg.setRanges(gg.REGION_C_ALLOC)
+                        gg.searchNumber(offsetAddr, 32)
+                        local level3Results = gg.getResults(gg.getResultsCount())
+                        gg.clearResults()
+    
+                        if #level3Results > 0 then
+                            local pointerReads = {}
+                            for _, ref3 in ipairs(level3Results) do
+                                table.insert(pointerReads, { address = ref3.address, flags = 32 })
+                            end
+                            local resolvedPointers = gg.getValues(pointerReads)
+                            if resolvedPointers then
+                                for _, ptr in ipairs(resolvedPointers) do
+                                    if ptr and ptr.value and ptr.value ~= 0 then
+                                        memory:save("set_time_ptr", ptr.address)
+                                        resolvedBase = ptr.value
+                                        LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → base=0x%X", ptr.address, resolvedBase))
+                                        break
+                                    end
+                                end
+                            end
+                        end
+    
+                        if resolvedBase then break end
+                    end
+    
+                    if resolvedBase then break end
+                end
+    
+                return resolvedBase
+            end
+    
+            local base = resolveBase()
+            if not base then
+                showToast(t("set_time.start_race_first"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            gg.setValues({
+                { address = base + 0x10, flags = 16, value = timeSeconds },
+                { address = base + 0x14, flags = 16, value = timeSeconds },
+            })
+    
+            LOG.info(TAG, "Time set: " .. tostring(timeSeconds) .. "s (" .. vals .. ")")
+            showToast(t("set_time.applied", vals), true)
+            gg.clearResults()
+            finishTask()
+            done()
+        end)
+    end)
+    
     addModule(container, "unlimited_tasks", t("unlimited_tasks.title"), t("unlimited_tasks.desc"), "switch", nil,
     function(done, state)
         local TAG = "UnlimitedTasks"

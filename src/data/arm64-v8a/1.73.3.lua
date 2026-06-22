@@ -31,5 +31,6 @@ return {
     },
     offsets = {
         lib_setDistanceBase = 0x200BC58,
+        lib_partsLevel = 0x2060CA0,
     },
 }
