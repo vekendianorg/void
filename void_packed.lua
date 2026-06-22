@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 20:17:32
+-- Packed by bundle.py  •  2026-06-22 21:03:24
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -23158,6 +23158,8 @@ return {
 -- ── modules/tabs/player.lua ───────────────────────────────────────────────────
 ["player.auto_detach.title"] = "Auto Detach",
 ["player.auto_detach.desc"] = "Automatically detach parts like the Rally Car roof",
+["player.auto_die.title"] = "Auto Die",
+["player.auto_die.desc"] = "Automatically make the die (out of fuel)",
 ["player.no_clip.title"] = "No-Clip",
 ["player.no_clip.desc"] = "Make your player go through objects without dying (You can go over the finish lines in cups)",
 ["player.no_clip.enabled"] = "No-Clip Enabled",
@@ -27035,6 +27037,9 @@ return {
         autoWin = {
             {scan = "h E8 5F 5D A9 16 61 40 B9", offset = 4, patch = "h 55 00 80 52", unpatch = "h 16 61 40 B9"},
             {scan = "h E0 5F 40 F9 09 4D 40 BD", offset = 4, patch = "h 0A 90 32 1E", unpatch = "h 09 4D 40 BD"},
+        },
+        
+        autoDie = {
             {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 12, patch = "h 00 00 80 52", unpatch = "h 45 00 00 54"},
             {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 16, patch = "h 60 56 08 B9", unpatch = "h 7F 56 08 B9"},
         },
@@ -28813,7 +28818,9 @@ return function(container)
     local function t(key, ...) return T("player." .. key, ...) end
     
     addArchModule(container, "auto_detach", t("auto_detach.title"), t("auto_detach.desc"), "switch", nil, aobs.autoDetach)
-
+    
+    addArchModule(container, "auto_die", t("auto_die.title"), t("auto_die.desc"), "switch", nil, aobs.autoDie)
+    
     addModule(container, "no_clip", t("no_clip.title"), t("no_clip.desc"), "switch", nil,
     function(done, state)
         scheduler:add(function(finishTask)

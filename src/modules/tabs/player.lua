@@ -11,7 +11,9 @@ return function(container)
     local function t(key, ...) return T("player." .. key, ...) end
     
     addArchModule(container, "auto_detach", t("auto_detach.title"), t("auto_detach.desc"), "switch", nil, aobs.autoDetach)
-
+    
+    addArchModule(container, "auto_die", t("auto_die.title"), t("auto_die.desc"), "switch", nil, aobs.autoDie)
+    
     addModule(container, "no_clip", t("no_clip.title"), t("no_clip.desc"), "switch", nil,
     function(done, state)
         scheduler:add(function(finishTask)

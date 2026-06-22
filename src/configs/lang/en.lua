@@ -322,6 +322,8 @@ return {
 -- ── modules/tabs/player.lua ───────────────────────────────────────────────────
 ["player.auto_detach.title"] = "Auto Detach",
 ["player.auto_detach.desc"] = "Automatically detach parts like the Rally Car roof",
+["player.auto_die.title"] = "Auto Die",
+["player.auto_die.desc"] = "Automatically make the die (out of fuel)",
 ["player.no_clip.title"] = "No-Clip",
 ["player.no_clip.desc"] = "Make your player go through objects without dying (You can go over the finish lines in cups)",
 ["player.no_clip.enabled"] = "No-Clip Enabled",
