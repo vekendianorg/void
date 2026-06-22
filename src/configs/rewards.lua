@@ -1733,6 +1733,10 @@ return [[
                     },
                     {
                         "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
                         "paintId": "superbike_red_premium"
                     },
                     {
@@ -9339,6 +9343,10 @@ return [[
                     {
                         "vehicleId": "superbike",
                         "paintId": "superbike_racing_black_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
                     },
                     {
                         "vehicleId": "superbike",

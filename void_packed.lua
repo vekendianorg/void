@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 18:27:02
+-- Packed by bundle.py  •  2026-06-22 19:20:57
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -1764,6 +1764,10 @@ return [[
                     {
                         "vehicleId": "superbike",
                         "paintId": "superbike_racing_black_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
                     },
                     {
                         "vehicleId": "superbike",
@@ -9373,6 +9377,10 @@ return [[
                     {
                         "vehicleId": "superbike",
                         "paintId": "superbike_racing_black_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
                     },
                     {
                         "vehicleId": "superbike",
