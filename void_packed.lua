@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 19:20:57
+-- Packed by bundle.py  •  2026-06-22 20:17:32
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -16685,6 +16685,22 @@ return [[
                     {
                         "currency": "rank_doubler",
                         "amount": 100000
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_rank_doubler",
+                "currencies": [
+                    {
+                        "currency": "rank_doubler",
+                        "amount": 10000000
                     }
                 ]
             },

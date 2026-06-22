@@ -16662,6 +16662,22 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
+                "id": "event_reward_rank_doubler",
+                "currencies": [
+                    {
+                        "currency": "rank_doubler",
+                        "amount": 10000000
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
                 "id": "event_reward_gem_spawn_token",
                 "currencies": [
                     {
