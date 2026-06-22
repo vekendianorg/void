@@ -1,13 +1,9 @@
--- Packed by bundle.py  •  2026-06-22 17:41:57
+-- Packed by bundle.py  •  2026-06-22 17:44:21
 
 -- Do not edit — regenerate with:  python bundle.py
 
 
 local __vfs = {}
-
-__vfs['test.lua'] = function(...)
-
-end
 
 __vfs['configs/colors.lua'] = function(...)
 UI = {
