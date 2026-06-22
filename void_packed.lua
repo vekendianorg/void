@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 14:58:51
+-- Packed by bundle.py  •  2026-06-22 17:41:57
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -25411,6 +25411,11 @@ return {
 ["vehicle.common.no_zero_region"] = "ไม่เจอ zero region",
 
 }
+
+end
+
+__vfs['configs/lang/zh.lua'] = function(...)
+
 
 end
 
