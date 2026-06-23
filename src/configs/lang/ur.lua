@@ -272,6 +272,7 @@ return {
 - اردو: AMR (github: amr-gt)
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "اعترافات",
 ["about.credits.desc"] = [[
