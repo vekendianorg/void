@@ -495,7 +495,6 @@ return {
 ["account.fake_vip.desc"] = "تبديل حالة اشتراك VIP محليًا",
 ["account.fake_rank.title"] = "رتبة وهمية",
 ["account.fake_rank.desc"] = "تعيين رتبتك إلى أسطورية وهمية تلقائيًا",
-["account.fake_rank.applied"] = "تم حقن الرتبة الوهمية.",
 ["account.fake_rank.race_warn_title"] = "السباق مطلوب",
 ["account.fake_rank.race_warn_msg"] = "يجب تطبيق الرتبة الوهمية فقط أثناء سباق كؤوس نشط.\n\nتطبيقها خارج السباق قد يؤدي إلى حظر ظلي.\n\nتأكد من أنك بالفعل داخل سباق كؤوس قبل المتابعة.\n\nالمتابعة على أي حال؟",
 ["account.fake_rank.continue_button"] = "متابعة",
