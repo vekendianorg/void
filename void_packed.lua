@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 11:10:00
+-- Packed by bundle.py  •  2026-06-23 11:19:02
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -24213,6 +24213,11 @@ return {
 - Deutsch: Erik (github: eomthix)
 - Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Credits",
 ["about.credits.desc"] = [[
@@ -27098,6 +27103,11 @@ return {
 ["vehicle.common.no_zero_region"] = "ไม่เจอ zero region",
 
 }
+
+end
+
+__vfs['configs/lang/tr.lua'] = function(...)
+
 
 end
 
