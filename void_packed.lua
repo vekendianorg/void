@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-22 21:03:24
+-- Packed by bundle.py  •  2026-06-23 11:10:00
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22321,6 +22321,1114 @@ return [[
 ]]
 end
 
+__vfs['configs/lang/ar.lua'] = function(...)
+--[[
+  configs/lang/ar.lua — العربية (Arabic)
+
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "موافق"
+      T("settings.window_width_desc", 400, 650) -> "عرض القائمة العائمة (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Arabic localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "موافق",
+["common.cancel"] = "إلغاء",
+["common.yes"] = "نعم",
+["common.no"] = "لا",
+["common.failed"] = "فشل",
+["common.success"] = "نجح",
+["common.later"] = "لاحقًا",
+["common.got_it"] = "فهمت",
+["common.retry"] = "إعادة المحاولة",
+["common.wait_safe"] = "انتظر (آمن)",
+["common.waiting"] = "جارٍ الانتظار...",
+["common.force_exit"] = "إغلاق إجباري",
+["common.proceed_anyway"] = "المتابعة على أي حال",
+["common.manual_mode"] = "الوضع اليدوي",
+["common.update_button"] = "تحديث",
+["common.launch_failed"] = "فشل التشغيل",
+["common.confirm_exit_title"] = "تأكيد الخروج",
+["common.confirm_exit_msg"] = "الخروج من السكريبت؟",
+["common.not_available"] = "غير متاح",
+["common.warning"] = "تحذير",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "تحذير: عمليات نشطة",
+["main.exit_active_ops_msg"] = "هناك %d مهمة/مهام تعمل في الخلفية.\nقد يؤدي الإغلاق الإجباري إلى تلف حالة اللعبة.",
+["main.initializing"] = "جارٍ التهيئة...",
+["main.no_app_found"] = "لم يتم العثور على تطبيق",
+["main.arch_64bit_required_title"] = "مطلوب 64 بت",
+["main.arch_64bit_required_msg"] = "ARMv8a إلزامي. x86_64 مدعوم جزئيًا.",
+
+["main.update_available_title"] = "تحديث متاح",
+["main.update_available_msg"] = "الإصدار v%s متاح (الحالي: v%s)\n\n%s\n\nتحديث الآن؟",
+["main.no_changelog"] = "لا يوجد سجل تغييرات.",
+["main.downloading_version"] = "جارٍ تنزيل الإصدار v%s...",
+["main.update_download_failed_msg"] = "تعذّر تنزيل التحديث:\n%s",
+["main.update_write_failed_msg"] = "تعذّر الكتابة إلى:\n%s",
+["main.update_done_title"] = "تم تحديث VOID إلى v%s",
+["main.update_done_msg"] = "تم تحديث VOID بنجاح.\n\nتم حفظ السكريبت الجديد باسم:\nvoid_v%s.lua\n\nشغّله من GameGuardian لتطبيق التحديث.",
+["main.launching_version"] = "جارٍ تشغيل الإصدار v%s...",
+["main.launch_failed_msg"] = "تم التنزيل لكن لا يمكن التشغيل:\n%s",
+
+["main.multiple_spaces_title"] = "تم اكتشاف مساحات متعددة",
+["main.multiple_spaces_desc"] = "تم العثور على HCR2 في %d مساحات افتراضية.\nاختر المساحة التي تلعب فيها حاليًا.",
+["main.select_space_toast"] = "الرجاء اختيار مساحة للمتابعة.",
+["main.user_space_item"] = "مستخدم %s  —  %s",
+["main.permission_error_title"] = "خطأ في الأذونات",
+["main.permission_error_msg"] = "تم رفض الوصول إلى Shell.\n\nيحتاج Void إلى هذا لتحديد موقع HCR2 في مساحتك الافتراضية. تحقق من الكود المصدري لـ Void إذا أردت التحقق من الأمر الذي يتم تشغيله.",
+["main.hcr2_not_found_title"] = "لم يتم العثور على بيانات HCR2",
+["main.hcr2_not_found_msg"] = "تعذّر على Void تحديد موقع بيانات HCR2 في مساحتك الافتراضية. قد يحدث هذا إذا لم يتم تشغيل HCR2 بعد، أو إذا كان تطبيق المساحة الافتراضية يستخدم بنية مسار غير معتادة.\n\nالميزات التي تعتمد على ملفات اللعبة (مكافآت الأحداث، إلخ) لن تعمل بدون مسار صالح.",
+["main.manual_data_path_title"] = "مسار البيانات اليدوي",
+["main.manual_data_path_hint"] = "أدخل مسار بيانات HCR2",
+["main.manual_path_cancelled"] = "تم الإلغاء — المتابعة بدون مسار.",
+["main.waiting_for_lib"] = "جارٍ الانتظار لـ %s...",
+["main.initialized"] = "تمت التهيئة",
+["main.gamestatus_not_found"] = "لم يتم العثور على GameStatus",
+["main.dont_interrupt"] = "لا تقاطع هذا السكريبت",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "تم حفظ الحجم! أعد تشغيل السكريبت",
+["ui.category_error"] = "خطأ: %s",
+["ui.category_not_found"] = "الفئة غير موجودة",
+["ui.na"] = "غ/م",
+["ui.spinner_select"] = "اختر",
+["ui.slider_default_title"] = "القيمة",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "يتطلب جهاز %s (جهازك: %s)",
+["patches.suffix_enabled"] = " مفعّل",
+["patches.suffix_disabled"] = " معطّل",
+["patches.pattern_not_found"] = "فشل: %d نمط/أنماط غير موجودة",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "تحذير المعمارية",
+["arch.unknown_arch_msg"] = "المعمارية غير معروفة. هل تم تحميل المكتبة؟ ما النظام الذي تستخدمه؟",
+["arch.non_primary_arch_msg"] = "تم الاكتشاف: %s\nبعض أو كل تصحيحات المكتبة قد لا تعمل.",
+["arch.unknown_version_msg"] = "إصدار اللعبة غير معروف. حاول مرة أخرى بعد تحميل اللعبة.",
+["arch.no_base_data_msg"] = "خطأ داخلي: لا تتوفر بيانات أساسية لهذه المعمارية.",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "تحذير المجدول: تعطّلت المهمة -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "رمز خطأ HTTP: %s",
+["errors.crashed"] = "تعطّل: %s",
+["errors.url_missing"] = "معامل URL مفقود أو فارغ",
+["errors.file_path_missing"] = "مسار الملف مفقود",
+["errors.download_url_missing"] = "URL مفقود",
+["errors.dest_path_missing"] = "مسار الوجهة مفقود",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "قائمة اللعبة",
+["tabs.account"] = "قائمة الحساب",
+["tabs.vehicle"] = "قائمة المركبة",
+["tabs.player"] = "قائمة اللاعب",
+["tabs.adventure"] = "قائمة المغامرة",
+["tabs.cups"] = "قائمة الكؤوس",
+["tabs.team"] = "قائمة الفريق",
+["tabs.event"] = "قائمة الأحداث",
+["tabs.creative"] = "القائمة الإبداعية",
+["tabs.shop"] = "قائمة المتجر",
+["tabs.other"] = "قائمة أخرى",
+["tabs.sep_script"] = "قائمة السكريبت",
+["tabs.settings"] = "الإعدادات",
+["tabs.about"] = "حول",
+
+["registry.module_load_failed"] = "فشل تحميل الوحدة. تحقق من السجلات للتفاصيل.",
+["registry.module_runtime_error"] = "خطأ وقت التشغيل: %s",
+["registry.error"] = "خطأ",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "التحديثات",
+["settings.auto_update.title"] = "التحديث التلقائي",
+["settings.auto_update.desc"] = "تحديث VOID تلقائيًا عند بدء التشغيل",
+["settings.dev_mode_title"] = "وضع المطور",
+["settings.auto_update.dev_mode_msg"] = "التحديث التلقائي معطّل لـ main.lua (بناء تطوير).",
+["settings.check_updates.title"] = "التحقق من التحديثات",
+["settings.check_updates.desc"] = "التحقق من أحدث إصدار VOID على GitHub",
+["settings.check_updates.dev_mode_msg"] = "التحقق من التحديثات معطّل لـ main.lua (بناء تطوير).\n\nاسحب من المستودع يدويًا.",
+["settings.check_updates.checking"] = "جارٍ التحقق من التحديثات...",
+["settings.check_updates.failed_title"] = "فشل التحقق من التحديثات",
+["settings.check_updates.failed_msg"] = "تعذّر الوصول إلى GitHub:\n%s",
+["settings.check_updates.up_to_date_title"] = "محدّث",
+["settings.check_updates.up_to_date_msg"] = "أنت بالفعل على أحدث إصدار (v%s).",
+["settings.check_updates.no_changelog"] = "لا يوجد سجل تغييرات متاح.",
+["settings.check_updates.available_msg"] = "v%s  (الحالي: v%s)\n\n%s\n\nتنزيل واستبدال هذا السكريبت؟",
+["settings.check_updates.no_asset_msg"] = "لم يتم العثور على ملف .lua في الإصدار.",
+["settings.check_updates.download_failed_title"] = "فشل التنزيل",
+["settings.check_updates.write_failed_title"] = "فشل الكتابة",
+["settings.check_updates.done_title"] = "تم",
+["settings.check_updates.done_msg"] = "تم التحديث إلى v%s. أعد تشغيل السكريبت للتطبيق.",
+["settings.check_updates.restart_button"] = "إعادة التشغيل",
+
+["settings.section_language"] = "اللغة",
+["settings.language.title"] = "اللغة",
+["settings.language.desc"] = "اختر لغتك المفضلة للقائمة",
+["settings.language.changed"] = "تم تعيين اللغة إلى %s",
+["settings.language.failed"] = "فشل تحميل تلك اللغة",
+["settings.language.restart_msg"] = "أعد تشغيل السكريبت لتطبيق اللغة بالكامل",
+
+["settings.region.other"] = "أ: أخرى",
+["settings.region.cpp_alloc"] = "Ca: تخصيص C++",
+["settings.region.unknown"] = "غ: غير معروف",
+["settings.section_memory"] = "الذاكرة",
+["settings.memory_range.title"] = "نطاق الذاكرة",
+["settings.memory_range.desc"] = "نطاق الذاكرة المحدد حاليًا\n(يُختار تلقائيًا بواسطة السكريبت)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "عنوان GameStatus الحالي\n(يُختار تلقائيًا بواسطة السكريبت)",
+["settings.gamestatus_raw.title"] = "GameStatus (خام)",
+["settings.gamestatus_raw.desc"] = "عنوان GameStatus (الخام) الحالي\n(يُختار تلقائيًا بواسطة السكريبت)",
+["settings.clear_memory.title"] = "مسح الذاكرة المحفوظة",
+["settings.clear_memory.desc"] = "مسح كل ذاكرة VOID المحفوظة دون الحاجة إلى إعادة تشغيل اللعبة بأكملها.",
+
+["settings.section_ui_customizations"] = "تخصيصات الواجهة",
+["settings.theme_store.title"] = "متجر الثيمات",
+["settings.theme_store.desc"] = "تصفح وتثبيت ثيمات Void المجتمعية",
+["settings.theme_store.unreachable_msg"] = "تعذّر الوصول إلى متجر الثيمات:\n%s",
+["settings.theme_store.parse_failed_msg"] = "تعذّر تحليل بيانات متجر الثيمات.",
+["settings.theme_store.list_title"] = "متجر ثيمات Void",
+["settings.theme_store.search_results_desc"] = "نتائج البحث: %s موجودة",
+["settings.theme_store.available_desc"] = "%s ثيمات متاحة",
+["settings.theme_store.by_author"] = "بواسطة %s",
+["settings.theme_store.search_item"] = "🔍 بحث...",
+["settings.theme_store.clear_search_item"] = "✕ مسح البحث",
+["settings.theme_store.search_title"] = "بحث في الثيمات",
+["settings.theme_store.search_hint"] = "اسم الثيم أو المؤلف أو الوصف",
+["settings.theme_store.no_results"] = "لم يتم العثور على ثيمات لـ: %s",
+["settings.theme_store.detail_msg"] = "بواسطة %s\n\n%s\n\nالمعرّف: %s",
+["settings.theme_store.install_button"] = "تثبيت الثيم",
+["settings.theme_downloading_bg"] = "جارٍ تنزيل صورة الخلفية...",
+["settings.theme_imported"] = "تم استيراد الثيم!",
+["settings.theme_invalid_bundle"] = "تنسيق الحزمة غير صالح.",
+["settings.theme_cloud_error"] = "خطأ سحابي: %s",
+["settings.reset_theme.title"] = "إعادة تعيين الثيم",
+["settings.reset_theme.desc"] = "إعادة تعيين الثيم المخصص وصورة الخلفية إلى الافتراضي",
+["settings.import_theme.title"] = "استيراد ثيم",
+["settings.import_theme.desc"] = "استيراد ثيم مخصص من السحابة",
+["settings.import_theme.hint"] = "أدخل معرّف المشاركة",
+["settings.export_theme.title"] = "تصدير ثيم",
+["settings.export_theme.desc"] = "تصدير الثيم المخصص وصورة الخلفية إلى السحابة",
+["settings.export_theme.share_id_msg"] = "معرّف المشاركة: %s\n\nتم النسخ إلى الحافظة.",
+["settings.export_theme.upload_failed_msg"] = "فشل الرفع: %s",
+["settings.export_theme.size_warning_title"] = "تحذير حجم الرفع",
+["settings.export_theme.size_warning_msg"] = "هل تريد تضمين صورة الخلفية المخصصة؟ سيزيد ذلك من حجم الرفع اعتمادًا على حجم الصورة.",
+["settings.export_theme.uploading_bg"] = "جارٍ رفع صورة الخلفية إلى Catbox...",
+["settings.export_theme.image_upload_failed_title"] = "خطأ",
+["settings.export_theme.image_upload_failed_msg"] = "فشل رفع الصورة: %s",
+["settings.tabs_icon.title"] = "أيقونة التبويبات",
+["settings.tabs_icon.desc"] = "تغيير أيقونة التبويبات",
+["settings.tabs_icon.hint"] = "أدخل الأيقونة",
+["settings.tabs_icon.empty_error"] = "لا يمكن أن يكون فارغًا",
+
+["settings.bg_opacity.title"] = "شفافية الخلفية",
+["settings.bg_opacity.desc"] = "شفافية اللوحات والبطاقات والرأس",
+["settings.slider.alpha"] = "ألفا",
+["settings.bg_image_opacity.title"] = "شفافية صورة الخلفية",
+["settings.bg_image_opacity.desc"] = "ضبط إعدادات ألفا للرؤية مباشرةً باستخدام قنوات صحيحة خالصة.",
+["settings.bg_image_picker.title"] = "صورة الخلفية",
+["settings.bg_image_picker.desc"] = "اضغط لتعديل مسار الملف المطلق لصورة الخلفية المخصصة",
+["settings.bg_image_picker.path_label"] = "مسار ملف الصورة المطلق (.jpg أو .png):",
+["settings.bg_image_picker.remove_label"] = "إزالة صورة الخلفية",
+["settings.bg_image_picker.success_title"] = "بنجاح",
+["settings.bg_image_picker.removed_msg"] = "تمت إزالة صورة الخلفية",
+["settings.bg_image_picker.added_msg"] = "تمت إضافة صورة الخلفية",
+["settings.bg_image_picker.not_found_msg"] = "الملف غير موجود أو تم رفض عملية القراءة:\n%s",
+
+["settings.bg_rgb.title"] = "خلفية RGB",
+["settings.bg_rgb.desc"] = "تدرج لخلفيات اللوحات (الرأس والبطاقة تتكيف تلقائيًا)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "تمييز RGB",
+["settings.accent_rgb.desc"] = "تلوين للأزرار والتبديلات والبطاقات النشطة (اللون المكتوم يُشتق تلقائيًا)",
+["settings.logo_rgb.title"] = "إبراز RGB",
+["settings.logo_rgb.desc"] = "لون التسميات والأيقونات والنص التفاعلي (دائمًا معتم بالكامل)",
+["settings.sub_rgb.title"] = "نص ثانوي RGB",
+["settings.sub_rgb.desc"] = "لون الأوصاف وتسميات التبويبات غير النشطة",
+["settings.text_rgb.title"] = "نص RGB",
+["settings.text_rgb.desc"] = "لون نص القائمة الرئيسية",
+
+["settings.win_width.title"] = "عرض القائمة",
+["settings.win_width.desc"] = "عرض القائمة العائمة (%d – %d dp)",
+["settings.slider.width"] = "العرض",
+["settings.win_height.title"] = "ارتفاع القائمة",
+["settings.win_height.desc"] = "ارتفاع منطقة المحتوى القابلة للتمرير (%d – %d dp)",
+["settings.slider.height"] = "الارتفاع",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "حول السكريبت",
+["about.about_script.desc"] = "سكريبت قوي ومحسّن للغاية لمعالجة الذاكرة مبني لـ Hill Climb Racing 2 على بيئة Pivot المخصصة.\n\nتنزيل Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "مالك السكريبت",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "مطور السكريبت",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "مترجم السكريبت",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "الشكر والتقدير",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "شكر خاص",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "وضع التصحيح",
+["other.debug_mode.desc"] = "تبديل وضع التصحيح داخل اللعبة",
+["other.debug_mode.enabled"] = "وضع التصحيح مفعّل",
+["other.debug_mode.disabled"] = "وضع التصحيح معطّل",
+["other.hint.width"] = "العرض",
+["other.hint.height"] = "الارتفاع",
+["other.resolution.title"] = "ضبط الدقة",
+["other.resolution.desc"] = "ضبط عرض وارتفاع اللعبة (الافتراضي 1280x720)",
+["other.resolution.applied"] = "تم تعيين الدقة إلى %dx%d",
+["other.resolution_offset.title"] = "ضبط إزاحة الدقة",
+["other.resolution_offset.desc"] = "ضبط إزاحة عرض وارتفاع اللعبة (الافتراضي 0x0)، الأفضل للدقة الصغيرة على شاشة كبيرة.",
+["other.resolution_offset.applied"] = "تم تعيين إزاحة الدقة إلى %dx%d",
+["other.glsurface_not_found"] = "لم يتم العثور على GLSurfaceView",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "صندوق مجاني",
+["shop.free_chest.desc"] = "اجعل الصناديق مجانية في تبويب المتجر",
+["shop.free_chest.enabled"] = "الصندوق المجاني مفعّل",
+["shop.free_chest.disabled"] = "الصندوق المجاني معطّل",
+["shop.free_purchases.title"] = "مشتريات مجانية",
+["shop.free_purchases.desc"] = "اجعل بعض عروض اليوم مجانية في تبويب المتجر (يعمل أيضًا للعروض الخاصة كنوافذ منبثقة/شارات)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "نجحت الشراء المجاني",
+["shop.change_chest.title"] = "تغيير الصندوق",
+["shop.change_chest.desc"] = "تغيير الصندوق الأسطوري إلى الصندوق المحدد",
+["shop.change_chest.changed"] = "تم تغيير الصندوق إلى %s",
+["shop.change_chest.options"] = {
+    "صندوق عادي", "صندوق غير عادي", "صندوق نادر", "صندوق ملحمي",
+    "صندوق البطل", "صندوق خاص 1", "صندوق عيد الميلاد", "صندوق أسطوري",
+    "صندوق أزرق", "صندوق VIP 1", "صندوق VIP 2", "صندوق فيديو",
+    "صندوق المبتدئين", "صندوق خاص 2", "صندوق Fingersoft", "صندوق ضخم",
+    "صندوق روح الفريق", "صندوق الأناقة", "صندوق أسطوري"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "فصل تلقائي",
+["player.auto_detach.desc"] = "فصل الأجزاء تلقائيًا مثل سقف سيارة الرالي",
+["player.auto_die.title"] = "موت تلقائي",
+["player.auto_die.desc"] = "تسبب في الموت تلقائيًا (نفاد الوقود)",
+["player.no_clip.title"] = "اختراق الجدران",
+["player.no_clip.desc"] = "اجعل لاعبك يمر عبر الأجسام دون الموت (يمكنك تجاوز خطوط النهاية في الكؤوس)",
+["player.no_clip.enabled"] = "اختراق الجدران مفعّل",
+["player.no_clip.disabled"] = "اختراق الجدران معطّل",
+["player.hide_name.title"] = "إخفاء الاسم",
+["player.hide_name.desc"] = "إخفاء اسم لاعبك في السباق",
+["player.hide_name.enabled"] = "إخفاء الاسم مفعّل",
+["player.hide_name.disabled"] = "إخفاء الاسم معطّل",
+["player.hide_flag.title"] = "إخفاء العلم",
+["player.hide_flag.desc"] = "إخفاء علم لاعبك في السباق",
+["player.hide_flag.enabled"] = "إخفاء العلم مفعّل",
+["player.hide_flag.disabled"] = "إخفاء العلم معطّل",
+["player.fuel.title"] = "الوقود",
+["player.fuel.desc"] = "تثبيت الوقود على قيمة ثابتة أثناء السباق (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "كمية الوقود (0 – 100)",
+["player.fuel.prompt_reset"] = "إعادة تعيين",
+["player.fuel.invalid"] = "قيمة غير صالحة، يجب أن تكون 0 – 100",
+["player.fuel.applied"] = "تم تثبيت الوقود على %s",
+["player.fuel.reset"] = "تم استعادة الوقود",
+["player.fuel.not_applied"] = "الوقود غير نشط",
+["player.zoom.title"] = "ضبط التكبير",
+["player.zoom.desc"] = "ضبط مدى قرب أو بُعد الكاميرا",
+["player.slider.min"] = "الحد الأدنى",
+["player.slider.max"] = "الحد الأقصى",
+["player.gravity.title"] = "ضبط الجاذبية",
+["player.gravity.desc"] = "ضبط قوة الجاذبية",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "صناديق المغامرة التلقائية (غير مستقرة)",
+["adventure.auto_adventure_chests.desc"] = "رفع مستوى صناديق المغامرة تلقائيًا",
+["adventure.auto_adventure_chests.none_found"] = "لم يتم العثور على صناديق مغامرة",
+["adventure.auto_adventure_chests.done"] = "تم",
+
+["adventure.set_distance.title"] = "تعيين المسافة",
+["adventure.set_distance.desc"] = "تعيين مسافة سباق المغامرة إلى قيمة مخصصة. يجب أن تكون في سباق نشط. المسافة الأكبر تمنحك نجومًا أكثر. الحد الأقصى للنجوم عند 5000م. (ليست دالة نقل)",
+["adventure.set_distance.loop_active_title"] = "تعيين المسافة — الحلقة نشطة",
+["adventure.set_distance.loop_active_msg"] = "حلقة المسافة تعمل حاليًا.\nماذا تريد أن تفعل؟",
+["adventure.set_distance.stop_loop"] = "إيقاف الحلقة",
+["adventure.set_distance.keep_running"] = "الاستمرار في التشغيل",
+["adventure.set_distance.loop_will_stop"] = "ستتوقف الحلقة بعد الدورة الحالية.",
+["adventure.set_distance.prompt_target"] = "المسافة المستهدفة (بالأمتار)",
+["adventure.set_distance.prompt_loop"] = "حلقة (إعادة تطبيق تلقائية)",
+["adventure.set_distance.prompt_interval"] = "فترة الحلقة (مللي ثانية، الحد الأدنى 250)",
+["adventure.set_distance.over_max_title"] = "تحذير المسافة",
+["adventure.set_distance.over_max_msg"] = "المسافة فوق 5000م لن تمنحك أي نجوم.\n\nسيسجّل السباق المسافة، لكن لن تُمنح مكافآت النجوم. المتابعة؟",
+["adventure.set_distance.continue_button"] = "متابعة",
+["adventure.set_distance.not_in_adventure"] = "اذهب إلى تبويب المغامرة وابدأ سباقًا أولًا",
+["adventure.set_distance.start_race_first"] = "ابدأ سباقًا أولًا",
+["adventure.set_distance.applied"] = "تم تعيين المسافة: %sm",
+["adventure.set_distance.loop_stopped"] = "تم إيقاف حلقة تعيين المسافة.",
+["adventure.set_distance.loop_running"] = "حلقة المسافة تعمل — اضغط تعيين المسافة للإيقاف",
+["adventure.set_distance.loop_warn_title"] = "تحذير حلقة المسافة",
+["adventure.set_distance.loop_warn_msg"] = "وضع الحلقة يكتب في الذاكرة كل %s مللي ثانية.\n\nاستخدام فترة قصيرة قد يزيد من عدم الاستقرار أو التشوهات البصرية أو تعطل اللعبة.\n\nالمتابعة على أي حال؟",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "ضبط العد التنازلي",
+["cups.adjust_countdown.desc"] = "ضبط العد التنازلي قبل بدء السباق",
+["cups.slider.seconds"] = "ثوانٍ",
+["cups.adjust_countdown.applied"] = "تم ضبط العد التنازلي إلى %sث",
+["cups.auto_win.title"] = "فوز تلقائي",
+["cups.auto_win.desc"] = "الفوز تلقائيًا بغض النظر عن نتيجة سباقك",
+["cups.force_boss.title"] = "إجبار الزعيم",
+["cups.force_boss.desc"] = "إجبار الزعيم على الظهور دائمًا",
+["cups.force_cup.title"] = "إجبار الكأس",
+["cups.force_cup.desc"] = "إجبار كأس واحدة",
+["cups.force_cup.not_found"] = "لم يتم العثور على كأس. حاول مرة أخرى لاحقًا.",
+["cups.force_cup.enabled"] = "الكأس الإجباري مفعّل",
+["cups.force_cup.disabled"] = "الكأس الإجباري معطّل",
+["cups.set_time.title"] = "تعيين الوقت",
+["cups.set_time.desc"] = "تعيين وقت سباقك (لن يتم تجميد الوقت لأسباب أمان). يجب أن تكون في سباق كأس نشط. (مثال: 1:09.069، 7.284)",
+["cups.set_time.hint"] = "الوقت (1:09.069 أو 7.284)",
+["cups.set_time.invalid_format"] = "تنسيق غير صالح. استخدم 1:09.069 أو 7.284",
+["cups.set_time.no_negative"] = "لا توجد قيم سالبة",
+["cups.set_time.not_in_cup"] = "اذهب إلى تبويب الكؤوس وابدأ سباقًا أولًا",
+["cups.set_time.start_race_first"] = "ابدأ سباقًا أولًا",
+["cups.set_time.applied"] = "تم تعيين الوقت إلى %s",
+["cups.unlimited_tasks.title"] = "مهام غير محدودة",
+["cups.unlimited_tasks.desc"] = "تجميد جميع المهام كمكتملة وقابلة للمطالبة دائمًا. المطالبة بالمكافآت مرارًا.",
+["cups.unlimited_tasks.resolve_failed"] = "فشل حل قائمة المهام",
+["cups.unlimited_tasks.none_found"] = "لم يتم العثور على مهام",
+["cups.unlimited_tasks.enabled"] = "المهام غير المحدودة مفعّلة",
+["cups.unlimited_tasks.disabled"] = "المهام غير المحدودة معطّلة",
+["cups.unlimited_tasks.none_to_freeze"] = "لا توجد مهام للتجميد",
+["cups.rank_points_bonus.title"] = "+498 نقطة رتبة",
+["cups.rank_points_bonus.desc"] = "اجعل جميع مهام الدوري تمنحك 498 نقطة بدلًا من 200 نقطة، مع إزالة المكافآت الأخرى.",
+["cups.rank_points_bonus.none_found"] = "لم يتم العثور على مهام دوري",
+["cups.rank_points_bonus.boosted"] = "نقاط الرتبة معززة: %s",
+["cups.rank_points_bonus.no_match"] = "لم يتم العثور على مهام دوري مطابقة",
+["cups.rank_points_bonus.nothing_to_restore"] = "لا يوجد شيء للاستعادة",
+["cups.rank_points_bonus.restored"] = "تمت الاستعادة: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "تصحيح مكافآت الحدث",
+["event.patch_rewards.desc"] = "تصحيح مكافآت الحدث العام الحالي إلى مكافأة مخصصة مقدمة من VOID (يتطلب إعادة تشغيل اللعبة)",
+["event.restore_events.title"] = "استعادة مكافآت الحدث",
+["event.restore_events.desc"] = "حذف ملفات JSON المعدّلة لإجبار خادم اللعبة على الاستعادة (يتطلب إعادة تشغيل اللعبة)",
+
+["event.checking_permissions"] = "جارٍ التحقق من أذونات البيئة...",
+["event.scanning_files"] = "جارٍ فحص الملفات النشطة...",
+["event.decode_rewards_failed"] = "فشل فك ترميز JSON المكافآت",
+["event.workspace_creation_failed"] = "خطأ فادح: فشل إنشاء مساحة العمل: %s",
+["event.workspace_creation_failed_dialog"] = "خطأ فادح: تعذّر إنشاء مجلد مساحة العمل.\n%s",
+["event.file_inaccessible"] = "الملف غير قابل للوصول في المسار: %s",
+["event.predecrypt_not_found"] = "ما قبل فك التشفير: المصدر غير موجود: %s",
+["event.predecrypt_empty"] = "ما قبل فك التشفير: المصدر فارغ (0 بايت): %s",
+["event.decode_active_failed"] = "فشل فك ترميز active_events.json في المسار: %s",
+["event.no_active_events"] = "لم يتم العثور على أحداث نشطة في المسار: %s",
+["event.cannot_open_active"] = "تعذّر فتح active_events.json في المسار: %s",
+["event.decrypt_active_failed"] = "فشل فك تشفير active_events.json في المسار: %s",
+["event.root_copy_failed"] = "فشل النسخ الجذري: %s",
+
+["event.select_events_patch"] = "اختر الأحداث للتصحيح:\nالمسار: %s",
+["event.user_cancelled"] = "ألغى المستخدم الاختيار للمسار: %s",
+["event.rewards_unavailable"] = "المكافآت المدمجة غير متاحة، تجاوز التصحيحات للمسار: %s",
+["event.skipped_unreadable"] = "تم تخطي الحدث غير القابل للقراءة: %s",
+["event.predecrypt_event_not_found"] = "ما قبل فك التشفير: الحدث غير موجود: %s",
+["event.predecrypt_event_empty"] = "ما قبل فك التشفير: الحدث فارغ (0 بايت): %s",
+["event.processing_failed"] = "فشل معالجة %s: %s",
+["event.cannot_open_decrypted"] = "تعذّر فتح الملف المفكوك تشفيره: %s",
+["event.decrypt_event_failed"] = "فشل فك تشفير الحدث: %s",
+["event.loop_crash"] = "تعطّل حلقة معالجة الملفات الحرجة: %s",
+
+["event.success_header"] = "بنجاح:",
+["event.success_removed_header"] = "تمت الإزالة بنجاح (ستُستعاد عند إعادة التشغيل):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "فشل:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "نتائج التصحيح",
+["event.restore_results_title"] = "نتائج الاستعادة",
+["event.restart_required_title"] = "إعادة التشغيل مطلوبة",
+["event.patch_restart_msg"] = "تم إيقاف اللعبة وسيخرج هذا السكريبت، شغّله مرة أخرى وشاهد تأثيرات التصحيح",
+["event.restore_restart_msg"] = "ستُغلق اللعبة الآن للسماح بمزامنة ملفات الخادم.",
+["event.finishing_tasks_patch"] = "إنهاء المهام المعلّقة في الخلفية... يرجى الانتظار.",
+["event.finishing_tasks_restore"] = "إنهاء المهام المعلّقة في الخلفية...",
+["event.patch_failed_msg"] = "فشل التصحيح، حاول مرة أخرى.",
+
+["event.select_events_restore"] = "اختر الملفات للاستعادة (الحذف):\nالمسار: %s",
+["event.delete_failed"] = "فشل حذف %s: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "تغيير الاسم",
+["account.change_name.desc"] = "تغيير اسم لاعبك",
+["account.change_name.hint"] = "أدخل الاسم",
+["account.change_name.empty"] = "أدخل اسمًا أولًا",
+["account.change_name.too_long_title"] = "الاسم طويل جدًا",
+["account.change_name.too_long_msg"] = "اسمك طويل جدًا، يرجى تقصيره",
+["account.change_name.resolve_failed"] = "فشل حل مؤشر الاسم",
+["account.change_name.applied"] = "تم تغيير الاسم إلى %s",
+
+["account.change_gp.title"] = "تغيير قوة الكراج",
+["account.change_gp.desc"] = "تغيير قوة كراج الملف الشخصي (تستمر إذا كانت أعلى). اضبط على 8 لإعادة التعيين إذا تجاوز الحد الأقصى، لكن فقط إذا كانت قوة الكراج الفعلية مثبّتة بالفعل تحت الحد.",
+["account.change_gp.hint"] = "أدخل قوة الكراج",
+["account.change_gp.max_int_title"] = "تم الوصول إلى الحد الأقصى لـ 32 بت",
+["account.change_gp.lower_value"] = "يرجى تخفيض القيمة",
+["account.change_gp.too_low_title"] = "منخفض جدًا",
+["account.change_gp.higher_value"] = "يرجى رفع القيمة",
+["account.change_gp.applied"] = "تم تغيير قوة الكراج إلى %s",
+
+["account.fake_unlock.title"] = "فتح وهمي",
+["account.fake_unlock.desc"] = "فتح جميع التخصيصات مؤقتًا",
+["account.fake_vip.title"] = "VIP وهمي",
+["account.fake_vip.desc"] = "تبديل حالة اشتراك VIP محليًا",
+  
+["account.fake_rank.title"] = "رتبة وهمية",
+["account.fake_rank.desc"] = "تعيين رتبتك إلى أسطورية وهمية تلقائيًا",
+["account.fake_rank.race_warn_title"] = "السباق مطلوب",
+["account.fake_rank.race_warn_msg"] = "يجب تطبيق الرتبة الوهمية فقط أثناء سباق كؤوس نشط.\n\nتطبيقها خارج السباق قد يؤدي إلى حظر ظلي.\n\nتأكد من أنك بالفعل داخل سباق كؤوس قبل المتابعة.\n\nالمتابعة على أي حال؟",
+["account.fake_rank.continue_button"] = "متابعة",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "ضبط خانات الأجزاء",
+["vehicle.parts_slot.desc"] = "ضبط خانات الأجزاء لجميع المركبات",
+["vehicle.parts_slot.slider_title"] = "الخانات",
+["vehicle.parts_slot.no_vehicles"] = "لم يتم العثور على مركبات",
+["vehicle.parts_slot.applied"] = "تم ضبط خانات الأجزاء: %d مركبة",
+
+["vehicle.parts_modifier.title"] = "معدل الأجزاء",
+["vehicle.parts_modifier.desc"] = "تعديل مستويات أجزاء الضبط في السباق النشط",
+["vehicle.parts_modifier.select"] = "اختر جزءًا",
+["vehicle.parts_modifier.prompt_level"] = "المستوى: ",
+["vehicle.parts_modifier.prompt_digit0"] = "الرقم: ",
+["vehicle.parts_modifier.prompt_digit1"] = "الجزء الأخير: ",
+["vehicle.parts_modifier.prompt_reset"] = "إعادة تعيين",
+["vehicle.parts_modifier.invalid"] = "قيمة مستوى غير صالحة",
+["vehicle.parts_modifier.not_found"] = "لم يتم العثور على الجزء في الذاكرة",
+["vehicle.parts_modifier.applied"] = "تم تعيين %s إلى المستوى %s",
+["vehicle.parts_modifier.reset"] = "تم إعادة تعيين %s",
+
+["vehicle.unlock_vehicles.title"] = "فتح المركبات",
+["vehicle.unlock_vehicles.desc"] = "فتح جميع المركبات لتكون متاحة للشراء بالعملات",
+["vehicle.unlock_vehicles.no_vehicles"] = "لم يتم العثور على مركبات",
+["vehicle.unlock_vehicles.unlocked"] = "تم فتح المركبات: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "لا توجد مركبات لفتحها",
+
+["vehicle.max_vehicles.title"] = "الحد الأقصى للمركبات",
+["vehicle.max_vehicles.desc"] = "رفع مستوى ترقيات جميع المركبات المفتوحة فوريًا",
+["vehicle.max_vehicles.no_vehicles"] = "فشل حل قائمة المركبات",
+["vehicle.max_vehicles.all_maxed"] = "تم رفع جميع المركبات إلى الحد الأقصى",
+["vehicle.max_vehicles.failed"] = "فشل رفع المركبات إلى الحد الأقصى",
+
+["vehicle.max_mastery.title"] = "الحد الأقصى للإتقان",
+["vehicle.max_mastery.desc"] = "رفع إتقانات جميع المركبات المفتوحة والمحسّنة إلى الحد الأقصى فوريًا.",
+["vehicle.max_mastery.all_maxed"] = "تم رفع جميع الإتقانات إلى الحد الأقصى",
+["vehicle.max_mastery.failed"] = "فشل رفع الإتقانات إلى الحد الأقصى",
+
+["vehicle.max_parts.title"] = "الحد الأقصى للأجزاء",
+["vehicle.max_parts.desc"] = "رفع مستويات جميع الأجزاء المفتوحة لجميع المركبات فوريًا.",
+["vehicle.max_parts.no_vehicles"] = "فشل حل قائمة المركبات",
+["vehicle.max_parts.all_maxed"] = "تم رفع جميع الأجزاء إلى الحد الأقصى",
+["vehicle.max_parts.failed"] = "فشل رفع الأجزاء إلى الحد الأقصى",
+
+["vehicle.common.no_vehicles"] = "لم يتم العثور على مركبات",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "فشل حل قائمة المركبات",
+["vehicle.common.no_zero_region"] = "لم يتم العثور على منطقة صفرية",
+
+}
+
+end
+
+__vfs['configs/lang/bn.lua'] = function(...)
+--[[
+  configs/lang/bn.lua —  বাংলা (Bengali)
+
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "ঠিক আছে"
+      T("settings.window_width_desc", 400, 650) -> "ফ্লোটিং মেনুর প্রস্থ (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Bengali localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "ঠিক আছে",
+["common.cancel"] = "বাতিল",
+["common.yes"] = "হ্যাঁ",
+["common.no"] = "না",
+["common.failed"] = "ব্যর্থ",
+["common.success"] = "সফল",
+["common.later"] = "পরে",
+["common.got_it"] = "বুঝেছি",
+["common.retry"] = "আবার চেষ্টা করুন",
+["common.wait_safe"] = "অপেক্ষা করুন (নিরাপদ)",
+["common.waiting"] = "অপেক্ষা করছি...",
+["common.force_exit"] = "জোর করে বের হন",
+["common.proceed_anyway"] = "তবুও এগিয়ে যান",
+["common.manual_mode"] = "ম্যানুয়াল মোড",
+["common.update_button"] = "আপডেট",
+["common.launch_failed"] = "চালু করা যায়নি",
+["common.confirm_exit_title"] = "বের হওয়া নিশ্চিত করুন",
+["common.confirm_exit_msg"] = "স্ক্রিপ্ট থেকে বের হবেন?",
+["common.not_available"] = "উপলব্ধ নয়",
+["common.warning"] = "সতর্কীকরণ",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "সতর্কীকরণ: সক্রিয় অপারেশন",
+["main.exit_active_ops_msg"] = "%dটি ব্যাকগ্রাউন্ড টাস্ক চলছে।\nজোর করে বের হলে গেমের অবস্থা নষ্ট হতে পারে।",
+["main.initializing"] = "চালু হচ্ছে...",
+["main.no_app_found"] = "কোন অ্যাপ পাওয়া যায়নি",
+["main.arch_64bit_required_title"] = "৬৪-বিট প্রয়োজন",
+["main.arch_64bit_required_msg"] = "ARMv8a আবশ্যক। x86_64 আংশিকভাবে সমর্থিত।",
+
+["main.update_available_title"] = "আপডেট উপলব্ধ",
+["main.update_available_msg"] = "v%s উপলব্ধ (বর্তমান: v%s)\n\n%s\n\nএখনই আপডেট করবেন?",
+["main.no_changelog"] = "কোন পরিবর্তনের তালিকা নেই।",
+["main.downloading_version"] = "v%s ডাউনলোড হচ্ছে...",
+["main.update_download_failed_msg"] = "আপডেট ডাউনলোড করা যায়নি:\n%s",
+["main.update_write_failed_msg"] = "এখানে লেখা যায়নি:\n%s",
+["main.update_done_title"] = "VOID আপডেট হয়েছে v%s",
+["main.update_done_msg"] = "VOID সফলভাবে আপডেট হয়েছে।\n\nনতুন স্ক্রিপ্ট এখানে সংরক্ষিত হয়েছে:\nvoid_v%s.lua\n\nআপডেট প্রয়োগ করতে GameGuardian থেকে এটি চালান।",
+["main.launching_version"] = "v%s চালু হচ্ছে...",
+["main.launch_failed_msg"] = "ডাউনলোড হয়েছে কিন্তু চালানো যায়নি:\n%s",
+
+["main.multiple_spaces_title"] = "একাধিক স্পেস পাওয়া গেছে",
+["main.multiple_spaces_desc"] = "HCR2 %dটি ভার্চুয়াল স্পেসে পাওয়া গেছে।\nআপনি বর্তমানে যে স্পেসে খেলছেন সেটি নির্বাচন করুন।",
+["main.select_space_toast"] = "চালিয়ে যেতে একটি স্পেস নির্বাচন করুন।",
+["main.user_space_item"] = "ব্যবহারকারী %s  —  %s",
+["main.permission_error_title"] = "অনুমতি ত্রুটি",
+["main.permission_error_msg"] = "শেল অ্যাক্সেস অস্বীকার করা হয়েছে।\n\nআপনার ভার্চুয়াল স্পেসে HCR2 খুঁজতে Void-এর এটি প্রয়োজন। কোন কমান্ড চালানো হচ্ছে তা যাচাই করতে Void সোর্স কোড দেখুন।",
+["main.hcr2_not_found_title"] = "HCR2 ডেটা পাওয়া যায়নি",
+["main.hcr2_not_found_msg"] = "Void আপনার ভার্চুয়াল স্পেসে HCR2 ডেটা খুঁজে পায়নি। এটি হতে পারে যদি HCR2 এখনও চালু না করা হয়ে থাকে, অথবা আপনার ভার্চুয়াল স্পেস অ্যাপ অস্বাভাবিক পাথ কাঠামো ব্যবহার করে।\n\nগেম ফাইলের উপর নির্ভরশীল ফিচারগুলি (ইভেন্ট রিওয়ার্ড, ইত্যাদি) বৈধ পাথ ছাড়া কাজ করবে না।",
+["main.manual_data_path_title"] = "ম্যানুয়াল ডেটা পাথ",
+["main.manual_data_path_hint"] = "HCR2 ডেটা পাথ লিখুন",
+["main.manual_path_cancelled"] = "বাতিল করা হয়েছে — পাথ ছাড়াই এগিয়ে যাচ্ছে।",
+["main.waiting_for_lib"] = "%s-এর জন্য অপেক্ষা করছি...",
+["main.initialized"] = "চালু হয়েছে",
+["main.gamestatus_not_found"] = "GameStatus পাওয়া যায়নি",
+["main.dont_interrupt"] = "এই স্ক্রিপ্টে বাধা দেবেন না",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "আকার সংরক্ষিত! স্ক্রিপ্ট পুনরায় চালু করুন",
+["ui.category_error"] = "ত্রুটি: %s",
+["ui.category_not_found"] = "ক্যাটাগরি পাওয়া যায়নি",
+["ui.na"] = "N/A",
+["ui.spinner_select"] = "নির্বাচন করুন",
+["ui.slider_default_title"] = "মান",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "%s ডিভাইস প্রয়োজন (আপনার ডিভাইস: %s)",
+["patches.suffix_enabled"] = " সক্রিয়",
+["patches.suffix_disabled"] = " নিষ্ক্রিয়",
+["patches.pattern_not_found"] = "ব্যর্থ: %dটি প্যাটার্ন পাওয়া যায়নি",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "আর্কিটেকচার সতর্কীকরণ",
+["arch.unknown_arch_msg"] = "আপনার আর্কিটেকচার অজানা। লাইব্রেরি লোড হয়েছে? আপনি কোন সিস্টেম ব্যবহার করছেন?",
+["arch.non_primary_arch_msg"] = "পাওয়া গেছে: %s\nকিছু বা সব লিব-প্যাচ কাজ নাও করতে পারে।",
+["arch.unknown_version_msg"] = "গেমের সংস্করণ অজানা। গেম লোড হওয়ার পর আবার চেষ্টা করুন।",
+["arch.no_base_data_msg"] = "আভ্যন্তরীণ ত্রুটি: এই আর্কিটেকচারের জন্য কোন বেস ডেটা উপলব্ধ নেই।",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "শিডিউলার সতর্কীকরণ: টাস্ক ক্র‍্যাশ হয়েছে -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "HTTP ত্রুটি কোড: %s",
+["errors.crashed"] = "ক্র‍্যাশ হয়েছে: %s",
+["errors.url_missing"] = "URL প্যারামিটার অনুপস্থিত বা খালি",
+["errors.file_path_missing"] = "ফাইলের পাথ অনুপস্থিত",
+["errors.download_url_missing"] = "URL অনুপস্থিত",
+["errors.dest_path_missing"] = "গন্তব্য পাথ অনুপস্থিত",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "গেম মেনু",
+["tabs.account"] = "অ্যাকাউন্ট মেনু",
+["tabs.vehicle"] = "গাড়ি মেনু",
+["tabs.player"] = "খেলোয়াড় মেনু",
+["tabs.adventure"] = "অ্যাডভেঞ্চার মেনু",
+["tabs.cups"] = "কাপ মেনু",
+["tabs.team"] = "টিম মেনু",
+["tabs.event"] = "ইভেন্ট মেনু",
+["tabs.creative"] = "ক্রিয়েটিভ মেনু",
+["tabs.shop"] = "শপ মেনু",
+["tabs.other"] = "অন্যান্য মেনু",
+["tabs.sep_script"] = "স্ক্রিপ্ট মেনু",
+["tabs.settings"] = "সেটিংস",
+["tabs.about"] = "সম্পর্কে",
+
+["registry.module_load_failed"] = "মডিউল লোড হতে ব্যর্থ হয়েছে। বিস্তারিত লগ দেখুন।",
+["registry.module_runtime_error"] = "রানটাইম ত্রুটি: %s",
+["registry.error"] = "ত্রুটি",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "আপডেট",
+["settings.auto_update.title"] = "স্বয়ংক্রিয় আপডেট",
+["settings.auto_update.desc"] = "স্টার্টআপে VOID স্বয়ংক্রিয়ভাবে আপডেট করুন",
+["settings.dev_mode_title"] = "ডেভ মোড",
+["settings.auto_update.dev_mode_msg"] = "main.lua-এর জন্য স্বয়ংক্রিয় আপডেট নিষ্ক্রিয় (ডেভ বিল্ড)।",
+["settings.check_updates.title"] = "আপডেট পরীক্ষা করুন",
+["settings.check_updates.desc"] = "GitHub-এ সর্বশেষ VOID রিলিজ পরীক্ষা করুন",
+["settings.check_updates.dev_mode_msg"] = "main.lua-এর জন্য আপডেট পরীক্ষা নিষ্ক্রিয় (ডেভ বিল্ড)।\n\nম্যানুয়ালি রিপো থেকে পুল করুন।",
+["settings.check_updates.checking"] = "আপডেট পরীক্ষা করা হচ্ছে...",
+["settings.check_updates.failed_title"] = "আপডেট পরীক্ষা ব্যর্থ",
+["settings.check_updates.failed_msg"] = "GitHub-এ পৌঁছানো যায়নি:\n%s",
+["settings.check_updates.up_to_date_title"] = "আপ-টু-ডেট",
+["settings.check_updates.up_to_date_msg"] = "আপনি ইতিমধ্যে সর্বশেষ সংস্করণে আছেন (v%s)।",
+["settings.check_updates.no_changelog"] = "কোন পরিবর্তনের তালিকা উপলব্ধ নেই।",
+["settings.check_updates.available_msg"] = "v%s  (বর্তমান: v%s)\n\n%s\n\nএই স্ক্রিপ্টটি ডাউনলোড করে প্রতিস্থাপন করবেন?",
+["settings.check_updates.no_asset_msg"] = "রিলিজে কোনো .lua অ্যাসেট পাওয়া যায়নি।",
+["settings.check_updates.download_failed_title"] = "ডাউনলোড ব্যর্থ",
+["settings.check_updates.write_failed_title"] = "লেখা ব্যর্থ",
+["settings.check_updates.done_title"] = "সম্পন্ন",
+["settings.check_updates.done_msg"] = "v%s-এ আপডেট হয়েছে। প্রয়োগ করতে স্ক্রিপ্ট পুনরায় চালু করুন।",
+["settings.check_updates.restart_button"] = "পুনরায় চালু",
+
+["settings.section_language"] = "ভাষা",
+["settings.language.title"] = "ভাষা",
+["settings.language.desc"] = "মেনুর জন্য আপনার পছন্দের ভাষা নির্বাচন করুন",
+["settings.language.changed"] = "ভাষা %s-এ সেট করা হয়েছে",
+["settings.language.failed"] = "সেই ভাষা লোড করতে ব্যর্থ",
+["settings.language.restart_msg"] = "ভাষা সম্পূর্ণভাবে প্রয়োগ করতে স্ক্রিপ্ট পুনরায় চালু করুন",
+
+["settings.region.other"] = "O: অন্যান্য",
+["settings.region.cpp_alloc"] = "Ca: C++ বরাদ্দ",
+["settings.region.unknown"] = "U: অজানা",
+["settings.section_memory"] = "মেমরি",
+["settings.memory_range.title"] = "মেমরি রেঞ্জ",
+["settings.memory_range.desc"] = "বর্তমান নির্বাচিত মেমরি রেঞ্জ\n(স্ক্রিপ্ট দ্বারা স্বয়ংক্রিয়ভাবে নির্বাচিত)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "বর্তমান gamestatus ঠিকানা\n(স্ক্রিপ্ট দ্বারা স্বয়ংক্রিয়ভাবে নির্বাচিত)",
+["settings.gamestatus_raw.title"] = "GameStatus (Raw)",
+["settings.gamestatus_raw.desc"] = "বর্তমান gamestatus (raw) ঠিকানা\n(স্ক্রিপ্ট দ্বারা স্বয়ংক্রিয়ভাবে নির্বাচিত)",
+["settings.clear_memory.title"] = "সংরক্ষিত মেমরি মুছুন",
+["settings.clear_memory.desc"] = "পুরো গেম পুনরায় চালু না করেই VOID-এর সমস্ত সংরক্ষিত মেমরি মুছুন।",
+
+["settings.section_ui_customizations"] = "UI কাস্টমাইজেশন",
+["settings.theme_store.title"] = "থিম স্টোর",
+["settings.theme_store.desc"] = "কমিউনিটি Void থিম ব্রাউজ ও ইনস্টল করুন",
+["settings.theme_store.unreachable_msg"] = "থিম স্টোরে পৌঁছানো যায়নি:\n%s",
+["settings.theme_store.parse_failed_msg"] = "থিম স্টোর ডেটা পার্স করা যায়নি।",
+["settings.theme_store.list_title"] = "Void থিম স্টোর",
+["settings.theme_store.search_results_desc"] = "অনুসন্ধানের ফলাফল: %sটি পাওয়া গেছে",
+["settings.theme_store.available_desc"] = "%sটি থিম উপলব্ধ",
+["settings.theme_store.by_author"] = "%s দ্বারা",
+["settings.theme_store.search_item"] = "🔍 খুঁজুন...",
+["settings.theme_store.clear_search_item"] = "✕ অনুসন্ধান মুছুন",
+["settings.theme_store.search_title"] = "থিম খুঁজুন",
+["settings.theme_store.search_hint"] = "থিমের নাম, লেখক বা বিবরণ",
+["settings.theme_store.no_results"] = "%s-এর জন্য কোন থিম পাওয়া যায়নি",
+["settings.theme_store.detail_msg"] = "%s দ্বারা\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"] = "থিম ইনস্টল করুন",
+["settings.theme_downloading_bg"] = "ব্যাকগ্রাউন্ড ইমেজ ডাউনলোড হচ্ছে...",
+["settings.theme_imported"] = "থিম ইম্পোর্ট করা হয়েছে!",
+["settings.theme_invalid_bundle"] = "অবৈধ বান্ডল ফরম্যাট।",
+["settings.theme_cloud_error"] = "ক্লাউড ত্রুটি: %s",
+["settings.reset_theme.title"] = "থিম রিসেট করুন",
+["settings.reset_theme.desc"] = "কাস্টম থিম এবং ব্যাকগ্রাউন্ড ইমেজ ডিফল্টে রিসেট করুন",
+["settings.import_theme.title"] = "থিম ইম্পোর্ট করুন",
+["settings.import_theme.desc"] = "ক্লাউড থেকে কাস্টম থিম ইম্পোর্ট করুন",
+["settings.import_theme.hint"] = "শেয়ার ID লিখুন",
+["settings.export_theme.title"] = "থিম এক্সপোর্ট করুন",
+["settings.export_theme.desc"] = "কাস্টম থিম এবং ব্যাকগ্রাউন্ড ইমেজ ক্লাউডে এক্সপোর্ট করুন",
+["settings.export_theme.share_id_msg"] = "শেয়ার ID: %s\n\nক্লিপবোর্ডে কপি করা হয়েছে।",
+["settings.export_theme.upload_failed_msg"] = "আপলোড ব্যর্থ: %s",
+["settings.export_theme.size_warning_title"] = "আপলোড আকার সতর্কীকরণ",
+["settings.export_theme.size_warning_msg"] = "কাস্টম ব্যাকগ্রাউন্ড ইমেজ অন্তর্ভুক্ত করবেন? এটি আপলোডের আকার বাড়াবে আপনার ইমেজের আকার অনুযায়ী।",
+["settings.export_theme.uploading_bg"] = "Catbox-এ ব্যাকগ্রাউন্ড ইমেজ আপলোড হচ্ছে...",
+["settings.export_theme.image_upload_failed_title"] = "ত্রুটি",
+["settings.export_theme.image_upload_failed_msg"] = "ইমেজ আপলোড ব্যর্থ: %s",
+["settings.tabs_icon.title"] = "ট্যাব আইকন",
+["settings.tabs_icon.desc"] = "ট্যাব আইকন পরিবর্তন করুন",
+["settings.tabs_icon.hint"] = "আইকন লিখুন",
+["settings.tabs_icon.empty_error"] = "খালি রাখা যাবে না",
+
+["settings.bg_opacity.title"] = "ব্যাকগ্রাউন্ড অস্বচ্ছতা",
+["settings.bg_opacity.desc"] = "প্যানেল, কার্ড এবং হেডারের স্বচ্ছতা",
+["settings.slider.alpha"] = "আলফা",
+["settings.bg_image_opacity.title"] = "ব্যাকগ্রাউন্ড ইমেজ অস্বচ্ছতা",
+["settings.bg_image_opacity.desc"] = "শুদ্ধ ইন্টিজার চ্যানেল ব্যবহার করে দৃশ্যমানতা আলফা সেটিংস সামঞ্জস্য করুন।",
+["settings.bg_image_picker.title"] = "ব্যাকগ্রাউন্ড ইমেজ",
+["settings.bg_image_picker.desc"] = "আপনার কাস্টম লেআউট ব্যাকগ্রাউন্ড ইমেজের জন্য পরম ফাইল পাথ পরিবর্তন করতে ট্যাপ করুন",
+["settings.bg_image_picker.path_label"] = "পরম ইমেজ ফাইল পাথ (.jpg বা .png):",
+["settings.bg_image_picker.remove_label"] = "BG ইমেজ সরান",
+["settings.bg_image_picker.success_title"] = "সফল",
+["settings.bg_image_picker.removed_msg"] = "ব্যাকগ্রাউন্ড ইমেজ সরানো হয়েছে",
+["settings.bg_image_picker.added_msg"] = "ব্যাকগ্রাউন্ড ইমেজ যোগ করা হয়েছে",
+["settings.bg_image_picker.not_found_msg"] = "ফাইল পাওয়া যায়নি বা পড়ার অনুমতি অস্বীকৃত:\n%s",
+
+["settings.bg_rgb.title"] = "ব্যাকগ্রাউন্ড RGB",
+["settings.bg_rgb.desc"] = "প্যানেল ব্যাকগ্রাউন্ডের জন্য রঙ (হেডার ও কার্ড স্বয়ংক্রিয়ভাবে স্কেল হয়)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "অ্যাকসেন্ট RGB",
+["settings.accent_rgb.desc"] = "বাটন, টগল এবং সক্রিয় কার্ডের জন্য রঙ (মিউটেড রঙ স্বয়ংক্রিয়ভাবে উৎপন্ন)",
+["settings.logo_rgb.title"] = "হাইলাইট RGB",
+["settings.logo_rgb.desc"] = "লেবেল, আইকন এবং ইন্টারেক্টিভ টেক্সটের জন্য রঙ (সর্বদা সম্পূর্ণ অস্বচ্ছ)",
+["settings.sub_rgb.title"] = "সাব-টেক্সট RGB",
+["settings.sub_rgb.desc"] = "বিবরণ এবং নিষ্ক্রিয় ট্যাব লেবেলের জন্য রঙ",
+["settings.text_rgb.title"] = "টেক্সট RGB",
+["settings.text_rgb.desc"] = "প্রধান মেনু টেক্সটের জন্য রঙ",
+
+["settings.win_width.title"] = "মেনু প্রস্থ",
+["settings.win_width.desc"] = "ফ্লোটিং মেনুর প্রস্থ (%d – %d dp)",
+["settings.slider.width"] = "প্রস্থ",
+["settings.win_height.title"] = "মেনু উচ্চতা",
+["settings.win_height.desc"] = "স্ক্রোলযোগ্য কন্টেন্ট এলাকার উচ্চতা (%d – %d dp)",
+["settings.slider.height"] = "উচ্চতা",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "স্ক্রিপ্ট সম্পর্কে",
+["about.about_script.desc"] = "Hill Climb Racing 2-এর জন্য কাস্টম Pivot পরিবেশে নির্মিত একটি শক্তিশালী ও অত্যন্ত অপটিমাইজড মেমরি ম্যানিপুলেশন স্ক্রিপ্ট।\n\nPivot ডাউনলোড:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "স্ক্রিপ্ট মালিক",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "স্ক্রিপ্ট ডেভেলপার",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "স্ক্রিপ্ট অনুবাদক",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "ক্রেডিট",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "বিশেষ ধন্যবাদ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "ডিবাগ মোড",
+["other.debug_mode.desc"] = "ইন-গেম ডিবাগ মোড টগল করুন",
+["other.debug_mode.enabled"] = "ডিবাগ মোড সক্রিয়",
+["other.debug_mode.disabled"] = "ডিবাগ মোড নিষ্ক্রিয়",
+["other.hint.width"] = "প্রস্থ",
+["other.hint.height"] = "উচ্চতা",
+["other.resolution.title"] = "রেজোলিউশন সামঞ্জস্য করুন",
+["other.resolution.desc"] = "গেমের প্রস্থ ও উচ্চতা সামঞ্জস্য করুন (ডিফল্ট 1280x720)",
+["other.resolution.applied"] = "রেজোলিউশন %dx%d-এ সেট করা হয়েছে",
+["other.resolution_offset.title"] = "রেজোলিউশন অফসেট সামঞ্জস্য করুন",
+["other.resolution_offset.desc"] = "গেমের প্রস্থ অফসেট ও উচ্চতা অফসেট সামঞ্জস্য করুন (ডিফল্ট 0x0), বড় স্ক্রিনে ছোট রেজোলিউশনের জন্য ভালো।",
+["other.resolution_offset.applied"] = "রেজোলিউশন অফসেট %dx%d-এ সেট করা হয়েছে",
+["other.glsurface_not_found"] = "GLSurfaceView পাওয়া যায়নি",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "ফ্রি চেস্ট",
+["shop.free_chest.desc"] = "শপ ট্যাবে চেস্টগুলো ফ্রি করুন",
+["shop.free_chest.enabled"] = "ফ্রি চেস্ট সক্রিয়",
+["shop.free_chest.disabled"] = "ফ্রি চেস্ট নিষ্ক্রিয়",
+["shop.free_purchases.title"] = "ফ্রি কেনাকাটা",
+["shop.free_purchases.desc"] = "শপ ট্যাবে কিছু দৈনিক ডিল ফ্রি করুন (পপআপ/ব্যাজ হিসেবে স্পেশাল অফারেও কাজ করে)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "ফ্রি কেনাকাটা সফল",
+["shop.change_chest.title"] = "চেস্ট পরিবর্তন করুন",
+["shop.change_chest.desc"] = "লিজেন্ডারি চেস্ট নির্বাচিত চেস্টে পরিবর্তন করুন",
+["shop.change_chest.changed"] = "চেস্ট %s-এ পরিবর্তিত হয়েছে",
+["shop.change_chest.options"] = {
+    "সাধারণ চেস্ট", "অসাধারণ চেস্ট", "বিরল চেস্ট", "এপিক চেস্ট",
+    "চ্যাম্পিয়ন চেস্ট", "বিশেষ চেস্ট ১", "ক্রিসমাস চেস্ট", "লিজেন্ডারি চেস্ট",
+    "নীল চেস্ট", "ভিআইপি চেস্ট ১", "ভিআইপি চেস্ট ২", "ভিডিও চেস্ট",
+    "স্টার্টার চেস্ট", "বিশেষ চেস্ট ২", "ফিঙ্গারসফট চেস্ট", "মেগা চেস্ট",
+    "টিম স্পিরিট চেস্ট", "স্টাইল চেস্ট", "মিথিক চেস্ট"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "স্বয়ংক্রিয় বিচ্ছিন্নকরণ",
+["player.auto_detach.desc"] = "র‍্যালি কার-এর ছাদের মতো অংশগুলি স্বয়ংক্রিয়ভাবে বিচ্ছিন্ন করুন",
+["player.auto_die.title"] = "স্বয়ংক্রিয় মৃত্যু",
+["player.auto_die.desc"] = "স্বয়ংক্রিয়ভাবে মৃত্যু ঘটান (জ্বালানি শেষ)",
+["player.no_clip.title"] = "নো-ক্লিপ",
+["player.no_clip.desc"] = "খেলোয়াড়কে অবজেক্টের ভেতর দিয়ে মৃত্যু ছাড়া যেতে দিন (আপনি কাপে ফিনিশ লাইনের ওপর দিয়ে যেতে পারেন)",
+["player.no_clip.enabled"] = "নো-ক্লিপ সক্রিয়",
+["player.no_clip.disabled"] = "নো-ক্লিপ নিষ্ক্রিয়",
+["player.hide_name.title"] = "নাম লুকান",
+["player.hide_name.desc"] = "রেসে আপনার খেলোয়াড়ের নাম লুকান",
+["player.hide_name.enabled"] = "নাম লুকানো সক্রিয়",
+["player.hide_name.disabled"] = "নাম লুকানো নিষ্ক্রিয়",
+["player.hide_flag.title"] = "পতাকা লুকান",
+["player.hide_flag.desc"] = "রেসে আপনার পতাকা লুকান",
+["player.hide_flag.enabled"] = "পতাকা লুকানো সক্রিয়",
+["player.hide_flag.disabled"] = "পতাকা লুকানো নিষ্ক্রিয়",
+["player.fuel.title"] = "জ্বালানি",
+["player.fuel.desc"] = "রেসের সময় জ্বালানি একটি নির্দিষ্ট মানে লক করুন (০.০ – ১০০.০)",
+["player.fuel.prompt_amount"] = "জ্বালানির পরিমাণ (০ – ১০০)",
+["player.fuel.prompt_reset"] = "রিসেট",
+["player.fuel.invalid"] = "অবৈধ মান, ০ – ১০০ হতে হবে",
+["player.fuel.applied"] = "জ্বালানি %s-এ লক করা হয়েছে",
+["player.fuel.reset"] = "জ্বালানি পুনরুদ্ধার করা হয়েছে",
+["player.fuel.not_applied"] = "জ্বালানি সক্রিয় নয়",
+["player.zoom.title"] = "জুম সামঞ্জস্য করুন",
+["player.zoom.desc"] = "আপনার ক্যামেরা কত কাছে বা দূরে তা সামঞ্জস্য করুন",
+["player.slider.min"] = "সর্বনিম্ন",
+["player.slider.max"] = "সর্বোচ্চ",
+["player.gravity.title"] = "মাধ্যাকর্ষণ সামঞ্জস্য করুন",
+["player.gravity.desc"] = "মাধ্যাকর্ষণ কত শক্তিশালী তা সামঞ্জস্য করুন",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "স্বয়ংক্রিয় অ্যাডভেঞ্চার চেস্ট (অস্থির)",
+["adventure.auto_adventure_chests.desc"] = "স্বয়ংক্রিয়ভাবে আপনার অ্যাডভেঞ্চার চেস্ট লেভেল আপ করুন",
+["adventure.auto_adventure_chests.none_found"] = "কোন অ্যাডভেঞ্চার চেস্ট পাওয়া যায়নি",
+["adventure.auto_adventure_chests.done"] = "সম্পন্ন",
+
+["adventure.set_distance.title"] = "দূরত্ব সেট করুন",
+["adventure.set_distance.desc"] = "আপনার অ্যাডভেঞ্চার রেসের দূরত্ব কাস্টম মানে সেট করে। সক্রিয় রেসে থাকতে হবে। বেশি দূরত্বে বেশি তারা পাওয়া যায়। সর্বোচ্চ তারা ৫০০০মি-তে। (টেলিপোর্ট ফাংশন নয়)",
+["adventure.set_distance.loop_active_title"] = "দূরত্ব সেট করুন — লুপ সক্রিয়",
+["adventure.set_distance.loop_active_msg"] = "দূরত্ব লুপ বর্তমানে চলছে।\nআপনি কী করতে চান?",
+["adventure.set_distance.stop_loop"] = "লুপ বন্ধ করুন",
+["adventure.set_distance.keep_running"] = "চালিয়ে যান",
+["adventure.set_distance.loop_will_stop"] = "বর্তমান টিক শেষ হলে লুপ বন্ধ হবে।",
+["adventure.set_distance.prompt_target"] = "লক্ষ্য দূরত্ব (মিটার)",
+["adventure.set_distance.prompt_loop"] = "লুপ (স্বয়ংক্রিয় পুনঃপ্রয়োগ)",
+["adventure.set_distance.prompt_interval"] = "লুপ ব্যবধান (মি.সে., ন্যূনতম ২৫০)",
+["adventure.set_distance.over_max_title"] = "দূরত্ব সতর্কীকরণ",
+["adventure.set_distance.over_max_msg"] = "৫০০০মি-এর বেশি দূরত্ব আপনাকে কোন তারা দেবে না।\n\nরেসটি দূরত্ব নিবন্ধন করবে, কিন্তু তার পুরস্কার দেওয়া হবে না। চালিয়ে যাবেন?",
+["adventure.set_distance.continue_button"] = "চালিয়ে যান",
+["adventure.set_distance.not_in_adventure"] = "প্রথমে অ্যাডভেঞ্চার ট্যাবে গিয়ে একটি রেস শুরু করুন",
+["adventure.set_distance.start_race_first"] = "প্রথমে একটি রেস শুরু করুন",
+["adventure.set_distance.applied"] = "দূরত্ব সেট করা হয়েছে: %sm",
+["adventure.set_distance.loop_stopped"] = "দূরত্ব সেট করুন লুপ বন্ধ হয়েছে।",
+["adventure.set_distance.loop_running"] = "দূরত্ব লুপ চলছে — বন্ধ করতে Set Distance-এ ট্যাপ করুন",
+["adventure.set_distance.loop_warn_title"] = "দূরত্ব লুপ সতর্কীকরণ",
+["adventure.set_distance.loop_warn_msg"] = "লুপ মোড প্রতি %s মি.সে. অন্তর মেমরিতে লেখে।\n\nস্বল্প ব্যবধান ব্যবহার করলে অস্থিরতা, ভিজুয়াল গ্লিচ বা গেম ক্র্যাশ হতে পারে।\n\nতবুও চালিয়ে যাবেন?",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "কাউন্টডাউন সামঞ্জস্য করুন",
+["cups.adjust_countdown.desc"] = "রেস শুরুর আগে কাউন্টডাউন সামঞ্জস্য করুন",
+["cups.slider.seconds"] = "সেকেন্ড",
+["cups.adjust_countdown.applied"] = "কাউন্টডাউন %ss-এ সামঞ্জস্য করা হয়েছে",
+["cups.auto_win.title"] = "স্বয়ংক্রিয় জয়",
+["cups.auto_win.desc"] = "আপনার রেসের ফলাফল যাই হোক না কেন স্বয়ংক্রিয়ভাবে জিতুন",
+["cups.force_boss.title"] = "বস বাধ্য করুন",
+["cups.force_boss.desc"] = "বস সবসময় দেখা যাবে",
+["cups.force_cup.title"] = "কাপ বাধ্য করুন",
+["cups.force_cup.desc"] = "একটি একক কাপ বাধ্য করে",
+["cups.force_cup.not_found"] = "Force Cup পাওয়া যায়নি। পরে আবার চেষ্টা করুন।",
+["cups.force_cup.enabled"] = "Force Cup সক্রিয়",
+["cups.force_cup.disabled"] = "Force Cup নিষ্ক্রিয়",
+["cups.set_time.title"] = "সময় সেট করুন",
+["cups.set_time.desc"] = "আপনার রেসের সময় সেট করুন (নিরাপত্তার জন্য সময় ফ্রিজ করবে না)। সক্রিয় কাপ রেসে থাকতে হবে। (যেমন: ১:০৯.০৬৯, ৭.২৮৪)",
+["cups.set_time.hint"] = "সময় (১:০৯.০৬৯ বা ৭.২৮৪)",
+["cups.set_time.invalid_format"] = "অবৈধ ফরম্যাট। ১:০৯.০৬৯ বা ৭.২৮৪ দিন",
+["cups.set_time.no_negative"] = "নেতিবাচক মান গ্রহণযোগ্য নয়",
+["cups.set_time.not_in_cup"] = "প্রথমে কাপ ট্যাবে গিয়ে একটি রেস শুরু করুন",
+["cups.set_time.start_race_first"] = "প্রথমে একটি রেস শুরু করুন",
+["cups.set_time.applied"] = "সময় %s-এ সেট করা হয়েছে",
+["cups.unlimited_tasks.title"] = "সীমাহীন টাস্ক",
+["cups.unlimited_tasks.desc"] = "সমস্ত টাস্ক সম্পন্ন হিসেবে ফ্রিজ করুন এবং সবসময় দাবি যোগ্য রাখুন। বারবার পুরস্কার দাবি করুন।",
+["cups.unlimited_tasks.resolve_failed"] = "টাস্ক তালিকা রিজল্ভ করতে ব্যর্থ",
+["cups.unlimited_tasks.none_found"] = "কোন টাস্ক পাওয়া যায়নি",
+["cups.unlimited_tasks.enabled"] = "সীমাহীন টাস্ক সক্রিয়",
+["cups.unlimited_tasks.disabled"] = "সীমাহীন টাস্ক নিষ্ক্রিয়",
+["cups.unlimited_tasks.none_to_freeze"] = "ফ্রিজ করার মতো কোন টাস্ক নেই",
+["cups.rank_points_bonus.title"] = "+৪৯৮ র‍্যাঙ্ক পয়েন্ট",
+["cups.rank_points_bonus.desc"] = "সমস্ত লীগ টাস্ক ২০০ পয়েন্টের পরিবর্তে ৪৯৮ পয়েন্ট দেয়, অন্যান্য পুরস্কার সরিয়ে দেয়।",
+["cups.rank_points_bonus.none_found"] = "কোন লীগ টাস্ক পাওয়া যায়নি",
+["cups.rank_points_bonus.boosted"] = "র‍্যাঙ্ক পয়েন্ট বুস্ট করা হয়েছে: %s",
+["cups.rank_points_bonus.no_match"] = "কোন মিলযুক্ত লীগ টাস্ক পাওয়া যায়নি",
+["cups.rank_points_bonus.nothing_to_restore"] = "পুনরুদ্ধার করার মতো কিছু নেই",
+["cups.rank_points_bonus.restored"] = "পুনরুদ্ধার করা হয়েছে: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "ইভেন্ট রিওয়ার্ড প্যাচ",
+["event.patch_rewards.desc"] = "বর্তমান পাবলিক ইভেন্ট রিওয়ার্ড VOID-এর দেওয়া কাস্টম রিওয়ার্ডে প্যাচ করুন (গেম পুনরায় চালু প্রয়োজন)",
+["event.restore_events.title"] = "ইভেন্ট রিওয়ার্ড পুনরুদ্ধার",
+["event.restore_events.desc"] = "পরিবর্তিত ইভেন্ট JSON মুছুন যাতে গেম সার্ভার পুনরুদ্ধার বাধ্য হয় (গেম পুনরায় চালু প্রয়োজন)",
+
+["event.checking_permissions"] = "পরিবেশের অনুমতি পরীক্ষা করা হচ্ছে...",
+["event.scanning_files"] = "সক্রিয় ফাইল স্ক্যান করা হচ্ছে...",
+["event.decode_rewards_failed"] = "রিওয়ার্ড JSON ডিকোড করতে ব্যর্থ",
+["event.workspace_creation_failed"] = "মারাত্মক: ওয়ার্কস্পেস তৈরি ব্যর্থ: %s",
+["event.workspace_creation_failed_dialog"] = "মারাত্মক: ওয়ার্কস্পেস ডিরেক্টরি তৈরি করা যায়নি।\n%s",
+["event.file_inaccessible"] = "ফাইল অ্যাক্সেসযোগ্য নয় এই পাথে: %s",
+["event.predecrypt_not_found"] = "প্রি-ডিক্রিপ্ট: উৎস পাওয়া যায়নি: %s",
+["event.predecrypt_empty"] = "প্রি-ডিক্রিপ্ট: উৎস খালি (০ বাইট): %s",
+["event.decode_active_failed"] = "active_events.json ডিকোড করতে ব্যর্থ এই পাথে: %s",
+["event.no_active_events"] = "কোন সক্রিয় ইভেন্ট পাওয়া যায়নি এই পাথে: %s",
+["event.cannot_open_active"] = "active_events.json খোলা যায়নি এই পাথে: %s",
+["event.decrypt_active_failed"] = "active_events.json ডিক্রিপ্ট করতে ব্যর্থ এই পাথে: %s",
+["event.root_copy_failed"] = "রুট কপি ব্যর্থ: %s",
+
+["event.select_events_patch"] = "প্যাচ করার জন্য ইভেন্ট নির্বাচন করুন:\nপাথ: %s",
+["event.user_cancelled"] = "ব্যবহারকারী নির্বাচন বাতিল করেছেন এই পাথে: %s",
+["event.rewards_unavailable"] = "এমবেডেড রিওয়ার্ড উপলব্ধ নেই, এই পাথে প্যাচ এড়িয়ে যাচ্ছি: %s",
+["event.skipped_unreadable"] = "অপঠনযোগ্য ইভেন্ট এড়িয়ে যাচ্ছি: %s",
+["event.predecrypt_event_not_found"] = "প্রি-ডিক্রিপ্ট: ইভেন্ট পাওয়া যায়নি: %s",
+["event.predecrypt_event_empty"] = "প্রি-ডিক্রিপ্ট: ইভেন্ট খালি (০ বাইট): %s",
+["event.processing_failed"] = "%s প্রক্রিয়াকরণ ব্যর্থ: %s",
+["event.cannot_open_decrypted"] = "ডিক্রিপ্টেড ফাইল খোলা যায়নি: %s",
+["event.decrypt_event_failed"] = "ইভেন্ট ডিক্রিপ্ট করতে ব্যর্থ: %s",
+["event.loop_crash"] = "গুরুত্বপূর্ণ ফাইল প্রক্রিয়াকরণ লুপ ক্র‍্যাশ: %s",
+
+["event.success_header"] = "সফলভাবে:",
+["event.success_removed_header"] = "সফলভাবে সরানো হয়েছে (পুনরায় চালুতে পুনরুদ্ধার হবে):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "ব্যর্থ:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "প্যাচ ফলাফল",
+["event.restore_results_title"] = "পুনরুদ্ধার ফলাফল",
+["event.restart_required_title"] = "পুনরায় চালু প্রয়োজন",
+["event.patch_restart_msg"] = "গেম বন্ধ করা হয়েছে এবং এই স্ক্রিপ্ট প্রস্থান করবে, আবার শুরু করুন এবং প্যাচের প্রভাব দেখুন",
+["event.restore_restart_msg"] = "সার্ভার ফাইল সিঙ্ক্রোনাইজেশন অনুমোদনের জন্য গেম এখন বন্ধ হবে।",
+["event.finishing_tasks_patch"] = "বাকি ব্যাকগ্রাউন্ড টাস্ক শেষ করা হচ্ছে... দয়া করে অপেক্ষা করুন।",
+["event.finishing_tasks_restore"] = "বাকি ব্যাকগ্রাউন্ড টাস্ক শেষ করা হচ্ছে...",
+["event.patch_failed_msg"] = "প্যাচ করতে ব্যর্থ, আবার চেষ্টা করুন।",
+
+["event.select_events_restore"] = "পুনরুদ্ধার (মুছে ফেলার) জন্য ফাইল নির্বাচন করুন:\nপাথ: %s",
+["event.delete_failed"] = "%s মুছতে ব্যর্থ: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "নাম পরিবর্তন",
+["account.change_name.desc"] = "আপনার খেলোয়াড়ের নাম পরিবর্তন করুন",
+["account.change_name.hint"] = "নাম লিখুন",
+["account.change_name.empty"] = "প্রথমে একটি নাম লিখুন",
+["account.change_name.too_long_title"] = "নাম অনেক দীর্ঘ",
+["account.change_name.too_long_msg"] = "আপনার নাম খুব দীর্ঘ, দয়া করে ছোট করুন",
+["account.change_name.resolve_failed"] = "নাম পয়েন্টার রিজল্ভ করতে ব্যর্থ",
+["account.change_name.applied"] = "নাম %s-এ পরিবর্তিত হয়েছে",
+
+["account.change_gp.title"] = "গ্যারেজ পাওয়ার পরিবর্তন",
+["account.change_gp.desc"] = "প্রোফাইল গ্যারেজ পাওয়ার পরিবর্তন করে (উচ্চতর হলে স্থায়ী)। সর্বোচ্চের বেশি হলে রিসেট করতে 8 সেট করুন, কিন্তু শুধুমাত্র যদি আপনার প্রকৃত GP ইতিমধ্যে সীমার নিচে ঠিক করা থাকে।",
+["account.change_gp.hint"] = "গ্যারেজ পাওয়ার লিখুন",
+["account.change_gp.max_int_title"] = "সর্বোচ্চ ৩২বিট ইন্টিজারে পৌঁছেছে",
+["account.change_gp.lower_value"] = "অনুগ্রহ করে আপনার মান কমিয়ে দিন",
+["account.change_gp.too_low_title"] = "খুব কম",
+["account.change_gp.higher_value"] = "অনুগ্রহ করে আপনার মান বাড়িয়ে দিন",
+["account.change_gp.applied"] = "গ্যারেজ পাওয়ার %s-এ পরিবর্তিত হয়েছে",
+
+["account.fake_unlock.title"] = "নকল আনলক",
+["account.fake_unlock.desc"] = "সমস্ত কাস্টমাইজেশন অস্থায়ীভাবে আনলক করুন",
+["account.fake_vip.title"] = "নকল ভিআইপি",
+["account.fake_vip.desc"] = "ভিআইপি সাবস্ক্রিপশন স্থিতি স্থানীয়ভাবে টগল করুন",
+
+["account.fake_rank.title"] = "নকল র‍্যাঙ্ক",
+["account.fake_rank.desc"] = "আপনার র‍্যাঙ্ক স্বয়ংক্রিয়ভাবে নকল লিজেন্ডারিতে সেট করুন",
+["account.fake_rank.race_warn_title"] = "রেস প্রয়োজন",
+["account.fake_rank.race_warn_msg"] = "Fake Rank শুধুমাত্র তখনই প্রয়োগ করা উচিত যখন একটি কাপ রেস সক্রিয়ভাবে চলছে।\n\nরেসের বাইরে প্রয়োগ করলে শ্যাডো বান হতে পারে।\n\nচালিয়ে যাওয়ার আগে নিশ্চিত করুন যে আপনি ইতিমধ্যে একটি কাপ রেসের ভিতরে আছেন।\n\nতবুও চালিয়ে যাবেন?",
+["account.fake_rank.continue_button"] = "চালিয়ে যান",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "পার্টস স্লট সামঞ্জস্য করুন",
+["vehicle.parts_slot.desc"] = "সমস্ত গাড়ির জন্য পার্টস স্লট সামঞ্জস্য করুন",
+["vehicle.parts_slot.slider_title"] = "স্লট",
+["vehicle.parts_slot.no_vehicles"] = "কোন গাড়ি পাওয়া যায়নি",
+["vehicle.parts_slot.applied"] = "পার্টস স্লট সামঞ্জস্য করা হয়েছে: %dটি গাড়ি",
+
+["vehicle.parts_modifier.title"] = "পার্টস পরিবর্তনকারী",
+["vehicle.parts_modifier.desc"] = "সক্রিয় রেসে টিউনিং পার্টস লেভেল পরিবর্তন করুন",
+["vehicle.parts_modifier.select"] = "একটি পার্টস নির্বাচন করুন",
+["vehicle.parts_modifier.prompt_level"] = "লেভেল: ",
+["vehicle.parts_modifier.prompt_digit0"] = "অঙ্ক: ",
+["vehicle.parts_modifier.prompt_digit1"] = "শেষ অংশ: ",
+["vehicle.parts_modifier.prompt_reset"] = "রিসেট",
+["vehicle.parts_modifier.invalid"] = "অবৈধ লেভেল মান",
+["vehicle.parts_modifier.not_found"] = "মেমরিতে পার্টস পাওয়া যায়নি",
+["vehicle.parts_modifier.applied"] = "%s লেভেল %s-এ সেট করা হয়েছে",
+["vehicle.parts_modifier.reset"] = "%s রিসেট করা হয়েছে",
+
+["vehicle.unlock_vehicles.title"] = "গাড়ি আনলক করুন",
+["vehicle.unlock_vehicles.desc"] = "সমস্ত গাড়ি কয়েন দিয়ে কেনার জন্য উপলব্ধ করুন",
+["vehicle.unlock_vehicles.no_vehicles"] = "কোন গাড়ি পাওয়া যায়নি",
+["vehicle.unlock_vehicles.unlocked"] = "গাড়ি আনলক করা হয়েছে: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "আনলক করার মতো কোন গাড়ি নেই",
+
+["vehicle.max_vehicles.title"] = "সর্বোচ্চ গাড়ি",
+["vehicle.max_vehicles.desc"] = "সমস্ত আনলক করা গাড়ির আপগ্রেড লেভেল তাৎক্ষণিকভাবে সর্বোচ্চ করুন",
+["vehicle.max_vehicles.no_vehicles"] = "গাড়ির তালিকা রিজল্ভ করতে ব্যর্থ",
+["vehicle.max_vehicles.all_maxed"] = "সমস্ত গাড়ি সর্বোচ্চ করা হয়েছে",
+["vehicle.max_vehicles.failed"] = "গাড়ি সর্বোচ্চ করতে ব্যর্থ",
+
+["vehicle.max_mastery.title"] = "সর্বোচ্চ মাস্টারি",
+["vehicle.max_mastery.desc"] = "সমস্ত আনলক করা এবং সর্বোচ্চ করা গাড়ির মাস্টারি তাৎক্ষণিকভাবে সর্বোচ্চ করুন।",
+["vehicle.max_mastery.all_maxed"] = "সমস্ত মাস্টারি সর্বোচ্চ করা হয়েছে",
+["vehicle.max_mastery.failed"] = "মাস্টারি সর্বোচ্চ করতে ব্যর্থ",
+
+["vehicle.max_parts.title"] = "সর্বোচ্চ পার্টস",
+["vehicle.max_parts.desc"] = "সমস্ত গাড়ির জন্য সমস্ত আনলক করা পার্টস লেভেল তাৎক্ষণিকভাবে সর্বোচ্চ করুন।",
+["vehicle.max_parts.no_vehicles"] = "গাড়ির তালিকা রিজল্ভ করতে ব্যর্থ",
+["vehicle.max_parts.all_maxed"] = "সমস্ত পার্টস সর্বোচ্চ করা হয়েছে",
+["vehicle.max_parts.failed"] = "পার্টস সর্বোচ্চ করতে ব্যর্থ",
+
+["vehicle.common.no_vehicles"] = "কোন গাড়ি পাওয়া যায়নি",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "গাড়ির তালিকা রিজল্ভ করতে ব্যর্থ",
+["vehicle.common.no_zero_region"] = "কোন জিরো রিজিওন পাওয়া যায়নি",
+
+}
+
+end
+
 __vfs['configs/lang/de.lua'] = function(...)
 --[[
   configs/lang/de.lua — German language 
@@ -23897,6 +25005,560 @@ return {
 
 end
 
+__vfs['configs/lang/fr.lua'] = function(...)
+--[[
+  configs/lang/fr.lua — Français (French)
+
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "OK"
+      T("settings.window_width_desc", 400, 650) -> "Largeur du menu flottant (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the French localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "OK",
+["common.cancel"] = "Annuler",
+["common.yes"] = "Oui",
+["common.no"] = "Non",
+["common.failed"] = "Échec",
+["common.success"] = "Succès",
+["common.later"] = "Plus tard",
+["common.got_it"] = "Compris",
+["common.retry"] = "Réessayer",
+["common.wait_safe"] = "Attendre (Sûr)",
+["common.waiting"] = "Attente...",
+["common.force_exit"] = "Quitter de force",
+["common.proceed_anyway"] = "Continuer quand même",
+["common.manual_mode"] = "Mode manuel",
+["common.update_button"] = "METTRE À JOUR",
+["common.launch_failed"] = "Échec du lancement",
+["common.confirm_exit_title"] = "Confirmer la sortie",
+["common.confirm_exit_msg"] = "Quitter le script ?",
+["common.not_available"] = "Non disponible",
+["common.warning"] = "Avertissement",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "Avertissement : Opérations actives",
+["main.exit_active_ops_msg"] = "%d tâche(s) en arrière-plan.\nForcer la sortie peut corrompre l'état du jeu.",
+["main.initializing"] = "Initialisation...",
+["main.no_app_found"] = "Aucune application trouvée",
+["main.arch_64bit_required_title"] = "64 bits requis",
+["main.arch_64bit_required_msg"] = "ARMv8a est obligatoire. x86_64 est partiellement pris en charge.",
+
+["main.update_available_title"] = "Mise à jour disponible",
+["main.update_available_msg"] = "v%s est disponible (actuelle : v%s)\n\n%s\n\nMettre à jour maintenant ?",
+["main.no_changelog"] = "Aucun journal des modifications.",
+["main.downloading_version"] = "Téléchargement de v%s...",
+["main.update_download_failed_msg"] = "Impossible de télécharger la mise à jour :\n%s",
+["main.update_write_failed_msg"] = "Impossible d'écrire dans :\n%s",
+["main.update_done_title"] = "VOID mis à jour vers v%s",
+["main.update_done_msg"] = "VOID a été mis à jour avec succès.\n\nLe nouveau script a été enregistré sous :\nvoid_v%s.lua\n\nExécutez-le depuis GameGuardian pour appliquer la mise à jour.",
+["main.launching_version"] = "Lancement de v%s...",
+["main.launch_failed_msg"] = "Téléchargé mais impossible à exécuter :\n%s",
+
+["main.multiple_spaces_title"] = "Espaces multiples détectés",
+["main.multiple_spaces_desc"] = "HCR2 a été trouvé dans %d espaces virtuels.\nSélectionnez l'espace dans lequel vous jouez actuellement.",
+["main.select_space_toast"] = "Veuillez sélectionner un espace pour continuer.",
+["main.user_space_item"] = "Utilisateur %s  —  %s",
+["main.permission_error_title"] = "Erreur de permission",
+["main.permission_error_msg"] = "L'accès au shell a été refusé.\n\nVoid en a besoin pour localiser HCR2 dans votre espace virtuel. Vérifiez le code source de Void si vous voulez vérifier quelle commande est exécutée.",
+["main.hcr2_not_found_title"] = "Données HCR2 introuvables",
+["main.hcr2_not_found_msg"] = "Void n'a pas pu localiser les données HCR2 dans votre espace virtuel. Cela peut arriver si HCR2 n'a pas encore été lancé, ou si votre application d'espace virtuel utilise une structure de chemin inhabituelle.\n\nLes fonctionnalités qui reposent sur les fichiers du jeu (Récompenses d'événements, etc.) ne fonctionneront pas sans un chemin valide.",
+["main.manual_data_path_title"] = "Chemin des données manuel",
+["main.manual_data_path_hint"] = "Entrez le chemin des données HCR2",
+["main.manual_path_cancelled"] = "Annulé — poursuite sans chemin.",
+["main.waiting_for_lib"] = "Attente de %s...",
+["main.initialized"] = "Initialisé",
+["main.gamestatus_not_found"] = "GameStatus introuvable",
+["main.dont_interrupt"] = "N'interrompez pas ce script",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "Taille enregistrée ! Redémarrez le script",
+["ui.category_error"] = "Erreur : %s",
+["ui.category_not_found"] = "Catégorie introuvable",
+["ui.na"] = "N/D",
+["ui.spinner_select"] = "Sélectionner",
+["ui.slider_default_title"] = "Valeur",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "Nécessite un appareil %s (votre appareil : %s)",
+["patches.suffix_enabled"] = " Activé",
+["patches.suffix_disabled"] = " Désactivé",
+["patches.pattern_not_found"] = "Échec : %d motif(s) introuvable(s)",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "Avertissement d'architecture",
+["arch.unknown_arch_msg"] = "Votre architecture est inconnue. La bibliothèque est-elle chargée ? Quel système utilisez-vous ?",
+["arch.non_primary_arch_msg"] = "Détecté : %s\nCertains ou tous les correctifs de bibliothèque peuvent ne pas fonctionner.",
+["arch.unknown_version_msg"] = "Version du jeu inconnue. Réessayez après le chargement du jeu.",
+["arch.no_base_data_msg"] = "Erreur interne : aucune donnée de base disponible pour cette architecture.",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "Avertissement du planificateur : La tâche a crashé -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "Code d'erreur HTTP : %s",
+["errors.crashed"] = "Crashé : %s",
+["errors.url_missing"] = "Le paramètre URL est manquant ou vide",
+["errors.file_path_missing"] = "Le chemin du fichier est manquant",
+["errors.download_url_missing"] = "L'URL est manquante",
+["errors.dest_path_missing"] = "Le chemin de destination est manquant",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "MENU JEU",
+["tabs.account"] = "MENU COMPTE",
+["tabs.vehicle"] = "MENU VÉHICULE",
+["tabs.player"] = "MENU JOUEUR",
+["tabs.adventure"] = "MENU AVENTURE",
+["tabs.cups"] = "MENU COUPES",
+["tabs.team"] = "MENU ÉQUIPE",
+["tabs.event"] = "MENU ÉVÉNEMENT",
+["tabs.creative"] = "MENU CRÉATIF",
+["tabs.shop"] = "MENU BOUTIQUE",
+["tabs.other"] = "MENU AUTRE",
+["tabs.sep_script"] = "MENU SCRIPT",
+["tabs.settings"] = "PARAMÈTRES",
+["tabs.about"] = "À PROPOS",
+
+["registry.module_load_failed"] = "Le module n'a pas pu être chargé. Vérifiez les journaux pour plus de détails.",
+["registry.module_runtime_error"] = "Erreur d'exécution : %s",
+["registry.error"] = "Erreur",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "Mises à jour",
+["settings.auto_update.title"] = "Mise à jour automatique",
+["settings.auto_update.desc"] = "Mettre à jour VOID automatiquement au démarrage",
+["settings.dev_mode_title"] = "Mode développeur",
+["settings.auto_update.dev_mode_msg"] = "La mise à jour automatique est désactivée pour main.lua (version de développement).",
+["settings.check_updates.title"] = "Vérifier les mises à jour",
+["settings.check_updates.desc"] = "Vérifier la dernière version de VOID sur GitHub",
+["settings.check_updates.dev_mode_msg"] = "La vérification des mises à jour est désactivée pour main.lua (version de développement).\n\nTirez manuellement depuis le dépôt.",
+["settings.check_updates.checking"] = "Vérification des mises à jour...",
+["settings.check_updates.failed_title"] = "Échec de la vérification",
+["settings.check_updates.failed_msg"] = "Impossible de contacter GitHub :\n%s",
+["settings.check_updates.up_to_date_title"] = "À jour",
+["settings.check_updates.up_to_date_msg"] = "Vous êtes déjà sur la dernière version (v%s).",
+["settings.check_updates.no_changelog"] = "Aucun journal des modifications disponible.",
+["settings.check_updates.available_msg"] = "v%s  (actuelle : v%s)\n\n%s\n\nTélécharger et remplacer ce script ?",
+["settings.check_updates.no_asset_msg"] = "Aucun fichier .lua trouvé dans la version.",
+["settings.check_updates.download_failed_title"] = "Échec du téléchargement",
+["settings.check_updates.write_failed_title"] = "Échec de l'écriture",
+["settings.check_updates.done_title"] = "Terminé",
+["settings.check_updates.done_msg"] = "Mis à jour vers v%s. Redémarrez le script pour appliquer.",
+["settings.check_updates.restart_button"] = "Redémarrer",
+
+["settings.section_language"] = "Langue",
+["settings.language.title"] = "Langue",
+["settings.language.desc"] = "Choisissez votre langue préférée pour le menu",
+["settings.language.changed"] = "Langue définie sur %s",
+["settings.language.failed"] = "Échec du chargement de cette langue",
+["settings.language.restart_msg"] = "Redémarrez le script pour appliquer complètement la langue",
+
+["settings.region.other"] = "A : Autre",
+["settings.region.cpp_alloc"] = "Ca : alloc C++",
+["settings.region.unknown"] = "I : Inconnu",
+["settings.section_memory"] = "Mémoire",
+["settings.memory_range.title"] = "Plage mémoire",
+["settings.memory_range.desc"] = "Plage mémoire actuellement sélectionnée\n(choisie automatiquement par le script)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "Adresse GameStatus actuelle\n(choisie automatiquement par le script)",
+["settings.gamestatus_raw.title"] = "GameStatus (Brut)",
+["settings.gamestatus_raw.desc"] = "Adresse GameStatus (brute) actuelle\n(choisie automatiquement par le script)",
+["settings.clear_memory.title"] = "Effacer la mémoire sauvegardée",
+["settings.clear_memory.desc"] = "Effacer toute la mémoire sauvegardée par VOID sans avoir à redémarrer le jeu.",
+
+["settings.section_ui_customizations"] = "Personnalisation de l'interface",
+["settings.theme_store.title"] = "Magasin de thèmes",
+["settings.theme_store.desc"] = "Parcourir et installer les thèmes Void de la communauté",
+["settings.theme_store.unreachable_msg"] = "Impossible d'atteindre le magasin de thèmes :\n%s",
+["settings.theme_store.parse_failed_msg"] = "Impossible d'analyser les données du magasin de thèmes.",
+["settings.theme_store.list_title"] = "Magasin de thèmes Void",
+["settings.theme_store.search_results_desc"] = "Résultats de recherche : %s trouvé(s)",
+["settings.theme_store.available_desc"] = "%s thèmes disponibles",
+["settings.theme_store.by_author"] = "par %s",
+["settings.theme_store.search_item"] = "🔍 Rechercher...",
+["settings.theme_store.clear_search_item"] = "✕ Effacer la recherche",
+["settings.theme_store.search_title"] = "Rechercher des thèmes",
+["settings.theme_store.search_hint"] = "Nom du thème, auteur ou description",
+["settings.theme_store.no_results"] = "Aucun thème trouvé pour : %s",
+["settings.theme_store.detail_msg"] = "Par %s\n\n%s\n\nID : %s",
+["settings.theme_store.install_button"] = "Installer le thème",
+["settings.theme_downloading_bg"] = "Téléchargement de l'image de fond...",
+["settings.theme_imported"] = "Thème importé !",
+["settings.theme_invalid_bundle"] = "Format de bundle invalide.",
+["settings.theme_cloud_error"] = "Erreur cloud : %s",
+["settings.reset_theme.title"] = "Réinitialiser le thème",
+["settings.reset_theme.desc"] = "Réinitialiser le thème personnalisé et l'image de fond par défaut",
+["settings.import_theme.title"] = "Importer un thème",
+["settings.import_theme.desc"] = "Importer un thème personnalisé depuis le cloud",
+["settings.import_theme.hint"] = "Entrez l'ID de partage",
+["settings.export_theme.title"] = "Exporter un thème",
+["settings.export_theme.desc"] = "Exporter un thème personnalisé et l'image de fond vers le cloud",
+["settings.export_theme.share_id_msg"] = "ID de partage : %s\n\nCopié dans le presse-papiers.",
+["settings.export_theme.upload_failed_msg"] = "Échec du téléversement : %s",
+["settings.export_theme.size_warning_title"] = "Avertissement sur la taille du téléversement",
+["settings.export_theme.size_warning_msg"] = "Inclure l'image de fond personnalisée ? Cela augmentera la taille du téléversement en fonction de la taille de votre image.",
+["settings.export_theme.uploading_bg"] = "Téléversement de l'image de fond vers Catbox...",
+["settings.export_theme.image_upload_failed_title"] = "Erreur",
+["settings.export_theme.image_upload_failed_msg"] = "Échec du téléversement de l'image : %s",
+["settings.tabs_icon.title"] = "Icône des onglets",
+["settings.tabs_icon.desc"] = "Changer l'icône des onglets",
+["settings.tabs_icon.hint"] = "Entrez l'icône",
+["settings.tabs_icon.empty_error"] = "Ne peut pas être vide",
+
+["settings.bg_opacity.title"] = "Opacité du fond",
+["settings.bg_opacity.desc"] = "Transparence des panneaux, cartes et en-tête",
+["settings.slider.alpha"] = "Alpha",
+["settings.bg_image_opacity.title"] = "Opacité de l'image de fond",
+["settings.bg_image_opacity.desc"] = "Ajuster directement les paramètres alpha de visibilité en utilisant des canaux entiers purs.",
+["settings.bg_image_picker.title"] = "Image de fond",
+["settings.bg_image_picker.desc"] = "Appuyez pour modifier le chemin absolu du fichier de votre image de fond personnalisée",
+["settings.bg_image_picker.path_label"] = "Chemin absolu du fichier image (.jpg ou .png) :",
+["settings.bg_image_picker.remove_label"] = "Supprimer l'image de fond",
+["settings.bg_image_picker.success_title"] = "Succès",
+["settings.bg_image_picker.removed_msg"] = "Image de fond supprimée",
+["settings.bg_image_picker.added_msg"] = "Image de fond ajoutée",
+["settings.bg_image_picker.not_found_msg"] = "Fichier introuvable ou opération de lecture refusée :\n%s",
+
+["settings.bg_rgb.title"] = "RGB du fond",
+["settings.bg_rgb.desc"] = "Teinte pour les fonds de panneau (l'en-tête et la carte s'adaptent automatiquement)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "RGB d'accent",
+["settings.accent_rgb.desc"] = "Teinte pour les boutons, les bascules et les cartes actives (couleur atténuée dérivée automatiquement)",
+["settings.logo_rgb.title"] = "RGB de surbrillance",
+["settings.logo_rgb.desc"] = "Couleur pour les étiquettes, les icônes et le texte interactif (toujours complètement opaque)",
+["settings.sub_rgb.title"] = "RGB du sous-texte",
+["settings.sub_rgb.desc"] = "Couleur pour les descriptions et les étiquettes d'onglets inactifs",
+["settings.text_rgb.title"] = "RGB du texte",
+["settings.text_rgb.desc"] = "Couleur pour le texte du menu principal",
+
+["settings.win_width.title"] = "Largeur du menu",
+["settings.win_width.desc"] = "Largeur du menu flottant (%d – %d dp)",
+["settings.slider.width"] = "Largeur",
+["settings.win_height.title"] = "Hauteur du menu",
+["settings.win_height.desc"] = "Hauteur de la zone de contenu défilable (%d – %d dp)",
+["settings.slider.height"] = "Hauteur",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "À propos du script",
+["about.about_script.desc"] = "Un script de manipulation de mémoire puissant et hautement optimisé construit pour Hill Climb Racing 2 sur l'environnement Pivot personnalisé.\n\nTélécharger Pivot :\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "Propriétaire du script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "Développeur du script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "Traducteur du script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "Crédits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "Remerciements spéciaux",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "Mode débogage",
+["other.debug_mode.desc"] = "Activer/désactiver le mode débogage dans le jeu",
+["other.debug_mode.enabled"] = "Mode débogage activé",
+["other.debug_mode.disabled"] = "Mode débogage désactivé",
+["other.hint.width"] = "Largeur",
+["other.hint.height"] = "Hauteur",
+["other.resolution.title"] = "Ajuster la résolution",
+["other.resolution.desc"] = "Ajuster la largeur et la hauteur du jeu (par défaut 1280x720)",
+["other.resolution.applied"] = "Résolution définie sur %dx%d",
+["other.resolution_offset.title"] = "Ajuster le décalage de résolution",
+["other.resolution_offset.desc"] = "Ajuster le décalage de largeur et de hauteur du jeu (par défaut 0x0), idéal pour une petite résolution sur un grand écran.",
+["other.resolution_offset.applied"] = "Décalage de résolution défini sur %dx%d",
+["other.glsurface_not_found"] = "GLSurfaceView introuvable",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "Coffre gratuit",
+["shop.free_chest.desc"] = "Rendre les coffres gratuits dans l'onglet Boutique",
+["shop.free_chest.enabled"] = "Coffre gratuit activé",
+["shop.free_chest.disabled"] = "Coffre gratuit désactivé",
+["shop.free_purchases.title"] = "Achats gratuits",
+["shop.free_purchases.desc"] = "Rendre certaines offres quotidiennes gratuites dans l'onglet Boutique (fonctionne également pour les offres spéciales sous forme de popups/badges)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "Achat gratuit réussi",
+["shop.change_chest.title"] = "Changer de coffre",
+["shop.change_chest.desc"] = "Changer le coffre légendaire en le coffre sélectionné",
+["shop.change_chest.changed"] = "Coffre changé en %s",
+["shop.change_chest.options"] = {
+    "Coffre commun", "Coffre peu commun", "Coffre rare", "Coffre épique",
+    "Coffre champion", "Coffre spécial 1", "Coffre de Noël", "Coffre légendaire",
+    "Coffre bleu", "Coffre VIP 1", "Coffre VIP 2", "Coffre vidéo",
+    "Coffre de départ", "Coffre spécial 2", "Coffre Fingersoft", "Méga coffre",
+    "Coffre d'esprit d'équipe", "Coffre de style", "Coffre mythique"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "Détachement automatique",
+["player.auto_detach.desc"] = "Détacher automatiquement des pièces comme le toit de la Rally Car",
+["player.auto_die.title"] = "Mort automatique",
+["player.auto_die.desc"] = "Provoquer automatiquement la mort (panne de carburant)",
+["player.no_clip.title"] = "No-Clip",
+["player.no_clip.desc"] = "Faire passer votre joueur à travers les objets sans mourir (vous pouvez passer au-dessus des lignes d'arrivée dans les coupes)",
+["player.no_clip.enabled"] = "No-Clip activé",
+["player.no_clip.disabled"] = "No-Clip désactivé",
+["player.hide_name.title"] = "Masquer le nom",
+["player.hide_name.desc"] = "Masquer votre nom de joueur en course",
+["player.hide_name.enabled"] = "Masquage du nom activé",
+["player.hide_name.disabled"] = "Masquage du nom désactivé",
+["player.hide_flag.title"] = "Masquer le drapeau",
+["player.hide_flag.desc"] = "Masquer votre drapeau de joueur en course",
+["player.hide_flag.enabled"] = "Masquage du drapeau activé",
+["player.hide_flag.disabled"] = "Masquage du drapeau désactivé",
+["player.fuel.title"] = "Carburant",
+["player.fuel.desc"] = "Verrouiller le carburant à une valeur constante pendant la course (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Quantité de carburant (0 – 100)",
+["player.fuel.prompt_reset"] = "Réinitialiser",
+["player.fuel.invalid"] = "Valeur invalide, doit être comprise entre 0 et 100",
+["player.fuel.applied"] = "Carburant verrouillé à %s",
+["player.fuel.reset"] = "Carburant restauré",
+["player.fuel.not_applied"] = "Carburant inactif",
+["player.zoom.title"] = "Ajuster le zoom",
+["player.zoom.desc"] = "Ajuster la proximité ou l'éloignement de votre caméra",
+["player.slider.min"] = "Min",
+["player.slider.max"] = "Max",
+["player.gravity.title"] = "Ajuster la gravité",
+["player.gravity.desc"] = "Ajuster la force de la gravité",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "Coffres d'aventure automatiques (instable)",
+["adventure.auto_adventure_chests.desc"] = "Augmenter automatiquement le niveau de vos coffres d'aventure",
+["adventure.auto_adventure_chests.none_found"] = "Aucun coffre d'aventure trouvé",
+["adventure.auto_adventure_chests.done"] = "Terminé",
+
+["adventure.set_distance.title"] = "Définir la distance",
+["adventure.set_distance.desc"] = "Définit la distance de votre course d'aventure à une valeur personnalisée. Doit être dans une course active. Une distance plus élevée peut rapporter plus d'étoiles. Maximum d'étoiles à 5000m. (Pas une fonction de téléportation)",
+["adventure.set_distance.loop_active_title"] = "Définir la distance — Boucle active",
+["adventure.set_distance.loop_active_msg"] = "La boucle de distance est actuellement en cours d'exécution.\nQue voulez-vous faire ?",
+["adventure.set_distance.stop_loop"] = "Arrêter la boucle",
+["adventure.set_distance.keep_running"] = "Continuer",
+["adventure.set_distance.loop_will_stop"] = "La boucle s'arrêtera après la période en cours.",
+["adventure.set_distance.prompt_target"] = "Distance cible (mètres)",
+["adventure.set_distance.prompt_loop"] = "Boucle (réapplication automatique)",
+["adventure.set_distance.prompt_interval"] = "Intervalle de boucle (ms, min 250)",
+["adventure.set_distance.over_max_title"] = "Avertissement de distance",
+["adventure.set_distance.over_max_msg"] = "Une distance supérieure à 5000m ne vous donnera aucune étoile.\n\nLa course enregistrera toujours la distance, mais aucune récompense d'étoile ne sera donnée. Continuer ?",
+["adventure.set_distance.continue_button"] = "Continuer",
+["adventure.set_distance.not_in_adventure"] = "Allez dans l'onglet Aventure et commencez d'abord une course",
+["adventure.set_distance.start_race_first"] = "Commencez une course d'abord",
+["adventure.set_distance.applied"] = "Distance définie : %sm",
+["adventure.set_distance.loop_stopped"] = "Boucle de définition de distance arrêtée.",
+["adventure.set_distance.loop_running"] = "Boucle de distance en cours — appuyez sur Définir la distance pour arrêter",
+["adventure.set_distance.loop_warn_title"] = "Avertissement de boucle de distance",
+["adventure.set_distance.loop_warn_msg"] = "Le mode boucle écrit dans la mémoire toutes les %s ms.\n\nUtiliser un intervalle court peut augmenter l'instabilité, les problèmes visuels ou les crashs du jeu.\n\nContinuer quand même ?",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "Ajuster le compte à rebours",
+["cups.adjust_countdown.desc"] = "Ajuster le compte à rebours avant le début de la course",
+["cups.slider.seconds"] = "Secondes",
+["cups.adjust_countdown.applied"] = "Compte à rebours ajusté à %ss",
+["cups.auto_win.title"] = "Victoire automatique",
+["cups.auto_win.desc"] = "Gagnez automatiquement quel que soit le résultat de votre course",
+["cups.force_boss.title"] = "Forcer le boss",
+["cups.force_boss.desc"] = "Forcer l'apparition du boss",
+["cups.force_cup.title"] = "Forcer la coupe",
+["cups.force_cup.desc"] = "Force une seule coupe",
+["cups.force_cup.not_found"] = "Force Cup introuvable. Réessayez plus tard.",
+["cups.force_cup.enabled"] = "Force Cup activé",
+["cups.force_cup.disabled"] = "Force Cup désactivé",
+["cups.set_time.title"] = "Définir le temps",
+["cups.set_time.desc"] = "Définir votre temps de course (ne gèlera pas le temps pour des raisons de sécurité). Doit être dans une course de coupe active. (ex. 1:09.069, 7.284)",
+["cups.set_time.hint"] = "Temps (1:09.069 ou 7.284)",
+["cups.set_time.invalid_format"] = "Format invalide. Utilisez 1:09.069 ou 7.284",
+["cups.set_time.no_negative"] = "Pas de valeurs négatives",
+["cups.set_time.not_in_cup"] = "Allez dans l'onglet Coupes et commencez d'abord une course",
+["cups.set_time.start_race_first"] = "Commencez une course d'abord",
+["cups.set_time.applied"] = "Temps défini sur %s",
+["cups.unlimited_tasks.title"] = "Tâches illimitées",
+["cups.unlimited_tasks.desc"] = "Geler toutes les tâches comme terminées et toujours réclamables. Réclamez les récompenses plusieurs fois.",
+["cups.unlimited_tasks.resolve_failed"] = "Échec de la résolution de la liste des tâches",
+["cups.unlimited_tasks.none_found"] = "Aucune tâche trouvée",
+["cups.unlimited_tasks.enabled"] = "Tâches illimitées activées",
+["cups.unlimited_tasks.disabled"] = "Tâches illimitées désactivées",
+["cups.unlimited_tasks.none_to_freeze"] = "Aucune tâche à geler",
+["cups.rank_points_bonus.title"] = "+498 Points de classement",
+["cups.rank_points_bonus.desc"] = "Faire en sorte que toutes les tâches de ligue vous donnent 498 points au lieu de 200, et supprime les autres récompenses.",
+["cups.rank_points_bonus.none_found"] = "Aucune tâche de ligue trouvée",
+["cups.rank_points_bonus.boosted"] = "Points de classement boostés : %s",
+["cups.rank_points_bonus.no_match"] = "Aucune tâche de ligue correspondante trouvée",
+["cups.rank_points_bonus.nothing_to_restore"] = "Rien à restaurer",
+["cups.rank_points_bonus.restored"] = "Restauré : %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "Correctif des récompenses d'événement",
+["event.patch_rewards.desc"] = "Appliquer le correctif des récompenses de l'événement public actuel avec celui fourni par VOID (nécessite un redémarrage du jeu)",
+["event.restore_events.title"] = "Restaurer les récompenses d'événement",
+["event.restore_events.desc"] = "Supprimer les JSON d'événements modifiés pour forcer la récupération du serveur de jeu (nécessite un redémarrage du jeu)",
+
+["event.checking_permissions"] = "Vérification des permissions de l'environnement...",
+["event.scanning_files"] = "Analyse des fichiers actifs...",
+["event.decode_rewards_failed"] = "Échec du décodage du JSON des récompenses",
+["event.workspace_creation_failed"] = "FATAL : Échec de la création de l'espace de travail : %s",
+["event.workspace_creation_failed_dialog"] = "FATAL : Impossible de créer le répertoire de l'espace de travail.\n%s",
+["event.file_inaccessible"] = "Fichier inaccessible au chemin : %s",
+["event.predecrypt_not_found"] = "Pré-décryptage : source introuvable : %s",
+["event.predecrypt_empty"] = "Pré-décryptage : la source est vide (0 octets) : %s",
+["event.decode_active_failed"] = "Échec du décodage de active_events.json au chemin : %s",
+["event.no_active_events"] = "Aucun événement actif trouvé au chemin : %s",
+["event.cannot_open_active"] = "Impossible d'ouvrir active_events.json au chemin : %s",
+["event.decrypt_active_failed"] = "Échec du décryptage de active_events.json au chemin : %s",
+["event.root_copy_failed"] = "Échec de la copie root : %s",
+
+["event.select_events_patch"] = "Sélectionnez les événements à corriger :\nChemin : %s",
+["event.user_cancelled"] = "L'utilisateur a annulé la sélection pour le chemin : %s",
+["event.rewards_unavailable"] = "Récompenses intégrées non disponibles, correction ignorée pour le chemin : %s",
+["event.skipped_unreadable"] = "Événement illisible ignoré : %s",
+["event.predecrypt_event_not_found"] = "Pré-décryptage : événement introuvable : %s",
+["event.predecrypt_event_empty"] = "Pré-décryptage : l'événement est vide (0 octets) : %s",
+["event.processing_failed"] = "Échec du traitement de %s : %s",
+["event.cannot_open_decrypted"] = "Impossible d'ouvrir le fichier décrypté : %s",
+["event.decrypt_event_failed"] = "Échec du décryptage de l'événement : %s",
+["event.loop_crash"] = "Crash de la boucle de traitement critique des fichiers : %s",
+
+["event.success_header"] = "Avec succès :",
+["event.success_removed_header"] = "Supprimé avec succès (sera restauré au redémarrage) :",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "Échec :",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "Résultats du correctif",
+["event.restore_results_title"] = "Résultats de la restauration",
+["event.restart_required_title"] = "Redémarrage requis",
+["event.patch_restart_msg"] = "Le jeu est fermé et ce script va quitter, relancez-le pour voir les effets du correctif",
+["event.restore_restart_msg"] = "Le jeu va maintenant se fermer pour permettre la synchronisation des fichiers du serveur.",
+["event.finishing_tasks_patch"] = "Fin des tâches en arrière-plan en attente... Veuillez patienter.",
+["event.finishing_tasks_restore"] = "Fin des tâches en arrière-plan en attente...",
+["event.patch_failed_msg"] = "Échec du correctif, réessayez.",
+
+["event.select_events_restore"] = "Sélectionnez les fichiers à restaurer (supprimer) :\nChemin : %s",
+["event.delete_failed"] = "Échec de la suppression de %s : %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "Changer le nom",
+["account.change_name.desc"] = "Changer le nom de votre joueur",
+["account.change_name.hint"] = "Entrez le nom",
+["account.change_name.empty"] = "Entrez d'abord un nom",
+["account.change_name.too_long_title"] = "Nom trop long",
+["account.change_name.too_long_msg"] = "Votre nom est trop long, veuillez le raccourcir",
+["account.change_name.resolve_failed"] = "Échec de la résolution du pointeur de nom",
+["account.change_name.applied"] = "Nom changé en %s",
+
+["account.change_gp.title"] = "Changer la puissance du garage",
+["account.change_gp.desc"] = "Modifie la puissance du garage du profil (persiste si plus élevée). Mettez à 8 pour réinitialiser si au-dessus du maximum, mais seulement si votre GP réel est déjà fixé sous la limite.",
+["account.change_gp.hint"] = "Entrez la puissance du garage",
+["account.change_gp.max_int_title"] = "Maximum 32 bits atteint",
+["account.change_gp.lower_value"] = "Veuillez réduire votre valeur",
+["account.change_gp.too_low_title"] = "Trop bas",
+["account.change_gp.higher_value"] = "Veuillez augmenter votre valeur",
+["account.change_gp.applied"] = "La puissance du garage a été changée en %s",
+
+["account.fake_unlock.title"] = "Déverrouillage factice",
+["account.fake_unlock.desc"] = "Déverrouiller toutes les personnalisations temporairement",
+["account.fake_vip.title"] = "VIP factice",
+["account.fake_vip.desc"] = "Basculer l'état de l'abonnement VIP localement",
+
+["account.fake_rank.title"] = "Classement factice",
+["account.fake_rank.desc"] = "Définir votre classement sur légendaire factice automatiquement",
+["account.fake_rank.race_warn_title"] = "Course requise",
+["account.fake_rank.race_warn_msg"] = "Le classement factice ne doit être appliqué que pendant qu'une course de coupe est active.\n\nL'appliquer en dehors d'une course peut entraîner un bannissement caché.\n\nAssurez-vous d'être déjà dans une course de coupe avant de continuer.\n\nContinuer quand même ?",
+["account.fake_rank.continue_button"] = "Continuer",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "Ajuster l'emplacement des pièces",
+["vehicle.parts_slot.desc"] = "Ajuster l'emplacement des pièces pour tous les véhicules",
+["vehicle.parts_slot.slider_title"] = "Emplacements",
+["vehicle.parts_slot.no_vehicles"] = "Aucun véhicule trouvé",
+["vehicle.parts_slot.applied"] = "Emplacement des pièces ajusté : %d véhicules",
+
+["vehicle.parts_modifier.title"] = "Modificateur de pièces",
+["vehicle.parts_modifier.desc"] = "Modifier les niveaux des pièces de réglage en course active",
+["vehicle.parts_modifier.select"] = "Sélectionnez une pièce",
+["vehicle.parts_modifier.prompt_level"] = "Niveau : ",
+["vehicle.parts_modifier.prompt_digit0"] = "Chiffre : ",
+["vehicle.parts_modifier.prompt_digit1"] = "Queue : ",
+["vehicle.parts_modifier.prompt_reset"] = "Réinitialiser",
+["vehicle.parts_modifier.invalid"] = "Niveau invalide",
+["vehicle.parts_modifier.not_found"] = "Pièce introuvable en mémoire",
+["vehicle.parts_modifier.applied"] = "%s défini au niveau %s",
+["vehicle.parts_modifier.reset"] = "%s réinitialisé",
+
+["vehicle.unlock_vehicles.title"] = "Déverrouiller les véhicules",
+["vehicle.unlock_vehicles.desc"] = "Déverrouiller tous les véhicules pour les acheter avec des pièces",
+["vehicle.unlock_vehicles.no_vehicles"] = "Aucun véhicule trouvé",
+["vehicle.unlock_vehicles.unlocked"] = "Véhicules déverrouillés : %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "Aucun véhicule à déverrouiller",
+
+["vehicle.max_vehicles.title"] = "Véhicules max",
+["vehicle.max_vehicles.desc"] = "Maximiser instantanément les niveaux de mise à niveau de tous les véhicules déverrouillés",
+["vehicle.max_vehicles.no_vehicles"] = "Échec de la résolution de la liste des véhicules",
+["vehicle.max_vehicles.all_maxed"] = "Tous les véhicules maximisés",
+["vehicle.max_vehicles.failed"] = "Échec de la maximisation des véhicules",
+
+["vehicle.max_mastery.title"] = "Maîtrise max",
+["vehicle.max_mastery.desc"] = "Maximiser instantanément les maîtrises de tous les véhicules déverrouillés et maximisés.",
+["vehicle.max_mastery.all_maxed"] = "Toutes les maîtrises maximisées",
+["vehicle.max_mastery.failed"] = "Échec de la maximisation des maîtrises",
+
+["vehicle.max_parts.title"] = "Pièces max",
+["vehicle.max_parts.desc"] = "Maximiser instantanément les niveaux de toutes les pièces déverrouillées pour tous les véhicules.",
+["vehicle.max_parts.no_vehicles"] = "Échec de la résolution de la liste des véhicules",
+["vehicle.max_parts.all_maxed"] = "Toutes les pièces maximisées",
+["vehicle.max_parts.failed"] = "Échec de la maximisation des pièces",
+
+["vehicle.common.no_vehicles"] = "Aucun véhicule trouvé",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "Échec de la résolution de la liste des véhicules",
+["vehicle.common.no_zero_region"] = "Aucune région zéro trouvée",
+
+}
+
+end
+
 __vfs['configs/lang/id.lua'] = function(...)
 --[[
   configs/lang/id.lua — Bahasa Indonesia
@@ -25439,6 +27101,1114 @@ return {
 
 end
 
+__vfs['configs/lang/uk.lua'] = function(...)
+--[[
+  configs/lang/uk.lua — Українська (Ukrainian)
+
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "Гаразд"
+      T("settings.window_width_desc", 400, 650) -> "Ширина плаваючого меню (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Ukrainian localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "Гаразд",
+["common.cancel"] = "Скасувати",
+["common.yes"] = "Так",
+["common.no"] = "Ні",
+["common.failed"] = "Не вдалося",
+["common.success"] = "Успішно",
+["common.later"] = "Пізніше",
+["common.got_it"] = "Зрозуміло",
+["common.retry"] = "Повторити",
+["common.wait_safe"] = "Зачекайте (Безпечно)",
+["common.waiting"] = "Очікування...",
+["common.force_exit"] = "Примусово вийти",
+["common.proceed_anyway"] = "Все одно продовжити",
+["common.manual_mode"] = "Ручний режим",
+["common.update_button"] = "ОНОВИТИ",
+["common.launch_failed"] = "Не вдалося запустити",
+["common.confirm_exit_title"] = "Підтвердити вихід",
+["common.confirm_exit_msg"] = "Вийти зі скрипту?",
+["common.not_available"] = "Не доступно",
+["common.warning"] = "Попередження",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "Попередження: Активні операції",
+["main.exit_active_ops_msg"] = "Виконується %d фонових завдань.\nПримусовий вихід може пошкодити стан гри.",
+["main.initializing"] = "Ініціалізація...",
+["main.no_app_found"] = "Додаток не знайдено",
+["main.arch_64bit_required_title"] = "Потрібна 64-бітна архітектура",
+["main.arch_64bit_required_msg"] = "ARMv8a є обов'язковою. x86_64 підтримується частково.",
+
+["main.update_available_title"] = "Доступне оновлення",
+["main.update_available_msg"] = "v%s доступна (поточна: v%s)\n\n%s\n\nОновити зараз?",
+["main.no_changelog"] = "Немає списку змін.",
+["main.downloading_version"] = "Завантаження v%s...",
+["main.update_download_failed_msg"] = "Не вдалося завантажити оновлення:\n%s",
+["main.update_write_failed_msg"] = "Не вдалося записати до:\n%s",
+["main.update_done_title"] = "VOID оновлено до v%s",
+["main.update_done_msg"] = "VOID успішно оновлено.\n\nНовий скрипт збережено як:\nvoid_v%s.lua\n\nЗапустіть його з GameGuardian, щоб застосувати оновлення.",
+["main.launching_version"] = "Запуск v%s...",
+["main.launch_failed_msg"] = "Завантажено, але не вдалося запустити:\n%s",
+
+["main.multiple_spaces_title"] = "Виявлено кілька просторів",
+["main.multiple_spaces_desc"] = "HCR2 знайдено в %d віртуальних просторах.\nВиберіть простір, у якому ви зараз граєте.",
+["main.select_space_toast"] = "Будь ласка, виберіть простір для продовження.",
+["main.user_space_item"] = "Користувач %s  —  %s",
+["main.permission_error_title"] = "Помилка дозволів",
+["main.permission_error_msg"] = "Доступ до оболонки було відхилено.\n\nVoid потребує цього для пошуку HCR2 у вашому віртуальному просторі. Перевірте вихідний код Void, якщо хочете підтвердити, яка команда виконується.",
+["main.hcr2_not_found_title"] = "Дані HCR2 не знайдено",
+["main.hcr2_not_found_msg"] = "Void не зміг знайти дані HCR2 у вашому віртуальному просторі. Це може статися, якщо HCR2 ще не було запущено, або ваш додаток віртуального простору використовує незвичайну структуру шляхів.\n\nФункції, які покладаються на файли гри (Нагороди подій тощо), не працюватимуть без дійсного шляху.",
+["main.manual_data_path_title"] = "Ручний шлях до даних",
+["main.manual_data_path_hint"] = "Введіть шлях до даних HCR2",
+["main.manual_path_cancelled"] = "Скасовано — продовження без шляху.",
+["main.waiting_for_lib"] = "Очікування %s...",
+["main.initialized"] = "Ініціалізовано",
+["main.gamestatus_not_found"] = "GameStatus не знайдено",
+["main.dont_interrupt"] = "Не переривайте цей скрипт",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "Розмір збережено! Перезапустіть скрипт",
+["ui.category_error"] = "Помилка: %s",
+["ui.category_not_found"] = "Категорію не знайдено",
+["ui.na"] = "Н/Д",
+["ui.spinner_select"] = "Вибрати",
+["ui.slider_default_title"] = "Значення",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "Потрібен пристрій %s (ваш пристрій: %s)",
+["patches.suffix_enabled"] = " Увімкнено",
+["patches.suffix_disabled"] = " Вимкнено",
+["patches.pattern_not_found"] = "Не вдалося: %d шаблонів не знайдено",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "Попередження про архітектуру",
+["arch.unknown_arch_msg"] = "Ваша архітектура невідома. Чи завантажено бібліотеку? Яку систему ви використовуєте?",
+["arch.non_primary_arch_msg"] = "Виявлено: %s\nДеякі або всі патчі бібліотеки можуть не працювати.",
+["arch.unknown_version_msg"] = "Версія гри невідома. Спробуйте ще раз після завантаження гри.",
+["arch.no_base_data_msg"] = "Внутрішня помилка: немає базових даних для цієї архітектури.",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "Попередження планувальника: Завдання збій -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "Код помилки HTTP: %s",
+["errors.crashed"] = "Збій: %s",
+["errors.url_missing"] = "Параметр URL відсутній або порожній",
+["errors.file_path_missing"] = "Шлях до файлу відсутній",
+["errors.download_url_missing"] = "URL відсутній",
+["errors.dest_path_missing"] = "Шлях призначення відсутній",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "МЕНЮ ГРИ",
+["tabs.account"] = "МЕНЮ ОБЛІКОВОГО ЗАПИСУ",
+["tabs.vehicle"] = "МЕНЮ ТРАНСПОРТУ",
+["tabs.player"] = "МЕНЮ ГРАВЦЯ",
+["tabs.adventure"] = "МЕНЮ ПРИГОД",
+["tabs.cups"] = "МЕНЮ КУБКІВ",
+["tabs.team"] = "МЕНЮ КОМАНДИ",
+["tabs.event"] = "МЕНЮ ПОДІЙ",
+["tabs.creative"] = "КРЕАТИВНЕ МЕНЮ",
+["tabs.shop"] = "МЕНЮ МАГАЗИНУ",
+["tabs.other"] = "ІНШЕ МЕНЮ",
+["tabs.sep_script"] = "МЕНЮ СКРИПТУ",
+["tabs.settings"] = "НАЛАШТУВАННЯ",
+["tabs.about"] = "ПРО СКРИПТ",
+
+["registry.module_load_failed"] = "Не вдалося завантажити модуль. Перевірте журнали для деталей.",
+["registry.module_runtime_error"] = "Помилка виконання: %s",
+["registry.error"] = "Помилка",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "Оновлення",
+["settings.auto_update.title"] = "Автооновлення",
+["settings.auto_update.desc"] = "Автоматично оновлювати VOID при запуску",
+["settings.dev_mode_title"] = "Режим розробника",
+["settings.auto_update.dev_mode_msg"] = "Автооновлення вимкнено для main.lua (збірка для розробників).",
+["settings.check_updates.title"] = "Перевірити оновлення",
+["settings.check_updates.desc"] = "Перевірити останню версію VOID на GitHub",
+["settings.check_updates.dev_mode_msg"] = "Перевірку оновлень вимкнено для main.lua (збірка для розробників).\n\nВитягніть з репозиторію вручну.",
+["settings.check_updates.checking"] = "Перевірка оновлень...",
+["settings.check_updates.failed_title"] = "Не вдалося перевірити оновлення",
+["settings.check_updates.failed_msg"] = "Не вдалося підключитися до GitHub:\n%s",
+["settings.check_updates.up_to_date_title"] = "Оновлено",
+["settings.check_updates.up_to_date_msg"] = "Ви вже використовуєте останню версію (v%s).",
+["settings.check_updates.no_changelog"] = "Немає списку змін.",
+["settings.check_updates.available_msg"] = "v%s  (поточна: v%s)\n\n%s\n\nЗавантажити та замінити цей скрипт?",
+["settings.check_updates.no_asset_msg"] = "У релізі не знайдено файлу .lua.",
+["settings.check_updates.download_failed_title"] = "Не вдалося завантажити",
+["settings.check_updates.write_failed_title"] = "Не вдалося записати",
+["settings.check_updates.done_title"] = "Готово",
+["settings.check_updates.done_msg"] = "Оновлено до v%s. Перезапустіть скрипт для застосування.",
+["settings.check_updates.restart_button"] = "Перезапустити",
+
+["settings.section_language"] = "Мова",
+["settings.language.title"] = "Мова",
+["settings.language.desc"] = "Виберіть бажану мову для меню",
+["settings.language.changed"] = "Мову встановлено на %s",
+["settings.language.failed"] = "Не вдалося завантажити цю мову",
+["settings.language.restart_msg"] = "Перезапустіть скрипт для повного застосування мови",
+
+["settings.region.other"] = "І: Інше",
+["settings.region.cpp_alloc"] = "Ca: C++ розподіл",
+["settings.region.unknown"] = "Н: Невідомо",
+["settings.section_memory"] = "Пам'ять",
+["settings.memory_range.title"] = "Діапазон пам'яті",
+["settings.memory_range.desc"] = "Поточний вибраний діапазон пам'яті\n(автоматично вибирається скриптом)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "Поточна адреса GameStatus\n(автоматично вибирається скриптом)",
+["settings.gamestatus_raw.title"] = "GameStatus (Сирий)",
+["settings.gamestatus_raw.desc"] = "Поточна адреса GameStatus (сира)\n(автоматично вибирається скриптом)",
+["settings.clear_memory.title"] = "Очистити збережену пам'ять",
+["settings.clear_memory.desc"] = "Очистити всю збережену пам'ять VOID без необхідності перезапускати гру.",
+
+["settings.section_ui_customizations"] = "Налаштування інтерфейсу",
+["settings.theme_store.title"] = "Магазин тем",
+["settings.theme_store.desc"] = "Переглядайте та встановлюйте теми спільноти Void",
+["settings.theme_store.unreachable_msg"] = "Не вдалося підключитися до магазину тем:\n%s",
+["settings.theme_store.parse_failed_msg"] = "Не вдалося проаналізувати дані магазину тем.",
+["settings.theme_store.list_title"] = "Магазин тем Void",
+["settings.theme_store.search_results_desc"] = "Результати пошуку: знайдено %s",
+["settings.theme_store.available_desc"] = "%s тем доступно",
+["settings.theme_store.by_author"] = "від %s",
+["settings.theme_store.search_item"] = "🔍 Пошук...",
+["settings.theme_store.clear_search_item"] = "✕ Очистити пошук",
+["settings.theme_store.search_title"] = "Пошук тем",
+["settings.theme_store.search_hint"] = "Назва теми, автор або опис",
+["settings.theme_store.no_results"] = "Не знайдено тем для: %s",
+["settings.theme_store.detail_msg"] = "Від %s\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"] = "Встановити тему",
+["settings.theme_downloading_bg"] = "Завантаження фонового зображення...",
+["settings.theme_imported"] = "Тему імпортовано!",
+["settings.theme_invalid_bundle"] = "Невірний формат пакету.",
+["settings.theme_cloud_error"] = "Хмарна помилка: %s",
+["settings.reset_theme.title"] = "Скинути тему",
+["settings.reset_theme.desc"] = "Скинути користувацьку тему та фонове зображення до стандартних",
+["settings.import_theme.title"] = "Імпортувати тему",
+["settings.import_theme.desc"] = "Імпортувати користувацьку тему з хмари",
+["settings.import_theme.hint"] = "Введіть ID спільного доступу",
+["settings.export_theme.title"] = "Експортувати тему",
+["settings.export_theme.desc"] = "Експортувати користувацьку тему та фонове зображення в хмару",
+["settings.export_theme.share_id_msg"] = "ID спільного доступу: %s\n\nСкопійовано в буфер обміну.",
+["settings.export_theme.upload_failed_msg"] = "Не вдалося завантажити: %s",
+["settings.export_theme.size_warning_title"] = "Попередження про розмір завантаження",
+["settings.export_theme.size_warning_msg"] = "Включити користувацьке фонове зображення? Це збільшить розмір завантаження залежно від розміру вашого зображення.",
+["settings.export_theme.uploading_bg"] = "Завантаження фонового зображення на Catbox...",
+["settings.export_theme.image_upload_failed_title"] = "Помилка",
+["settings.export_theme.image_upload_failed_msg"] = "Не вдалося завантажити зображення: %s",
+["settings.tabs_icon.title"] = "Іконка вкладок",
+["settings.tabs_icon.desc"] = "Змінити іконку вкладок",
+["settings.tabs_icon.hint"] = "Введіть іконку",
+["settings.tabs_icon.empty_error"] = "Не може бути порожнім",
+
+["settings.bg_opacity.title"] = "Прозорість фону",
+["settings.bg_opacity.desc"] = "Прозорість панелей, карток і заголовка",
+["settings.slider.alpha"] = "Альфа",
+["settings.bg_image_opacity.title"] = "Прозорість фонового зображення",
+["settings.bg_image_opacity.desc"] = "Налаштуйте параметри прозорості безпосередньо за допомогою чистих цілих каналів.",
+["settings.bg_image_picker.title"] = "Фонове зображення",
+["settings.bg_image_picker.desc"] = "Натисніть, щоб змінити абсолютний шлях до файлу для вашого фонового зображення",
+["settings.bg_image_picker.path_label"] = "Абсолютний шлях до файлу зображення (.jpg або .png):",
+["settings.bg_image_picker.remove_label"] = "Видалити фонове зображення",
+["settings.bg_image_picker.success_title"] = "Успішно",
+["settings.bg_image_picker.removed_msg"] = "Фонове зображення видалено",
+["settings.bg_image_picker.added_msg"] = "Фонове зображення додано",
+["settings.bg_image_picker.not_found_msg"] = "Файл не знайдено або операцію читання відхилено:\n%s",
+
+["settings.bg_rgb.title"] = "Фон RGB",
+["settings.bg_rgb.desc"] = "Відтінок для фону панелей (Заголовок і картка масштабуються автоматично)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "Акцент RGB",
+["settings.accent_rgb.desc"] = "Відтінок для кнопок, перемикачів і активних карток (приглушений колір виводиться автоматично)",
+["settings.logo_rgb.title"] = "Підсвічування RGB",
+["settings.logo_rgb.desc"] = "Колір для міток, іконок та інтерактивного тексту (завжди повністю непрозорий)",
+["settings.sub_rgb.title"] = "Додатковий текст RGB",
+["settings.sub_rgb.desc"] = "Колір для описів і міток неактивних вкладок",
+["settings.text_rgb.title"] = "Текст RGB",
+["settings.text_rgb.desc"] = "Колір для тексту головного меню",
+
+["settings.win_width.title"] = "Ширина меню",
+["settings.win_width.desc"] = "Ширина плаваючого меню (%d – %d dp)",
+["settings.slider.width"] = "Ширина",
+["settings.win_height.title"] = "Висота меню",
+["settings.win_height.desc"] = "Висота області вмісту, що прокручується (%d – %d dp)",
+["settings.slider.height"] = "Висота",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "Про скрипт",
+["about.about_script.desc"] = "Потужний та високооптимізований скрипт для маніпуляції пам'яттю, створений для Hill Climb Racing 2 у спеціальному середовищі Pivot.\n\nЗавантажити Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "Власник скрипту",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "Розробник скрипту",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "Перекладач скрипту",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "Подяки",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "Особлива подяка",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "Режим налагодження",
+["other.debug_mode.desc"] = "Увімкнути/вимкнути режим налагодження в грі",
+["other.debug_mode.enabled"] = "Режим налагодження увімкнено",
+["other.debug_mode.disabled"] = "Режим налагодження вимкнено",
+["other.hint.width"] = "Ширина",
+["other.hint.height"] = "Висота",
+["other.resolution.title"] = "Налаштувати роздільну здатність",
+["other.resolution.desc"] = "Налаштувати ширину та висоту гри (за замовчуванням 1280x720)",
+["other.resolution.applied"] = "Роздільну здатність встановлено на %dx%d",
+["other.resolution_offset.title"] = "Налаштувати зсув роздільної здатності",
+["other.resolution_offset.desc"] = "Налаштувати зсув ширини та висоти гри (за замовчуванням 0x0), найкраще для маленької роздільної здатності на великому екрані.",
+["other.resolution_offset.applied"] = "Зсув роздільної здатності встановлено на %dx%d",
+["other.glsurface_not_found"] = "GLSurfaceView не знайдено",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "Безкоштовна скриня",
+["shop.free_chest.desc"] = "Зробити скрині безкоштовними у вкладці Магазин",
+["shop.free_chest.enabled"] = "Безкоштовну скриню увімкнено",
+["shop.free_chest.disabled"] = "Безкоштовну скриню вимкнено",
+["shop.free_purchases.title"] = "Безкоштовні покупки",
+["shop.free_purchases.desc"] = "Зробити деякі щоденні пропозиції безкоштовними у вкладці магазину (також працює для спеціальних пропозицій як спливаючі вікна/значки)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "Безкоштовна покупка успішна",
+["shop.change_chest.title"] = "Змінити скриню",
+["shop.change_chest.desc"] = "Змінити легендарну скриню на вибрану скриню",
+["shop.change_chest.changed"] = "Скриню змінено на %s",
+["shop.change_chest.options"] = {
+    "Звичайна скриня", "Несподівана скриня", "Рідкісна скриня", "Епічна скриня",
+    "Чемпіонська скриня", "Спеціальна скриня 1", "Різдвяна скриня", "Легендарна скриня",
+    "Синя скриня", "VIP скриня 1", "VIP скриня 2", "Відео скриня",
+    "Стартова скриня", "Спеціальна скриня 2", "Скриня Fingersoft", "Мега скриня",
+    "Скриня командного духу", "Стильна скриня", "Міфічна скриня"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "Автовід'єднання",
+["player.auto_detach.desc"] = "Автоматично від'єднувати частини, як-от дах Rally Car",
+["player.auto_die.title"] = "Автосмерть",
+["player.auto_die.desc"] = "Автоматично спричинити смерть (закінчення палива)",
+["player.no_clip.title"] = "No-Clip",
+["player.no_clip.desc"] = "Дозволити гравцеві проходити крізь об'єкти без смерті (можна проїжджати над фінішними лініями в кубках)",
+["player.no_clip.enabled"] = "No-Clip увімкнено",
+["player.no_clip.disabled"] = "No-Clip вимкнено",
+["player.hide_name.title"] = "Приховати ім'я",
+["player.hide_name.desc"] = "Приховати ім'я гравця в гонці",
+["player.hide_name.enabled"] = "Приховування імені увімкнено",
+["player.hide_name.disabled"] = "Приховування імені вимкнено",
+["player.hide_flag.title"] = "Приховати прапор",
+["player.hide_flag.desc"] = "Приховати прапор гравця в гонці",
+["player.hide_flag.enabled"] = "Приховування прапора увімкнено",
+["player.hide_flag.disabled"] = "Приховування прапора вимкнено",
+["player.fuel.title"] = "Паливо",
+["player.fuel.desc"] = "Зафіксувати паливо на постійному значенні під час гонки (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Кількість палива (0 – 100)",
+["player.fuel.prompt_reset"] = "Скинути",
+["player.fuel.invalid"] = "Недійсне значення, має бути 0 – 100",
+["player.fuel.applied"] = "Паливо зафіксовано на %s",
+["player.fuel.reset"] = "Паливо відновлено",
+["player.fuel.not_applied"] = "Паливо не активно",
+["player.zoom.title"] = "Налаштувати масштаб",
+["player.zoom.desc"] = "Налаштувати, наскільки близько чи далеко ваша камера",
+["player.slider.min"] = "Мін",
+["player.slider.max"] = "Макс",
+["player.gravity.title"] = "Налаштувати гравітацію",
+["player.gravity.desc"] = "Налаштувати силу гравітації",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "Авто скрині пригод (нестабільно)",
+["adventure.auto_adventure_chests.desc"] = "Автоматично підвищувати рівень ваших скринь пригод",
+["adventure.auto_adventure_chests.none_found"] = "Скринь пригод не знайдено",
+["adventure.auto_adventure_chests.done"] = "Готово",
+
+["adventure.set_distance.title"] = "Встановити дистанцію",
+["adventure.set_distance.desc"] = "Встановлює дистанцію вашої пригодницької гонки на власне значення. Має бути в активній гонці. Більша дистанція дає більше зірок. Максимум зірок на 5000м. (Не функція телепортації)",
+["adventure.set_distance.loop_active_title"] = "Встановити дистанцію — Цикл активний",
+["adventure.set_distance.loop_active_msg"] = "Цикл дистанції зараз виконується.\nЩо ви хочете зробити?",
+["adventure.set_distance.stop_loop"] = "Зупинити цикл",
+["adventure.set_distance.keep_running"] = "Продовжити",
+["adventure.set_distance.loop_will_stop"] = "Цикл зупиниться після поточного такту.",
+["adventure.set_distance.prompt_target"] = "Цільова дистанція (метри)",
+["adventure.set_distance.prompt_loop"] = "Цикл (автоповторне застосування)",
+["adventure.set_distance.prompt_interval"] = "Інтервал циклу (мс, мін. 250)",
+["adventure.set_distance.over_max_title"] = "Попередження про дистанцію",
+["adventure.set_distance.over_max_msg"] = "Дистанція понад 5000м не дасть вам зірок.\n\nГонка все одно зареєструє дистанцію, але зіркові нагороди не будуть нараховані. Продовжити?",
+["adventure.set_distance.continue_button"] = "Продовжити",
+["adventure.set_distance.not_in_adventure"] = "Спочатку перейдіть на вкладку Пригоди та почніть гонку",
+["adventure.set_distance.start_race_first"] = "Спочатку почніть гонку",
+["adventure.set_distance.applied"] = "Дистанцію встановлено: %sm",
+["adventure.set_distance.loop_stopped"] = "Цикл встановлення дистанції зупинено.",
+["adventure.set_distance.loop_running"] = "Цикл дистанції виконується — натисніть Встановити дистанцію, щоб зупинити",
+["adventure.set_distance.loop_warn_title"] = "Попередження про цикл дистанції",
+["adventure.set_distance.loop_warn_msg"] = "Режим циклу записує в пам'ять кожні %s мс.\n\nВикористання короткого інтервалу може збільшити нестабільність, візуальні збої або збої гри.\n\nВсе одно продовжити?",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "Налаштувати зворотний відлік",
+["cups.adjust_countdown.desc"] = "Налаштувати зворотний відлік перед початком гонки",
+["cups.slider.seconds"] = "Секунди",
+["cups.adjust_countdown.applied"] = "Зворотний відлік налаштовано на %sс",
+["cups.auto_win.title"] = "Автоперемога",
+["cups.auto_win.desc"] = "Автоматично перемагати, незалежно від результату гонки",
+["cups.force_boss.title"] = "Примусовий бос",
+["cups.force_boss.desc"] = "Бос завжди з'являється",
+["cups.force_cup.title"] = "Примусовий кубок",
+["cups.force_cup.desc"] = "Примушує один кубок",
+["cups.force_cup.not_found"] = "Force Cup не знайдено. Спробуйте пізніше.",
+["cups.force_cup.enabled"] = "Force Cup увімкнено",
+["cups.force_cup.disabled"] = "Force Cup вимкнено",
+["cups.set_time.title"] = "Встановити час",
+["cups.set_time.desc"] = "Встановити час вашої гонки (час не буде заморожено для безпеки). Має бути в активній гонці кубка. (напр. 1:09.069, 7.284)",
+["cups.set_time.hint"] = "Час (1:09.069 або 7.284)",
+["cups.set_time.invalid_format"] = "Недійсний формат. Використовуйте 1:09.069 або 7.284",
+["cups.set_time.no_negative"] = "Негативні значення заборонені",
+["cups.set_time.not_in_cup"] = "Спочатку перейдіть на вкладку Кубки та почніть гонку",
+["cups.set_time.start_race_first"] = "Спочатку почніть гонку",
+["cups.set_time.applied"] = "Час встановлено на %s",
+["cups.unlimited_tasks.title"] = "Необмежені завдання",
+["cups.unlimited_tasks.desc"] = "Заморозити всі завдання як виконані та завжди доступні для отримання. Отримуйте нагороди багаторазово.",
+["cups.unlimited_tasks.resolve_failed"] = "Не вдалося розпізнати список завдань",
+["cups.unlimited_tasks.none_found"] = "Завдань не знайдено",
+["cups.unlimited_tasks.enabled"] = "Необмежені завдання увімкнено",
+["cups.unlimited_tasks.disabled"] = "Необмежені завдання вимкнено",
+["cups.unlimited_tasks.none_to_freeze"] = "Немає завдань для заморожування",
+["cups.rank_points_bonus.title"] = "+498 очок рейтингу",
+["cups.rank_points_bonus.desc"] = "Зробити так, щоб усі завдання ліги давали 498 очок замість 200, також прибрати інші нагороди.",
+["cups.rank_points_bonus.none_found"] = "Завдань ліги не знайдено",
+["cups.rank_points_bonus.boosted"] = "Очки рейтингу покращено: %s",
+["cups.rank_points_bonus.no_match"] = "Співпадаючих завдань ліги не знайдено",
+["cups.rank_points_bonus.nothing_to_restore"] = "Нічого відновлювати",
+["cups.rank_points_bonus.restored"] = "Відновлено: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "Патч нагород подій",
+["event.patch_rewards.desc"] = "Застосувати патч до нагород поточної публічної події з власними нагородами від VOID (потрібен перезапуск гри)",
+["event.restore_events.title"] = "Відновити нагороди подій",
+["event.restore_events.desc"] = "Видалити змінені JSON файли подій, щоб примусити відновлення сервера гри (потрібен перезапуск гри)",
+
+["event.checking_permissions"] = "Перевірка дозволів середовища...",
+["event.scanning_files"] = "Сканування активних файлів...",
+["event.decode_rewards_failed"] = "Не вдалося декодувати JSON нагород",
+["event.workspace_creation_failed"] = "ФАТАЛЬНО: Не вдалося створити робочий простір: %s",
+["event.workspace_creation_failed_dialog"] = "ФАТАЛЬНО: Не вдалося створити каталог робочого простору.\n%s",
+["event.file_inaccessible"] = "Файл недоступний за шляхом: %s",
+["event.predecrypt_not_found"] = "Перед розшифруванням: джерело не знайдено: %s",
+["event.predecrypt_empty"] = "Перед розшифруванням: джерело порожнє (0 байт): %s",
+["event.decode_active_failed"] = "Не вдалося декодувати active_events.json за шляхом: %s",
+["event.no_active_events"] = "Активних подій не знайдено за шляхом: %s",
+["event.cannot_open_active"] = "Не вдалося відкрити active_events.json за шляхом: %s",
+["event.decrypt_active_failed"] = "Не вдалося розшифрувати active_events.json за шляхом: %s",
+["event.root_copy_failed"] = "Не вдалося скопіювати корінь: %s",
+
+["event.select_events_patch"] = "Виберіть події для патчу:\nШлях: %s",
+["event.user_cancelled"] = "Користувач скасував вибір для шляху: %s",
+["event.rewards_unavailable"] = "Вбудовані нагороди недоступні, пропускаємо патчі для шляху: %s",
+["event.skipped_unreadable"] = "Пропущено нечитабельну подію: %s",
+["event.predecrypt_event_not_found"] = "Перед розшифруванням: подію не знайдено: %s",
+["event.predecrypt_event_empty"] = "Перед розшифруванням: подія порожня (0 байт): %s",
+["event.processing_failed"] = "Не вдалося обробити %s: %s",
+["event.cannot_open_decrypted"] = "Не вдалося відкрити розшифрований файл: %s",
+["event.decrypt_event_failed"] = "Не вдалося розшифрувати подію: %s",
+["event.loop_crash"] = "Збій критичного циклу обробки файлів: %s",
+
+["event.success_header"] = "Успішно:",
+["event.success_removed_header"] = "Успішно видалено (буде відновлено при перезапуску):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "Не вдалося:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "Результати патчу",
+["event.restore_results_title"] = "Результати відновлення",
+["event.restart_required_title"] = "Потрібен перезапуск",
+["event.patch_restart_msg"] = "Гру зупинено, і цей скрипт вийде. Запустіть його знову, щоб побачити ефекти патчу",
+["event.restore_restart_msg"] = "Гра зараз закриється, щоб дозволити синхронізацію файлів сервера.",
+["event.finishing_tasks_patch"] = "Завершення фонових завдань... Будь ласка, зачекайте.",
+["event.finishing_tasks_restore"] = "Завершення фонових завдань...",
+["event.patch_failed_msg"] = "Не вдалося застосувати патч, спробуйте ще раз.",
+
+["event.select_events_restore"] = "Виберіть файли для відновлення (видалення):\nШлях: %s",
+["event.delete_failed"] = "Не вдалося видалити %s: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "Змінити ім'я",
+["account.change_name.desc"] = "Змінити ім'я гравця",
+["account.change_name.hint"] = "Введіть ім'я",
+["account.change_name.empty"] = "Спочатку введіть ім'я",
+["account.change_name.too_long_title"] = "Ім'я задовге",
+["account.change_name.too_long_msg"] = "Ваше ім'я задовге, будь ласка, скоротите його",
+["account.change_name.resolve_failed"] = "Не вдалося визначити вказівник імені",
+["account.change_name.applied"] = "Ім'я змінено на %s",
+
+["account.change_gp.title"] = "Змінити потужність гаража",
+["account.change_gp.desc"] = "Змінює потужність гаража профілю (зберігається, якщо вища). Встановіть 8 для скидання, якщо перевищує максимум, але тільки якщо ваш фактичний GP вже зафіксований нижче ліміту.",
+["account.change_gp.hint"] = "Введіть потужність гаража",
+["account.change_gp.max_int_title"] = "Досягнуто максимуму 32-бітного int",
+["account.change_gp.lower_value"] = "Будь ласка, зменшіть значення",
+["account.change_gp.too_low_title"] = "Занадто низько",
+["account.change_gp.higher_value"] = "Будь ласка, збільште значення",
+["account.change_gp.applied"] = "Потужність гаража змінено на %s",
+
+["account.fake_unlock.title"] = "Фейкове розблокування",
+["account.fake_unlock.desc"] = "Тимчасово розблокувати всі налаштування",
+["account.fake_vip.title"] = "Фейковий VIP",
+["account.fake_vip.desc"] = "Локально перемкнути статус VIP підписки",
+
+["account.fake_rank.title"] = "Фейковий рейтинг",
+["account.fake_rank.desc"] = "Автоматично встановити ваш рейтинг на фейковий легендарний",
+["account.fake_rank.race_warn_title"] = "Потрібна гонка",
+["account.fake_rank.race_warn_msg"] = "Фейковий рейтинг слід застосовувати лише під час активної гонки кубка.\n\nЗастосування поза гонкою може призвести до тіньового бану.\n\nПеред продовженням переконайтеся, що ви вже перебуваєте в гонці кубка.\n\nВсе одно продовжити?",
+["account.fake_rank.continue_button"] = "Продовжити",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "Налаштувати слоти деталей",
+["vehicle.parts_slot.desc"] = "Налаштувати слоти деталей для всіх транспортних засобів",
+["vehicle.parts_slot.slider_title"] = "Слоти",
+["vehicle.parts_slot.no_vehicles"] = "Транспортних засобів не знайдено",
+["vehicle.parts_slot.applied"] = "Слоти деталей налаштовано: %d транспортних засобів",
+
+["vehicle.parts_modifier.title"] = "Модифікатор деталей",
+["vehicle.parts_modifier.desc"] = "Змінювати рівні деталей налаштування в активній гонці",
+["vehicle.parts_modifier.select"] = "Виберіть деталь",
+["vehicle.parts_modifier.prompt_level"] = "Рівень: ",
+["vehicle.parts_modifier.prompt_digit0"] = "Цифра: ",
+["vehicle.parts_modifier.prompt_digit1"] = "Хвіст: ",
+["vehicle.parts_modifier.prompt_reset"] = "Скинути",
+["vehicle.parts_modifier.invalid"] = "Недійсне значення рівня",
+["vehicle.parts_modifier.not_found"] = "Деталь не знайдено в пам'яті",
+["vehicle.parts_modifier.applied"] = "%s встановлено на рівень %s",
+["vehicle.parts_modifier.reset"] = "%s скинуто",
+
+["vehicle.unlock_vehicles.title"] = "Розблокувати транспорт",
+["vehicle.unlock_vehicles.desc"] = "Розблокувати всі транспортні засоби для покупки за монети",
+["vehicle.unlock_vehicles.no_vehicles"] = "Транспортних засобів не знайдено",
+["vehicle.unlock_vehicles.unlocked"] = "Транспортних засобів розблоковано: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "Немає транспортних засобів для розблокування",
+
+["vehicle.max_vehicles.title"] = "Макс. транспорт",
+["vehicle.max_vehicles.desc"] = "Максимально підвищити рівні всіх розблокованих транспортних засобів миттєво",
+["vehicle.max_vehicles.no_vehicles"] = "Не вдалося визначити список транспортних засобів",
+["vehicle.max_vehicles.all_maxed"] = "Усі транспортні засоби покращено до максимуму",
+["vehicle.max_vehicles.failed"] = "Не вдалося покращити транспорт до максимуму",
+
+["vehicle.max_mastery.title"] = "Макс. майстерність",
+["vehicle.max_mastery.desc"] = "Максимально підвищити майстерність усіх розблокованих і покращених транспортних засобів миттєво.",
+["vehicle.max_mastery.all_maxed"] = "Усі майстерності покращено до максимуму",
+["vehicle.max_mastery.failed"] = "Не вдалося покращити майстерності до максимуму",
+
+["vehicle.max_parts.title"] = "Макс. деталі",
+["vehicle.max_parts.desc"] = "Максимально підвищити рівні всіх розблокованих деталей для всіх транспортних засобів миттєво.",
+["vehicle.max_parts.no_vehicles"] = "Не вдалося визначити список транспортних засобів",
+["vehicle.max_parts.all_maxed"] = "Усі деталі покращено до максимуму",
+["vehicle.max_parts.failed"] = "Не вдалося покращити деталі до максимуму",
+
+["vehicle.common.no_vehicles"] = "Транспортних засобів не знайдено",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "Не вдалося визначити список транспортних засобів",
+["vehicle.common.no_zero_region"] = "Нульову область не знайдено",
+
+}
+
+end
+
+__vfs['configs/lang/ur.lua'] = function(...)
+--[[
+  configs/lang/ur.lua — اردو (Urdu)
+
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "ٹھیک ہے"
+      T("settings.window_width_desc", 400, 650) -> "فلوٹنگ مینو کی چوڑائی (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Urdu localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "ٹھیک ہے",
+["common.cancel"] = "منسوخ",
+["common.yes"] = "ہاں",
+["common.no"] = "نہیں",
+["common.failed"] = "ناکام",
+["common.success"] = "کامیاب",
+["common.later"] = "بعد میں",
+["common.got_it"] = "سمجھ گیا",
+["common.retry"] = "دوبارہ کوشش کریں",
+["common.wait_safe"] = "انتظار کریں (محفوظ)",
+["common.waiting"] = "انتظار ہو رہا ہے...",
+["common.force_exit"] = "زبردستی باہر جائیں",
+["common.proceed_anyway"] = "پھر بھی آگے بڑھیں",
+["common.manual_mode"] = "دستی موڈ",
+["common.update_button"] = "اپ ڈیٹ",
+["common.launch_failed"] = "چلانے میں ناکامی",
+["common.confirm_exit_title"] = "باہر جانے کی تصدیق",
+["common.confirm_exit_msg"] = "اسکرپٹ سے باہر جائیں؟",
+["common.not_available"] = "دستیاب نہیں",
+["common.warning"] = "انتباہ",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "انتباہ: فعال کارروائیاں",
+["main.exit_active_ops_msg"] = "%d پس منظر کے کام چل رہے ہیں۔\nزبردستی باہر جانے سے گیم کی حالت خراب ہو سکتی ہے۔",
+["main.initializing"] = "شروع ہو رہا ہے...",
+["main.no_app_found"] = "کوئی ایپ نہیں ملی",
+["main.arch_64bit_required_title"] = "64-bit درکار ہے",
+["main.arch_64bit_required_msg"] = "ARMv8a لازمی ہے۔ x86_64 جزوی طور پر سپورٹ شدہ ہے۔",
+
+["main.update_available_title"] = "اپ ڈیٹ دستیاب ہے",
+["main.update_available_msg"] = "v%s دستیاب ہے (موجودہ: v%s)\n\n%s\n\nابھی اپ ڈیٹ کریں؟",
+["main.no_changelog"] = "کوئی تبدیلی کا ریکارڈ نہیں۔",
+["main.downloading_version"] = "v%s ڈاؤن لوڈ ہو رہا ہے...",
+["main.update_download_failed_msg"] = "اپ ڈیٹ ڈاؤن لوڈ نہیں ہو سکا:\n%s",
+["main.update_write_failed_msg"] = "اس میں لکھا نہیں جا سکا:\n%s",
+["main.update_done_title"] = "VOID کو v%s میں اپ ڈیٹ کر دیا گیا",
+["main.update_done_msg"] = "VOID کامیابی سے اپ ڈیٹ ہو گیا۔\n\nنیا اسکرپٹ اس نام سے محفوظ ہو گیا ہے:\nvoid_v%s.lua\n\nاپ ڈیٹ لاگو کرنے کے لیے اسے GameGuardian سے چلائیں۔",
+["main.launching_version"] = "v%s چل رہا ہے...",
+["main.launch_failed_msg"] = "ڈاؤن لوڈ ہو گیا لیکن چل نہیں سکا:\n%s",
+
+["main.multiple_spaces_title"] = "متعدد اسپیسز مل گئیں",
+["main.multiple_spaces_desc"] = "HCR2 %d ورچوئل اسپیسز میں پایا گیا۔\nوہ اسپیس منتخب کریں جس میں آپ فی الحال کھیل رہے ہیں۔",
+["main.select_space_toast"] = "جاری رکھنے کے لیے ایک اسپیس منتخب کریں۔",
+["main.user_space_item"] = "صارف %s  —  %s",
+["main.permission_error_title"] = "اجازت کی خرابی",
+["main.permission_error_msg"] = "شیل تک رسائی سے انکار کر دیا گیا۔\n\nVoid کو آپ کی ورچوئل اسپیس میں HCR2 تلاش کرنے کے لیے اس کی ضرورت ہے۔ اگر آپ تصدیق کرنا چاہتے ہیں کہ کون سا کمانڈ چل رہا ہے تو Void سورس کوڈ چیک کریں۔",
+["main.hcr2_not_found_title"] = "HCR2 ڈیٹا نہیں ملا",
+["main.hcr2_not_found_msg"] = "Void آپ کی ورچوئل اسپیس میں HCR2 ڈیٹا تلاش نہیں کر سکا۔ یہ ہو سکتا ہے اگر HCR2 ابھی تک شروع نہیں کیا گیا، یا آپ کی ورچوئل اسپیس ایپ غیر معمولی پاتھ ڈھانچہ استعمال کرتی ہے۔\n\nگیم فائلوں پر منحصر خصوصیات (ایونٹ ریوارڈز، وغیرہ) درست پاتھ کے بغیر کام نہیں کریں گی۔",
+["main.manual_data_path_title"] = "دستی ڈیٹا پاتھ",
+["main.manual_data_path_hint"] = "HCR2 ڈیٹا پاتھ درج کریں",
+["main.manual_path_cancelled"] = "منسوخ کر دیا گیا — پاتھ کے بغیر جاری رکھا جا رہا ہے۔",
+["main.waiting_for_lib"] = "%s کا انتظار ہے...",
+["main.initialized"] = "شروع ہو گیا",
+["main.gamestatus_not_found"] = "GameStatus نہیں ملا",
+["main.dont_interrupt"] = "اس اسکرپٹ میں خلل نہ ڈالیں",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "سائز محفوظ ہو گیا! اسکرپٹ دوبارہ شروع کریں",
+["ui.category_error"] = "خرابی: %s",
+["ui.category_not_found"] = "کیٹیگری نہیں ملی",
+["ui.na"] = "غ/م",
+["ui.spinner_select"] = "منتخب کریں",
+["ui.slider_default_title"] = "قدر",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "%s ڈیوائس درکار ہے (آپ کی ڈیوائس: %s)",
+["patches.suffix_enabled"] = " فعال",
+["patches.suffix_disabled"] = " غیر فعال",
+["patches.pattern_not_found"] = "ناکام: %d پیٹرن نہیں ملے",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "آرکیٹیکچر انتباہ",
+["arch.unknown_arch_msg"] = "آپ کا آرکیٹیکچر نامعلوم ہے۔ کیا لائبریری لوڈ ہوئی؟ آپ کون سا سسٹم استعمال کر رہے ہیں؟",
+["arch.non_primary_arch_msg"] = "پایا گیا: %s\nکچھ یا تمام لائبریری پیچ کام نہیں کر سکتے۔",
+["arch.unknown_version_msg"] = "گیم کا ورژن نامعلوم ہے۔ گیم لوڈ ہونے کے بعد دوبارہ کوشش کریں۔",
+["arch.no_base_data_msg"] = "اندرونی خرابی: اس آرکیٹیکچر کے لیے کوئی بنیادی ڈیٹا دستیاب نہیں۔",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "شیڈیولر انتباہ: کام کریش ہو گیا -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "HTTP ایرر کوڈ: %s",
+["errors.crashed"] = "کریش ہو گیا: %s",
+["errors.url_missing"] = "URL پیرامیٹر غائب یا خالی ہے",
+["errors.file_path_missing"] = "فائل کا پاتھ غائب ہے",
+["errors.download_url_missing"] = "URL غائب ہے",
+["errors.dest_path_missing"] = "منزل کا پاتھ غائب ہے",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "گیم مینو",
+["tabs.account"] = "اکاؤنٹ مینو",
+["tabs.vehicle"] = "گاڑی مینو",
+["tabs.player"] = "کھلاڑی مینو",
+["tabs.adventure"] = "ایڈونچر مینو",
+["tabs.cups"] = "کپ مینو",
+["tabs.team"] = "ٹیم مینو",
+["tabs.event"] = "ایونٹ مینو",
+["tabs.creative"] = "تخلیقی مینو",
+["tabs.shop"] = "شاپ مینو",
+["tabs.other"] = "دیگر مینو",
+["tabs.sep_script"] = "اسکرپٹ مینو",
+["tabs.settings"] = "ترتیبات",
+["tabs.about"] = "تعارف",
+
+["registry.module_load_failed"] = "ماڈیول لوڈ کرنے میں ناکامی۔ تفصیلات کے لیے لاگ چیک کریں۔",
+["registry.module_runtime_error"] = "رن ٹائم خرابی: %s",
+["registry.error"] = "خرابی",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "اپ ڈیٹس",
+["settings.auto_update.title"] = "خودکار اپ ڈیٹ",
+["settings.auto_update.desc"] = "شروع ہونے پر VOID خودکار اپ ڈیٹ کریں",
+["settings.dev_mode_title"] = "ڈیو موڈ",
+["settings.auto_update.dev_mode_msg"] = "main.lua کے لیے خودکار اپ ڈیٹ غیر فعال ہے (ڈیو بلڈ)。",
+["settings.check_updates.title"] = "اپ ڈیٹ چیک کریں",
+["settings.check_updates.desc"] = "GitHub پر تازہ ترین VOID ریلیز چیک کریں",
+["settings.check_updates.dev_mode_msg"] = "main.lua کے لیے اپ ڈیٹ چیک غیر فعال ہے (ڈیو بلڈ)。\n\nدستی طور پر ریپو سے پل کریں۔",
+["settings.check_updates.checking"] = "اپ ڈیٹس چیک ہو رہے ہیں...",
+["settings.check_updates.failed_title"] = "اپ ڈیٹ چیک ناکام",
+["settings.check_updates.failed_msg"] = "GitHub تک نہیں پہنچ سکا:\n%s",
+["settings.check_updates.up_to_date_title"] = "تازہ ترین",
+["settings.check_updates.up_to_date_msg"] = "آپ پہلے ہی تازہ ترین ورژن پر ہیں (v%s)。",
+["settings.check_updates.no_changelog"] = "کوئی تبدیلی کا ریکارڈ دستیاب نہیں۔",
+["settings.check_updates.available_msg"] = "v%s  (موجودہ: v%s)\n\n%s\n\nاس اسکرپٹ کو ڈاؤن لوڈ اور تبدیل کریں؟",
+["settings.check_updates.no_asset_msg"] = "ریلیز میں کوئی .lua اثاثہ نہیں ملا۔",
+["settings.check_updates.download_failed_title"] = "ڈاؤن لوڈ ناکام",
+["settings.check_updates.write_failed_title"] = "لکھنا ناکام",
+["settings.check_updates.done_title"] = "مکمل",
+["settings.check_updates.done_msg"] = "v%s میں اپ ڈیٹ ہو گیا۔ لاگو کرنے کے لیے اسکرپٹ دوبارہ شروع کریں۔",
+["settings.check_updates.restart_button"] = "دوبارہ شروع کریں",
+
+["settings.section_language"] = "زبان",
+["settings.language.title"] = "زبان",
+["settings.language.desc"] = "مینو کے لیے اپنی پسندیدہ زبان منتخب کریں",
+["settings.language.changed"] = "زبان %s میں سیٹ کر دی گئی",
+["settings.language.failed"] = "وہ زبان لوڈ کرنے میں ناکامی",
+["settings.language.restart_msg"] = "زبان مکمل طور پر لاگو کرنے کے لیے اسکرپٹ دوبارہ شروع کریں",
+
+["settings.region.other"] = "د: دیگر",
+["settings.region.cpp_alloc"] = "Ca: C++ مختص",
+["settings.region.unknown"] = "غ: نامعلوم",
+["settings.section_memory"] = "میموری",
+["settings.memory_range.title"] = "میموری رینج",
+["settings.memory_range.desc"] = "موجودہ منتخب کردہ میموری رینج\n(اسکرپٹ کے ذریعے خودکار انتخاب)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "موجودہ gamestatus پتہ\n(اسکرپٹ کے ذریعے خودکار انتخاب)",
+["settings.gamestatus_raw.title"] = "GameStatus (خام)",
+["settings.gamestatus_raw.desc"] = "موجودہ gamestatus (خام) پتہ\n(اسکرپٹ کے ذریعے خودکار انتخاب)",
+["settings.clear_memory.title"] = "محفوظ میموری صاف کریں",
+["settings.clear_memory.desc"] = "پوری گیم دوبارہ شروع کیے بغیر VOID کی تمام محفوظ میموری صاف کریں۔",
+
+["settings.section_ui_customizations"] = "UI حسب ضرورت",
+["settings.theme_store.title"] = "تھیم اسٹور",
+["settings.theme_store.desc"] = "کمیونٹی Void تھیمز براؤز اور انسٹال کریں",
+["settings.theme_store.unreachable_msg"] = "تھیم اسٹور تک نہیں پہنچ سکا:\n%s",
+["settings.theme_store.parse_failed_msg"] = "تھیم اسٹور ڈیٹا پارس نہیں ہو سکا۔",
+["settings.theme_store.list_title"] = "Void تھیم اسٹور",
+["settings.theme_store.search_results_desc"] = "تلاش کے نتائج: %s ملے",
+["settings.theme_store.available_desc"] = "%s تھیمز دستیاب ہیں",
+["settings.theme_store.by_author"] = "%s کے ذریعے",
+["settings.theme_store.search_item"] = "🔍 تلاش کریں...",
+["settings.theme_store.clear_search_item"] = "✕ تلاش صاف کریں",
+["settings.theme_store.search_title"] = "تھیمز تلاش کریں",
+["settings.theme_store.search_hint"] = "تھیم کا نام، مصنف یا وضاحت",
+["settings.theme_store.no_results"] = "%s کے لیے کوئی تھیم نہیں ملا",
+["settings.theme_store.detail_msg"] = "%s کے ذریعے\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"] = "تھیم انسٹال کریں",
+["settings.theme_downloading_bg"] = "پس منظر کی تصویر ڈاؤن لوڈ ہو رہی ہے...",
+["settings.theme_imported"] = "تھیم درآمد ہو گیا!",
+["settings.theme_invalid_bundle"] = "غلط بنڈل فارمیٹ۔",
+["settings.theme_cloud_error"] = "کلاؤڈ خرابی: %s",
+["settings.reset_theme.title"] = "تھیم ری سیٹ کریں",
+["settings.reset_theme.desc"] = "کسٹم تھیم اور پس منظر کی تصویر کو ڈیفالٹ پر ری سیٹ کریں",
+["settings.import_theme.title"] = "تھیم درآمد کریں",
+["settings.import_theme.desc"] = "کلاؤڈ سے کسٹم تھیم درآمد کریں",
+["settings.import_theme.hint"] = "شیئر ID درج کریں",
+["settings.export_theme.title"] = "تھیم برآمد کریں",
+["settings.export_theme.desc"] = "کسٹم تھیم اور پس منظر کی تصویر کو کلاؤڈ میں برآمد کریں",
+["settings.export_theme.share_id_msg"] = "شیئر ID: %s\n\nکلپ بورڈ پر کاپی ہو گیا۔",
+["settings.export_theme.upload_failed_msg"] = "اپ لوڈ ناکام: %s",
+["settings.export_theme.size_warning_title"] = "اپ لوڈ سائز انتباہ",
+["settings.export_theme.size_warning_msg"] = "کسٹم پس منظر کی تصویر شامل کریں؟ اس سے آپ کی تصویر کے سائز کے لحاظ سے اپ لوڈ سائز بڑھ جائے گا۔",
+["settings.export_theme.uploading_bg"] = "Catbox پر پس منظر کی تصویر اپ لوڈ ہو رہی ہے...",
+["settings.export_theme.image_upload_failed_title"] = "خرابی",
+["settings.export_theme.image_upload_failed_msg"] = "تصویر اپ لوڈ ناکام: %s",
+["settings.tabs_icon.title"] = "ٹیب آئیکن",
+["settings.tabs_icon.desc"] = "ٹیب آئیکن تبدیل کریں",
+["settings.tabs_icon.hint"] = "آئیکن درج کریں",
+["settings.tabs_icon.empty_error"] = "خالی نہیں ہو سکتا",
+
+["settings.bg_opacity.title"] = "پس منظر کی دھندلاپن",
+["settings.bg_opacity.desc"] = "پینلز، کارڈز اور ہیڈر کی شفافیت",
+["settings.slider.alpha"] = "الفا",
+["settings.bg_image_opacity.title"] = "پس منظر کی تصویر کی دھندلاپن",
+["settings.bg_image_opacity.desc"] = "خالص انٹیجر چینلز کا استعمال کرتے ہوئے مرئیت الفا ترتیبات کو براہ راست ایڈجسٹ کریں۔",
+["settings.bg_image_picker.title"] = "پس منظر کی تصویر",
+["settings.bg_image_picker.desc"] = "اپنی کسٹم ترتیب کی پس منظر کی تصویر کے لیے مطلق فائل پاتھ تبدیل کرنے کے لیے تھپتھپائیں",
+["settings.bg_image_picker.path_label"] = "مطلق تصویر فائل پاتھ (.jpg یا .png):",
+["settings.bg_image_picker.remove_label"] = "پس منظر کی تصویر ہٹائیں",
+["settings.bg_image_picker.success_title"] = "کامیاب",
+["settings.bg_image_picker.removed_msg"] = "پس منظر کی تصویر ہٹا دی گئی",
+["settings.bg_image_picker.added_msg"] = "پس منظر کی تصویر شامل کر دی گئی",
+["settings.bg_image_picker.not_found_msg"] = "فائل نہیں ملی یا پڑھنے کی کارروائی مسترد کر دی گئی:\n%s",
+
+["settings.bg_rgb.title"] = "پس منظر RGB",
+["settings.bg_rgb.desc"] = "پینل کے پس منظر کے لیے رنگ (ہیڈر اور کارڈ خودکار پیمانہ)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "تاکیدی RGB",
+["settings.accent_rgb.desc"] = "بٹنز، ٹوگلز اور فعال کارڈز کے لیے رنگ (دھیما رنگ خودکار اخذ)",
+["settings.logo_rgb.title"] = "ہائی لائٹ RGB",
+["settings.logo_rgb.desc"] = "لیبلز، آئیکونز اور انٹرایکٹو ٹیکسٹ کے لیے رنگ (ہمیشہ مکمل طور پر مبہم)",
+["settings.sub_rgb.title"] = "ذیلی متن RGB",
+["settings.sub_rgb.desc"] = "وضاحتوں اور غیر فعال ٹیب لیبلز کے لیے رنگ",
+["settings.text_rgb.title"] = "متن RGB",
+["settings.text_rgb.desc"] = "مرکزی مینو متن کے لیے رنگ",
+
+["settings.win_width.title"] = "مینو کی چوڑائی",
+["settings.win_width.desc"] = "فلوٹنگ مینو کی چوڑائی (%d – %d dp)",
+["settings.slider.width"] = "چوڑائی",
+["settings.win_height.title"] = "مینو کی اونچائی",
+["settings.win_height.desc"] = "اسکرول ایبل مواد کے علاقے کی اونچائی (%d – %d dp)",
+["settings.slider.height"] = "اونچائی",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "اسکرپٹ کے بارے میں",
+["about.about_script.desc"] = "Hill Climb Racing 2 کے لیے کسٹم Pivot ماحول پر بنایا گیا ایک طاقتور اور انتہائی بہتر میموری ہیرا پھیری اسکرپٹ۔\n\nPivot ڈاؤن لوڈ کریں:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "اسکرپٹ کا مالک",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "اسکرپٹ ڈویلپر",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "اسکرپٹ مترجم",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "اعترافات",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "خصوصی شکریہ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "ڈیبگ موڈ",
+["other.debug_mode.desc"] = "ان-گیم ڈیبگ موڈ ٹوگل کریں",
+["other.debug_mode.enabled"] = "ڈیبگ موڈ فعال",
+["other.debug_mode.disabled"] = "ڈیبگ موڈ غیر فعال",
+["other.hint.width"] = "چوڑائی",
+["other.hint.height"] = "اونچائی",
+["other.resolution.title"] = "ریزولوشن ایڈجسٹ کریں",
+["other.resolution.desc"] = "گیم کی چوڑائی اور اونچائی ایڈجسٹ کریں (ڈیفالٹ 1280x720)",
+["other.resolution.applied"] = "ریزولوشن %dx%d پر سیٹ کر دی گئی",
+["other.resolution_offset.title"] = "ریزولوشن آفسیٹ ایڈجسٹ کریں",
+["other.resolution_offset.desc"] = "گیم کی چوڑائی آفسیٹ اور اونچائی آفسیٹ ایڈجسٹ کریں (ڈیفالٹ 0x0)، بڑی اسکرین پر چھوٹی ریزولوشن کے لیے بہترین۔",
+["other.resolution_offset.applied"] = "ریزولوشن آفسیٹ %dx%d پر سیٹ کر دی گئی",
+["other.glsurface_not_found"] = "GLSurfaceView نہیں ملا",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "مفت چیسٹ",
+["shop.free_chest.desc"] = "شاپ ٹیب میں چیسٹس کو مفت کریں",
+["shop.free_chest.enabled"] = "مفت چیسٹ فعال",
+["shop.free_chest.disabled"] = "مفت چیسٹ غیر فعال",
+["shop.free_purchases.title"] = "مفت خریداریاں",
+["shop.free_purchases.desc"] = "شاپ ٹیب میں کچھ روزانہ ڈیلز کو مفت کریں (پاپ اپ/بیجز کے طور پر خصوصی پیشکشوں کے لیے بھی کام کرتا ہے)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "مفت خریداری کامیاب",
+["shop.change_chest.title"] = "چیسٹ تبدیل کریں",
+["shop.change_chest.desc"] = "لیجنڈری چیسٹ کو منتخب کردہ چیسٹ میں تبدیل کریں",
+["shop.change_chest.changed"] = "چیسٹ %s میں تبدیل ہو گئی",
+["shop.change_chest.options"] = {
+    "عام چیسٹ", "غیر معمولی چیسٹ", "نایاب چیسٹ", "مہاکاوی چیسٹ",
+    "چیمپئن چیسٹ", "خصوصی چیسٹ 1", "کرسمس چیسٹ", "لیجنڈری چیسٹ",
+    "نیلی چیسٹ", "VIP چیسٹ 1", "VIP چیسٹ 2", "ویڈیو چیسٹ",
+    "اسٹارٹر چیسٹ", "خصوصی چیسٹ 2", "Fingersoft چیسٹ", "میگا چیسٹ",
+    "ٹیم اسپرٹ چیسٹ", "اسٹائل چیسٹ", "میتھک چیسٹ"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "خودکار علیحدگی",
+["player.auto_detach.desc"] = "ریلی کار کی چھت جیسے حصوں کو خودکار طور پر الگ کریں",
+["player.auto_die.title"] = "خودکار موت",
+["player.auto_die.desc"] = "خودکار طور پر موت واقع کریں (ایندھن ختم)",
+["player.no_clip.title"] = "نو-کلپ",
+["player.no_clip.desc"] = "اپنے کھلاڑی کو بغیر مرے اشیاء کے ذریعے گزاریں (آپ کپ میں ختم لائنوں کے اوپر جا سکتے ہیں)",
+["player.no_clip.enabled"] = "نو-کلپ فعال",
+["player.no_clip.disabled"] = "نو-کلپ غیر فعال",
+["player.hide_name.title"] = "نام چھپائیں",
+["player.hide_name.desc"] = "ریس میں اپنا کھلاڑی نام چھپائیں",
+["player.hide_name.enabled"] = "نام چھپانا فعال",
+["player.hide_name.disabled"] = "نام چھپانا غیر فعال",
+["player.hide_flag.title"] = "جھنڈا چھپائیں",
+["player.hide_flag.desc"] = "ریس میں اپنا جھنڈا چھپائیں",
+["player.hide_flag.enabled"] = "جھنڈا چھپانا فعال",
+["player.hide_flag.disabled"] = "جھنڈا چھپانا غیر فعال",
+["player.fuel.title"] = "ایندھن",
+["player.fuel.desc"] = "ریس کے دوران ایندھن کو ایک مستقل قدر پر بند کریں (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "ایندھن کی مقدار (0 – 100)",
+["player.fuel.prompt_reset"] = "ری سیٹ",
+["player.fuel.invalid"] = "غلط قدر، 0 – 100 ہونی چاہیے",
+["player.fuel.applied"] = "ایندھن %s پر بند کر دیا گیا",
+["player.fuel.reset"] = "ایندھن بحال ہو گیا",
+["player.fuel.not_applied"] = "ایندھن فعال نہیں",
+["player.zoom.title"] = "زوم ایڈجسٹ کریں",
+["player.zoom.desc"] = "اپنا کیمرہ کتنا قریب یا دور ہے ایڈجسٹ کریں",
+["player.slider.min"] = "کم از کم",
+["player.slider.max"] = "زیادہ سے زیادہ",
+["player.gravity.title"] = "کشش ثقل ایڈجسٹ کریں",
+["player.gravity.desc"] = "کشش ثقل کتنی مضبوط ہے ایڈجسٹ کریں",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "خودکار ایڈونچر چیسٹس (غیر مستحکم)",
+["adventure.auto_adventure_chests.desc"] = "خودکار طور پر اپنی ایڈونچر چیسٹس کا لیول بڑھائیں",
+["adventure.auto_adventure_chests.none_found"] = "کوئی ایڈونچر چیسٹ نہیں ملی",
+["adventure.auto_adventure_chests.done"] = "مکمل",
+
+["adventure.set_distance.title"] = "فاصلہ سیٹ کریں",
+["adventure.set_distance.desc"] = "اپنے ایڈونچر ریس کا فاصلہ ایک کسٹم قدر پر سیٹ کریں۔ ایک فعال ریس میں ہونا ضروری ہے۔ زیادہ فاصلہ زیادہ ستارے حاصل کر سکتا ہے۔ زیادہ سے زیادہ ستارے 5000m پر۔ (ٹیلی پورٹ فنکشن نہیں)",
+["adventure.set_distance.loop_active_title"] = "فاصلہ سیٹ کریں — لوپ فعال",
+["adventure.set_distance.loop_active_msg"] = "فاصلہ لوپ فی الحال چل رہا ہے۔\nآپ کیا کرنا چاہتے ہیں؟",
+["adventure.set_distance.stop_loop"] = "لوپ روکیں",
+["adventure.set_distance.keep_running"] = "چلتے رہیں",
+["adventure.set_distance.loop_will_stop"] = "موجودہ ٹک کے بعد لوپ رک جائے گا۔",
+["adventure.set_distance.prompt_target"] = "ہدف فاصلہ (میٹر)",
+["adventure.set_distance.prompt_loop"] = "لوپ (خودکار دوبارہ لاگو)",
+["adventure.set_distance.prompt_interval"] = "لوپ وقفہ (ملی سیکنڈ، کم از کم 250)",
+["adventure.set_distance.over_max_title"] = "فاصلہ انتباہ",
+["adventure.set_distance.over_max_msg"] = "5000m سے زیادہ فاصلہ آپ کو کوئی ستارے نہیں دے گا۔\n\nریس فاصلہ رجسٹر کرے گی، لیکن کوئی ستارہ انعام نہیں دیا جائے گا۔ جاری رکھیں؟",
+["adventure.set_distance.continue_button"] = "جاری رکھیں",
+["adventure.set_distance.not_in_adventure"] = "پہلے ایڈونچر ٹیب پر جائیں اور ریس شروع کریں",
+["adventure.set_distance.start_race_first"] = "پہلے ریس شروع کریں",
+["adventure.set_distance.applied"] = "فاصلہ سیٹ کر دیا گیا: %sm",
+["adventure.set_distance.loop_stopped"] = "فاصلہ سیٹ کریں لوپ روک دیا گیا۔",
+["adventure.set_distance.loop_running"] = "فاصلہ لوپ چل رہا ہے — روکنے کے لیے Set Distance کو تھپتھپائیں",
+["adventure.set_distance.loop_warn_title"] = "فاصلہ لوپ انتباہ",
+["adventure.set_distance.loop_warn_msg"] = "لوپ موڈ ہر %s ملی سیکنڈ بعد میموری میں لکھتا ہے۔\n\nمختصر وقفہ استعمال کرنے سے عدم استحکام، بصری خرابیاں، یا گیم کریش ہو سکتی ہے۔\n\nپھر بھی جاری رکھیں؟",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "کاؤنٹ ڈاؤن ایڈجسٹ کریں",
+["cups.adjust_countdown.desc"] = "ریس شروع ہونے سے پہلے کاؤنٹ ڈاؤن ایڈجسٹ کریں",
+["cups.slider.seconds"] = "سیکنڈ",
+["cups.adjust_countdown.applied"] = "کاؤنٹ ڈاؤن %ss پر ایڈجسٹ کر دیا گیا",
+["cups.auto_win.title"] = "خودکار جیت",
+["cups.auto_win.desc"] = "آپ کے ریس کے نتائج کچھ بھی ہوں خودکار طور پر جیتیں",
+["cups.force_boss.title"] = "باس مجبور کریں",
+["cups.force_boss.desc"] = "باس ہمیشہ ظاہر ہو",
+["cups.force_cup.title"] = "کپ مجبور کریں",
+["cups.force_cup.desc"] = "ایک کپ مجبور کرتا ہے",
+["cups.force_cup.not_found"] = "Force Cup نہیں ملا۔ بعد میں دوبارہ کوشش کریں۔",
+["cups.force_cup.enabled"] = "Force Cup فعال",
+["cups.force_cup.disabled"] = "Force Cup غیر فعال",
+["cups.set_time.title"] = "وقت سیٹ کریں",
+["cups.set_time.desc"] = "اپنا ریس کا وقت سیٹ کریں (حفاظت کے لیے وقت منجمد نہیں ہوگا)۔ ایک فعال کپ ریس میں ہونا ضروری ہے۔ (مثال: 1:09.069، 7.284)",
+["cups.set_time.hint"] = "وقت (1:09.069 یا 7.284)",
+["cups.set_time.invalid_format"] = "غلط فارمیٹ۔ 1:09.069 یا 7.284 استعمال کریں",
+["cups.set_time.no_negative"] = "منفی قدریں نہیں",
+["cups.set_time.not_in_cup"] = "پہلے کپ ٹیب پر جائیں اور ریس شروع کریں",
+["cups.set_time.start_race_first"] = "پہلے ریس شروع کریں",
+["cups.set_time.applied"] = "وقت %s پر سیٹ کر دیا گیا",
+["cups.unlimited_tasks.title"] = "لامحدود کام",
+["cups.unlimited_tasks.desc"] = "تمام کاموں کو مکمل شدہ اور ہمیشہ قابل دعوی کے طور پر منجمد کریں۔ بار بار انعامات کا دعوی کریں۔",
+["cups.unlimited_tasks.resolve_failed"] = "کاموں کی فہرست حل کرنے میں ناکامی",
+["cups.unlimited_tasks.none_found"] = "کوئی کام نہیں ملا",
+["cups.unlimited_tasks.enabled"] = "لامحدود کام فعال",
+["cups.unlimited_tasks.disabled"] = "لامحدود کام غیر فعال",
+["cups.unlimited_tasks.none_to_freeze"] = "منجمد کرنے کے لیے کوئی کام نہیں",
+["cups.rank_points_bonus.title"] = "+498 رینک پوائنٹس",
+["cups.rank_points_bonus.desc"] = "تمام لیگ کاموں کو 200 پوائنٹس کے بجائے 498 پوائنٹس دیں، دیگر انعامات ہٹا دیں۔",
+["cups.rank_points_bonus.none_found"] = "کوئی لیگ کام نہیں ملا",
+["cups.rank_points_bonus.boosted"] = "رینک پوائنٹس بڑھا دیے گئے: %s",
+["cups.rank_points_bonus.no_match"] = "کوئی مماثل لیگ کام نہیں ملا",
+["cups.rank_points_bonus.nothing_to_restore"] = "بحال کرنے کے لیے کچھ نہیں",
+["cups.rank_points_bonus.restored"] = "بحال کر دیا گیا: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "ایونٹ ریوارڈز پیچ",
+["event.patch_rewards.desc"] = "موجودہ پبلک ایونٹ ریوارڈز کو VOID کی فراہم کردہ کسٹم ریوارڈز میں پیچ کریں (گیم دوبارہ شروع کرنے کی ضرورت ہے)",
+["event.restore_events.title"] = "ایونٹ ریوارڈز بحال کریں",
+["event.restore_events.desc"] = "ترمیم شدہ ایونٹ JSON کو حذف کریں تاکہ گیم سرور بحالی پر مجبور ہو (گیم دوبارہ شروع کرنے کی ضرورت ہے)",
+
+["event.checking_permissions"] = "ماحول کی اجازتوں کی جانچ ہو رہی ہے...",
+["event.scanning_files"] = "فعال فائلیں اسکین ہو رہی ہیں...",
+["event.decode_rewards_failed"] = "ریوارڈز JSON ڈی کوڈ کرنے میں ناکامی",
+["event.workspace_creation_failed"] = "مہلک: ورک اسپیس تخلیق ناکام: %s",
+["event.workspace_creation_failed_dialog"] = "مہلک: ورک اسپیس ڈائرکٹری نہیں بن سکی۔\n%s",
+["event.file_inaccessible"] = "فائل اس پاتھ پر ناقابل رسائی: %s",
+["event.predecrypt_not_found"] = "پری ڈیکرپٹ: ماخذ نہیں ملا: %s",
+["event.predecrypt_empty"] = "پری ڈیکرپٹ: ماخذ خالی ہے (0 بائٹس): %s",
+["event.decode_active_failed"] = "اس پاتھ پر active_events.json ڈی کوڈ کرنے میں ناکامی: %s",
+["event.no_active_events"] = "اس پاتھ پر کوئی فعال ایونٹ نہیں ملا: %s",
+["event.cannot_open_active"] = "اس پاتھ پر active_events.json نہیں کھل سکا: %s",
+["event.decrypt_active_failed"] = "اس پاتھ پر active_events.json ڈیکرپٹ کرنے میں ناکامی: %s",
+["event.root_copy_failed"] = "روٹ کاپی ناکام: %s",
+
+["event.select_events_patch"] = "پیچ کرنے کے لیے ایونٹس منتخب کریں:\nپاتھ: %s",
+["event.user_cancelled"] = "صارف نے اس پاتھ کے لیے انتخاب منسوخ کر دیا: %s",
+["event.rewards_unavailable"] = "ایمبیڈڈ ریوارڈز دستیاب نہیں، اس پاتھ کے لیے پیچ چھوڑ رہے ہیں: %s",
+["event.skipped_unreadable"] = "ناقابل پڑھ ایونٹ چھوڑ دیا: %s",
+["event.predecrypt_event_not_found"] = "پری ڈیکرپٹ: ایونٹ نہیں ملا: %s",
+["event.predecrypt_event_empty"] = "پری ڈیکرپٹ: ایونٹ خالی ہے (0 بائٹس): %s",
+["event.processing_failed"] = "%s پر کارروائی ناکام: %s",
+["event.cannot_open_decrypted"] = "ڈیکرپٹڈ فائل نہیں کھل سکی: %s",
+["event.decrypt_event_failed"] = "ایونٹ ڈیکرپٹ کرنے میں ناکامی: %s",
+["event.loop_crash"] = "اہم فائل پروسیسنگ لوپ کریش: %s",
+
+["event.success_header"] = "کامیابی سے:",
+["event.success_removed_header"] = "کامیابی سے ہٹا دیا گیا (دوبارہ شروع کرنے پر بحال ہوگا):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "ناکام:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "پیچ کے نتائج",
+["event.restore_results_title"] = "بحالی کے نتائج",
+["event.restart_required_title"] = "دوبارہ شروع کرنے کی ضرورت ہے",
+["event.patch_restart_msg"] = "گیم بند کر دی گئی ہے اور یہ اسکرپٹ باہر جائے گا، اسے دوبارہ شروع کریں اور پیچ کے اثرات دیکھیں",
+["event.restore_restart_msg"] = "سرور فائل کی مطابقت پذیری کی اجازت کے لیے گیم اب بند ہو جائے گی۔",
+["event.finishing_tasks_patch"] = "زیر التواء پس منظر کے کام ختم کیے جا رہے ہیں... براہ کرم انتظار کریں۔",
+["event.finishing_tasks_restore"] = "زیر التواء پس منظر کے کام ختم کیے جا رہے ہیں...",
+["event.patch_failed_msg"] = "پیچ کرنے میں ناکامی، دوبارہ کوشش کریں۔",
+
+["event.select_events_restore"] = "بحال کرنے (حذف کرنے) کے لیے فائلیں منتخب کریں:\nپاتھ: %s",
+["event.delete_failed"] = "%s حذف کرنے میں ناکامی: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "نام تبدیل کریں",
+["account.change_name.desc"] = "اپنا کھلاڑی نام تبدیل کریں",
+["account.change_name.hint"] = "نام درج کریں",
+["account.change_name.empty"] = "پہلے نام درج کریں",
+["account.change_name.too_long_title"] = "نام بہت طویل ہے",
+["account.change_name.too_long_msg"] = "آپ کا نام بہت طویل ہے، براہ کرم اسے چھوٹا کریں",
+["account.change_name.resolve_failed"] = "نام پوائنٹر حل کرنے میں ناکامی",
+["account.change_name.applied"] = "نام %s میں تبدیل کر دیا گیا",
+
+["account.change_gp.title"] = "گیراج پاور تبدیل کریں",
+["account.change_gp.desc"] = "پروفائل گیراج پاور تبدیل کرتا ہے (اگر زیادہ ہو تو برقرار رہتی ہے)۔ اگر زیادہ سے زیادہ سے تجاوز کرے تو ری سیٹ کرنے کے لیے 8 سیٹ کریں، لیکن صرف اس صورت میں جب آپ کی اصل GP پہلے سے ہی حد کے نیچے طے شدہ ہو۔",
+["account.change_gp.hint"] = "گیراج پاور درج کریں",
+["account.change_gp.max_int_title"] = "زیادہ سے زیادہ 32-bit int تک پہنچ گیا",
+["account.change_gp.lower_value"] = "براہ کرم اپنی قدر کم کریں",
+["account.change_gp.too_low_title"] = "بہت کم",
+["account.change_gp.higher_value"] = "براہ کرم اپنی قدر بڑھائیں",
+["account.change_gp.applied"] = "گیراج پاور %s میں تبدیل کر دی گئی",
+
+["account.fake_unlock.title"] = "جعلی انلاک",
+["account.fake_unlock.desc"] = "تمام حسب ضرورت کو عارضی طور پر انلاک کریں",
+["account.fake_vip.title"] = "جعلی VIP",
+["account.fake_vip.desc"] = "VIP سبسکرپشن کی حالت کو مقامی طور پر ٹوگل کریں",
+
+["account.fake_rank.title"] = "جعلی رینک",
+["account.fake_rank.desc"] = "اپنی رینک کو خودکار طور پر جعلی لیجنڈری پر سیٹ کریں",
+["account.fake_rank.race_warn_title"] = "ریس درکار ہے",
+["account.fake_rank.race_warn_msg"] = "جعلی رینک صرف اس وقت لاگو کی جانی چاہیے جب کپ ریس فعال طور پر چل رہی ہو۔\n\nاسے ریس کے باہر لاگو کرنے سے شیڈو بین ہو سکتا ہے۔\n\nجاری رکھنے سے پہلے یقینی بنائیں کہ آپ پہلے ہی کپ ریس کے اندر ہیں۔\n\nپھر بھی جاری رکھیں؟",
+["account.fake_rank.continue_button"] = "جاری رکھیں",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "پرزے سلاٹ ایڈجسٹ کریں",
+["vehicle.parts_slot.desc"] = "تمام گاڑیوں کے لیے پرزے سلاٹ ایڈجسٹ کریں",
+["vehicle.parts_slot.slider_title"] = "سلاٹس",
+["vehicle.parts_slot.no_vehicles"] = "کوئی گاڑی نہیں ملی",
+["vehicle.parts_slot.applied"] = "پرزے سلاٹ ایڈجسٹ کر دیا گیا: %d گاڑیاں",
+
+["vehicle.parts_modifier.title"] = "پرزے موڈیفائر",
+["vehicle.parts_modifier.desc"] = "فعال ریس میں ٹیوننگ پارٹ لیول کی قدروں میں ترمیم کریں",
+["vehicle.parts_modifier.select"] = "ایک پرزہ منتخب کریں",
+["vehicle.parts_modifier.prompt_level"] = "لیول: ",
+["vehicle.parts_modifier.prompt_digit0"] = "ہندسہ: ",
+["vehicle.parts_modifier.prompt_digit1"] = "دم: ",
+["vehicle.parts_modifier.prompt_reset"] = "ری سیٹ",
+["vehicle.parts_modifier.invalid"] = "غلط لیول قدر",
+["vehicle.parts_modifier.not_found"] = "میموری میں پرزہ نہیں ملا",
+["vehicle.parts_modifier.applied"] = "%s لیول %s پر سیٹ کر دیا گیا",
+["vehicle.parts_modifier.reset"] = "%s ری سیٹ کر دیا گیا",
+
+["vehicle.unlock_vehicles.title"] = "گاڑیاں انلاک کریں",
+["vehicle.unlock_vehicles.desc"] = "تمام گاڑیوں کو سکوں کے ساتھ خریدنے کے لیے دستیاب کریں",
+["vehicle.unlock_vehicles.no_vehicles"] = "کوئی گاڑی نہیں ملی",
+["vehicle.unlock_vehicles.unlocked"] = "گاڑیاں انلاک کر دی گئیں: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "انلاک کرنے کے لیے کوئی گاڑی نہیں",
+
+["vehicle.max_vehicles.title"] = "زیادہ سے زیادہ گاڑیاں",
+["vehicle.max_vehicles.desc"] = "تمام انلاک شدہ گاڑیوں کی اپ گریڈ لیول کو فوری طور پر زیادہ سے زیادہ کریں",
+["vehicle.max_vehicles.no_vehicles"] = "گاڑیوں کی فہرست حل کرنے میں ناکامی",
+["vehicle.max_vehicles.all_maxed"] = "تمام گاڑیاں زیادہ سے زیادہ کر دی گئیں",
+["vehicle.max_vehicles.failed"] = "گاڑیاں زیادہ سے زیادہ کرنے میں ناکامی",
+
+["vehicle.max_mastery.title"] = "زیادہ سے زیادہ مہارت",
+["vehicle.max_mastery.desc"] = "تمام انلاک شدہ اور زیادہ سے زیادہ گاڑیوں کی مہارتوں کو فوری طور پر زیادہ سے زیادہ کریں۔",
+["vehicle.max_mastery.all_maxed"] = "تمام مہارتیں زیادہ سے زیادہ کر دی گئیں",
+["vehicle.max_mastery.failed"] = "مہارتوں کو زیادہ سے زیادہ کرنے میں ناکامی",
+
+["vehicle.max_parts.title"] = "زیادہ سے زیادہ پرزے",
+["vehicle.max_parts.desc"] = "تمام گاڑیوں کے لیے تمام انلاک شدہ پرزوں کی لیول کو فوری طور پر زیادہ سے زیادہ کریں۔",
+["vehicle.max_parts.no_vehicles"] = "گاڑیوں کی فہرست حل کرنے میں ناکامی",
+["vehicle.max_parts.all_maxed"] = "تمام پرزے زیادہ سے زیادہ کر دیے گئے",
+["vehicle.max_parts.failed"] = "پرزے زیادہ سے زیادہ کرنے میں ناکامی",
+
+["vehicle.common.no_vehicles"] = "کوئی گاڑی نہیں ملی",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "گاڑیوں کی فہرست حل کرنے میں ناکامی",
+["vehicle.common.no_zero_region"] = "کوئی زیرو ریجن نہیں ملا",
+
+}
+
+end
+
 __vfs['configs/lang/zh.lua'] = function(...)
 
 
@@ -26653,6 +29423,11 @@ local AVAILABLE = {
     { code = "de", name = "Deutsch" },
     { code = "ru", name = "Русский" },
     { code = "th", name = "Thai" },
+    { code = "bn", name = "বাংলা" },
+    { code = "ar", name = "العربية" },
+    { code = "ur", name = "اردو" },
+    { code = "fr", name = "Français" },
+    { code = "uk", name = "Українська" },
     -- more languages soon
 }
 
