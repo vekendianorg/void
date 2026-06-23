@@ -493,6 +493,7 @@ return {
 ["account.fake_unlock.desc"] = "فتح جميع التخصيصات مؤقتًا",
 ["account.fake_vip.title"] = "VIP وهمي",
 ["account.fake_vip.desc"] = "تبديل حالة اشتراك VIP محليًا",
+  
 ["account.fake_rank.title"] = "رتبة وهمية",
 ["account.fake_rank.desc"] = "تعيين رتبتك إلى أسطورية وهمية تلقائيًا",
 ["account.fake_rank.race_warn_title"] = "السباق مطلوب",
