@@ -493,6 +493,7 @@ return {
 ["account.fake_unlock.desc"] = "সমস্ত কাস্টমাইজেশন অস্থায়ীভাবে আনলক করুন",
 ["account.fake_vip.title"] = "নকল ভিআইপি",
 ["account.fake_vip.desc"] = "ভিআইপি সাবস্ক্রিপশন স্থিতি স্থানীয়ভাবে টগল করুন",
+
 ["account.fake_rank.title"] = "নকল র‍্যাঙ্ক",
 ["account.fake_rank.desc"] = "আপনার র‍্যাঙ্ক স্বয়ংক্রিয়ভাবে নকল লিজেন্ডারিতে সেট করুন",
 ["account.fake_rank.race_warn_title"] = "রেস প্রয়োজন",
