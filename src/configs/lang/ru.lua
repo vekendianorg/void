@@ -75,9 +75,9 @@ return {
 ["main.manual_data_path_hint"] = "Введите путь к данным HCR2",
 ["main.manual_path_cancelled"] = "Отменено — продолжаем без пути.",
 ["main.waiting_for_lib"] = "Ожидание %s...",
-["main.initialized"] = "Инициализировано",
-["main.gamestatus_not_found"] = "GameStatus не найден",
-["main.dont_interrupt"] = "Не прерывать работу скрипта",
+["main.initialized"] = "Инициализировано.",
+["main.gamestatus_not_found"] = "GameStatus не найден.",
+["main.dont_interrupt"] = "Не прерывайте работу скрипта!",
 
 -- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
 ["ui.size_saved_restart"] = "Размер сохранён! Перезапустите скрипт",
@@ -96,7 +96,7 @@ return {
 -- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
 ["arch.warning_title"] = "Предупреждение об архитектуре",
 ["arch.unknown_arch_msg"] = "Архитектура неизвестна. Библиотека загружена? Какая у вас система?",
-["arch.non_primary_arch_msg"] = "Обнаружено: %s\nНекоторые или все lib-патчи могут не работать.",
+["arch.non_primary_arch_msg"] = "Обнаружена архитектура: %s\nНекоторые или все lib-патчи могут не работать.",
 ["arch.unknown_version_msg"] = "Версия игры неизвестна. Попробуйте снова после загрузки игры.",
 ["arch.no_base_data_msg"] = "Внутренняя ошибка: нет базовых данных для этой архитектуры.",
 
@@ -321,8 +321,8 @@ return {
 ["player.auto_detach.desc"] = "Автоматически снимать детали, например крышу Раллийного Авто",
 ["player.no_clip.title"] = "No-Clip (проход сквозь стены)",
 ["player.no_clip.desc"] = "Позволяет проходить сквозь объекты, не погибая (можно проезжать сквозь финишные линии в кубках)",
-["player.no_clip.enabled"] = "Прохождение сквозь объекты включено",
-["player.no_clip.disabled"] = "Прохождение сквозь объекты выключено",
+["player.no_clip.enabled"] = "No-Clip включен",
+["player.no_clip.disabled"] = "No-Clip выключен",
 ["player.hide_name.title"] = "Скрытие имени",
 ["player.hide_name.desc"] = "Скрыть имя вашего игрока в заезде",
 ["player.hide_name.enabled"] = "Скрытие имени включено",
@@ -336,7 +336,7 @@ return {
 ["player.slider.min"] = "Мин.",
 ["player.slider.max"] = "Макс.",
 ["player.gravity.title"] = "Настройка гравитации",
-["player.gravity.desc"] = "Настрой силу гравитации",
+["player.gravity.desc"] = "Настройте силу гравитации",
 ["player.slider.x"] = "X",
 ["player.slider.y"] = "Y",
 
