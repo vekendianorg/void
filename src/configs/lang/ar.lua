@@ -86,6 +86,7 @@ return {
 ["ui.na"] = "غ/م",
 ["ui.spinner_select"] = "اختر",
 ["ui.slider_default_title"] = "القيمة",
+["ui.loading"] = "جارٍ التحميل",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "يتطلب جهاز %s (جهازك: %s)",
