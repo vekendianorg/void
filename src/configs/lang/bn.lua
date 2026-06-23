@@ -86,6 +86,7 @@ return {
 ["ui.na"] = "N/A",
 ["ui.spinner_select"] = "নির্বাচন করুন",
 ["ui.slider_default_title"] = "মান",
+["ui.loading"] = "লোড হচ্ছে",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "%s ডিভাইস প্রয়োজন (আপনার ডিভাইস: %s)",
