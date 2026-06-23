@@ -502,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Yarış Gerekli",
 ["account.fake_rank.race_warn_msg"] = "Sahte Sıralama yalnızca bir Kupa yarışı aktif olarak çalışırken uygulanmalıdır.\n\nYarış dışında uygulanması gizli yasaklamaya neden olabilir.\n\nDevam etmeden önce zaten bir Kupa yarışının içinde olduğunuzdan emin olun.\n\nYine de devam edilsin mi?",
 ["account.fake_rank.continue_button"] = "Devam Et",
+["account.fake_rank.applied"] = "Sahte sıralama enjekte edildi",
+["account.fake_rank.not_in_cups"] = "Önce bir yarış başlatın",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Parça Yuvalarını Ayarla",
