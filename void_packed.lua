@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 22:34:12
+-- Packed by bundle.py  •  2026-06-24 01:38:28
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -30626,6 +30626,8 @@ local AVAILABLE = {
     { code = "ur", name = "اردو" },
     { code = "fr", name = "Français" },
     { code = "uk", name = "Українська" },
+    { code = "tr", name = "Türkçe" },
+    { code = "pt-BR", name = "Português (Brasil)" },
     -- more languages soon
 }
 
