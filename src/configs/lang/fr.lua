@@ -502,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Course requise",
 ["account.fake_rank.race_warn_msg"] = "Le classement factice ne doit être appliqué que pendant qu'une course de coupe est active.\n\nL'appliquer en dehors d'une course peut entraîner un bannissement caché.\n\nAssurez-vous d'être déjà dans une course de coupe avant de continuer.\n\nContinuer quand même ?",
 ["account.fake_rank.continue_button"] = "Continuer",
+["account.fake_rank.applied"] = "Classement factice injecté",
+["account.fake_rank.not_in_cups"] = "Commencez une course d'abord",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Ajuster l'emplacement des pièces",
