@@ -493,6 +493,7 @@ return {
 ["account.fake_unlock.desc"] = "تمام حسب ضرورت کو عارضی طور پر انلاک کریں",
 ["account.fake_vip.title"] = "جعلی VIP",
 ["account.fake_vip.desc"] = "VIP سبسکرپشن کی حالت کو مقامی طور پر ٹوگل کریں",
+
 ["account.fake_rank.title"] = "جعلی رینک",
 ["account.fake_rank.desc"] = "اپنی رینک کو خودکار طور پر جعلی لیجنڈری پر سیٹ کریں",
 ["account.fake_rank.race_warn_title"] = "ریس درکار ہے",
