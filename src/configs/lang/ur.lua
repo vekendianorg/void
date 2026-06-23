@@ -495,7 +495,6 @@ return {
 ["account.fake_vip.desc"] = "VIP سبسکرپشن کی حالت کو مقامی طور پر ٹوگل کریں",
 ["account.fake_rank.title"] = "جعلی رینک",
 ["account.fake_rank.desc"] = "اپنی رینک کو خودکار طور پر جعلی لیجنڈری پر سیٹ کریں",
-["account.fake_rank.applied"] = "جعلی رینک انجیکٹ کر دی گئی۔",
 ["account.fake_rank.race_warn_title"] = "ریس درکار ہے",
 ["account.fake_rank.race_warn_msg"] = "جعلی رینک صرف اس وقت لاگو کی جانی چاہیے جب کپ ریس فعال طور پر چل رہی ہو۔\n\nاسے ریس کے باہر لاگو کرنے سے شیڈو بین ہو سکتا ہے۔\n\nجاری رکھنے سے پہلے یقینی بنائیں کہ آپ پہلے ہی کپ ریس کے اندر ہیں۔\n\nپھر بھی جاری رکھیں؟",
 ["account.fake_rank.continue_button"] = "جاری رکھیں",
