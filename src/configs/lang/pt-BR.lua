@@ -266,7 +266,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)

@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 20:23:52
+-- Packed by bundle.py  •  2026-06-23 20:41:52
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22590,7 +22590,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -22598,6 +22598,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "الشكر والتقدير",
 ["about.credits.desc"] = [[
@@ -23146,7 +23147,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -23154,6 +23155,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "ক্রেডিট",
 ["about.credits.desc"] = [[
@@ -23700,8 +23702,15 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Credits",
 ["about.credits.desc"] = [[
@@ -24216,7 +24225,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -24224,6 +24233,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Credits",
 ["about.credits.desc"] = [[
@@ -24773,8 +24783,15 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Créditos",
 ["about.credits.desc"] = [[
@@ -25287,7 +25304,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -25295,6 +25312,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Crédits",
 ["about.credits.desc"] = [[
@@ -25842,8 +25860,15 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Kredit",
 ["about.credits.desc"] = [[
@@ -26356,7 +26381,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -26914,6 +26939,13 @@ return {
 - Deutsch: Erik (github: eomthix)
 - Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Авторы",
 ["about.credits.desc"] = [[
@@ -27426,8 +27458,15 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
 ["about.credits.desc"] = [[
@@ -27942,7 +27981,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -27950,6 +27989,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Katkıda Bulunanlar",
 ["about.credits.desc"] = [[
@@ -28497,7 +28537,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -28505,6 +28545,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Подяки",
 ["about.credits.desc"] = [[
@@ -29052,7 +29093,7 @@ return {
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 - বাংলা: AMR (github: amr-gt)
 - العربية: AMR (github: amr-gt)
@@ -29060,6 +29101,7 @@ return {
 - Français: AMR (github: amr-gt)
 - Українська: AMR (github: amr-gt)
 - Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "اعترافات",
 ["about.credits.desc"] = [[

@@ -267,6 +267,13 @@ return {
 - Deutsch: Erik (github: eomthix)
 - Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 ["about.credits.title"] = "Авторы",
 ["about.credits.desc"] = [[
