@@ -495,7 +495,6 @@ return {
 ["account.fake_vip.desc"] = "Basculer l'état de l'abonnement VIP localement",
 ["account.fake_rank.title"] = "Classement factice",
 ["account.fake_rank.desc"] = "Définir votre classement sur légendaire factice automatiquement",
-["account.fake_rank.applied"] = "Classement factice injecté.",
 ["account.fake_rank.race_warn_title"] = "Course requise",
 ["account.fake_rank.race_warn_msg"] = "Le classement factice ne doit être appliqué que pendant qu'une course de coupe est active.\n\nL'appliquer en dehors d'une course peut entraîner un bannissement caché.\n\nAssurez-vous d'être déjà dans une course de coupe avant de continuer.\n\nContinuer quand même ?",
 ["account.fake_rank.continue_button"] = "Continuer",
