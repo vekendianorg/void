@@ -38,6 +38,8 @@ local AVAILABLE = {
     { code = "ur", name = "اردو" },
     { code = "fr", name = "Français" },
     { code = "uk", name = "Українська" },
+    { code = "tr", name = "Türkçe" },
+    { code = "pt-BR", name = "Português (Brasil)" },
     -- more languages soon
 }
 
