@@ -493,6 +493,7 @@ return {
 ["account.fake_unlock.desc"] = "Тимчасово розблокувати всі налаштування",
 ["account.fake_vip.title"] = "Фейковий VIP",
 ["account.fake_vip.desc"] = "Локально перемкнути статус VIP підписки",
+
 ["account.fake_rank.title"] = "Фейковий рейтинг",
 ["account.fake_rank.desc"] = "Автоматично встановити ваш рейтинг на фейковий легендарний",
 ["account.fake_rank.race_warn_title"] = "Потрібна гонка",
