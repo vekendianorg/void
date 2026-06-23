@@ -287,7 +287,6 @@ return {
 - Aryan/KokushiboModz
 ]],
 
-
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ডিবাগ মোড",
 ["other.debug_mode.desc"] = "ইন-গেম ডিবাগ মোড টগল করুন",
