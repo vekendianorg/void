@@ -64,7 +64,7 @@ return {
 ["main.launch_failed_msg"] = "Загружено, но не удалось запустить:\n%s",
 
 ["main.multiple_spaces_title"] = "Обнаружено несколько пространств",
-["main.multiple_spaces_desc"] = "HCR2 найден в %d виртуальных пространствах.\nВыберите то, в котором сейчас играешь.",
+["main.multiple_spaces_desc"] = "HCR2 найден в %d виртуальных пространствах.\nВыберите то, в котором сейчас играете.",
 ["main.select_space_toast"] = "Выберите пространство, чтобы продолжить.",
 ["main.user_space_item"] = "Пользователь %s  —  %s",
 ["main.permission_error_title"] = "Ошибка доступа",
@@ -156,7 +156,7 @@ return {
 
 ["settings.section_language"] = "Язык",
 ["settings.language.title"] = "Язык",
-["settings.language.desc"] = "Выбери предпочитаемый язык меню",
+["settings.language.desc"] = "Выберите предпочитаемый язык меню",
 ["settings.language.changed"] = "Язык изменён на %s",
 ["settings.language.failed"] = "Не удалось загрузить этот язык",
 ["settings.language.restart_msg"] = "Перезапустите скрипт, чтобы язык применился полностью",
@@ -328,7 +328,7 @@ return {
 ["player.hide_name.enabled"] = "Скрытие имени включено",
 ["player.hide_name.disabled"] = "Скрытие имени выключено",
 ["player.hide_flag.title"] = "Скрыть флаг",
-["player.hide_flag.desc"] = "Скрыть флаг твоего игрока в заезде",
+["player.hide_flag.desc"] = "Скрыть флаг вашего игрока в заезде",
 ["player.hide_flag.enabled"] = "Скрытие флага включено",
 ["player.hide_flag.disabled"] = "Скрытие флага выключено",
 ["player.zoom.title"] = "Настроить зум",
@@ -363,7 +363,7 @@ return {
 ["adventure.set_distance.start_race_first"] = "Сначала начните заезд",
 ["adventure.set_distance.applied"] = "Дистанция установлена: %sm",
 ["adventure.set_distance.loop_stopped"] = "Цикл установки дистанции остановлен.",
-["adventure.set_distance.loop_running"] = "Цикл дистанции работает — нажми Установить дистанцию, чтобы остановить",
+["adventure.set_distance.loop_running"] = "Цикл дистанции работает — нажмите Установить дистанцию, чтобы остановить",
 
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Настроить отсчёт",
@@ -414,7 +414,7 @@ return {
 ["event.decrypt_active_failed"] = "Не удалось расшифровать active_events.json по пути: %s",
 ["event.root_copy_failed"] = "Ошибка root-копирования: %s",
 
-["event.select_events_patch"] = "Выбери ивенты для патча:\nПуть: %s",
+["event.select_events_patch"] = "Выберите ивенты для патча:\nПуть: %s",
 ["event.user_cancelled"] = "Пользователь отменил выбор для пути: %s",
 ["event.rewards_unavailable"] = "Встроенные награды недоступны, патч пропущен для пути: %s",
 ["event.skipped_unreadable"] = "Пропущен нечитаемый ивент: %s",
