@@ -18,8 +18,6 @@
       module titles/descriptions) lives here.
 
   This file handles the Bengali localization for the VOID script.
-
-
 ]]
 
 return {
@@ -498,7 +496,6 @@ return {
 ["account.fake_vip.desc"] = "ভিআইপি সাবস্ক্রিপশন স্থিতি স্থানীয়ভাবে টগল করুন",
 ["account.fake_rank.title"] = "নকল র‍্যাঙ্ক",
 ["account.fake_rank.desc"] = "আপনার র‍্যাঙ্ক স্বয়ংক্রিয়ভাবে নকল লিজেন্ডারিতে সেট করুন",
-["account.fake_rank.applied"] = "নকল র‍্যাঙ্ক ইনজেক্ট করা হয়েছে।",
 ["account.fake_rank.race_warn_title"] = "রেস প্রয়োজন",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank শুধুমাত্র তখনই প্রয়োগ করা উচিত যখন একটি কাপ রেস সক্রিয়ভাবে চলছে।\n\nরেসের বাইরে প্রয়োগ করলে শ্যাডো বান হতে পারে।\n\nচালিয়ে যাওয়ার আগে নিশ্চিত করুন যে আপনি ইতিমধ্যে একটি কাপ রেসের ভিতরে আছেন।\n\nতবুও চালিয়ে যাবেন?",
 ["account.fake_rank.continue_button"] = "চালিয়ে যান",
