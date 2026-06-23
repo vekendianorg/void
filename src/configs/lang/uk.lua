@@ -86,6 +86,7 @@ return {
 ["ui.na"] = "Н/Д",
 ["ui.spinner_select"] = "Вибрати",
 ["ui.slider_default_title"] = "Значення",
+["ui.loading"] = "Завантаження",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "Потрібен пристрій %s (ваш пристрій: %s)",
@@ -501,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Потрібна гонка",
 ["account.fake_rank.race_warn_msg"] = "Фейковий рейтинг слід застосовувати лише під час активної гонки кубка.\n\nЗастосування поза гонкою може призвести до тіньового бану.\n\nПеред продовженням переконайтеся, що ви вже перебуваєте в гонці кубка.\n\nВсе одно продовжити?",
 ["account.fake_rank.continue_button"] = "Продовжити",
+["account.fake_rank.applied"] = "Фейковий рейтинг впроваджено",
+["account.fake_rank.not_in_cups"] = "Спочатку почніть гонку",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Налаштувати слоти деталей",
