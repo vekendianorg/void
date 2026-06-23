@@ -343,7 +343,7 @@ return {
 ["player.hide_flag.desc"] = "Hide your player flag at race",
 ["player.hide_flag.enabled"] = "Hide Flag Enabled",
 ["player.hide_flag.disabled"] = "Hide Flag Disabled",
-["player.fuel.title"] = "Fuel",
+["player.fuel.title"] = "Set Fuel",
 ["player.fuel.desc"] = "Lock fuel to a constant value during race (0.0 – 100.0)",
 ["player.fuel.prompt_amount"] = "Fuel amount (0 – 100)",
 ["player.fuel.prompt_reset"] = "Reset",
