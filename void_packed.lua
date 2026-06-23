@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 13:00:10
+-- Packed by bundle.py  •  2026-06-23 13:34:24
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -26078,6 +26078,11 @@ return {
 ["vehicle.common.no_zero_region"] = "Wilayah nol tidak ditemukan",
 
 }
+
+end
+
+__vfs['configs/lang/pt-BR.lua'] = function(...)
+
 
 end
 
