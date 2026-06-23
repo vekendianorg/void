@@ -503,6 +503,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Race Required",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank should only be applied while a Cups race is actively running.\n\nApplying it outside a race may result in a shadow ban.\n\nMake sure you are already inside a Cups race before continuing.\n\nContinue anyway?",
 ["account.fake_rank.continue_button"] = "Continue",
+["account.fake_rank.applied"] = "Fake rank injected",
+["account.fake_rank.not_in_cups"] = "Start a race first",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Adjust Parts Slot",

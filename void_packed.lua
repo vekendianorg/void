@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 18:58:02
+-- Packed by bundle.py  •  2026-06-23 20:23:29
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22410,6 +22410,7 @@ return {
 ["ui.na"] = "غ/م",
 ["ui.spinner_select"] = "اختر",
 ["ui.slider_default_title"] = "القيمة",
+["ui.loading"] = "جارٍ التحميل",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "يتطلب جهاز %s (جهازك: %s)",
@@ -22965,6 +22966,7 @@ return {
 ["ui.na"] = "N/A",
 ["ui.spinner_select"] = "নির্বাচন করুন",
 ["ui.slider_default_title"] = "মান",
+["ui.loading"] = "লোড হচ্ছে",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "%s ডিভাইস প্রয়োজন (আপনার ডিভাইস: %s)",
@@ -24449,6 +24451,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Race Required",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank should only be applied while a Cups race is actively running.\n\nApplying it outside a race may result in a shadow ban.\n\nMake sure you are already inside a Cups race before continuing.\n\nContinue anyway?",
 ["account.fake_rank.continue_button"] = "Continue",
+["account.fake_rank.applied"] = "Fake rank injected",
+["account.fake_rank.not_in_cups"] = "Start a race first",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Adjust Parts Slot",
@@ -26120,25 +26124,25 @@ return {
 ["common.failed"] = "Ошибка",
 ["common.success"] = "Успешно",
 ["common.later"] = "Позже",
-["common.got_it"] = "Понял",
+["common.got_it"] = "Понятно",
 ["common.retry"] = "Повторить",
 ["common.wait_safe"] = "Подождать (Безопаснее)",
 ["common.waiting"] = "Подождите...",
 ["common.force_exit"] = "Принудительный выход",
 ["common.proceed_anyway"] = "Продолжить в любом случае",
 ["common.manual_mode"] = "Ручной режим",
-["common.update_button"] = "Обновление",
+["common.update_button"] = "ОБНОВЛЕНИЕ",
 ["common.launch_failed"] = "Запуск не удался",
 ["common.confirm_exit_title"] = "Подтвердить выход",
 ["common.confirm_exit_msg"] = "Закрыть скрипт?",
-["common.not_available"] = "Недоступен",
-["common.warning"] = "ПРЕДУПРЕЖДЕНИЕ",
+["common.not_available"] = "Недоступно",
+["common.warning"] = "Предупреждение",
 
 -- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
 ["main.exit_active_ops_title"] = "Внимание: есть активные операции",
 ["main.exit_active_ops_msg"] = "Сейчас выполняется фоновых задач: %d.\nПринудительный выход может повредить состояние игры.",
 ["main.initializing"] = "Инициализация...",
-["main.no_app_found"] = "Приложение не обнаружено",
+["main.no_app_found"] = "Приложение не найдено",
 ["main.arch_64bit_required_title"] = "Требуется 64-bit система.",
 ["main.arch_64bit_required_msg"] = "ARMv8a желательная архитектура. x86_64 поддерживается частично.",
 
@@ -26165,9 +26169,9 @@ return {
 ["main.manual_data_path_hint"] = "Введите путь к данным HCR2",
 ["main.manual_path_cancelled"] = "Отменено — продолжаем без пути.",
 ["main.waiting_for_lib"] = "Ожидание %s...",
-["main.initialized"] = "Инициализировано",
-["main.gamestatus_not_found"] = "GameStatus не найден",
-["main.dont_interrupt"] = "Не прерывать работу скрипта",
+["main.initialized"] = "Инициализировано.",
+["main.gamestatus_not_found"] = "GameStatus не найден.",
+["main.dont_interrupt"] = "Не прерывайте работу скрипта!",
 
 -- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
 ["ui.size_saved_restart"] = "Размер сохранён! Перезапустите скрипт",
@@ -26186,7 +26190,7 @@ return {
 -- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
 ["arch.warning_title"] = "Предупреждение об архитектуре",
 ["arch.unknown_arch_msg"] = "Архитектура неизвестна. Библиотека загружена? Какая у вас система?",
-["arch.non_primary_arch_msg"] = "Обнаружено: %s\nНекоторые или все lib-патчи могут не работать.",
+["arch.non_primary_arch_msg"] = "Обнаружена архитектура: %s\nНекоторые или все lib-патчи могут не работать.",
 ["arch.unknown_version_msg"] = "Версия игры неизвестна. Попробуйте снова после загрузки игры.",
 ["arch.no_base_data_msg"] = "Внутренняя ошибка: нет базовых данных для этой архитектуры.",
 
@@ -26227,8 +26231,8 @@ return {
 ["settings.auto_update.desc"] = "Автоматически обновлять VOID при запуске",
 ["settings.dev_mode_title"] = "Режим разработчика",
 ["settings.auto_update.dev_mode_msg"] = "Автообновление отключено для main.lua (dev-сборка).",
-["settings.check_updates.title"] = "Проверить обновления",
-["settings.check_updates.desc"] = "Проверить наличие новой версии VOID на GitHub",
+["settings.check_updates.title"] = "Проверка обновлений",
+["settings.check_updates.desc"] = "Проверяет наличие новой версии VOID на GitHub",
 ["settings.check_updates.dev_mode_msg"] = "Проверка обновлений отключена для main.lua (dev-сборка).\n\nОбновляйте вручную через репозиторий.",
 ["settings.check_updates.checking"] = "Проверка обновлений...",
 ["settings.check_updates.failed_title"] = "Ошибка проверки обновлений",
@@ -26258,11 +26262,11 @@ return {
 ["settings.memory_range.title"] = "Диапазон памяти",
 ["settings.memory_range.desc"] = "Текущий выбранный диапазон памяти\n(выбирается скриптом автоматически)",
 ["settings.gamestatus.title"] = "GameStatus",
-["settings.gamestatus.desc"] = "Текущий адрес gamestatus\n(выбирается скриптом автоматически)",
+["settings.gamestatus.desc"] = "Текущий адрес GameStatus\n(выбирается скриптом автоматически)",
 ["settings.gamestatus_raw.title"] = "GameStatus (Сырой)",
-["settings.gamestatus_raw.desc"] = "Текущий адрес gamestatus (Сырой)\n(выбирается скриптом автоматически)",
-["settings.clear_memory.title"] = "Очистить сохранённую память",
-["settings.clear_memory.desc"] = "Очищает всю сохранённую память VOID без необходимости перезапускать игру целиком.",
+["settings.gamestatus_raw.desc"] = "Текущий адрес GameStatus (Сырой)\n(выбирается скриптом автоматически)",
+["settings.clear_memory.title"] = "Очищение сохранённой памяти",
+["settings.clear_memory.desc"] = "Очищает всю сохранённую память VOID без необходимости перезапускать игру.",
 
 ["settings.section_ui_customizations"] = "Настройка интерфейса",
 ["settings.theme_store.title"] = "Магазин тем",
@@ -26284,8 +26288,8 @@ return {
 ["settings.theme_imported"] = "Тема импортирована!",
 ["settings.theme_invalid_bundle"] = "Неверный формат пакета.",
 ["settings.theme_cloud_error"] = "Ошибка облака: %s",
-["settings.reset_theme.title"] = "Сбросить тему",
-["settings.reset_theme.desc"] = "Сбросить кастомную тему и фоновое изображение к стандартным",
+["settings.reset_theme.title"] = "Сброс темы",
+["settings.reset_theme.desc"] = "Сбрасывает кастомную тему и фоновое изображение к стандартным",
 ["settings.import_theme.title"] = "Импортировать тему",
 ["settings.import_theme.desc"] = "Импортировать кастомную тему из облака",
 ["settings.import_theme.hint"] = "Введите Share ID",
@@ -26298,8 +26302,8 @@ return {
 ["settings.export_theme.uploading_bg"] = "Загрузка фонового изображения на Catbox...",
 ["settings.export_theme.image_upload_failed_title"] = "Ошибка",
 ["settings.export_theme.image_upload_failed_msg"] = "Не удалось загрузить изображение: %s",
-["settings.tabs_icon.title"] = "Иконка вкладок",
-["settings.tabs_icon.desc"] = "Изменить иконку вкладок",
+["settings.tabs_icon.title"] = "Изменение иконки вкладок",
+["settings.tabs_icon.desc"] = "Изменяет иконку вкладок",
 ["settings.tabs_icon.hint"] = "Введите иконку",
 ["settings.tabs_icon.empty_error"] = "Не может быть пустым",
 
@@ -26343,22 +26347,22 @@ return {
 ["about.about_script.desc"] = "Мощный и оптимизированный скрипт для манипуляции памятью, созданный для Hill Climb Racing 2 в кастомном окружении Pivot.\n\nСкачать Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Владелец скрипта",
 ["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
-["about.script_dev.title"] = "Разработчик скрипта",
+["about.script_dev.title"] = "Разработчики скрипта",
 ["about.script_dev.desc"] = [[
 - Lazor (github: lazor-git)
 - AMR (github: amr-gt)
 - Erik (github: eomthix)
 ]],
-["about.script_translator.title"] = "Переводчик скрипта",
+["about.script_translator.title"] = "Переводчики скрипта",
 ["about.script_translator.desc"] = [[
 - English: Lazor (github: lazor-git)
 - Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
 - Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
 - Thai: NaiArt777 (github: artphakkapol-hub)
 ]],
-["about.credits.title"] = "Credits",
+["about.credits.title"] = "Авторы",
 ["about.credits.desc"] = [[
 - Lazor (github: lazor-git)
 - Lan9118 (discord: lan9118)
@@ -26373,15 +26377,15 @@ return {
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",
-["other.debug_mode.desc"] = "Переключить внутриигровой режим отладки",
+["other.debug_mode.desc"] = "Переключяет внутриигровой режим отладки",
 ["other.debug_mode.enabled"] = "Режим отладки включён",
 ["other.debug_mode.disabled"] = "Режим отладки выключен",
 ["other.hint.width"] = "Ширина",
 ["other.hint.height"] = "Высота",
-["other.resolution.title"] = "Настроить разрешение",
+["other.resolution.title"] = "Настройка разрешения",
 ["other.resolution.desc"] = "Настройте ширину и высоту игры (по умолчанию 1280x720)",
 ["other.resolution.applied"] = "Разрешение установлено: %dx%d",
-["other.resolution_offset.title"] = "Настроить смещение разрешения",
+["other.resolution_offset.title"] = "Настройка смещения разрешения",
 ["other.resolution_offset.desc"] = "Настройте смещение по ширине и высоте игры (по умолчанию 0x0), лучше всего подходит для маленького разрешения на большом экране.",
 ["other.resolution_offset.applied"] = "Смещение разрешения установлено: %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView не найден",
@@ -26395,8 +26399,8 @@ return {
 ["shop.free_purchases.desc"] = "Некоторые бесплатные ежедневные акции в магазине станут бесплатными",
 ["shop.free_purchases.progress"] = "%d/%d",
 ["shop.free_purchases.success"] = "Бесплатные покупки применены",
-["shop.change_chest.title"] = "Изменить сундук",
-["shop.change_chest.desc"] = "Заменить легендарный сундук на выбранный",
+["shop.change_chest.title"] = "Замена типа сундука",
+["shop.change_chest.desc"] = "Заменяет легендарный сундук на выбранный",
 ["shop.change_chest.changed"] = "Сундук изменён на %s",
 ["shop.change_chest.options"] = {
     "Обычный Сундук", "Необычный Сундук", "Редкий Сундук", "Эпический Сундук",
@@ -26407,36 +26411,36 @@ return {
 },
 
 -- ── modules/tabs/player.lua ───────────────────────────────────────────────────
-["player.auto_detach.title"] = "Авто отстёгивание",
-["player.auto_detach.desc"] = "Автоматически отстёгивать детали, например крышу Раллийного Авто",
+["player.auto_detach.title"] = "Авто-снятие деталей",
+["player.auto_detach.desc"] = "Автоматически снимать детали, например крышу Раллийного Авто",
 ["player.no_clip.title"] = "No-Clip (проход сквозь стены)",
 ["player.no_clip.desc"] = "Позволяет проходить сквозь объекты, не погибая (можно проезжать сквозь финишные линии в кубках)",
-["player.no_clip.enabled"] = "Прохождение сквозь объекты включено",
-["player.no_clip.disabled"] = "Прохождение сквозь объекты выключено",
-["player.hide_name.title"] = "Скрыть имя",
+["player.no_clip.enabled"] = "No-Clip включен",
+["player.no_clip.disabled"] = "No-Clip выключен",
+["player.hide_name.title"] = "Скрытие имени",
 ["player.hide_name.desc"] = "Скрыть имя вашего игрока в заезде",
 ["player.hide_name.enabled"] = "Скрытие имени включено",
 ["player.hide_name.disabled"] = "Скрытие имени выключено",
-["player.hide_flag.title"] = "Скрыть флаг",
+["player.hide_flag.title"] = "Скрытие флага",
 ["player.hide_flag.desc"] = "Скрыть флаг вашего игрока в заезде",
 ["player.hide_flag.enabled"] = "Скрытие флага включено",
 ["player.hide_flag.disabled"] = "Скрытие флага выключено",
-["player.zoom.title"] = "Настроить зум",
+["player.zoom.title"] = "Настройка зума",
 ["player.zoom.desc"] = "Настройте, насколько близко или далеко находится камера",
 ["player.slider.min"] = "Мин.",
 ["player.slider.max"] = "Макс.",
-["player.gravity.title"] = "Настроить гравитацию",
-["player.gravity.desc"] = "Настрой силу гравитации",
+["player.gravity.title"] = "Настройка гравитации",
+["player.gravity.desc"] = "Настройте силу гравитации",
 ["player.slider.x"] = "X",
 ["player.slider.y"] = "Y",
 
 -- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
-["adventure.auto_adventure_chests.title"] = "Авто сундуки приключений (нестабильно)",
+["adventure.auto_adventure_chests.title"] = "Авто-сундуки приключений (нестабильно)",
 ["adventure.auto_adventure_chests.desc"] = "Автоматически повышать уровень ваших сундуков приключений",
 ["adventure.auto_adventure_chests.none_found"] = "Сундуки приключений не найдены",
 ["adventure.auto_adventure_chests.done"] = "Готово",
 
-["adventure.set_distance.title"] = "Установить дистанцию",
+["adventure.set_distance.title"] = "Установка дистанции",
 ["adventure.set_distance.desc"] = "Устанавливает дистанцию вашего заезда в режиме приключений на заданное значение. Нужно быть в активном заезде. Чем больше дистанция, тем больше звёзд можно получить. Максимум звёзд на 5000м. (Это не телепорт)",
 ["adventure.set_distance.loop_active_title"] = "Установка дистанции — цикл активен",
 ["adventure.set_distance.loop_active_msg"] = "Цикл установки дистанции сейчас работает.\nЧто вы хотите сделать?",
@@ -26453,31 +26457,31 @@ return {
 ["adventure.set_distance.start_race_first"] = "Сначала начните заезд",
 ["adventure.set_distance.applied"] = "Дистанция установлена: %sm",
 ["adventure.set_distance.loop_stopped"] = "Цикл установки дистанции остановлен.",
-["adventure.set_distance.loop_running"] = "Цикл дистанции работает — нажмите Установить дистанцию, чтобы остановить",
+["adventure.set_distance.loop_running"] = "Цикл дистанции работает — нажмите Установка дистанции, чтобы остановить",
 
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
-["cups.adjust_countdown.title"] = "Настроить отсчёт",
-["cups.adjust_countdown.desc"] = "Настроить отсчёт перед началом заезда",
+["cups.adjust_countdown.title"] = "Настройка отсчёта",
+["cups.adjust_countdown.desc"] = "Настраивает отсчёт перед началом заезда",
 ["cups.slider.seconds"] = "Секунды",
 ["cups.adjust_countdown.applied"] = "Отсчёт изменён на %ss",
-["cups.auto_win.title"] = "Авто победа",
+["cups.auto_win.title"] = "Авто-победа",
 ["cups.auto_win.desc"] = "Автоматически побеждать вне зависимости от результата заезда",
-["cups.force_boss.title"] = "Принудительный босс",
-["cups.force_boss.desc"] = "Босс будет появляться всегда",
-["cups.force_cup.title"] = "Выбрать кубок",
-["cups.force_cup.desc"] = "Принудительно установить один кубок",
-["cups.force_cup.not_found"] = "Force Cup не найден. Попробуйте позже.",
-["cups.force_cup.enabled"] = "Force Cup включён",
-["cups.force_cup.disabled"] = "Force Cup выключен",
+["cups.force_boss.title"] = "Авто-босс",
+["cups.force_boss.desc"] = "Кубок будет всегда с боссом, что увеличивает получаемый ранг за заезд",
+["cups.force_cup.title"] = "Авто-кубок",
+["cups.force_cup.desc"] = "Принудительно устанавливает кубок с одной гонкой",
+["cups.force_cup.not_found"] = "Авто-кубок не найден. Попробуйте позже.",
+["cups.force_cup.enabled"] = "Авто-кубок включён",
+["cups.force_cup.disabled"] = "Авто-кубок выключен",
 ["cups.unlimited_tasks.title"] = "Безлимитные задания",
-["cups.unlimited_tasks.desc"] = "Заморозить все задания как выполненные и доступные для получения, тем самым получая бесконечные награды.",
+["cups.unlimited_tasks.desc"] = "Замораживает все задания как выполненные и доступные для получения, тем самым получая бесконечные награды.",
 ["cups.unlimited_tasks.resolve_failed"] = "Не удалось получить список заданий",
 ["cups.unlimited_tasks.none_found"] = "Задания не найдены",
 ["cups.unlimited_tasks.enabled"] = "Безлимитные задания включены",
 ["cups.unlimited_tasks.disabled"] = "Безлимитные задания выключены",
 ["cups.unlimited_tasks.none_to_freeze"] = "Нет заданий для заморозки",
 ["cups.rank_points_bonus.title"] = "+498 очков ранга",
-["cups.rank_points_bonus.desc"] = "Все лиговые задания дают 498 очков вместо 200, остальные награды убираются.",
+["cups.rank_points_bonus.desc"] = "Все лиговые задания дают 498 ранга вместо 200, остальные награды убираются.",
 ["cups.rank_points_bonus.none_found"] = "Лиговые задания не найдены",
 ["cups.rank_points_bonus.boosted"] = "Очки ранга увеличены: %s",
 ["cups.rank_points_bonus.no_match"] = "Подходящие лиговые задания не найдены",
@@ -26486,7 +26490,7 @@ return {
 
 -- ── modules/tabs/event.lua ────────────────────────────────────────────────────
 ["event.patch_rewards.title"] = "Патч наград ивента",
-["event.patch_rewards.desc"] = "Заменить награды текущего ивента на кастомные от VOID (нужен перезапуск игры)",
+["event.patch_rewards.desc"] = "Заменяет награды текущего ивента на кастомные от VOID (нужен перезапуск игры)",
 ["event.restore_events.title"] = "Восстановить награды ивента",
 ["event.restore_events.desc"] = "Удалить изменённые JSON-файлы ивентов, чтобы сервер игры восстановил их (нужен перезапуск игры)",
 
@@ -26535,7 +26539,7 @@ return {
 ["event.delete_failed"] = "Не удалось удалить %s: %s",
 
 -- ── modules/tabs/account.lua ──────────────────────────────────────────────────
-["account.change_name.title"] = "Изменить имя",
+["account.change_name.title"] = "Изменение имени",
 ["account.change_name.desc"] = "Изменяет имя вашего игрока",
 ["account.change_name.hint"] = "Введите имя",
 ["account.change_name.empty"] = "Сначала введите имя",
@@ -26544,8 +26548,8 @@ return {
 ["account.change_name.resolve_failed"] = "Не удалось получить указатель на имя",
 ["account.change_name.applied"] = "Имя изменено на %s",
 
-["account.change_gp.title"] = "Изменить мощность гаража",
-["account.change_gp.desc"] = "Меняет мощность гаража (сохраняется, если значение выше). Поставьте 8 для сброса при превышении лимита, но только если ваш реальный GP уже зафиксирован ниже лимита.",
+["account.change_gp.title"] = "Изменение мощности гаража",
+["account.change_gp.desc"] = "Изменяет мощность гаража (сохраняется, если значение выше). Поставьте 8 для сброса при превышении лимита, но только если ваш реальный GP уже зафиксирован ниже лимита.",
 ["account.change_gp.hint"] = "Введите мощность гаража",
 ["account.change_gp.max_int_title"] = "Достигнут максимум 32-битного int",
 ["account.change_gp.lower_value"] = "Уменьшите значение",
@@ -26563,13 +26567,13 @@ return {
 
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
-["vehicle.parts_slot.title"] = "Слоты запчастей",
+["vehicle.parts_slot.title"] = "Количество слотов запчастей",
 ["vehicle.parts_slot.desc"] = "Настраивает количество слотов запчастей для всех машин",
 ["vehicle.parts_slot.slider_title"] = "Слоты",
 ["vehicle.parts_slot.no_vehicles"] = "Машины не найдены",
 ["vehicle.parts_slot.applied"] = "Количество слотов деталей изменено: %d машин",
 
-["vehicle.unlock_vehicles.title"] = "Разблокировать машины",
+["vehicle.unlock_vehicles.title"] = "Разблокировка всех машин",
 ["vehicle.unlock_vehicles.desc"] = "Разблокировывает все машины для покупки за монеты",
 ["vehicle.unlock_vehicles.no_vehicles"] = "Машины не найдены",
 ["vehicle.unlock_vehicles.unlocked"] = "Машин разблокировано: %d",
