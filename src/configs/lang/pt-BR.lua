@@ -502,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Corrida Necessária",
 ["account.fake_rank.race_warn_msg"] = "O Rank Falso só deve ser aplicado enquanto uma corrida de Copos estiver ativa.\n\nAplicá-lo fora de uma corrida pode resultar em um banimento oculto.\n\nCertifique-se de que você já está dentro de uma corrida de Copos antes de continuar.\n\nContinuar mesmo assim?",
 ["account.fake_rank.continue_button"] = "Continuar",
+["account.fake_rank.applied"] = "Rank falso injetado",
+["account.fake_rank.not_in_cups"] = "Inicie uma corrida primeiro",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Ajustar Slot de Peças",
