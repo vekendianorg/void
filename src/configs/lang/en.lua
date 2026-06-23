@@ -88,6 +88,7 @@ return {
 ["ui.na"] = "N/A",
 ["ui.spinner_select"] = "Select",
 ["ui.slider_default_title"] = "Value",
+["ui.loading"] = "Loading",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "Requires %s device (your device: %s)",

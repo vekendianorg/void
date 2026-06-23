@@ -117,15 +117,23 @@ local function serializeTable(t)
     return "return " .. serializeValue(t)
 end
 
+-- Tears down the current menuView, rebuilds it, and switches to it.
+-- The correct sequence is: remove → build → switch.
+-- switchToMenu() reads the global menuView, so createMenuView() must run
+-- (and set menuView) before switchToMenu() is called.
 local function rebuildMenu()
     MainHandler.post(function()
-        if menuView then
-            pcall(function() windowManager.removeView(menuView) end)
-            menuView = nil
-            activeView = nil
+        -- Remove whichever overlay is currently visible.
+        if activeView then
+            pcall(function() windowManager.removeView(activeView) end)
         end
-        switchToMenu()
+        menuView   = nil
+        activeView = nil
+
+        -- Build the new menu, restoring the Settings tab.
         createMenuView("settings")
+
+        -- Now menuView is set; switch to it.
         switchToMenu()
     end)
 end
