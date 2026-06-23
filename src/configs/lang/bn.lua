@@ -502,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "রেস প্রয়োজন",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank শুধুমাত্র তখনই প্রয়োগ করা উচিত যখন একটি কাপ রেস সক্রিয়ভাবে চলছে।\n\nরেসের বাইরে প্রয়োগ করলে শ্যাডো বান হতে পারে।\n\nচালিয়ে যাওয়ার আগে নিশ্চিত করুন যে আপনি ইতিমধ্যে একটি কাপ রেসের ভিতরে আছেন।\n\nতবুও চালিয়ে যাবেন?",
 ["account.fake_rank.continue_button"] = "চালিয়ে যান",
+["account.fake_rank.applied"] = "নকল র‍্যাঙ্ক ইনজেক্ট করা হয়েছে",
+["account.fake_rank.not_in_cups"] = "প্রথমে একটি রেস শুরু করুন",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "পার্টস স্লট সামঞ্জস্য করুন",
