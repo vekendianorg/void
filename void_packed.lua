@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-23 20:41:52
+-- Packed by bundle.py  •  2026-06-23 22:34:12
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -22826,6 +22826,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "السباق مطلوب",
 ["account.fake_rank.race_warn_msg"] = "يجب تطبيق الرتبة الوهمية فقط أثناء سباق كؤوس نشط.\n\nتطبيقها خارج السباق قد يؤدي إلى حظر ظلي.\n\nتأكد من أنك بالفعل داخل سباق كؤوس قبل المتابعة.\n\nالمتابعة على أي حال؟",
 ["account.fake_rank.continue_button"] = "متابعة",
+["account.fake_rank.applied"] = "تم حقن الرتبة الوهمية",
+["account.fake_rank.not_in_cups"] = "ابدأ سباقًا أولًا",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "ضبط خانات الأجزاء",
@@ -23383,6 +23385,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "রেস প্রয়োজন",
 ["account.fake_rank.race_warn_msg"] = "Fake Rank শুধুমাত্র তখনই প্রয়োগ করা উচিত যখন একটি কাপ রেস সক্রিয়ভাবে চলছে।\n\nরেসের বাইরে প্রয়োগ করলে শ্যাডো বান হতে পারে।\n\nচালিয়ে যাওয়ার আগে নিশ্চিত করুন যে আপনি ইতিমধ্যে একটি কাপ রেসের ভিতরে আছেন।\n\nতবুও চালিয়ে যাবেন?",
 ["account.fake_rank.continue_button"] = "চালিয়ে যান",
+["account.fake_rank.applied"] = "নকল র‍্যাঙ্ক ইনজেক্ট করা হয়েছে",
+["account.fake_rank.not_in_cups"] = "প্রথমে একটি রেস শুরু করুন",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "পার্টস স্লট সামঞ্জস্য করুন",
@@ -25540,6 +25544,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Course requise",
 ["account.fake_rank.race_warn_msg"] = "Le classement factice ne doit être appliqué que pendant qu'une course de coupe est active.\n\nL'appliquer en dehors d'une course peut entraîner un bannissement caché.\n\nAssurez-vous d'être déjà dans une course de coupe avant de continuer.\n\nContinuer quand même ?",
 ["account.fake_rank.continue_button"] = "Continuer",
+["account.fake_rank.applied"] = "Classement factice injecté",
+["account.fake_rank.not_in_cups"] = "Commencez une course d'abord",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Ajuster l'emplacement des pièces",
@@ -25589,6 +25595,11 @@ return {
 ["vehicle.common.no_zero_region"] = "Aucune région zéro trouvée",
 
 }
+
+end
+
+__vfs['configs/lang/hi.lua'] = function(...)
+
 
 end
 
@@ -26112,6 +26123,11 @@ return {
 
 end
 
+__vfs['configs/lang/it.lua'] = function(...)
+
+
+end
+
 __vfs['configs/lang/pt-BR.lua'] = function(...)
 --[[
   configs/lang/pt-BR.lua — Português (Brasil) [Brazilian Portuguese]
@@ -26617,6 +26633,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Corrida Necessária",
 ["account.fake_rank.race_warn_msg"] = "O Rank Falso só deve ser aplicado enquanto uma corrida de Copos estiver ativa.\n\nAplicá-lo fora de uma corrida pode resultar em um banimento oculto.\n\nCertifique-se de que você já está dentro de uma corrida de Copos antes de continuar.\n\nContinuar mesmo assim?",
 ["account.fake_rank.continue_button"] = "Continuar",
+["account.fake_rank.applied"] = "Rank falso injetado",
+["account.fake_rank.not_in_cups"] = "Inicie uma corrida primeiro",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Ajustar Slot de Peças",
@@ -26805,8 +26823,8 @@ return {
 
 -- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
 ["settings.section_updates"] = "Обновления",
-["settings.auto_update.title"] = "Автообновление",
-["settings.auto_update.desc"] = "Автоматически обновлять VOID при запуске",
+["settings.auto_update.title"] = "Авто-обновление",
+["settings.auto_update.desc"] = "Автоматически обновляет VOID при запуске",
 ["settings.dev_mode_title"] = "Режим разработчика",
 ["settings.auto_update.dev_mode_msg"] = "Автообновление отключено для main.lua (dev-сборка).",
 ["settings.check_updates.title"] = "Проверка обновлений",
@@ -26841,8 +26859,8 @@ return {
 ["settings.memory_range.desc"] = "Текущий выбранный диапазон памяти\n(выбирается скриптом автоматически)",
 ["settings.gamestatus.title"] = "GameStatus",
 ["settings.gamestatus.desc"] = "Текущий адрес GameStatus\n(выбирается скриптом автоматически)",
-["settings.gamestatus_raw.title"] = "GameStatus (Сырой)",
-["settings.gamestatus_raw.desc"] = "Текущий адрес GameStatus (Сырой)\n(выбирается скриптом автоматически)",
+["settings.gamestatus_raw.title"] = "GameStatus (Начальный)",
+["settings.gamestatus_raw.desc"] = "Текущий адрес GameStatus (Начальный)\n(выбирается скриптом автоматически)",
 ["settings.clear_memory.title"] = "Очищение сохранённой памяти",
 ["settings.clear_memory.desc"] = "Очищает всю сохранённую память VOID без необходимости перезапускать игру.",
 
@@ -26869,10 +26887,10 @@ return {
 ["settings.reset_theme.title"] = "Сброс темы",
 ["settings.reset_theme.desc"] = "Сбрасывает кастомную тему и фоновое изображение к стандартным",
 ["settings.import_theme.title"] = "Импортировать тему",
-["settings.import_theme.desc"] = "Импортировать кастомную тему из облака",
+["settings.import_theme.desc"] = "Импортирует кастомную тему из облака",
 ["settings.import_theme.hint"] = "Введите Share ID",
 ["settings.export_theme.title"] = "Экспортировать тему",
-["settings.export_theme.desc"] = "Экспортировать кастомную тему и фоновое изображение в облако",
+["settings.export_theme.desc"] = "Экспортирует кастомную тему и фоновое изображение в облако",
 ["settings.export_theme.share_id_msg"] = "Share ID: %s\n\nСкопирован в буфер обмена.",
 ["settings.export_theme.upload_failed_msg"] = "Ошибка загрузки: %s",
 ["settings.export_theme.size_warning_title"] = "Предупреждение о размере загрузки",
@@ -26886,12 +26904,12 @@ return {
 ["settings.tabs_icon.empty_error"] = "Не может быть пустым",
 
 ["settings.bg_opacity.title"] = "Прозрачность фона",
-["settings.bg_opacity.desc"] = "Прозрачность панелей, карточек и шапки",
+["settings.bg_opacity.desc"] = "Изменяет прозрачность панелей, карточек и шапки",
 ["settings.slider.alpha"] = "Прозрачность",
 ["settings.bg_image_opacity.title"] = "Прозрачность фонового изображения",
-["settings.bg_image_opacity.desc"] = "Настройте прозрачность напрямую через целочисленные значения каналов.",
+["settings.bg_image_opacity.desc"] = "Настройка прозрачности напрямую через целочисленные значения каналов.",
 ["settings.bg_image_picker.title"] = "Фоновое изображение",
-["settings.bg_image_picker.desc"] = "Нажмите, чтобы изменить путь к файлу для кастомного фонового изображения",
+["settings.bg_image_picker.desc"] = "Изменяет путь к файлу для кастомного фонового изображения",
 ["settings.bg_image_picker.path_label"] = "Путь к файлу изображения (.jpg или .png):",
 ["settings.bg_image_picker.remove_label"] = "Удалить фоновое изображение",
 ["settings.bg_image_picker.success_title"] = "Успешно",
@@ -26962,22 +26980,22 @@ return {
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",
-["other.debug_mode.desc"] = "Переключяет внутриигровой режим отладки",
+["other.debug_mode.desc"] = "Переключает внутриигровой режим отладки",
 ["other.debug_mode.enabled"] = "Режим отладки включён",
 ["other.debug_mode.disabled"] = "Режим отладки выключен",
 ["other.hint.width"] = "Ширина",
 ["other.hint.height"] = "Высота",
 ["other.resolution.title"] = "Настройка разрешения",
-["other.resolution.desc"] = "Настройте ширину и высоту игры (по умолчанию 1280x720)",
+["other.resolution.desc"] = "Настраивает ширину и высоту игры (по умолчанию 1280x720)",
 ["other.resolution.applied"] = "Разрешение установлено: %dx%d",
 ["other.resolution_offset.title"] = "Настройка смещения разрешения",
-["other.resolution_offset.desc"] = "Настройте смещение по ширине и высоте игры (по умолчанию 0x0), лучше всего подходит для маленького разрешения на большом экране.",
+["other.resolution_offset.desc"] = "Настраивает смещение по ширине и высоте игры (по умолчанию 0x0), лучше всего подходит для маленького разрешения на большом экране.",
 ["other.resolution_offset.applied"] = "Смещение разрешения установлено: %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView не найден",
 
 -- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
 ["shop.free_chest.title"] = "Бесплатные сундуки",
-["shop.free_chest.desc"] = "Бесплатные сундуки в магазине",
+["shop.free_chest.desc"] = "Все сундуки в магазине станут бесплатными.",
 ["shop.free_chest.enabled"] = "Бесплатные сундуки включены",
 ["shop.free_chest.disabled"] = "Бесплатные сундуки выключены",
 ["shop.free_purchases.title"] = "Бесплатные покупки",
@@ -26997,25 +27015,25 @@ return {
 
 -- ── modules/tabs/player.lua ───────────────────────────────────────────────────
 ["player.auto_detach.title"] = "Авто-снятие деталей",
-["player.auto_detach.desc"] = "Автоматически снимать детали, например крышу Раллийного Авто",
+["player.auto_detach.desc"] = "Автоматически снимает детали, например крышу Раллийного Авто",
 ["player.no_clip.title"] = "No-Clip (проход сквозь стены)",
 ["player.no_clip.desc"] = "Позволяет проходить сквозь объекты, не погибая (можно проезжать сквозь финишные линии в кубках)",
 ["player.no_clip.enabled"] = "No-Clip включен",
 ["player.no_clip.disabled"] = "No-Clip выключен",
 ["player.hide_name.title"] = "Скрытие имени",
-["player.hide_name.desc"] = "Скрыть имя вашего игрока в заезде",
+["player.hide_name.desc"] = "Скрывает имя вашего игрока в заезде",
 ["player.hide_name.enabled"] = "Скрытие имени включено",
 ["player.hide_name.disabled"] = "Скрытие имени выключено",
 ["player.hide_flag.title"] = "Скрытие флага",
-["player.hide_flag.desc"] = "Скрыть флаг вашего игрока в заезде",
+["player.hide_flag.desc"] = "Скрывает флаг вашего игрока в заезде",
 ["player.hide_flag.enabled"] = "Скрытие флага включено",
 ["player.hide_flag.disabled"] = "Скрытие флага выключено",
 ["player.zoom.title"] = "Настройка зума",
-["player.zoom.desc"] = "Настройте, насколько близко или далеко находится камера",
+["player.zoom.desc"] = "Настраивает насколько близко или далеко находится камера",
 ["player.slider.min"] = "Мин.",
 ["player.slider.max"] = "Макс.",
 ["player.gravity.title"] = "Настройка гравитации",
-["player.gravity.desc"] = "Настройте силу гравитации",
+["player.gravity.desc"] = "Настраивает силу гравитации",
 ["player.slider.x"] = "X",
 ["player.slider.y"] = "Y",
 
@@ -27050,7 +27068,7 @@ return {
 ["cups.slider.seconds"] = "Секунды",
 ["cups.adjust_countdown.applied"] = "Отсчёт изменён на %ss",
 ["cups.auto_win.title"] = "Авто-победа",
-["cups.auto_win.desc"] = "Автоматически побеждать вне зависимости от результата заезда",
+["cups.auto_win.desc"] = "Делает принудительную победу в кубках",
 ["cups.force_boss.title"] = "Авто-босс",
 ["cups.force_boss.desc"] = "Кубок будет всегда с боссом, что увеличивает получаемый ранг за заезд",
 ["cups.force_cup.title"] = "Авто-кубок",
@@ -27066,7 +27084,7 @@ return {
 ["cups.unlimited_tasks.disabled"] = "Безлимитные задания выключены",
 ["cups.unlimited_tasks.none_to_freeze"] = "Нет заданий для заморозки",
 ["cups.rank_points_bonus.title"] = "+498 очков ранга",
-["cups.rank_points_bonus.desc"] = "Все лиговые задания дают 498 ранга вместо 200, остальные награды убираются.",
+["cups.rank_points_bonus.desc"] = "Все лиговые задания будут давать 498 ранга вместо 200, остальные награды убираются.",
 ["cups.rank_points_bonus.none_found"] = "Лиговые задания не найдены",
 ["cups.rank_points_bonus.boosted"] = "Очки ранга увеличены: %s",
 ["cups.rank_points_bonus.no_match"] = "Подходящие лиговые задания не найдены",
@@ -27075,9 +27093,9 @@ return {
 
 -- ── modules/tabs/event.lua ────────────────────────────────────────────────────
 ["event.patch_rewards.title"] = "Патч наград ивента",
-["event.patch_rewards.desc"] = "Заменяет награды текущего ивента на кастомные от VOID (нужен перезапуск игры)",
+["event.patch_rewards.desc"] = "Заменяет награды текущего ивента на кастомные от VOID (требуется перезапуск)",
 ["event.restore_events.title"] = "Восстановить награды ивента",
-["event.restore_events.desc"] = "Удалить изменённые JSON-файлы ивентов, чтобы сервер игры восстановил их (нужен перезапуск игры)",
+["event.restore_events.desc"] = "Удаляет изменённые JSON-файлы ивентов, чтобы сервер игры восстановил их (требуется перезапуск)",
 
 ["event.checking_permissions"] = "Проверка прав доступа окружения...",
 ["event.scanning_files"] = "Сканирование активных файлов...",
@@ -28217,6 +28235,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Yarış Gerekli",
 ["account.fake_rank.race_warn_msg"] = "Sahte Sıralama yalnızca bir Kupa yarışı aktif olarak çalışırken uygulanmalıdır.\n\nYarış dışında uygulanması gizli yasaklamaya neden olabilir.\n\nDevam etmeden önce zaten bir Kupa yarışının içinde olduğunuzdan emin olun.\n\nYine de devam edilsin mi?",
 ["account.fake_rank.continue_button"] = "Devam Et",
+["account.fake_rank.applied"] = "Sahte sıralama enjekte edildi",
+["account.fake_rank.not_in_cups"] = "Önce bir yarış başlatın",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Parça Yuvalarını Ayarla",
@@ -28358,6 +28378,7 @@ return {
 ["ui.na"] = "Н/Д",
 ["ui.spinner_select"] = "Вибрати",
 ["ui.slider_default_title"] = "Значення",
+["ui.loading"] = "Завантаження",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "Потрібен пристрій %s (ваш пристрій: %s)",
@@ -28773,6 +28794,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "Потрібна гонка",
 ["account.fake_rank.race_warn_msg"] = "Фейковий рейтинг слід застосовувати лише під час активної гонки кубка.\n\nЗастосування поза гонкою може призвести до тіньового бану.\n\nПеред продовженням переконайтеся, що ви вже перебуваєте в гонці кубка.\n\nВсе одно продовжити?",
 ["account.fake_rank.continue_button"] = "Продовжити",
+["account.fake_rank.applied"] = "Впроваджено фейковий рейтинг",
+["account.fake_rank.not_in_cups"] = "Спочатку почніть гонку",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Налаштувати слоти деталей",
@@ -28914,6 +28937,7 @@ return {
 ["ui.na"] = "غ/م",
 ["ui.spinner_select"] = "منتخب کریں",
 ["ui.slider_default_title"] = "قدر",
+["ui.loading"] = "لوڈ ہو رہا ہے",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "%s ڈیوائس درکار ہے (آپ کی ڈیوائس: %s)",
@@ -29329,6 +29353,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "ریس درکار ہے",
 ["account.fake_rank.race_warn_msg"] = "جعلی رینک صرف اس وقت لاگو کی جانی چاہیے جب کپ ریس فعال طور پر چل رہی ہو۔\n\nاسے ریس کے باہر لاگو کرنے سے شیڈو بین ہو سکتا ہے۔\n\nجاری رکھنے سے پہلے یقینی بنائیں کہ آپ پہلے ہی کپ ریس کے اندر ہیں۔\n\nپھر بھی جاری رکھیں؟",
 ["account.fake_rank.continue_button"] = "جاری رکھیں",
+["account.fake_rank.applied"] = "جعلی رینک انجیکٹ کر دی گئی",
+["account.fake_rank.not_in_cups"] = "پہلے ریس شروع کریں",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "پرزے سلاٹ ایڈجسٹ کریں",
@@ -30941,7 +30967,7 @@ __vfs['data/manifest.lua'] = function(...)
 return {
 
     ["arm64-v8a"] = {
-        default_base = "data/arm64-v8a/1.73.3.lua", -- 1.73
+        default_base = "data/arm64-v8a/1.73.3.lua",
 
         ["1"] = {
             ["73"] = {
@@ -30952,7 +30978,7 @@ return {
     },
     
     ["x86_64"] = {
-        default_base = "data/x86_64/1.73.3.lua", -- 1.73
+        default_base = "data/x86_64/1.73.3.lua",
 
         ["1"] = {
             ["73"] = {
@@ -31001,8 +31027,9 @@ return {
         },
     },
     offsets = {
-        lib_setDistanceBase = 0x200BC58,
-        lib_partsLevel = 0x2060CA0,
+        raceInfo = 0x200BC58, -- race info like distance, cd
+        vnpStats = 0x2060CA0, -- vehicles and parts, cd
+        customTracks = 0x1FE27F0, -- custom tracks list, cd
     },
 }
 
@@ -31013,7 +31040,7 @@ __vfs['data/x86_64/1.73.3.lua'] = function(...)
 
 return {
     offsets = {
-        lib_setDistanceBase = 0x2066508,
+        raceInfo = 0x2066508,
     },
 }
 
@@ -31405,7 +31432,7 @@ return function(container)
                 end
             end
 
-            local anchorTarget = BaseLib + offsets.lib_setDistanceBase
+            local anchorTarget = BaseLib + offsets.raceInfo
             LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
 
             gg.clearResults()
@@ -31552,12 +31579,40 @@ end
 __vfs['modules/tabs/creative.lua'] = function(...)
 --[[
   Creative Tab - Creative mode/Custom track features
-  Status: TODO - Not yet implemented
+  Status: idk
   
   @module callback Receives container View to populate with modules
 ]]
+
+local function getCustomTrack()
+    gg.clearResults()
+    gg.setRanges(8)
+    gg.searchNumber(BaseLib + offsets.customTracks, 32)
+    local refs = gg.getResults(gg.getResultsCount())
+    if #refs > 0 then
+        for _, v in ipairs(refs) do
+            
+        end
+    end
+end
+
 return function(container)
-    -- TODO: add creative modules
+    local function t(key, ...) return T("creative." .. key, ...) end
+    
+    addArchModule(container, "auto_verify_all", t("auto_verify_all.title"), t("auto_verify_all.desc"), "button", nil,
+    function(done)
+        local TAG = "AutoVerifyAll"
+        
+        showDialog("still in progress", "unfinished", "ok")
+        schedelur:add(function(finishTask)
+            
+            finishTask()
+            done()
+        end)
+        
+        done()
+    end)
+    
 end
 
 end
@@ -31778,7 +31833,7 @@ return function(container)
                     end
                 end
     
-                local anchorTarget = BaseLib + offsets.lib_setDistanceBase
+                local anchorTarget = BaseLib + offsets.raceInfo
                 LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
     
                 gg.clearResults()
@@ -34413,7 +34468,7 @@ return function(container)
                     local search2 = variant.toVal
                     
                     gg.clearResults()
-                    gg.searchNumber(BaseLib + offsets.lib_partsLevel, 32)
+                    gg.searchNumber(BaseLib + offsets.vnpStats, 32)
                     local refs = gg.getResults(gg.getResultsCount())
                     gg.clearResults()
     

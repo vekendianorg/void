@@ -62,7 +62,7 @@
 return {
 
     ["arm64-v8a"] = {
-        default_base = "data/arm64-v8a/1.73.3.lua", -- 1.73
+        default_base = "data/arm64-v8a/1.73.3.lua",
 
         ["1"] = {
             ["73"] = {
@@ -73,7 +73,7 @@ return {
     },
     
     ["x86_64"] = {
-        default_base = "data/x86_64/1.73.3.lua", -- 1.73
+        default_base = "data/x86_64/1.73.3.lua",
 
         ["1"] = {
             ["73"] = {

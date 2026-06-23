@@ -143,7 +143,7 @@ return function(container)
                 end
             end
 
-            local anchorTarget = BaseLib + offsets.lib_setDistanceBase
+            local anchorTarget = BaseLib + offsets.raceInfo
             LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
 
             gg.clearResults()

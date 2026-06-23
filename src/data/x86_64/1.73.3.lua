@@ -2,6 +2,6 @@
 
 return {
     offsets = {
-        lib_setDistanceBase = 0x2066508,
+        raceInfo = 0x2066508,
     },
 }

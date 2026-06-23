@@ -33,7 +33,8 @@ return {
         },
     },
     offsets = {
-        lib_setDistanceBase = 0x200BC58,
-        lib_partsLevel = 0x2060CA0,
+        raceInfo = 0x200BC58, -- race info like distance, cd
+        vnpStats = 0x2060CA0, -- vehicles and parts, cd
+        customTracks = 0x1FE27F0, -- custom tracks list, cd
     },
 }

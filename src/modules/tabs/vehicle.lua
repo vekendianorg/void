@@ -422,7 +422,7 @@ return function(container)
                     local search2 = variant.toVal
                     
                     gg.clearResults()
-                    gg.searchNumber(BaseLib + offsets.lib_partsLevel, 32)
+                    gg.searchNumber(BaseLib + offsets.vnpStats, 32)
                     local refs = gg.getResults(gg.getResultsCount())
                     gg.clearResults()
     
