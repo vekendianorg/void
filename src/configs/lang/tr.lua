@@ -3,7 +3,7 @@
 
   Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
   Looked up at runtime via the global T(key, ...) function, e.g.:
-      T("common.ok")                          -> "Tamam"
+      T("common.ok")                           -> "Tamam"
       T("settings.window_width_desc", 400, 650) -> "Menü genişliği (400 - 650 dp)"
 
   Conventions:
