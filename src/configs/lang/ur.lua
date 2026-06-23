@@ -86,6 +86,7 @@ return {
 ["ui.na"] = "غ/م",
 ["ui.spinner_select"] = "منتخب کریں",
 ["ui.slider_default_title"] = "قدر",
+["ui.loading"] = "لوڈ ہو رہا ہے",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "%s ڈیوائس درکار ہے (آپ کی ڈیوائس: %s)",
