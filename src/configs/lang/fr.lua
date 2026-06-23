@@ -493,6 +493,7 @@ return {
 ["account.fake_unlock.desc"] = "Déverrouiller toutes les personnalisations temporairement",
 ["account.fake_vip.title"] = "VIP factice",
 ["account.fake_vip.desc"] = "Basculer l'état de l'abonnement VIP localement",
+  
 ["account.fake_rank.title"] = "Classement factice",
 ["account.fake_rank.desc"] = "Définir votre classement sur légendaire factice automatiquement",
 ["account.fake_rank.race_warn_title"] = "Course requise",
