@@ -502,6 +502,8 @@ return {
 ["account.fake_rank.race_warn_title"] = "السباق مطلوب",
 ["account.fake_rank.race_warn_msg"] = "يجب تطبيق الرتبة الوهمية فقط أثناء سباق كؤوس نشط.\n\nتطبيقها خارج السباق قد يؤدي إلى حظر ظلي.\n\nتأكد من أنك بالفعل داخل سباق كؤوس قبل المتابعة.\n\nالمتابعة على أي حال؟",
 ["account.fake_rank.continue_button"] = "متابعة",
+["account.fake_rank.applied"] = "تم حقن الرتبة الوهمية",
+["account.fake_rank.not_in_cups"] = "ابدأ سباقًا أولًا",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "ضبط خانات الأجزاء",
