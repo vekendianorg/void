@@ -86,6 +86,7 @@ return {
 ["ui.na"] = "Yok",
 ["ui.spinner_select"] = "Seç",
 ["ui.slider_default_title"] = "Değer",
+["ui.loading"] = "Yükleniyor",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "%s cihaz gerektirir (cihazınız: %s)",
