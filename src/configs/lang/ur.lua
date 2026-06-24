@@ -253,42 +253,10 @@ return {
 ["about.about_script.title"] = "اسکرپٹ کے بارے میں",
 ["about.about_script.desc"] = "Hill Climb Racing 2 کے لیے کسٹم Pivot ماحول پر بنایا گیا ایک طاقتور اور انتہائی بہتر میموری ہیرا پھیری اسکرپٹ۔\n\nPivot ڈاؤن لوڈ کریں:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "اسکرپٹ کا مالک",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "اسکرپٹ ڈویلپر",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "اسکرپٹ مترجم",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "اعترافات",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "خصوصی شکریہ",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ڈیبگ موڈ",

@@ -252,41 +252,10 @@ return {
 ["about.about_script.title"] = "О скрипте",
 ["about.about_script.desc"] = "Мощный и оптимизированный скрипт для манипуляции памятью, созданный для Hill Climb Racing 2 в кастомном окружении Pivot.\n\nСкачать Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Владелец скрипта",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Разработчики скрипта",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Переводчики скрипта",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Авторы",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "Особая благодарность",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",

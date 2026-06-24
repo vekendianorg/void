@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-24 01:38:28
+-- Packed by bundle.py  •  2026-06-24 18:39:15
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -29,6 +29,64 @@ UI = {
 }
 
 return UI
+end
+
+__vfs['configs/credits.lua'] = function(...)
+-- configs/credits.lua — Single source of truth for all arch-universal about/credits content.
+--
+-- These keys are language-independent (names, handles, URLs) and are shared
+-- across every lang file. They are injected into T() as a base layer BEFORE
+-- the English fallback, so lang files never need to define them.
+--
+-- To update a credit: edit here only. All languages update automatically.
+
+return {
+
+-- ── Script owner ──────────────────────────────────────────────────────────
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+
+-- ── Script developers ─────────────────────────────────────────────────────
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+
+-- ── Translators ───────────────────────────────────────────────────────────
+-- One entry per language. Names and handles are not translated.
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
+
+-- ── Credits ───────────────────────────────────────────────────────────────
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+
+-- ── Special thanks ────────────────────────────────────────────────────────
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+}
+
 end
 
 __vfs['configs/rewards.lua'] = function(...)
@@ -22577,42 +22635,10 @@ return {
 ["about.about_script.title"] = "حول السكريبت",
 ["about.about_script.desc"] = "سكريبت قوي ومحسّن للغاية لمعالجة الذاكرة مبني لـ Hill Climb Racing 2 على بيئة Pivot المخصصة.\n\nتنزيل Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "مالك السكريبت",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "مطور السكريبت",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "مترجم السكريبت",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "الشكر والتقدير",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "شكر خاص",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "وضع التصحيح",
@@ -23136,42 +23162,10 @@ return {
 ["about.about_script.title"] = "স্ক্রিপ্ট সম্পর্কে",
 ["about.about_script.desc"] = "Hill Climb Racing 2-এর জন্য কাস্টম Pivot পরিবেশে নির্মিত একটি শক্তিশালী ও অত্যন্ত অপটিমাইজড মেমরি ম্যানিপুলেশন স্ক্রিপ্ট।\n\nPivot ডাউনলোড:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "স্ক্রিপ্ট মালিক",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "স্ক্রিপ্ট ডেভেলপার",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "স্ক্রিপ্ট অনুবাদক",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "ক্রেডিট",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "বিশেষ ধন্যবাদ",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ডিবাগ মোড",
@@ -23693,41 +23687,10 @@ return {
 ["about.about_script.title"] = "Über das Skript",
 ["about.about_script.desc"] = "Ein mächtiges und hochgradig optimiertes Skript zur Speichermanipulation, entwickelt für Hill Climb Racing 2 auf der maßgeschneiderten Pivot-Umgebung.\n\nPivot herunterladen:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Skript-Eigentümer",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Skript-Entwickler",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Übersetzer",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Credits",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (Discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "Besonderer Dank an",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug-Modus",
@@ -24052,7 +24015,7 @@ return {
 ["ui.loading"] = "Loading",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.requires_arch"] = "Requires %s device (your device: %s)",
+["patches.no_data_this_version"] = "Not available for your game version.",
 ["patches.suffix_enabled"] = " Enabled",
 ["patches.suffix_disabled"] = " Disabled",
 ["patches.pattern_not_found"] = "Failed: %d pattern(s) not found",
@@ -24063,6 +24026,7 @@ return {
 ["arch.non_primary_arch_msg"] = "Detected: %s\nSome or all lib-patches may not work.",
 ["arch.unknown_version_msg"] = "Game version unknown. Try again after the game loads.",
 ["arch.no_base_data_msg"] = "Internal error: no base data available for this architecture.",
+["arch.newer_version_msg"] = "Your game version (%s) is newer than the latest known data (%s).\nVOID will use the closest available data — some features may not work correctly.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Scheduler Warning: Task crashed -> %s",
@@ -24216,42 +24180,10 @@ return {
 ["about.about_script.title"] = "About Script",
 ["about.about_script.desc"] = "A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom Pivot environment.\n\nDownload Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Script Owner",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Script Developer",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Script Translator",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Credits",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Special Thanks",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug Mode",
@@ -24774,41 +24706,10 @@ return {
 ["about.about_script.title"] = "Acerca del Script",
 ["about.about_script.desc"] = "Un script de manipulación de memoria potente y altamente optimizado para Hill Climb Racing 2 en el entorno Pivot personalizado.\n\nDescarga Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propietario del Script",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desarrolladores del Script",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Traductor del Script",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Créditos",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "Agradecimientos Especiales",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo Depuración",
@@ -25295,42 +25196,10 @@ return {
 ["about.about_script.title"] = "À propos du script",
 ["about.about_script.desc"] = "Un script de manipulation de mémoire puissant et hautement optimisé construit pour Hill Climb Racing 2 sur l'environnement Pivot personnalisé.\n\nTélécharger Pivot :\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propriétaire du script",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Développeur du script",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Traducteur du script",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Crédits",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Remerciements spéciaux",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode débogage",
@@ -25599,7 +25468,563 @@ return {
 end
 
 __vfs['configs/lang/hi.lua'] = function(...)
+--[[
+  configs/lang/hi.lua — हिन्दी (Hindi)
 
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "ठीक है"
+      T("settings.window_width_desc", 400, 650) -> "फ्लोटिंग मेनू की चौड़ाई (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Hindi localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "ठीक है",
+["common.cancel"] = "रद्द करें",
+["common.yes"] = "हाँ",
+["common.no"] = "नहीं",
+["common.failed"] = "विफल",
+["common.success"] = "सफल",
+["common.later"] = "बाद में",
+["common.got_it"] = "समझ गया",
+["common.retry"] = "पुनः प्रयास करें",
+["common.wait_safe"] = "प्रतीक्षा करें (सुरक्षित)",
+["common.waiting"] = "प्रतीक्षा...",
+["common.force_exit"] = "जबरदस्ती बाहर निकलें",
+["common.proceed_anyway"] = "फिर भी आगे बढ़ें",
+["common.manual_mode"] = "मैन्युअल मोड",
+["common.update_button"] = "अपडेट करें",
+["common.launch_failed"] = "लॉन्च विफल",
+["common.confirm_exit_title"] = "बाहर निकलने की पुष्टि करें",
+["common.confirm_exit_msg"] = "स्क्रिप्ट से बाहर निकलें?",
+["common.not_available"] = "उपलब्ध नहीं",
+["common.warning"] = "चेतावनी",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "चेतावनी: सक्रिय ऑपरेशन",
+["main.exit_active_ops_msg"] = "%d बैकग्राउंड कार्य चल रहे हैं।\nजबरदस्ती बाहर निकलने से गेम की स्थिति खराब हो सकती है।",
+["main.initializing"] = "आरंभ हो रहा है...",
+["main.no_app_found"] = "कोई ऐप नहीं मिला",
+["main.arch_64bit_required_title"] = "64-बिट आवश्यक",
+["main.arch_64bit_required_msg"] = "ARMv8a अनिवार्य है। x86_64 आंशिक रूप से समर्थित है।",
+
+["main.update_available_title"] = "अपडेट उपलब्ध",
+["main.update_available_msg"] = "v%s उपलब्ध है (वर्तमान: v%s)\n\n%s\n\nअभी अपडेट करें?",
+["main.no_changelog"] = "कोई परिवर्तन लॉग नहीं।",
+["main.downloading_version"] = "v%s डाउनलोड हो रहा है...",
+["main.update_download_failed_msg"] = "अपडेट डाउनलोड नहीं हो सका:\n%s",
+["main.update_write_failed_msg"] = "इसमें लिखा नहीं जा सका:\n%s",
+["main.update_done_title"] = "VOID v%s में अपडेट हुआ",
+["main.update_done_msg"] = "VOID सफलतापूर्वक अपडेट हो गया।\n\nनई स्क्रिप्ट इस रूप में सहेजी गई है:\nvoid_v%s.lua\n\nअपडेट लागू करने के लिए इसे GameGuardian से चलाएं।",
+["main.launching_version"] = "v%s लॉन्च हो रहा है...",
+["main.launch_failed_msg"] = "डाउनलोड हो गया लेकिन चल नहीं सका:\n%s",
+
+["main.multiple_spaces_title"] = "एकाधिक स्पेस मिले",
+["main.multiple_spaces_desc"] = "HCR2 %d वर्चुअल स्पेस में मिला।\nउस स्पेस का चयन करें जिसमें आप अभी खेल रहे हैं।",
+["main.select_space_toast"] = "जारी रखने के लिए एक स्पेस चुनें।",
+["main.user_space_item"] = "उपयोगकर्ता %s  —  %s",
+["main.permission_error_title"] = "अनुमति त्रुटि",
+["main.permission_error_msg"] = "शेल एक्सेस अस्वीकार कर दिया गया।\n\nVoid को आपके वर्चुअल स्पेस में HCR2 ढूंढने के लिए इसकी आवश्यकता है। यदि आप यह सत्यापित करना चाहते हैं कि कौन सा कमांड चल रहा है तो Void सोर्स कोड देखें।",
+["main.hcr2_not_found_title"] = "HCR2 डेटा नहीं मिला",
+["main.hcr2_not_found_msg"] = "Void आपके वर्चुअल स्पेस में HCR2 डेटा ढूंढ नहीं सका। यह तब हो सकता है यदि HCR2 अभी तक लॉन्च नहीं हुआ है, या आपका वर्चुअल स्पेस ऐप असामान्य पथ संरचना का उपयोग करता है।\n\nगेम फ़ाइलों पर निर्भर सुविधाएँ (इवेंट रिवॉर्ड्स, आदि) मान्य पथ के बिना काम नहीं करेंगी।",
+["main.manual_data_path_title"] = "मैन्युअल डेटा पथ",
+["main.manual_data_path_hint"] = "HCR2 डेटा पथ दर्ज करें",
+["main.manual_path_cancelled"] = "रद्द किया गया — पथ के बिना आगे बढ़ रहा है।",
+["main.waiting_for_lib"] = "%s की प्रतीक्षा...",
+["main.initialized"] = "आरंभ हुआ",
+["main.gamestatus_not_found"] = "GameStatus नहीं मिला",
+["main.dont_interrupt"] = "इस स्क्रिप्ट को बाधित न करें",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "आकार सहेजा गया! स्क्रिप्ट पुनः आरंभ करें",
+["ui.category_error"] = "त्रुटि: %s",
+["ui.category_not_found"] = "श्रेणी नहीं मिली",
+["ui.na"] = "लागू नहीं",
+["ui.spinner_select"] = "चुनें",
+["ui.slider_default_title"] = "मान",
+["ui.loading"] = "लोड हो रहा है",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "%s डिवाइस की आवश्यकता है (आपका डिवाइस: %s)",
+["patches.suffix_enabled"] = " सक्षम",
+["patches.suffix_disabled"] = " अक्षम",
+["patches.pattern_not_found"] = "विफल: %d पैटर्न नहीं मिले",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "आर्किटेक्चर चेतावनी",
+["arch.unknown_arch_msg"] = "आपका आर्किटेक्चर अज्ञात है। क्या लाइब्रेरी लोड हुई? आप कौन सा सिस्टम उपयोग कर रहे हैं?",
+["arch.non_primary_arch_msg"] = "पाया गया: %s\nकुछ या सभी लिब-पैच काम नहीं कर सकते।",
+["arch.unknown_version_msg"] = "गेम का संस्करण अज्ञात है। गेम लोड होने के बाद पुनः प्रयास करें।",
+["arch.no_base_data_msg"] = "आंतरिक त्रुटि: इस आर्किटेक्चर के लिए कोई आधार डेटा उपलब्ध नहीं है।",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "शेड्यूलर चेतावनी: कार्य क्रैश हुआ -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "HTTP त्रुटि कोड: %s",
+["errors.crashed"] = "क्रैश हुआ: %s",
+["errors.url_missing"] = "URL पैरामीटर अनुपस्थित या खाली है",
+["errors.file_path_missing"] = "फ़ाइल पथ अनुपस्थित है",
+["errors.download_url_missing"] = "URL अनुपस्थित है",
+["errors.dest_path_missing"] = "गंतव्य पथ अनुपस्थित है",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "गेम मेनू",
+["tabs.account"] = "खाता मेनू",
+["tabs.vehicle"] = "वाहन मेनू",
+["tabs.player"] = "खिलाड़ी मेनू",
+["tabs.adventure"] = "साहसिक मेनू",
+["tabs.cups"] = "कप मेनू",
+["tabs.team"] = "टीम मेनू",
+["tabs.event"] = "इवेंट मेनू",
+["tabs.creative"] = "क्रिएटिव मेनू",
+["tabs.shop"] = "दुकान मेनू",
+["tabs.other"] = "अन्य मेनू",
+["tabs.sep_script"] = "स्क्रिप्ट मेनू",
+["tabs.settings"] = "सेटिंग्स",
+["tabs.about"] = "परिचय",
+
+["registry.module_load_failed"] = "मॉड्यूल लोड नहीं हुआ। विवरण के लिए लॉग देखें।",
+["registry.module_runtime_error"] = "रनटाइम त्रुटि: %s",
+["registry.error"] = "त्रुटि",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "अपडेट",
+["settings.auto_update.title"] = "स्वचालित अपडेट",
+["settings.auto_update.desc"] = "स्टार्टअप पर VOID स्वचालित रूप से अपडेट करें",
+["settings.dev_mode_title"] = "डेव मोड",
+["settings.auto_update.dev_mode_msg"] = "main.lua के लिए स्वचालित अपडेट अक्षम है (डेव बिल्ड)।",
+["settings.check_updates.title"] = "अपडेट जाँचें",
+["settings.check_updates.desc"] = "GitHub पर नवीनतम VOID रिलीज़ देखें",
+["settings.check_updates.dev_mode_msg"] = "main.lua के लिए अपडेट जाँच अक्षम है (डेव बिल्ड)।\n\nमैन्युअल रूप से रिपो से पुल करें।",
+["settings.check_updates.checking"] = "अपडेट की जाँच हो रही है...",
+["settings.check_updates.failed_title"] = "अपडेट जाँच विफल",
+["settings.check_updates.failed_msg"] = "GitHub तक पहुँच नहीं सका:\n%s",
+["settings.check_updates.up_to_date_title"] = "अद्यतित",
+["settings.check_updates.up_to_date_msg"] = "आप पहले से ही नवीनतम संस्करण पर हैं (v%s)।",
+["settings.check_updates.no_changelog"] = "कोई परिवर्तन लॉग उपलब्ध नहीं।",
+["settings.check_updates.available_msg"] = "v%s  (वर्तमान: v%s)\n\n%s\n\nइस स्क्रिप्ट को डाउनलोड और बदलें?",
+["settings.check_updates.no_asset_msg"] = "रिलीज़ में कोई .lua एसेट नहीं मिला।",
+["settings.check_updates.download_failed_title"] = "डाउनलोड विफल",
+["settings.check_updates.write_failed_title"] = "लेखन विफल",
+["settings.check_updates.done_title"] = "संपन्न",
+["settings.check_updates.done_msg"] = "v%s में अपडेट हुआ। लागू करने के लिए स्क्रिप्ट पुनः आरंभ करें।",
+["settings.check_updates.restart_button"] = "पुनः आरंभ करें",
+
+["settings.section_language"] = "भाषा",
+["settings.language.title"] = "भाषा",
+["settings.language.desc"] = "मेनू के लिए अपनी पसंदीदा भाषा चुनें",
+["settings.language.changed"] = "भाषा %s पर सेट की गई",
+["settings.language.failed"] = "वह भाषा लोड नहीं हुई",
+["settings.language.restart_msg"] = "भाषा पूरी तरह से लागू करने के लिए स्क्रिप्ट पुनः आरंभ करें",
+
+["settings.region.other"] = "अ: अन्य",
+["settings.region.cpp_alloc"] = "Ca: C++ आवंटन",
+["settings.region.unknown"] = "अज: अज्ञात",
+["settings.section_memory"] = "मेमोरी",
+["settings.memory_range.title"] = "मेमोरी रेंज",
+["settings.memory_range.desc"] = "वर्तमान चयनित मेमोरी रेंज\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुनी गई)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "वर्तमान gamestatus पता\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुना गया)",
+["settings.gamestatus_raw.title"] = "GameStatus (कच्चा)",
+["settings.gamestatus_raw.desc"] = "वर्तमान gamestatus (कच्चा) पता\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुना गया)",
+["settings.clear_memory.title"] = "सहेजी गई मेमोरी साफ़ करें",
+["settings.clear_memory.desc"] = "पूरा गेम पुनः आरंभ किए बिना VOID की सभी सहेजी गई मेमोरी साफ़ करें।",
+
+["settings.section_ui_customizations"] = "UI अनुकूलन",
+["settings.theme_store.title"] = "थीम स्टोर",
+["settings.theme_store.desc"] = "समुदाय Void थीम ब्राउज़ और इंस्टॉल करें",
+["settings.theme_store.unreachable_msg"] = "थीम स्टोर तक नहीं पहुँच सका:\n%s",
+["settings.theme_store.parse_failed_msg"] = "थीम स्टोर डेटा पार्स नहीं हो सका।",
+["settings.theme_store.list_title"] = "Void थीम स्टोर",
+["settings.theme_store.search_results_desc"] = "खोज परिणाम: %s मिले",
+["settings.theme_store.available_desc"] = "%s थीम उपलब्ध",
+["settings.theme_store.by_author"] = "%s द्वारा",
+["settings.theme_store.search_item"] = "🔍 खोजें...",
+["settings.theme_store.clear_search_item"] = "✕ खोज साफ़ करें",
+["settings.theme_store.search_title"] = "थीम खोजें",
+["settings.theme_store.search_hint"] = "थीम का नाम, लेखक या विवरण",
+["settings.theme_store.no_results"] = "%s के लिए कोई थीम नहीं मिली",
+["settings.theme_store.detail_msg"] = "%s द्वारा\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"] = "थीम इंस्टॉल करें",
+["settings.theme_downloading_bg"] = "पृष्ठभूमि छवि डाउनलोड हो रही है...",
+["settings.theme_imported"] = "थीम आयात हुई!",
+["settings.theme_invalid_bundle"] = "अमान्य बंडल प्रारूप।",
+["settings.theme_cloud_error"] = "क्लाउड त्रुटि: %s",
+["settings.reset_theme.title"] = "थीम रीसेट करें",
+["settings.reset_theme.desc"] = "कस्टम थीम और पृष्ठभूमि छवि को डिफ़ॉल्ट पर रीसेट करें",
+["settings.import_theme.title"] = "थीम आयात करें",
+["settings.import_theme.desc"] = "क्लाउड से कस्टम थीम आयात करें",
+["settings.import_theme.hint"] = "शेयर ID दर्ज करें",
+["settings.export_theme.title"] = "थीम निर्यात करें",
+["settings.export_theme.desc"] = "कस्टम थीम और पृष्ठभूमि छवि को क्लाउड पर निर्यात करें",
+["settings.export_theme.share_id_msg"] = "शेयर ID: %s\n\nक्लिपबोर्ड पर कॉपी हुआ।",
+["settings.export_theme.upload_failed_msg"] = "अपलोड विफल: %s",
+["settings.export_theme.size_warning_title"] = "अपलोड आकार चेतावनी",
+["settings.export_theme.size_warning_msg"] = "कस्टम पृष्ठभूमि छवि शामिल करें? यह आपकी छवि के आकार के अनुसार अपलोड आकार बढ़ाएगा।",
+["settings.export_theme.uploading_bg"] = "Catbox पर पृष्ठभूमि छवि अपलोड हो रही है...",
+["settings.export_theme.image_upload_failed_title"] = "त्रुटि",
+["settings.export_theme.image_upload_failed_msg"] = "छवि अपलोड विफल: %s",
+["settings.tabs_icon.title"] = "टैब आइकन",
+["settings.tabs_icon.desc"] = "टैब आइकन बदलें",
+["settings.tabs_icon.hint"] = "आइकन दर्ज करें",
+["settings.tabs_icon.empty_error"] = "खाली नहीं हो सकता",
+
+["settings.bg_opacity.title"] = "पृष्ठभूमि अपारदर्शिता",
+["settings.bg_opacity.desc"] = "पैनल, कार्ड और हेडर की पारदर्शिता",
+["settings.slider.alpha"] = "अल्फा",
+["settings.bg_image_opacity.title"] = "पृष्ठभूमि छवि अपारदर्शिता",
+["settings.bg_image_opacity.desc"] = "शुद्ध पूर्णांक चैनलों का उपयोग करके दृश्यता अल्फा सेटिंग्स सीधे समायोजित करें।",
+["settings.bg_image_picker.title"] = "पृष्ठभूमि छवि",
+["settings.bg_image_picker.desc"] = "अपनी कस्टम लेआउट पृष्ठभूमि छवि के लिए पूर्ण फ़ाइल पथ संशोधित करने के लिए टैप करें",
+["settings.bg_image_picker.path_label"] = "पूर्ण छवि फ़ाइल पथ (.jpg या .png):",
+["settings.bg_image_picker.remove_label"] = "पृष्ठभूमि छवि हटाएँ",
+["settings.bg_image_picker.success_title"] = "सफल",
+["settings.bg_image_picker.removed_msg"] = "पृष्ठभूमि छवि हटा दी गई",
+["settings.bg_image_picker.added_msg"] = "पृष्ठभूमि छवि जोड़ी गई",
+["settings.bg_image_picker.not_found_msg"] = "फ़ाइल नहीं मिली या पढ़ने का कार्य अस्वीकृत:\n%s",
+
+["settings.bg_rgb.title"] = "पृष्ठभूमि RGB",
+["settings.bg_rgb.desc"] = "पैनल पृष्ठभूमि के लिए रंग (हेडर और कार्ड स्वचालित रूप से स्केल होते हैं)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "एक्सेंट RGB",
+["settings.accent_rgb.desc"] = "बटन, टॉगल और सक्रिय कार्ड के लिए रंग (म्यूट रंग स्वचालित रूप से व्युत्पन्न)",
+["settings.logo_rgb.title"] = "हाइलाइट RGB",
+["settings.logo_rgb.desc"] = "लेबल, आइकन और इंटरैक्टिव टेक्स्ट के लिए रंग (हमेशा पूरी तरह से अपारदर्शी)",
+["settings.sub_rgb.title"] = "उप-पाठ RGB",
+["settings.sub_rgb.desc"] = "विवरण और निष्क्रिय टैब लेबल के लिए रंग",
+["settings.text_rgb.title"] = "पाठ RGB",
+["settings.text_rgb.desc"] = "मुख्य मेनू पाठ के लिए रंग",
+
+["settings.win_width.title"] = "मेनू चौड़ाई",
+["settings.win_width.desc"] = "फ्लोटिंग मेनू की चौड़ाई (%d – %d dp)",
+["settings.slider.width"] = "चौड़ाई",
+["settings.win_height.title"] = "मेनू ऊँचाई",
+["settings.win_height.desc"] = "स्क्रॉल करने योग्य सामग्री क्षेत्र की ऊँचाई (%d – %d dp)",
+["settings.slider.height"] = "ऊँचाई",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "स्क्रिप्ट के बारे में",
+["about.about_script.desc"] = "Hill Climb Racing 2 के लिए कस्टम Pivot वातावरण पर निर्मित एक शक्तिशाली और अत्यधिक अनुकूलित मेमोरी हेरफेर स्क्रिप्ट।\n\nPivot डाउनलोड करें:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "स्क्रिप्ट स्वामी",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "स्क्रिप्ट डेवलपर",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "स्क्रिप्ट अनुवादक",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+- हिन्दी: AMR (github: amr-gt)
+- Italiano: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "क्रेडिट",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "विशेष धन्यवाद",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "डीबग मोड",
+["other.debug_mode.desc"] = "इन-गेम डीबग मोड टॉगल करें",
+["other.debug_mode.enabled"] = "डीबग मोड सक्षम",
+["other.debug_mode.disabled"] = "डीबग मोड अक्षम",
+["other.hint.width"] = "चौड़ाई",
+["other.hint.height"] = "ऊँचाई",
+["other.resolution.title"] = "रेज़ोल्यूशन समायोजित करें",
+["other.resolution.desc"] = "गेम की चौड़ाई और ऊँचाई समायोजित करें (डिफ़ॉल्ट 1280x720 है)",
+["other.resolution.applied"] = "रेज़ोल्यूशन %dx%d पर सेट हुआ",
+["other.resolution_offset.title"] = "रेज़ोल्यूशन ऑफ़सेट समायोजित करें",
+["other.resolution_offset.desc"] = "गेम की चौड़ाई ऑफ़सेट और ऊँचाई ऑफ़सेट समायोजित करें (डिफ़ॉल्ट 0x0 है), बड़ी स्क्रीन पर छोटे रेज़ोल्यूशन के लिए सर्वोत्तम।",
+["other.resolution_offset.applied"] = "रेज़ोल्यूशन ऑफ़सेट %dx%d पर सेट हुआ",
+["other.glsurface_not_found"] = "GLSurfaceView नहीं मिला",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "मुफ्त चेस्ट",
+["shop.free_chest.desc"] = "दुकान टैब में चेस्ट मुफ्त करें",
+["shop.free_chest.enabled"] = "मुफ्त चेस्ट सक्षम",
+["shop.free_chest.disabled"] = "मुफ्त चेस्ट अक्षम",
+["shop.free_purchases.title"] = "मुफ्त खरीदारी",
+["shop.free_purchases.desc"] = "दुकान टैब में कुछ दैनिक ऑफ़र मुफ्त करें (पॉपअप/बैज के रूप में विशेष ऑफ़र के लिए भी काम करता है)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "मुफ्त खरीदारी सफल",
+["shop.change_chest.title"] = "चेस्ट बदलें",
+["shop.change_chest.desc"] = "लीजेंडरी चेस्ट को चयनित चेस्ट में बदलें",
+["shop.change_chest.changed"] = "चेस्ट %s में बदला गया",
+["shop.change_chest.options"] = {
+    "सामान्य चेस्ट", "असामान्य चेस्ट", "दुर्लभ चेस्ट", "महाकाव्य चेस्ट",
+    "चैंपियन चेस्ट", "विशेष चेस्ट 1", "क्रिसमस चेस्ट", "लीजेंडरी चेस्ट",
+    "नीला चेस्ट", "VIP चेस्ट 1", "VIP चेस्ट 2", "वीडियो चेस्ट",
+    "स्टार्टर चेस्ट", "विशेष चेस्ट 2", "Fingersoft चेस्ट", "मेगा चेस्ट",
+    "टीम स्पिरिट चेस्ट", "स्टाइल चेस्ट", "पौराणिक चेस्ट"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "स्वचालित अलगाव",
+["player.auto_detach.desc"] = "रैली कार की छत जैसे भागों को स्वचालित रूप से अलग करें",
+["player.auto_die.title"] = "स्वचालित मृत्यु",
+["player.auto_die.desc"] = "स्वचालित रूप से मृत्यु का कारण बनें (ईंधन समाप्त)",
+["player.no_clip.title"] = "नो-क्लिप",
+["player.no_clip.desc"] = "अपने खिलाड़ी को बिना मरे वस्तुओं के माध्यम से जाने दें (आप कप में फिनिश लाइनों के ऊपर जा सकते हैं)",
+["player.no_clip.enabled"] = "नो-क्लिप सक्षम",
+["player.no_clip.disabled"] = "नो-क्लिप अक्षम",
+["player.hide_name.title"] = "नाम छुपाएं",
+["player.hide_name.desc"] = "दौड़ में अपना खिलाड़ी नाम छुपाएं",
+["player.hide_name.enabled"] = "नाम छुपाना सक्षम",
+["player.hide_name.disabled"] = "नाम छुपाना अक्षम",
+["player.hide_flag.title"] = "ध्वज छुपाएं",
+["player.hide_flag.desc"] = "दौड़ में अपना खिलाड़ी ध्वज छुपाएं",
+["player.hide_flag.enabled"] = "ध्वज छुपाना सक्षम",
+["player.hide_flag.disabled"] = "ध्वज छुपाना अक्षम",
+["player.fuel.title"] = "ईंधन",
+["player.fuel.desc"] = "दौड़ के दौरान ईंधन को एक स्थिर मान पर लॉक करें (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "ईंधन की मात्रा (0 – 100)",
+["player.fuel.prompt_reset"] = "रीसेट",
+["player.fuel.invalid"] = "अमान्य मान, 0 – 100 होना चाहिए",
+["player.fuel.applied"] = "ईंधन %s पर लॉक हुआ",
+["player.fuel.reset"] = "ईंधन बहाल हुआ",
+["player.fuel.not_applied"] = "ईंधन सक्रिय नहीं",
+["player.zoom.title"] = "ज़ूम समायोजित करें",
+["player.zoom.desc"] = "आपका कैमरा कितना निकट या दूर है समायोजित करें",
+["player.slider.min"] = "न्यूनतम",
+["player.slider.max"] = "अधिकतम",
+["player.gravity.title"] = "गुरुत्वाकर्षण समायोजित करें",
+["player.gravity.desc"] = "गुरुत्वाकर्षण कितना मजबूत है समायोजित करें",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "स्वचालित साहसिक चेस्ट (अस्थिर)",
+["adventure.auto_adventure_chests.desc"] = "अपने साहसिक चेस्ट को स्वचालित रूप से स्तर ऊपर करें",
+["adventure.auto_adventure_chests.none_found"] = "कोई साहसिक चेस्ट नहीं मिला",
+["adventure.auto_adventure_chests.done"] = "संपन्न",
+
+["adventure.set_distance.title"] = "दूरी सेट करें",
+["adventure.set_distance.desc"] = "आपकी साहसिक दौड़ की दूरी को एक कस्टम मान पर सेट करता है। सक्रिय दौड़ में होना चाहिए। अधिक दूरी अधिक सितारे प्राप्त कर सकती है। 5000m पर अधिकतम सितारे। (टेलीपोर्ट फ़ंक्शन नहीं)",
+["adventure.set_distance.loop_active_title"] = "दूरी सेट करें — लूप सक्रिय",
+["adventure.set_distance.loop_active_msg"] = "दूरी लूप वर्तमान में चल रहा है।\nआप क्या करना चाहते हैं?",
+["adventure.set_distance.stop_loop"] = "लूप रोकें",
+["adventure.set_distance.keep_running"] = "चलते रहें",
+["adventure.set_distance.loop_will_stop"] = "वर्तमान टिक के बाद लूप बंद हो जाएगा।",
+["adventure.set_distance.prompt_target"] = "लक्ष्य दूरी (मीटर)",
+["adventure.set_distance.prompt_loop"] = "लूप (स्वचालित पुनः लागू)",
+["adventure.set_distance.prompt_interval"] = "लूप अंतराल (ms, न्यूनतम 250)",
+["adventure.set_distance.over_max_title"] = "दूरी चेतावनी",
+["adventure.set_distance.over_max_msg"] = "5000m से अधिक दूरी आपको कोई सितारे नहीं देगी।\n\nदौड़ दूरी को पंजीकृत करेगी, लेकिन कोई सितारा पुरस्कार नहीं दिया जाएगा। जारी रखें?",
+["adventure.set_distance.continue_button"] = "जारी रखें",
+["adventure.set_distance.not_in_adventure"] = "पहले साहसिक टैब पर जाएं और एक दौड़ शुरू करें",
+["adventure.set_distance.start_race_first"] = "पहले एक दौड़ शुरू करें",
+["adventure.set_distance.applied"] = "दूरी सेट: %sm",
+["adventure.set_distance.loop_stopped"] = "दूरी सेट करें लूप बंद हुआ।",
+["adventure.set_distance.loop_running"] = "दूरी लूप चल रहा है — रोकने के लिए दूरी सेट करें टैप करें",
+["adventure.set_distance.loop_warn_title"] = "दूरी लूप चेतावनी",
+["adventure.set_distance.loop_warn_msg"] = "लूप मोड हर %s ms पर मेमोरी में लिखता है।\n\nकम अंतराल का उपयोग करने से अस्थिरता, दृश्य गड़बड़ी या गेम क्रैश हो सकता है।\n\nफिर भी जारी रखें?",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "काउंटडाउन समायोजित करें",
+["cups.adjust_countdown.desc"] = "दौड़ शुरू करने से पहले काउंटडाउन समायोजित करें",
+["cups.slider.seconds"] = "सेकंड",
+["cups.adjust_countdown.applied"] = "काउंटडाउन %ss पर समायोजित हुआ",
+["cups.auto_win.title"] = "स्वचालित जीत",
+["cups.auto_win.desc"] = "आपकी दौड़ का परिणाम चाहे जो भी हो स्वचालित रूप से जीतें",
+["cups.force_boss.title"] = "बॉस को बाध्य करें",
+["cups.force_boss.desc"] = "बॉस हमेशा दिखाई दे",
+["cups.force_cup.title"] = "कप को बाध्य करें",
+["cups.force_cup.desc"] = "एक एकल कप को बाध्य करता है",
+["cups.force_cup.not_found"] = "कप बाध्य नहीं मिला। बाद में पुनः प्रयास करें।",
+["cups.force_cup.enabled"] = "कप बाध्य सक्षम",
+["cups.force_cup.disabled"] = "कप बाध्य अक्षम",
+["cups.set_time.title"] = "समय सेट करें",
+["cups.set_time.desc"] = "अपना दौड़ का समय सेट करें (सुरक्षा कारणों से समय फ्रीज नहीं होगा)। सक्रिय कप दौड़ में होना चाहिए। (उदा: 1:09.069, 7.284)",
+["cups.set_time.hint"] = "समय (1:09.069 या 7.284)",
+["cups.set_time.invalid_format"] = "अमान्य प्रारूप। 1:09.069 या 7.284 का उपयोग करें",
+["cups.set_time.no_negative"] = "कोई नकारात्मक मान नहीं",
+["cups.set_time.not_in_cup"] = "पहले कप टैब पर जाएं और एक दौड़ शुरू करें",
+["cups.set_time.start_race_first"] = "पहले एक दौड़ शुरू करें",
+["cups.set_time.applied"] = "समय %s पर सेट हुआ",
+["cups.unlimited_tasks.title"] = "असीमित कार्य",
+["cups.unlimited_tasks.desc"] = "सभी कार्यों को पूर्ण और हमेशा दावा करने योग्य के रूप में फ्रीज करें। बार-बार पुरस्कार दावा करें।",
+["cups.unlimited_tasks.resolve_failed"] = "कार्य सूची हल करने में विफल",
+["cups.unlimited_tasks.none_found"] = "कोई कार्य नहीं मिला",
+["cups.unlimited_tasks.enabled"] = "असीमित कार्य सक्षम",
+["cups.unlimited_tasks.disabled"] = "असीमित कार्य अक्षम",
+["cups.unlimited_tasks.none_to_freeze"] = "फ्रीज करने के लिए कोई कार्य नहीं",
+["cups.rank_points_bonus.title"] = "+498 रैंक अंक",
+["cups.rank_points_bonus.desc"] = "सभी लीग कार्यों को 200 अंकों के बजाय 498 अंक दें, अन्य पुरस्कार हटाएँ।",
+["cups.rank_points_bonus.none_found"] = "कोई लीग कार्य नहीं मिला",
+["cups.rank_points_bonus.boosted"] = "रैंक अंक बढ़ाए गए: %s",
+["cups.rank_points_bonus.no_match"] = "कोई मिलान लीग कार्य नहीं मिला",
+["cups.rank_points_bonus.nothing_to_restore"] = "बहाल करने के लिए कुछ नहीं",
+["cups.rank_points_bonus.restored"] = "बहाल: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "इवेंट रिवॉर्ड्स पैच",
+["event.patch_rewards.desc"] = "वर्तमान सार्वजनिक इवेंट रिवॉर्ड्स को VOID द्वारा प्रदान किए गए कस्टम रिवॉर्ड्स पर पैच करें (गेम पुनः आरंभ आवश्यक)",
+["event.restore_events.title"] = "इवेंट रिवॉर्ड्स बहाल करें",
+["event.restore_events.desc"] = "गेम सर्वर पुनर्प्राप्ति के लिए संशोधित इवेंट JSON हटाएँ (गेम पुनः आरंभ आवश्यक)",
+
+["event.checking_permissions"] = "पर्यावरण अनुमतियों की जाँच हो रही है...",
+["event.scanning_files"] = "सक्रिय फ़ाइलें स्कैन हो रही हैं...",
+["event.decode_rewards_failed"] = "रिवॉर्ड्स JSON डिकोड नहीं हुआ",
+["event.workspace_creation_failed"] = "गंभीर: कार्यक्षेत्र निर्माण विफल: %s",
+["event.workspace_creation_failed_dialog"] = "गंभीर: कार्यक्षेत्र निर्देशिका नहीं बन सकी।\n%s",
+["event.file_inaccessible"] = "फ़ाइल इस पथ पर पहुँच योग्य नहीं: %s",
+["event.predecrypt_not_found"] = "पूर्व-डिक्रिप्ट: स्रोत नहीं मिला: %s",
+["event.predecrypt_empty"] = "पूर्व-डिक्रिप्ट: स्रोत खाली है (0 बाइट्स): %s",
+["event.decode_active_failed"] = "इस पथ पर active_events.json डिकोड नहीं हुआ: %s",
+["event.no_active_events"] = "इस पथ पर कोई सक्रिय इवेंट नहीं मिला: %s",
+["event.cannot_open_active"] = "इस पथ पर active_events.json नहीं खुल सका: %s",
+["event.decrypt_active_failed"] = "इस पथ पर active_events.json डिक्रिप्ट नहीं हुआ: %s",
+["event.root_copy_failed"] = "रूट कॉपी विफल: %s",
+
+["event.select_events_patch"] = "पैच करने के लिए इवेंट चुनें:\nपथ: %s",
+["event.user_cancelled"] = "उपयोगकर्ता ने इस पथ के लिए चयन रद्द किया: %s",
+["event.rewards_unavailable"] = "एम्बेडेड रिवॉर्ड्स उपलब्ध नहीं, इस पथ के लिए पैच छोड़ रहा है: %s",
+["event.skipped_unreadable"] = "अपठनीय इवेंट छोड़ा गया: %s",
+["event.predecrypt_event_not_found"] = "पूर्व-डिक्रिप्ट: इवेंट नहीं मिला: %s",
+["event.predecrypt_event_empty"] = "पूर्व-डिक्रिप्ट: इवेंट खाली है (0 बाइट्स): %s",
+["event.processing_failed"] = "%s संसाधित नहीं हुआ: %s",
+["event.cannot_open_decrypted"] = "डिक्रिप्टेड फ़ाइल नहीं खुल सकी: %s",
+["event.decrypt_event_failed"] = "इवेंट डिक्रिप्ट नहीं हुआ: %s",
+["event.loop_crash"] = "महत्वपूर्ण फ़ाइल प्रसंस्करण लूप क्रैश: %s",
+
+["event.success_header"] = "सफलतापूर्वक:",
+["event.success_removed_header"] = "सफलतापूर्वक हटाया गया (पुनः आरंभ पर बहाल होगा):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "विफल:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "पैच परिणाम",
+["event.restore_results_title"] = "बहाली परिणाम",
+["event.restart_required_title"] = "पुनः आरंभ आवश्यक",
+["event.patch_restart_msg"] = "गेम बंद कर दिया गया है और यह स्क्रिप्ट बाहर निकलेगी, पैच प्रभाव देखने के लिए इसे फिर से शुरू करें",
+["event.restore_restart_msg"] = "सर्वर फ़ाइल सिंक्रोनाइज़ेशन की अनुमति देने के लिए गेम अब बंद हो जाएगा।",
+["event.finishing_tasks_patch"] = "लंबित बैकग्राउंड कार्य समाप्त हो रहे हैं... कृपया प्रतीक्षा करें।",
+["event.finishing_tasks_restore"] = "लंबित बैकग्राउंड कार्य समाप्त हो रहे हैं...",
+["event.patch_failed_msg"] = "पैच करने में विफल, पुनः प्रयास करें।",
+
+["event.select_events_restore"] = "बहाल करने (हटाने) के लिए फ़ाइलें चुनें:\nपथ: %s",
+["event.delete_failed"] = "%s हटाने में विफल: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "नाम बदलें",
+["account.change_name.desc"] = "अपना खिलाड़ी नाम बदलें",
+["account.change_name.hint"] = "नाम दर्ज करें",
+["account.change_name.empty"] = "पहले एक नाम दर्ज करें",
+["account.change_name.too_long_title"] = "नाम बहुत लंबा",
+["account.change_name.too_long_msg"] = "आपका नाम बहुत लंबा है, कृपया इसे छोटा करें",
+["account.change_name.resolve_failed"] = "नाम पॉइंटर हल करने में विफल",
+["account.change_name.applied"] = "नाम %s में बदला गया",
+
+["account.change_gp.title"] = "गैरेज पावर बदलें",
+["account.change_gp.desc"] = "प्रोफ़ाइल गैरेज पावर बदलता है (यदि अधिक हो तो बनी रहती है)। यदि अधिकतम से अधिक हो तो रीसेट करने के लिए 8 सेट करें, लेकिन केवल तभी जब आपकी वास्तविक GP पहले से ही सीमा के नीचे तय हो।",
+["account.change_gp.hint"] = "गैरेज पावर दर्ज करें",
+["account.change_gp.max_int_title"] = "अधिकतम 32-बिट int तक पहुँच गया",
+["account.change_gp.lower_value"] = "कृपया अपना मान कम करें",
+["account.change_gp.too_low_title"] = "बहुत कम",
+["account.change_gp.higher_value"] = "कृपया अपना मान बढ़ाएँ",
+["account.change_gp.applied"] = "गैरेज पावर %s में बदली गई",
+
+["account.fake_unlock.title"] = "नकली अनलॉक",
+["account.fake_unlock.desc"] = "सभी अनुकूलन अस्थायी रूप से अनलॉक करें",
+["account.fake_vip.title"] = "नकली VIP",
+["account.fake_vip.desc"] = "VIP सदस्यता स्थिति को स्थानीय रूप से टॉगल करें",
+
+["account.fake_rank.title"] = "नकली रैंक",
+["account.fake_rank.desc"] = "अपनी रैंक को तुरंत नकली लीजेंडरी पर सेट करें",
+["account.fake_rank.race_warn_title"] = "दौड़ आवश्यक",
+["account.fake_rank.race_warn_msg"] = "नकली रैंक केवल तभी लागू की जानी चाहिए जब कोई कप दौड़ सक्रिय रूप से चल रही हो।\n\nइसे दौड़ के बाहर लागू करने पर शैडो बैन हो सकता है।\n\nजारी रखने से पहले सुनिश्चित करें कि आप पहले से ही कप दौड़ के अंदर हैं।\n\nफिर भी जारी रखें?",
+["account.fake_rank.continue_button"] = "जारी रखें",
+["account.fake_rank.applied"] = "नकली रैंक इंजेक्ट की गई",
+["account.fake_rank.not_in_cups"] = "पहले एक दौड़ शुरू करें",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "पार्ट्स स्लॉट समायोजित करें",
+["vehicle.parts_slot.desc"] = "सभी वाहनों के लिए पार्ट्स स्लॉट समायोजित करें",
+["vehicle.parts_slot.slider_title"] = "स्लॉट",
+["vehicle.parts_slot.no_vehicles"] = "कोई वाहन नहीं मिला",
+["vehicle.parts_slot.applied"] = "पार्ट्स स्लॉट समायोजित: %d वाहन",
+
+["vehicle.parts_modifier.title"] = "पार्ट्स संशोधक",
+["vehicle.parts_modifier.desc"] = "सक्रिय दौड़ में ट्यूनिंग पार्ट स्तर मान संशोधित करें",
+["vehicle.parts_modifier.select"] = "एक पार्ट चुनें",
+["vehicle.parts_modifier.prompt_level"] = "स्तर: ",
+["vehicle.parts_modifier.prompt_digit0"] = "अंक: ",
+["vehicle.parts_modifier.prompt_digit1"] = "पूंछ: ",
+["vehicle.parts_modifier.prompt_reset"] = "रीसेट",
+["vehicle.parts_modifier.invalid"] = "अमान्य स्तर मान",
+["vehicle.parts_modifier.not_found"] = "पार्ट मेमोरी में नहीं मिला",
+["vehicle.parts_modifier.applied"] = "%s स्तर %s पर सेट हुआ",
+["vehicle.parts_modifier.reset"] = "%s रीसेट हुआ",
+
+["vehicle.unlock_vehicles.title"] = "वाहन अनलॉक करें",
+["vehicle.unlock_vehicles.desc"] = "सभी वाहनों को सिक्कों के साथ खरीदने के लिए उपलब्ध कराएँ",
+["vehicle.unlock_vehicles.no_vehicles"] = "कोई वाहन नहीं मिला",
+["vehicle.unlock_vehicles.unlocked"] = "वाहन अनलॉक: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "अनलॉक करने के लिए कोई वाहन नहीं",
+
+["vehicle.max_vehicles.title"] = "अधिकतम वाहन",
+["vehicle.max_vehicles.desc"] = "सभी अनलॉक वाहनों के अपग्रेड स्तरों को तुरंत अधिकतम करें",
+["vehicle.max_vehicles.no_vehicles"] = "वाहन सूची हल करने में विफल",
+["vehicle.max_vehicles.all_maxed"] = "सभी वाहन अधिकतम हुए",
+["vehicle.max_vehicles.failed"] = "वाहन अधिकतम करने में विफल",
+
+["vehicle.max_mastery.title"] = "अधिकतम महारत",
+["vehicle.max_mastery.desc"] = "सभी अनलॉक और अधिकतम वाहनों की महारत को तुरंत अधिकतम करें।",
+["vehicle.max_mastery.all_maxed"] = "सभी महारत अधिकतम हुईं",
+["vehicle.max_mastery.failed"] = "महारत अधिकतम करने में विफल",
+
+["vehicle.max_parts.title"] = "अधिकतम पार्ट्स",
+["vehicle.max_parts.desc"] = "सभी वाहनों के लिए सभी अनलॉक पार्ट स्तरों को तुरंत अधिकतम करें।",
+["vehicle.max_parts.no_vehicles"] = "वाहन सूची हल करने में विफल",
+["vehicle.max_parts.all_maxed"] = "सभी पार्ट्स अधिकतम हुए",
+["vehicle.max_parts.failed"] = "पार्ट्स अधिकतम करने में विफल",
+
+["vehicle.common.no_vehicles"] = "कोई वाहन नहीं मिला",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "वाहन सूची हल करने में विफल",
+["vehicle.common.no_zero_region"] = "कोई शून्य क्षेत्र नहीं मिला",
+
+}
 
 end
 
@@ -25858,41 +26283,10 @@ return {
 ["about.about_script.title"] = "Tentang Skrip",
 ["about.about_script.desc"] = "Skrip manipulasi memori yang kuat dan sangat dioptimalkan yang dibuat untuk Hill Climb Racing 2 di lingkungan kustom Pivot.\n\nUnduh Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Pemilik Skrip",
-["about.script_owner.desc"] = "- Organisasi Vekendian (github: vekendianorg)",
 ["about.script_dev.title"] = "Pengembang Skrip",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Penerjemah Skrip",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Kredit",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "Terima Kasih Khusus",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode Debug",
@@ -26124,7 +26518,563 @@ return {
 end
 
 __vfs['configs/lang/it.lua'] = function(...)
+--[[
+  configs/lang/it.lua — Italiano (Italian)
 
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "OK"
+      T("settings.window_width_desc", 400, 650) -> "Larghezza del menu flottante (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Italian localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "OK",
+["common.cancel"] = "Annulla",
+["common.yes"] = "Sì",
+["common.no"] = "No",
+["common.failed"] = "Fallito",
+["common.success"] = "Successo",
+["common.later"] = "Più tardi",
+["common.got_it"] = "Capito",
+["common.retry"] = "Riprova",
+["common.wait_safe"] = "Attendi (Sicuro)",
+["common.waiting"] = "In attesa...",
+["common.force_exit"] = "Esci Forzatamente",
+["common.proceed_anyway"] = "Procedi Comunque",
+["common.manual_mode"] = "Modalità Manuale",
+["common.update_button"] = "AGGIORNA",
+["common.launch_failed"] = "Avvio Fallito",
+["common.confirm_exit_title"] = "Conferma Uscita",
+["common.confirm_exit_msg"] = "Uscire dallo Script?",
+["common.not_available"] = "Non Disponibile",
+["common.warning"] = "Avviso",
+
+-- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
+["main.exit_active_ops_title"] = "Avviso: Operazioni Attive",
+["main.exit_active_ops_msg"] = "Ci sono %d attività in background.\nForzare l'uscita potrebbe corrompere lo stato del gioco.",
+["main.initializing"] = "Inizializzazione...",
+["main.no_app_found"] = "Nessuna app trovata",
+["main.arch_64bit_required_title"] = "64-bit Richiesto",
+["main.arch_64bit_required_msg"] = "ARMv8a è obbligatoria. x86_64 è parzialmente supportata.",
+
+["main.update_available_title"] = "Aggiornamento Disponibile",
+["main.update_available_msg"] = "v%s è disponibile (attuale: v%s)\n\n%s\n\nAggiornare ora?",
+["main.no_changelog"] = "Nessun changelog.",
+["main.downloading_version"] = "Download di v%s...",
+["main.update_download_failed_msg"] = "Impossibile scaricare l'aggiornamento:\n%s",
+["main.update_write_failed_msg"] = "Impossibile scrivere in:\n%s",
+["main.update_done_title"] = "VOID Aggiornato a v%s",
+["main.update_done_msg"] = "VOID è stato aggiornato con successo.\n\nIl nuovo script è stato salvato come:\nvoid_v%s.lua\n\nEseguilo da GameGuardian per applicare l'aggiornamento.",
+["main.launching_version"] = "Avvio di v%s...",
+["main.launch_failed_msg"] = "Scaricato ma non eseguibile:\n%s",
+
+["main.multiple_spaces_title"] = "Spazi Multipli Rilevati",
+["main.multiple_spaces_desc"] = "HCR2 è stato trovato in %d spazi virtuali.\nSeleziona lo spazio in cui stai giocando.",
+["main.select_space_toast"] = "Seleziona uno spazio per continuare.",
+["main.user_space_item"] = "Utente %s  —  %s",
+["main.permission_error_title"] = "Errore di Permesso",
+["main.permission_error_msg"] = "L'accesso alla shell è stato negato.\n\nVoid ne ha bisogno per localizzare HCR2 nel tuo spazio virtuale. Controlla il codice sorgente di Void per verificare quale comando viene eseguito.",
+["main.hcr2_not_found_title"] = "Dati HCR2 Non Trovati",
+["main.hcr2_not_found_msg"] = "Void non ha trovato i dati HCR2 nel tuo spazio virtuale. Questo può accadere se HCR2 non è stato ancora avviato, o se la tua app dello spazio virtuale usa una struttura di percorso insolita.\n\nLe funzionalità che dipendono dai file di gioco (Ricompense Eventi, ecc.) non funzioneranno senza un percorso valido.",
+["main.manual_data_path_title"] = "Percorso Dati Manuale",
+["main.manual_data_path_hint"] = "Inserisci il percorso dei dati HCR2",
+["main.manual_path_cancelled"] = "Annullato — procedendo senza percorso.",
+["main.waiting_for_lib"] = "In attesa di %s...",
+["main.initialized"] = "Inizializzato",
+["main.gamestatus_not_found"] = "GameStatus Non Trovato",
+["main.dont_interrupt"] = "Non interrompere questo script",
+
+-- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
+["ui.size_saved_restart"] = "Dimensione salvata! Riavvia lo script",
+["ui.category_error"] = "Errore: %s",
+["ui.category_not_found"] = "Categoria Non Trovata",
+["ui.na"] = "N/D",
+["ui.spinner_select"] = "Seleziona",
+["ui.slider_default_title"] = "Valore",
+["ui.loading"] = "Caricamento",
+
+-- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
+["patches.requires_arch"] = "Richiede dispositivo %s (tuo dispositivo: %s)",
+["patches.suffix_enabled"] = " Attivato",
+["patches.suffix_disabled"] = " Disattivato",
+["patches.pattern_not_found"] = "Fallito: %d pattern non trovati",
+
+-- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
+["arch.warning_title"] = "Avviso Architettura",
+["arch.unknown_arch_msg"] = "La tua architettura è sconosciuta. La libreria è caricata? Che sistema stai usando?",
+["arch.non_primary_arch_msg"] = "Rilevato: %s\nAlcune o tutte le patch della libreria potrebbero non funzionare.",
+["arch.unknown_version_msg"] = "Versione del gioco sconosciuta. Riprova dopo il caricamento del gioco.",
+["arch.no_base_data_msg"] = "Errore interno: nessun dato base disponibile per questa architettura.",
+
+-- ── core/engines/scheduler.lua ────────────────────────────────────────────────
+["scheduler.task_crashed"] = "Avviso Scheduler: Attività crashata -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
+["errors.http_error_code"] = "Codice Errore HTTP: %s",
+["errors.crashed"] = "Crash: %s",
+["errors.url_missing"] = "Il parametro URL è mancante o vuoto",
+["errors.file_path_missing"] = "Il percorso del file è mancante",
+["errors.download_url_missing"] = "L'URL è mancante",
+["errors.dest_path_missing"] = "Il percorso di destinazione è mancante",
+
+-- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
+["tabs.sep_game"] = "MENU GIOCO",
+["tabs.account"] = "MENU ACCOUNT",
+["tabs.vehicle"] = "MENU VEICOLO",
+["tabs.player"] = "MENU GIOCATORE",
+["tabs.adventure"] = "MENU AVVENTURA",
+["tabs.cups"] = "MENU COPPE",
+["tabs.team"] = "MENU SQUADRA",
+["tabs.event"] = "MENU EVENTI",
+["tabs.creative"] = "MENU CREATIVO",
+["tabs.shop"] = "MENU NEGOZIO",
+["tabs.other"] = "MENU ALTRO",
+["tabs.sep_script"] = "MENU SCRIPT",
+["tabs.settings"] = "IMPOSTAZIONI",
+["tabs.about"] = "INFO",
+
+["registry.module_load_failed"] = "Caricamento modulo fallito. Controlla i log per i dettagli.",
+["registry.module_runtime_error"] = "Errore runtime: %s",
+["registry.error"] = "Errore",
+
+-- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+["settings.section_updates"] = "Aggiornamenti",
+["settings.auto_update.title"] = "Aggiornamento Automatico",
+["settings.auto_update.desc"] = "Aggiorna VOID automaticamente all'avvio",
+["settings.dev_mode_title"] = "Modalità Sviluppatore",
+["settings.auto_update.dev_mode_msg"] = "L'aggiornamento automatico è disattivato per main.lua (build di sviluppo).",
+["settings.check_updates.title"] = "Controlla Aggiornamenti",
+["settings.check_updates.desc"] = "Controlla l'ultima versione di VOID su GitHub",
+["settings.check_updates.dev_mode_msg"] = "Il controllo aggiornamenti è disattivato per main.lua (build di sviluppo).\n\nEsegui il pull manualmente dal repo.",
+["settings.check_updates.checking"] = "Controllo aggiornamenti...",
+["settings.check_updates.failed_title"] = "Controllo Aggiornamenti Fallito",
+["settings.check_updates.failed_msg"] = "Impossibile raggiungere GitHub:\n%s",
+["settings.check_updates.up_to_date_title"] = "Aggiornato",
+["settings.check_updates.up_to_date_msg"] = "Sei già all'ultima versione (v%s).",
+["settings.check_updates.no_changelog"] = "Nessun changelog disponibile.",
+["settings.check_updates.available_msg"] = "v%s  (attuale: v%s)\n\n%s\n\nScaricare e sostituire questo script?",
+["settings.check_updates.no_asset_msg"] = "Nessun asset .lua trovato nella release.",
+["settings.check_updates.download_failed_title"] = "Download Fallito",
+["settings.check_updates.write_failed_title"] = "Scrittura Fallita",
+["settings.check_updates.done_title"] = "Fatto",
+["settings.check_updates.done_msg"] = "Aggiornato a v%s. Riavvia lo script per applicare.",
+["settings.check_updates.restart_button"] = "Riavvia",
+
+["settings.section_language"] = "Lingua",
+["settings.language.title"] = "Lingua",
+["settings.language.desc"] = "Scegli la tua lingua preferita per il menu",
+["settings.language.changed"] = "Lingua impostata su %s",
+["settings.language.failed"] = "Caricamento di quella lingua fallito",
+["settings.language.restart_msg"] = "Riavvia lo script per applicare completamente la lingua",
+
+["settings.region.other"] = "A: Altro",
+["settings.region.cpp_alloc"] = "Ca: alloc C++",
+["settings.region.unknown"] = "S: Sconosciuto",
+["settings.section_memory"] = "Memoria",
+["settings.memory_range.title"] = "Intervallo di Memoria",
+["settings.memory_range.desc"] = "Intervallo di memoria attualmente selezionato\n(scelto automaticamente dallo script)",
+["settings.gamestatus.title"] = "GameStatus",
+["settings.gamestatus.desc"] = "Indirizzo GameStatus attuale\n(scelto automaticamente dallo script)",
+["settings.gamestatus_raw.title"] = "GameStatus (Raw)",
+["settings.gamestatus_raw.desc"] = "Indirizzo GameStatus (raw) attuale\n(scelto automaticamente dallo script)",
+["settings.clear_memory.title"] = "Cancella Memoria Salvata",
+["settings.clear_memory.desc"] = "Cancella tutta la memoria salvata da VOID senza dover riavviare il gioco.",
+
+["settings.section_ui_customizations"] = "Personalizzazioni UI",
+["settings.theme_store.title"] = "Negozio Temi",
+["settings.theme_store.desc"] = "Sfoglia e installa i temi della community Void",
+["settings.theme_store.unreachable_msg"] = "Impossibile raggiungere il negozio temi:\n%s",
+["settings.theme_store.parse_failed_msg"] = "Impossibile analizzare i dati del negozio temi.",
+["settings.theme_store.list_title"] = "Negozio Temi Void",
+["settings.theme_store.search_results_desc"] = "Risultati ricerca: %s trovati",
+["settings.theme_store.available_desc"] = "%s temi disponibili",
+["settings.theme_store.by_author"] = "di %s",
+["settings.theme_store.search_item"] = "🔍 Cerca...",
+["settings.theme_store.clear_search_item"] = "✕ Cancella ricerca",
+["settings.theme_store.search_title"] = "Cerca Temi",
+["settings.theme_store.search_hint"] = "Nome tema, autore o descrizione",
+["settings.theme_store.no_results"] = "Nessun tema trovato per: %s",
+["settings.theme_store.detail_msg"] = "Di %s\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"] = "Installa Tema",
+["settings.theme_downloading_bg"] = "Download dell'immagine di sfondo...",
+["settings.theme_imported"] = "Tema importato!",
+["settings.theme_invalid_bundle"] = "Formato bundle non valido.",
+["settings.theme_cloud_error"] = "Errore cloud: %s",
+["settings.reset_theme.title"] = "Ripristina Tema",
+["settings.reset_theme.desc"] = "Ripristina tema personalizzato e immagine di sfondo al default",
+["settings.import_theme.title"] = "Importa Tema",
+["settings.import_theme.desc"] = "Importa tema personalizzato dal cloud",
+["settings.import_theme.hint"] = "Inserisci ID di Condivisione",
+["settings.export_theme.title"] = "Esporta Tema",
+["settings.export_theme.desc"] = "Esporta tema personalizzato e immagine di sfondo sul cloud",
+["settings.export_theme.share_id_msg"] = "ID di Condivisione: %s\n\nCopiato negli appunti.",
+["settings.export_theme.upload_failed_msg"] = "Upload fallito: %s",
+["settings.export_theme.size_warning_title"] = "Avviso Dimensione Upload",
+["settings.export_theme.size_warning_msg"] = "Includere l'immagine di sfondo personalizzata? Aumenterà la dimensione dell'upload a seconda della dimensione della tua immagine.",
+["settings.export_theme.uploading_bg"] = "Caricamento immagine di sfondo su Catbox...",
+["settings.export_theme.image_upload_failed_title"] = "Errore",
+["settings.export_theme.image_upload_failed_msg"] = "Caricamento immagine fallito: %s",
+["settings.tabs_icon.title"] = "Icona Schede",
+["settings.tabs_icon.desc"] = "Cambia l'icona delle schede",
+["settings.tabs_icon.hint"] = "Inserisci Icona",
+["settings.tabs_icon.empty_error"] = "Non può essere vuoto",
+
+["settings.bg_opacity.title"] = "Opacità Sfondo",
+["settings.bg_opacity.desc"] = "Trasparenza di pannelli, schede e intestazione",
+["settings.slider.alpha"] = "Alfa",
+["settings.bg_image_opacity.title"] = "Opacità Immagine Sfondo",
+["settings.bg_image_opacity.desc"] = "Regola le impostazioni alfa di visibilità direttamente usando canali interi puri.",
+["settings.bg_image_picker.title"] = "Immagine Sfondo",
+["settings.bg_image_picker.desc"] = "Tocca per modificare il percorso assoluto del file per l'immagine di sfondo personalizzata",
+["settings.bg_image_picker.path_label"] = "Percorso Assoluto Immagine (.jpg o .png):",
+["settings.bg_image_picker.remove_label"] = "Rimuovi Immagine Sfondo",
+["settings.bg_image_picker.success_title"] = "Successo",
+["settings.bg_image_picker.removed_msg"] = "Immagine Sfondo Rimossa",
+["settings.bg_image_picker.added_msg"] = "Immagine sfondo aggiunta",
+["settings.bg_image_picker.not_found_msg"] = "File non trovato o operazione di lettura negata:\n%s",
+
+["settings.bg_rgb.title"] = "Sfondo RGB",
+["settings.bg_rgb.desc"] = "Tonalità per gli sfondi dei pannelli (Intestazione e Scheda si adattano automaticamente)",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "Accento RGB",
+["settings.accent_rgb.desc"] = "Tonalità per pulsanti, interruttori e schede attive (colore smorzato derivato automaticamente)",
+["settings.logo_rgb.title"] = "Evidenziazione RGB",
+["settings.logo_rgb.desc"] = "Colore per etichette, icone e testo interattivo (sempre completamente opaco)",
+["settings.sub_rgb.title"] = "Sottotesto RGB",
+["settings.sub_rgb.desc"] = "Colore per descrizioni ed etichette delle schede inattive",
+["settings.text_rgb.title"] = "Testo RGB",
+["settings.text_rgb.desc"] = "Colore per il testo del menu principale",
+
+["settings.win_width.title"] = "Larghezza Menu",
+["settings.win_width.desc"] = "Larghezza del menu flottante (%d – %d dp)",
+["settings.slider.width"] = "Larghezza",
+["settings.win_height.title"] = "Altezza Menu",
+["settings.win_height.desc"] = "Altezza dell'area di contenuto scrollabile (%d – %d dp)",
+["settings.slider.height"] = "Altezza",
+
+-- ── modules/tabs/about.lua ────────────────────────────────────────────────────
+["about.about_script.title"] = "Informazioni Script",
+["about.about_script.desc"] = "Uno script di manipolazione della memoria potente e altamente ottimizzato costruito per Hill Climb Racing 2 sull'ambiente Pivot personalizzato.\n\nScarica Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "Proprietario Script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_dev.title"] = "Sviluppatore Script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
+["about.script_translator.title"] = "Traduttore Script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+- हिन्दी: AMR (github: amr-gt)
+- Italiano: AMR (github: amr-gt)
+]],
+["about.credits.title"] = "Crediti",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
+["about.special_thanks.title"] = "Ringraziamenti Speciali",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
+
+-- ── modules/tabs/other.lua ────────────────────────────────────────────────────
+["other.debug_mode.title"] = "Modalità Debug",
+["other.debug_mode.desc"] = "Attiva/disattiva la modalità debug nel gioco",
+["other.debug_mode.enabled"] = "Modalità Debug Attivata",
+["other.debug_mode.disabled"] = "Modalità Debug Disattivata",
+["other.hint.width"] = "Larghezza",
+["other.hint.height"] = "Altezza",
+["other.resolution.title"] = "Regola Risoluzione",
+["other.resolution.desc"] = "Regola la larghezza e l'altezza del gioco (default 1280x720)",
+["other.resolution.applied"] = "Risoluzione impostata su %dx%d",
+["other.resolution_offset.title"] = "Regola Offset Risoluzione",
+["other.resolution_offset.desc"] = "Regola l'offset di larghezza e altezza del gioco (default 0x0), ideale per piccole risoluzioni su grandi schermi.",
+["other.resolution_offset.applied"] = "Offset risoluzione impostato su %dx%d",
+["other.glsurface_not_found"] = "GLSurfaceView non trovato",
+
+-- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
+["shop.free_chest.title"] = "Baule Gratuito",
+["shop.free_chest.desc"] = "Rendi i bauli gratuiti nella scheda Negozio",
+["shop.free_chest.enabled"] = "Baule Gratuito Attivato",
+["shop.free_chest.disabled"] = "Baule Gratuito Disattivato",
+["shop.free_purchases.title"] = "Acquisti Gratuiti",
+["shop.free_purchases.desc"] = "Rendi alcuni affari giornalieri gratuiti nella scheda negozio (funziona anche per offerte speciali come popup/badge)",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "Acquisto Gratuito Riuscito",
+["shop.change_chest.title"] = "Cambia Baule",
+["shop.change_chest.desc"] = "Cambia il baule leggendario con il baule selezionato",
+["shop.change_chest.changed"] = "Baule cambiato in %s",
+["shop.change_chest.options"] = {
+    "Baule Comune", "Baule Non Comune", "Baule Raro", "Baule Epico",
+    "Baule Campione", "Baule Speciale 1", "Baule di Natale", "Baule Leggendario",
+    "Baule Blu", "Baule VIP 1", "Baule VIP 2", "Baule Video",
+    "Baule Iniziale", "Baule Speciale 2", "Baule Fingersoft", "Mega Baule",
+    "Baule Spirito di Squadra", "Baule Stile", "Baule Mitico"
+},
+
+-- ── modules/tabs/player.lua ───────────────────────────────────────────────────
+["player.auto_detach.title"] = "Distacco Automatico",
+["player.auto_detach.desc"] = "Distacca automaticamente parti come il tetto della Rally Car",
+["player.auto_die.title"] = "Morte Automatica",
+["player.auto_die.desc"] = "Provoca automaticamente la morte (carburante esaurito)",
+["player.no_clip.title"] = "No-Clip",
+["player.no_clip.desc"] = "Fai passare il tuo giocatore attraverso gli oggetti senza morire (puoi superare le linee di arrivo nelle coppe)",
+["player.no_clip.enabled"] = "No-Clip Attivato",
+["player.no_clip.disabled"] = "No-Clip Disattivato",
+["player.hide_name.title"] = "Nascondi Nome",
+["player.hide_name.desc"] = "Nascondi il nome del tuo giocatore in gara",
+["player.hide_name.enabled"] = "Nascondi Nome Attivato",
+["player.hide_name.disabled"] = "Nascondi Nome Disattivato",
+["player.hide_flag.title"] = "Nascondi Bandiera",
+["player.hide_flag.desc"] = "Nascondi la bandiera del tuo giocatore in gara",
+["player.hide_flag.enabled"] = "Nascondi Bandiera Attivato",
+["player.hide_flag.disabled"] = "Nascondi Bandiera Disattivato",
+["player.fuel.title"] = "Carburante",
+["player.fuel.desc"] = "Blocca il carburante a un valore costante durante la gara (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Quantità di carburante (0 – 100)",
+["player.fuel.prompt_reset"] = "Ripristina",
+["player.fuel.invalid"] = "Valore non valido, deve essere 0 – 100",
+["player.fuel.applied"] = "Carburante bloccato a %s",
+["player.fuel.reset"] = "Carburante ripristinato",
+["player.fuel.not_applied"] = "Carburante non attivo",
+["player.zoom.title"] = "Regola Zoom",
+["player.zoom.desc"] = "Regola quanto è vicina o lontana la tua fotocamera",
+["player.slider.min"] = "Min",
+["player.slider.max"] = "Max",
+["player.gravity.title"] = "Regola Gravità",
+["player.gravity.desc"] = "Regola quanto è forte la gravità",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "Bauli Avventura Automatici (instabile)",
+["adventure.auto_adventure_chests.desc"] = "Aumenta automaticamente il livello dei tuoi bauli avventura",
+["adventure.auto_adventure_chests.none_found"] = "Nessun baule avventura trovato",
+["adventure.auto_adventure_chests.done"] = "Fatto",
+
+["adventure.set_distance.title"] = "Imposta Distanza",
+["adventure.set_distance.desc"] = "Imposta la distanza della tua gara avventura su un valore personalizzato. Devi essere in una gara attiva. Una distanza maggiore può dare più stelle. Massimo stelle a 5000m. (Non è una funzione di teletrasporto)",
+["adventure.set_distance.loop_active_title"] = "Imposta Distanza — Ciclo Attivo",
+["adventure.set_distance.loop_active_msg"] = "Il ciclo di distanza è attualmente in esecuzione.\nCosa vuoi fare?",
+["adventure.set_distance.stop_loop"] = "Ferma Ciclo",
+["adventure.set_distance.keep_running"] = "Continua",
+["adventure.set_distance.loop_will_stop"] = "Il ciclo si fermerà dopo il tick corrente.",
+["adventure.set_distance.prompt_target"] = "Distanza target (metri)",
+["adventure.set_distance.prompt_loop"] = "Ciclo (riapplicazione automatica)",
+["adventure.set_distance.prompt_interval"] = "Intervallo ciclo (ms, min 250)",
+["adventure.set_distance.over_max_title"] = "Avviso Distanza",
+["adventure.set_distance.over_max_msg"] = "Una distanza superiore a 5000m non ti darà stelle.\n\nLa gara registrerà comunque la distanza, ma non verranno date ricompense in stelle. Continuare?",
+["adventure.set_distance.continue_button"] = "Continua",
+["adventure.set_distance.not_in_adventure"] = "Vai alla scheda Avventura e inizia prima una gara",
+["adventure.set_distance.start_race_first"] = "Inizia prima una gara",
+["adventure.set_distance.applied"] = "Distanza impostata: %sm",
+["adventure.set_distance.loop_stopped"] = "Ciclo Imposta Distanza fermato.",
+["adventure.set_distance.loop_running"] = "Ciclo distanza in esecuzione — tocca Imposta Distanza per fermare",
+["adventure.set_distance.loop_warn_title"] = "Avviso Ciclo Distanza",
+["adventure.set_distance.loop_warn_msg"] = "La modalità ciclo scrive in memoria ogni %s ms.\n\nUsare un intervallo breve può aumentare instabilità, glitch visivi o crash del gioco.\n\nContinuare comunque?",
+
+-- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "Regola Conto alla Rovescia",
+["cups.adjust_countdown.desc"] = "Regola il conto alla rovescia prima di iniziare la gara",
+["cups.slider.seconds"] = "Secondi",
+["cups.adjust_countdown.applied"] = "Conto alla rovescia regolato a %ss",
+["cups.auto_win.title"] = "Vittoria Automatica",
+["cups.auto_win.desc"] = "Vinci automaticamente qualunque sia il risultato della tua gara",
+["cups.force_boss.title"] = "Forza Boss",
+["cups.force_boss.desc"] = "Il boss appare sempre",
+["cups.force_cup.title"] = "Forza Coppa",
+["cups.force_cup.desc"] = "Forza una singola coppa",
+["cups.force_cup.not_found"] = "Forza Coppa non trovata. Riprova più tardi.",
+["cups.force_cup.enabled"] = "Forza Coppa Attivato",
+["cups.force_cup.disabled"] = "Forza Coppa Disattivato",
+["cups.set_time.title"] = "Imposta Tempo",
+["cups.set_time.desc"] = "Imposta il tempo della tua gara (non congelerà il tempo per sicurezza). Devi essere in una gara di coppa attiva. (es. 1:09.069, 7.284)",
+["cups.set_time.hint"] = "Tempo (1:09.069 o 7.284)",
+["cups.set_time.invalid_format"] = "Formato non valido. Usa 1:09.069 o 7.284",
+["cups.set_time.no_negative"] = "Nessun valore negativo",
+["cups.set_time.not_in_cup"] = "Vai alla scheda Coppe e inizia prima una gara",
+["cups.set_time.start_race_first"] = "Inizia prima una gara",
+["cups.set_time.applied"] = "Tempo impostato su %s",
+["cups.unlimited_tasks.title"] = "Attività Illimitate",
+["cups.unlimited_tasks.desc"] = "Blocca tutte le attività come completate e sempre richiedibili. Richiedi ricompense ripetutamente.",
+["cups.unlimited_tasks.resolve_failed"] = "Impossibile risolvere l'elenco delle attività",
+["cups.unlimited_tasks.none_found"] = "Nessuna attività trovata",
+["cups.unlimited_tasks.enabled"] = "Attività Illimitate Attivate",
+["cups.unlimited_tasks.disabled"] = "Attività Illimitate Disattivate",
+["cups.unlimited_tasks.none_to_freeze"] = "Nessuna attività da bloccare",
+["cups.rank_points_bonus.title"] = "+498 Punti Classifica",
+["cups.rank_points_bonus.desc"] = "Fai in modo che tutte le attività della lega ti diano 498 punti invece di 200, e rimuovi anche altre ricompense.",
+["cups.rank_points_bonus.none_found"] = "Nessuna attività lega trovata",
+["cups.rank_points_bonus.boosted"] = "Punti classifica potenziati: %s",
+["cups.rank_points_bonus.no_match"] = "Nessuna attività lega corrispondente trovata",
+["cups.rank_points_bonus.nothing_to_restore"] = "Niente da ripristinare",
+["cups.rank_points_bonus.restored"] = "Ripristinato: %s",
+
+-- ── modules/tabs/event.lua ────────────────────────────────────────────────────
+["event.patch_rewards.title"] = "Patch Ricompense Eventi",
+["event.patch_rewards.desc"] = "Applica patch alle ricompense dell'evento pubblico attuale con quelle personalizzate fornite da VOID (richiede riavvio del gioco)",
+["event.restore_events.title"] = "Ripristina Ricompense Eventi",
+["event.restore_events.desc"] = "Elimina i JSON degli eventi modificati per forzare il ripristino del server di gioco (richiede riavvio del gioco)",
+
+["event.checking_permissions"] = "Controllo permessi ambiente...",
+["event.scanning_files"] = "Scansione file attivi...",
+["event.decode_rewards_failed"] = "Decodifica del JSON delle ricompense fallita",
+["event.workspace_creation_failed"] = "FATALE: Creazione workspace fallita: %s",
+["event.workspace_creation_failed_dialog"] = "FATALE: Impossibile creare la directory del workspace.\n%s",
+["event.file_inaccessible"] = "File inaccessibile al percorso: %s",
+["event.predecrypt_not_found"] = "Pre-decrypt: sorgente non trovata: %s",
+["event.predecrypt_empty"] = "Pre-decrypt: la sorgente è vuota (0 byte): %s",
+["event.decode_active_failed"] = "Decodifica di active_events.json fallita al percorso: %s",
+["event.no_active_events"] = "Nessun evento attivo trovato al percorso: %s",
+["event.cannot_open_active"] = "Impossibile aprire active_events.json al percorso: %s",
+["event.decrypt_active_failed"] = "Decrypt di active_events.json fallito al percorso: %s",
+["event.root_copy_failed"] = "Copia root fallita: %s",
+
+["event.select_events_patch"] = "Seleziona eventi da patchare:\nPercorso: %s",
+["event.user_cancelled"] = "Utente ha annullato la selezione per il percorso: %s",
+["event.rewards_unavailable"] = "Ricompense incorporate non disponibili, salto patch per il percorso: %s",
+["event.skipped_unreadable"] = "Evento illeggibile saltato: %s",
+["event.predecrypt_event_not_found"] = "Pre-decrypt: evento non trovato: %s",
+["event.predecrypt_event_empty"] = "Pre-decrypt: l'evento è vuoto (0 byte): %s",
+["event.processing_failed"] = "Elaborazione di %s fallita: %s",
+["event.cannot_open_decrypted"] = "Impossibile aprire il file decriptato: %s",
+["event.decrypt_event_failed"] = "Decrypt dell'evento fallito: %s",
+["event.loop_crash"] = "Ciclo critico di elaborazione file crashato: %s",
+
+["event.success_header"] = "Con successo:",
+["event.success_removed_header"] = "Rimosso con successo (Verrà Ripristinato al Riavvio):",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "Fallito:",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "Risultati Patch",
+["event.restore_results_title"] = "Risultati Ripristino",
+["event.restart_required_title"] = "Riavvio Richiesto",
+["event.patch_restart_msg"] = "Il gioco è stato chiuso e questo script uscirà, riavvialo per vedere gli effetti della patch",
+["event.restore_restart_msg"] = "Il gioco ora si chiuderà per consentire la sincronizzazione dei file del server.",
+["event.finishing_tasks_patch"] = "Completamento attività in background in sospeso... Attendere prego.",
+["event.finishing_tasks_restore"] = "Completamento attività in background in sospeso...",
+["event.patch_failed_msg"] = "Patch fallita, riprova.",
+
+["event.select_events_restore"] = "Seleziona file da ripristinare (eliminare):\nPercorso: %s",
+["event.delete_failed"] = "Eliminazione di %s fallita: %s",
+
+-- ── modules/tabs/account.lua ──────────────────────────────────────────────────
+["account.change_name.title"] = "Cambia Nome",
+["account.change_name.desc"] = "Cambia il nome del tuo giocatore",
+["account.change_name.hint"] = "Inserisci Nome",
+["account.change_name.empty"] = "Inserisci prima un nome",
+["account.change_name.too_long_title"] = "Nome Troppo Lungo",
+["account.change_name.too_long_msg"] = "Il tuo nome è troppo lungo, accorcialo",
+["account.change_name.resolve_failed"] = "Impossibile risolvere il puntatore del nome",
+["account.change_name.applied"] = "Nome cambiato in %s",
+
+["account.change_gp.title"] = "Cambia Potenza Garage",
+["account.change_gp.desc"] = "Cambia la potenza del garage del profilo (persiste se più alta). Imposta a 8 per ripristinare se supera il massimo, ma solo se il tuo GP effettivo è già fissato sotto il limite.",
+["account.change_gp.hint"] = "Inserisci Potenza Garage",
+["account.change_gp.max_int_title"] = "Raggiunto il massimo int a 32 bit",
+["account.change_gp.lower_value"] = "Abbassa il valore",
+["account.change_gp.too_low_title"] = "Troppo Basso",
+["account.change_gp.higher_value"] = "Aumenta il valore",
+["account.change_gp.applied"] = "La Potenza del Garage è stata cambiata in %s",
+
+["account.fake_unlock.title"] = "Sblocco Falso",
+["account.fake_unlock.desc"] = "Sblocca tutte le personalizzazioni temporaneamente",
+["account.fake_vip.title"] = "VIP Falso",
+["account.fake_vip.desc"] = "Attiva/disattiva lo stato di abbonamento VIP localmente",
+
+["account.fake_rank.title"] = "Classifica Falsa",
+["account.fake_rank.desc"] = "Imposta la tua classifica a leggendaria falsa istantaneamente",
+["account.fake_rank.race_warn_title"] = "Gara Richiesta",
+["account.fake_rank.race_warn_msg"] = "La Classifica Falsa dovrebbe essere applicata solo mentre una gara di Coppe è attivamente in esecuzione.\n\nApplicarla al di fuori di una gara potrebbe comportare un shadow ban.\n\nAssicurati di essere già all'interno di una gara di Coppe prima di continuare.\n\nContinuare comunque?",
+["account.fake_rank.continue_button"] = "Continua",
+["account.fake_rank.applied"] = "Classifica falsa iniettata",
+["account.fake_rank.not_in_cups"] = "Inizia prima una gara",
+
+-- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "Regola Slot Parti",
+["vehicle.parts_slot.desc"] = "Regola lo slot delle parti per tutti i veicoli",
+["vehicle.parts_slot.slider_title"] = "Slot",
+["vehicle.parts_slot.no_vehicles"] = "Nessun veicolo trovato",
+["vehicle.parts_slot.applied"] = "Slot parti regolato: %d veicoli",
+
+["vehicle.parts_modifier.title"] = "Modificatore Parti",
+["vehicle.parts_modifier.desc"] = "Modifica i livelli delle parti di tuning in gara attiva",
+["vehicle.parts_modifier.select"] = "Seleziona una parte",
+["vehicle.parts_modifier.prompt_level"] = "Livello: ",
+["vehicle.parts_modifier.prompt_digit0"] = "Cifra: ",
+["vehicle.parts_modifier.prompt_digit1"] = "Coda: ",
+["vehicle.parts_modifier.prompt_reset"] = "Ripristina",
+["vehicle.parts_modifier.invalid"] = "Valore livello non valido",
+["vehicle.parts_modifier.not_found"] = "Parte non trovata in memoria",
+["vehicle.parts_modifier.applied"] = "%s impostato al livello %s",
+["vehicle.parts_modifier.reset"] = "%s ripristinato",
+
+["vehicle.unlock_vehicles.title"] = "Sblocca Veicoli",
+["vehicle.unlock_vehicles.desc"] = "Sblocca tutti i veicoli per l'acquisto con monete",
+["vehicle.unlock_vehicles.no_vehicles"] = "Nessun veicolo trovato",
+["vehicle.unlock_vehicles.unlocked"] = "Veicoli sbloccati: %d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "Nessun veicolo da sbloccare",
+
+["vehicle.max_vehicles.title"] = "Veicoli Massimi",
+["vehicle.max_vehicles.desc"] = "Massimizza istantaneamente i livelli di potenziamento di tutti i veicoli sbloccati",
+["vehicle.max_vehicles.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
+["vehicle.max_vehicles.all_maxed"] = "Tutti i veicoli massimizzati",
+["vehicle.max_vehicles.failed"] = "Massimizzazione veicoli fallita",
+
+["vehicle.max_mastery.title"] = "Maestria Massima",
+["vehicle.max_mastery.desc"] = "Massimizza istantaneamente le maestrie di tutti i veicoli sbloccati e massimizzati.",
+["vehicle.max_mastery.all_maxed"] = "Tutte le maestrie massimizzate",
+["vehicle.max_mastery.failed"] = "Massimizzazione maestrie fallita",
+
+["vehicle.max_parts.title"] = "Parti Massime",
+["vehicle.max_parts.desc"] = "Massimizza istantaneamente i livelli di tutte le parti sbloccate per tutti i veicoli.",
+["vehicle.max_parts.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
+["vehicle.max_parts.all_maxed"] = "Tutte le parti massimizzate",
+["vehicle.max_parts.failed"] = "Massimizzazione parti fallita",
+
+["vehicle.common.no_vehicles"] = "Nessun veicolo trovato",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "Impossibile risolvere l'elenco veicoli",
+["vehicle.common.no_zero_region"] = "Nessuna regione zero trovata",
+
+}
 
 end
 
@@ -26384,42 +27334,10 @@ return {
 ["about.about_script.title"] = "Sobre o Script",
 ["about.about_script.desc"] = "Um poderoso e altamente otimizado script de manipulação de memória construído para Hill Climb Racing 2 no ambiente Pivot personalizado.\n\nBaixar Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Proprietário do Script",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desenvolvedor do Script",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Tradutor do Script",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Créditos",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Agradecimentos Especiais",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo de Depuração",
@@ -26942,41 +27860,10 @@ return {
 ["about.about_script.title"] = "О скрипте",
 ["about.about_script.desc"] = "Мощный и оптимизированный скрипт для манипуляции памятью, созданный для Hill Climb Racing 2 в кастомном окружении Pivot.\n\nСкачать Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Владелец скрипта",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Разработчики скрипта",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Переводчики скрипта",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Авторы",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "Особая благодарность",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",
@@ -27463,41 +28350,10 @@ return {
 ["about.about_script.title"] = "เกี่ยวกับสคริปต์",
 ["about.about_script.desc"] = "สคริปต์ปรับแต่งและจัดการหน่วยความจำที่ทรงพลังและลื่นไหลสุดๆ ทำมาเพื่อเกม Hill Climb Racing 2 บนแอปจำลอง Pivot โดยเฉพาะ\n\nดาวน์โหลด Pivot ได้ที่นี่เลย:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "เจ้าของสคริปต์",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "ทีมพัฒนาร่วม",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "คนแปลภาษา",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-]],
 ["about.special_thanks.title"] = "ขอบคุณเป็นพิเศษ",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "โหมดดีบักในเกม",
@@ -27986,42 +28842,10 @@ return {
 ["about.about_script.title"] = "Betik Hakkında",
 ["about.about_script.desc"] = "Hill Climb Racing 2 için özel Pivot ortamında oluşturulmuş güçlü ve son derece optimize edilmiş bir bellek manipülasyon betiği.\n\nPivot'u İndir:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Betik Sahibi",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Betik Geliştiricisi",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Betik Çevirmeni",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Katkıda Bulunanlar",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Özel Teşekkürler",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Hata Ayıklama Modu",
@@ -28545,42 +29369,10 @@ return {
 ["about.about_script.title"] = "Про скрипт",
 ["about.about_script.desc"] = "Потужний та високооптимізований скрипт для маніпуляції пам'яттю, створений для Hill Climb Racing 2 у спеціальному середовищі Pivot.\n\nЗавантажити Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Власник скрипту",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Розробник скрипту",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Перекладач скрипту",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Подяки",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Особлива подяка",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим налагодження",
@@ -29104,42 +29896,10 @@ return {
 ["about.about_script.title"] = "اسکرپٹ کے بارے میں",
 ["about.about_script.desc"] = "Hill Climb Racing 2 کے لیے کسٹم Pivot ماحول پر بنایا گیا ایک طاقتور اور انتہائی بہتر میموری ہیرا پھیری اسکرپٹ۔\n\nPivot ڈاؤن لوڈ کریں:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "اسکرپٹ کا مالک",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "اسکرپٹ ڈویلپر",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "اسکرپٹ مترجم",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "اعترافات",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "خصوصی شکریہ",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ڈیبگ موڈ",
@@ -29451,7 +30211,7 @@ if #missing > 0 then fail("Missing classes:\n" .. table.concat(missing, "\n")) e
 end
 
 __vfs['core/engines/arch.lua'] = function(...)
--- core/engines/arch.lua — Architecture detection + manifest-driven data loading
+-- core/engines/arch.lua — Architecture detection + chain-based version resolution
 -- Sets globals: DEVICE_ARCH, BaseLib, aobs, offsets
 -- Depends on: loadModule, memory (already loaded), gg, showDialog, LOG,
 --             DEFAULT_ARCH (set in main.lua)
@@ -29492,12 +30252,110 @@ if DEVICE_ARCH ~= "arm64-v8a" then
 end
 
 
--- ── Manifest-driven data resolution ──────────────────────────────────────────
+-- ── Version comparison ────────────────────────────────────────────────────────
+
+-- Splits "1.73.5" into { 1, 73, 5 }.
+local function parse_version(v)
+    local ma, mi, pa = v:match("(%d+)%.(%d+)%.(%d+)")
+    if not ma then return nil end
+    return { tonumber(ma), tonumber(mi), tonumber(pa) }
+end
+
+-- Returns -1, 0, or 1 — same contract as C's strcmp.
+local function cmp_version(a, b)
+    for i = 1, 3 do
+        if     a[i] < b[i] then return -1
+        elseif a[i] > b[i] then return  1
+        end
+    end
+    return 0
+end
+
+
+-- ── Chain resolution ──────────────────────────────────────────────────────────
 --
--- See data/manifest.lua for the full structure/resolution writeup. Short
--- version: arch_t[major][minor].base (or arch_t.default_base) is the full
--- baseline; arch_t[major][minor][patch] is an optional diff-only override,
--- shallow-merged on top per `aobs` group key / `offsets` key.
+-- The manifest supplies an ordered `chain` array per arch.  Each entry is:
+--
+--   { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true }
+--
+-- `full = true`  → the file is a complete baseline (aobs + offsets).
+--                  The engine resets its accumulated state before applying it.
+--
+-- `full = false` (or absent) → the file is a diff.  Only the keys present
+--                  inside `aobs` / `offsets` replace the matching keys in the
+--                  accumulated state; everything else is kept as-is.
+--
+-- The engine walks the chain from the beginning up to (and including) the
+-- closest entry whose version is ≤ the device's game version, accumulating
+-- changes as it goes.  This means:
+--
+--   • Users on 1.73.3 see exactly the 1.73.3 data.
+--   • Users on 1.73.5 see 1.73.3 base + whatever 1.73.5 changed.
+--   • Users on 1.74.0 (a new era) see only the fresh 1.74.0 baseline because
+--     that entry is marked `full = true`, resetting the accumulated state.
+--   • Users on an unknown future version (e.g. 1.75.0) see the last known
+--     entry and get a "running on newer version" warning — same behaviour as
+--     the old default_base fallback, but now it's the most recent data rather
+--     than the oldest.
+
+local function resolve_chain(chain, device_ver_t)
+    -- `state` is what we accumulate across the chain walk.
+    local state = { aobs = {}, offsets = {} }
+    -- `last_applied` tracks the highest version we successfully merged into
+    -- state, for the "running on newer game" warning message.
+    local last_applied = nil
+
+    for _, entry in ipairs(chain) do
+        local entry_ver_t = parse_version(entry.version)
+        if not entry_ver_t then
+            LOG.warn("Arch", "Chain entry has unparseable version: " .. tostring(entry.version) .. " — skipped")
+            goto continue
+        end
+
+        -- Stop walking once the chain passes the device version.
+        if cmp_version(entry_ver_t, device_ver_t) > 0 then
+            LOG.info("Arch", "Chain walk stopped before " .. entry.version .. " (device is older)")
+            break
+        end
+
+        -- Load the file.
+        local ok, data = pcall(loadModule, entry.file)
+        if not ok or type(data) ~= "table" then
+            LOG.error("Arch", "Failed to load chain entry " .. entry.version .. " (" .. tostring(entry.file) .. "): " .. tostring(data))
+            goto continue
+        end
+
+        -- A full baseline resets accumulated state before merging.
+        if entry.full then
+            LOG.info("Arch", "Chain: full baseline reset at " .. entry.version)
+            state = { aobs = {}, offsets = {} }
+        end
+
+        -- Merge aobs: per-group keys replace existing ones.
+        if type(data.aobs) == "table" then
+            for k, v in pairs(data.aobs) do
+                state.aobs[k] = v
+            end
+        end
+
+        -- Merge offsets: per-key replacement.
+        if type(data.offsets) == "table" then
+            for k, v in pairs(data.offsets) do
+                state.offsets[k] = v
+            end
+        end
+
+        last_applied = entry.version
+        LOG.info("Arch", "Chain: applied " .. entry.version .. (entry.full and " [full]" or " [diff]"))
+
+        ::continue::
+    end
+
+    return state, last_applied
+end
+
+
+-- ── Manifest loading ──────────────────────────────────────────────────────────
 
 local manifest    = loadModule("data/manifest.lua")
 local pkg_version = gg.getTargetInfo().versionName
@@ -29509,22 +30367,14 @@ if type(pkg_version) ~= "string" then
     os.exit(0)
 end
 
-local function shallow_merge(base_t, override_t)
-    local merged = {}
-    for k, v in pairs(base_t or {}) do merged[k] = v end
-    for k, v in pairs(override_t or {}) do merged[k] = v end
-    return merged
+local device_ver_t = parse_version(pkg_version)
+if not device_ver_t then
+    LOG.fatal("Arch", "Could not parse game version: " .. pkg_version)
+    showDialog(T("common.warning"), T("arch.unknown_version_msg"), T("common.ok"))
+    os.exit(0)
 end
 
-local function count(t)
-    local n = 0
-    for _ in pairs(t) do n = n + 1 end
-    return n
-end
-
--- Resolve which arch's tree to use. Unsupported arches fall back to
--- DEFAULT_ARCH's tree so the script still runs (with a warning) instead of
--- hard-exiting.
+-- Resolve which arch's tree to use.
 local arch_t = manifest[DEVICE_ARCH]
 if not arch_t then
     LOG.warn("Arch", string.format(
@@ -29533,33 +30383,38 @@ if not arch_t then
     arch_t = manifest[DEFAULT_ARCH]
 end
 
-if not arch_t or not arch_t.default_base then
-    LOG.fatal("Arch", "Manifest missing default_base for resolved arch — cannot continue")
+if not arch_t or not arch_t.chain or #arch_t.chain == 0 then
+    LOG.fatal("Arch", "Manifest missing or empty chain for resolved arch — cannot continue")
     showDialog(T("common.warning"), T("arch.no_base_data_msg"), T("common.ok"))
-    
+    os.exit(0)
 end
 
-local major, minor, patch = pkg_version:match("(%d+)%.(%d+)%.(%d+)")
-local minor_t = ((arch_t[major] or {})[minor]) or {}
+-- Walk the chain.
+local resolved, last_applied = resolve_chain(arch_t.chain, device_ver_t)
 
-local base_path = minor_t.base or arch_t.default_base
-local base = loadModule(base_path)
-LOG.info("Arch", string.format("Base loaded: %s", base_path))
-
-local override_path = minor_t[patch]
-local override = nil
-if override_path then
-    override = loadModule(override_path)
-    LOG.info("Arch", string.format("Override matched: v%s.%s.%s -> %s", major, minor, patch, override_path))
-else
-    LOG.info("Arch", string.format("No override for v%s.%s.%s — using base as-is", major, minor, patch))
+-- Warn if the game version is newer than anything in the chain.
+local last_chain_ver_t = parse_version(arch_t.chain[#arch_t.chain].version)
+if last_chain_ver_t and cmp_version(device_ver_t, last_chain_ver_t) > 0 then
+    LOG.warn("Arch", string.format(
+        "Game v%s is newer than the latest chain entry (%s) — using best available data",
+        pkg_version, arch_t.chain[#arch_t.chain].version))
+    showDialog(T("arch.warning_title"),
+        T("arch.newer_version_msg", pkg_version, arch_t.chain[#arch_t.chain].version),
+        T("common.proceed_anyway"))
 end
 
-aobs    = shallow_merge(base.aobs, override and override.aobs)
-offsets = shallow_merge(base.offsets, override and override.offsets)
+local function count(t)
+    local n = 0
+    for _ in pairs(t) do n = n + 1 end
+    return n
+end
 
-LOG.info("Arch", string.format("Data resolved | aobs=%d groups | offsets=%d entries",
-    count(aobs), count(offsets)))
+aobs    = resolved.aobs
+offsets = resolved.offsets
+
+LOG.info("Arch", string.format(
+    "Data resolved | chain_applied=%s | aobs=%d groups | offsets=%d entries",
+    tostring(last_applied), count(aobs), count(offsets)))
 
 end
 
@@ -29850,51 +30705,11 @@ local function verify_pattern(base, patterns)
     return true
 end
 
----Returns a human-readable list of supported architectures from a patch table.
----@param arch_map table { [arch_name] = data }
----@return string Comma-separated architecture names, e.g. "arm64-v8a or x86_64"
-local function arch_list_string(arch_map)
-    local names = {}
-    for arch in pairs(arch_map) do
-        table.insert(names, arch)
-    end
-    return table.concat(names, " or ")
-end
-
 ---Returns true if `t` is a flat array of patch entries (each entry has a `scan` key).
----Used to distinguish { {scan=…}, {scan=…} } from { ["arm64-v8a"] = {…} }.
 ---@param t table
 ---@return boolean
 local function is_patch_list(t)
     return type(t) == "table" and type(t[1]) == "table" and t[1].scan ~= nil
-end
-
----Normalises the `patch_or_callback` argument of addArchModule into an arch map.
----
---- Accepted forms:
----   • Flat patch list  { {scan, offset, patch, unpatch}, … }  → wrapped under DEFAULT_ARCH
----   • Arch map         { ["arm64-v8a"] = { {…}, … }, … }
----   • Callback         function(done, ...)                     → wrapped under DEFAULT_ARCH
----   • Arch-keyed cbs   { ["arm64-v8a"] = function, … }
----
----@param patch_or_callback any
----@return table arch_map  { [arch] = resolvedValue }
----@return any   resolved  Value for DEVICE_ARCH, or nil if unsupported
-local function resolve_arch(patch_or_callback)
-    local arch_map
-
-    if is_patch_list(patch_or_callback) then
-        -- Bare patch list — belongs to the default arch only.
-        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
-    elseif type(patch_or_callback) == "table" then
-        -- Must be an arch-keyed map (values are either patch lists or callbacks).
-        arch_map = patch_or_callback
-    else
-        -- Bare callback function — belongs to the default arch only.
-        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
-    end
-
-    return arch_map, arch_map[DEVICE_ARCH]
 end
 
 
@@ -29994,7 +30809,7 @@ end
 ---Creates a UI module card with automatic architecture validation.
 ---
 ---For "switch" mode with a patch table the engine handles enable/disable via
----apply_patch. For all other modes (button, slider, input, …) the resolved
+---apply_patch. For all other modes (button, slider, input, …) the value must
 ---value must be a callback: function(done, ...).
 ---
 ---Read-only ("ro") modules bypass arch resolution entirely.
@@ -30005,7 +30820,7 @@ end
 ---@param desc             string Description shown in the card
 ---@param mode             string "switch" | "button" | "slider" | "input" | "ro" | …
 ---@param extra            any    Mode-specific config (options table, slider config, etc.)
----@param patch_or_callback any   Patch list, arch-map, or callback (see resolve_arch)
+---@param patch_or_callback any   Patch list or callback (from aobs table or inline fn)
 function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
     -- Read-only cards need no arch check.
     if mode == "ro" then
@@ -30013,23 +30828,23 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         return
     end
 
-    local arch_map, resolved = resolve_arch(patch_or_callback)
-
-    -- No data for this arch → show a disabled placeholder card.
-    if not resolved then
+    -- nil means the data key doesn't exist in aobs/offsets for this version.
+    -- Show a "not available for this version" placeholder rather than an arch error.
+    if patch_or_callback == nil then
         addModule(parent, id .. "_na", title,
-            T("patches.requires_arch", arch_list_string(arch_map), DEVICE_ARCH),
+            T("patches.no_data_this_version"),
             "ro", T("common.not_available"), nil)
         return
     end
 
+    -- patch_or_callback is either a patch list or a callback at this point.
     local callback
 
-    if mode == "switch" and is_patch_list(resolved) then
+    if mode == "switch" and is_patch_list(patch_or_callback) then
         -- Patch-backed toggle: delegate to apply_patch inside the scheduler.
         callback = function(done, state)
             scheduler:add(function(finish_task)
-                local fail_count = apply_patch(id, resolved, state)
+                local fail_count = apply_patch(id, patch_or_callback, state)
                 if fail_count == 0 then
                     showToast(title .. (state and T("patches.suffix_enabled") or T("patches.suffix_disabled")))
                 else
@@ -30047,7 +30862,7 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         -- because the outer task would never call finish_task() while waiting on the
         -- inner task, which can't run until the outer task finishes.
         callback = function(done, ...)
-            resolved(done, ...)
+            patch_or_callback(done, ...)
         end
     end
 
@@ -30642,6 +31457,16 @@ local function tryLoadLangFile(code)
     return result
 end
 
+-- ── Credits base layer ───────────────────────────────────────────────────────
+-- Loaded before EN so that arch-universal content (names, handles, URLs) lives
+-- in one place. T() checks CREDITS last, after ACTIVE and EN, so a lang file
+-- can still override any key here if truly needed (shouldn't be necessary).
+local ok_credits, CREDITS = pcall(loadModule, "configs/credits.lua")
+if not ok_credits or type(CREDITS) ~= "table" then
+    LOG.warn("Lang", "configs/credits.lua failed to load — credits will fall through to EN")
+    CREDITS = {}
+end
+
 local EN = tryLoadLangFile("en")
 if not EN then
     -- English itself is the framework's hard dependency; if it's missing
@@ -30678,6 +31503,7 @@ LANG_AVAILABLE = AVAILABLE
 function T(key, ...)
     local entry = ACTIVE[key]
     if entry == nil then entry = EN[key] end
+    if entry == nil then entry = CREDITS[key] end
     if entry == nil then
         LOG.warn("Lang", "Missing translation key: " .. tostring(key))
         return key
@@ -30907,88 +31733,85 @@ end
 __vfs['data/manifest.lua'] = function(...)
 -- data/manifest.lua — Version × Architecture data tree
 --
--- ── Structure ─────────────────────────────────────────────────────────────
+-- ── Chain structure ────────────────────────────────────────────────────────────
 --
 --   [arch] = {
---       default_base = "data/<arch>/base.lua",  -- REQUIRED. Also marks this
---                                                 -- arch as supported (its
---                                                 -- presence = arch_t exists).
+--       chain = {
+--           -- Each entry is applied in order, oldest → newest.
+--           -- The engine walks up to (and including) the user's game version.
 --
---       [major] = {
---           [minor] = {
---               base = "data/<arch>/base_X.Y.lua",  -- OPTIONAL. New full
---                                                     -- baseline for this
---                                                     -- X.Y era. Omit to
---                                                     -- inherit default_base.
+--           { version = "1.73.3", file = "data/<arch>/1.73.3.lua", full = true },
+--           --   └─ full = true  → complete baseline; resets accumulated state
+--           --                     before merging. Use for the first entry in a
+--           --                     chain, and whenever a game update rewrites so
+--           --                     many AOBs that a diff would be larger than a
+--           --                     fresh file.
 --
---               [patch] = "data/<arch>/vX.Y.Z.lua",  -- OPTIONAL. Diff-only
---                                                      -- override, merged on
---                                                      -- top of `base` above.
---           },
+--           { version = "1.73.5", file = "data/<arch>/1.73.5.lua" },
+--           --   └─ full absent  → diff only. Only the aobs/offsets keys present
+--           --                     in this file overwrite the accumulated state;
+--           --                     everything else is kept as-is from earlier
+--           --                     entries.
+--
+--           { version = "1.74.0", file = "data/<arch>/1.74.0.lua", full = true },
+--           --   └─ New era, full reset. Users on 1.73.x never reach this entry.
 --       },
 --   }
 --
---   major/minor/patch are STRING keys ("1", "73", "3"), taken verbatim from
---   the game's versionName "1.73.3".
+-- ── Resolution rules ──────────────────────────────────────────────────────────
 --
--- ── Resolution (see core/engines/arch.lua) ───────────────────────────────────
+--   Walk the chain from index 1 forward.  Stop the moment an entry's version
+--   exceeds the device's game version.  Accumulate changes from every entry
+--   visited:
 --
---   1. arch_t = manifest[DEVICE_ARCH], or manifest[DEFAULT_ARCH] if the
---      current arch has no entry (with a warning — lib patches likely
---      won't match on the wrong arch's base).
+--     • full = true  → clear accumulated aobs/offsets, then merge this file.
+--     • diff         → merge this file on top of what we already have.
 --
---   2. minor_t = arch_t[major][minor], or {} if that major/minor combo
---      isn't mapped yet (brand new version — falls through to step 3/4
---      with no override, using default_base as-is).
+--   Result: users on any version in the chain get the exact data built up to
+--   their version.  Users on an OLDER version than the first entry get only
+--   that first entry's data (the baseline).  Users on a NEWER version than the
+--   last entry get the most recent known data + a "newer version" warning —
+--   much better than silently running on stale 1.73.3 offsets forever.
 --
---   3. base_path = minor_t.base or arch_t.default_base
---      → loaded as the full baseline.
+-- ── When to add what ──────────────────────────────────────────────────────────
 --
---   4. override_path = minor_t[patch] (may be nil)
---      → if present, shallow-merged on top of base per `aobs` group key
---        and per `offsets` key.
+--   • Game update changes NOTHING for you → add no entry; existing users are
+--     unaffected, newer-version users get the last known data + warning.
 --
--- ── When to add what ─────────────────────────────────────────────────────────
+--   • A patch bump shifts ONE offset → append a tiny diff entry containing
+--     only that changed key, e.g.:
+--       { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" }
+--     where 1.73.5.lua returns { offsets = { raceInfo = 0x200DEAD } }
 --
---   • Most patch bumps change NOTHING → no entry needed at all. They fall
---     through to default_base (or the era's `base`) untouched.
+--   • A minor/major bump rewrites most AOBs → append a full baseline entry:
+--       { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }
+--     Users still on 1.73.x never walk past their version, so the old data
+--     stays alive for them automatically — no deletion needed.
 --
---   • A patch bump shifts ONE offset → add a tiny diff file under
---     [major][minor][patch], e.g. v1.73.3.lua containing just that key.
---
---   • A minor/major bump rewrites everything (new lib, new AOB bytes
---     everywhere) → write a fresh full base_X.Y.lua ONCE, point
---     [major][minor].base at it. Subsequent patches in that era go back
---     to being tiny diffs against THIS new base.
---
--- ── Adding a new arch ───────────────────────────────────────────────────────
+-- ── Adding a new arch ─────────────────────────────────────────────────────────
 --   1. Create data/<arch>/base.lua (full aobs + offsets).
---   2. Add manifest[<arch>] = { default_base = "data/<arch>/base.lua" }.
---   3. Add version entries as needed — no changes to core/ required.
+--   2. Add manifest[<arch>] = { chain = { { version = "...", file = "...", full = true } } }.
+--   3. Append diff entries as versions release.  No changes to core/ required.
 
 return {
 
     ["arm64-v8a"] = {
-        default_base = "data/arm64-v8a/1.73.3.lua",
-
-        ["1"] = {
-            ["73"] = {
-                ["3"] = "data/arm64-v8a/1.73.3.lua",
-            },
-            
+        chain = {
+            { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
+            -- Example future entries (add when a new game update releases):
+            -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
+            -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era
         },
     },
-    
+
     ["x86_64"] = {
-        default_base = "data/x86_64/1.73.3.lua",
-
-        ["1"] = {
-            ["73"] = {
-                ["3"] = "data/x86_64/1.73.3.lua",
-            },
-            
+        chain = {
+            { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
+            -- Example future entries:
+            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
         },
     },
+
 }
 
 end
@@ -31038,11 +31861,48 @@ return {
 end
 
 __vfs['data/x86_64/1.73.3.lua'] = function(...)
--- data/x86_64/1.73.3.lua — Override for 1.73.3 (x86_64)
+-- data/x86_64/1.73.3.lua — x86_64 baseline for 1.73.3
+--
+-- AOB patterns are identical to arm64-v8a for this version; only offsets differ.
+-- If AOBs ever diverge between arches, add them here explicitly.
 
 return {
+    aobs = {
+        fakeVip = {
+            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 4, patch = "h 28 00 80 52", unpatch = "h 68 B2 40 39"},
+        },
+
+        fakeUnlock = {
+            {scan = "h 36 C5 40 F9", pattern = { { offset = 0x164, valid = {"h E0 03 1F 2A"} }, { offset = 0x16C, valid = {"h 20 00 80 52"} } }, offset = 0x164, patch = "h 20 00 80 52", unpatch = "h E0 03 1F 2A"},
+        },
+
+        autoDetach = {
+            {scan = "h 08 20 20 1E 85 00 00 54 E0 03 13 AA E1 03 14 AA", offset = 4, patch = "h 1F 20 03 D5", unpatch = "h 85 00 00 54"},
+        },
+
+        autoWin = {
+            {scan = "h E8 5F 5D A9 16 61 40 B9", offset = 4, patch = "h 55 00 80 52", unpatch = "h 16 61 40 B9"},
+            {scan = "h E0 5F 40 F9 09 4D 40 BD", offset = 4, patch = "h 0A 90 32 1E", unpatch = "h 09 4D 40 BD"},
+        },
+
+        autoDie = {
+            {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 12, patch = "h 00 00 80 52", unpatch = "h 45 00 00 54"},
+            {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 16, patch = "h 60 56 08 B9", unpatch = "h 7F 56 08 B9"},
+        },
+
+        forceBoss = {
+            {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
+            {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
+        },
+
+        fuel = {
+            {scan = "h 61 56 48 BD 00 C0 22 1E 21 C0 22 1E 00 84 48 1F 00 40 62 1E 60 56 08 BD", offset = 4},
+        },
+    },
     offsets = {
-        raceInfo = 0x2066508,
+        raceInfo     = 0x2066508, -- x86_64-specific
+        vnpStats     = 0x2060CA0,
+        customTracks = 0x1FE27F0,
     },
 }
 

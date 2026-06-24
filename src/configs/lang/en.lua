@@ -91,7 +91,7 @@ return {
 ["ui.loading"] = "Loading",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.requires_arch"] = "Requires %s device (your device: %s)",
+["patches.no_data_this_version"] = "Not available for your game version.",
 ["patches.suffix_enabled"] = " Enabled",
 ["patches.suffix_disabled"] = " Disabled",
 ["patches.pattern_not_found"] = "Failed: %d pattern(s) not found",
@@ -102,6 +102,7 @@ return {
 ["arch.non_primary_arch_msg"] = "Detected: %s\nSome or all lib-patches may not work.",
 ["arch.unknown_version_msg"] = "Game version unknown. Try again after the game loads.",
 ["arch.no_base_data_msg"] = "Internal error: no base data available for this architecture.",
+["arch.newer_version_msg"] = "Your game version (%s) is newer than the latest known data (%s).\nVOID will use the closest available data — some features may not work correctly.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Scheduler Warning: Task crashed -> %s",
@@ -255,42 +256,10 @@ return {
 ["about.about_script.title"] = "About Script",
 ["about.about_script.desc"] = "A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom Pivot environment.\n\nDownload Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Script Owner",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Script Developer",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Script Translator",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Credits",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Special Thanks",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug Mode",

@@ -58,51 +58,11 @@ local function verify_pattern(base, patterns)
     return true
 end
 
----Returns a human-readable list of supported architectures from a patch table.
----@param arch_map table { [arch_name] = data }
----@return string Comma-separated architecture names, e.g. "arm64-v8a or x86_64"
-local function arch_list_string(arch_map)
-    local names = {}
-    for arch in pairs(arch_map) do
-        table.insert(names, arch)
-    end
-    return table.concat(names, " or ")
-end
-
 ---Returns true if `t` is a flat array of patch entries (each entry has a `scan` key).
----Used to distinguish { {scan=…}, {scan=…} } from { ["arm64-v8a"] = {…} }.
 ---@param t table
 ---@return boolean
 local function is_patch_list(t)
     return type(t) == "table" and type(t[1]) == "table" and t[1].scan ~= nil
-end
-
----Normalises the `patch_or_callback` argument of addArchModule into an arch map.
----
---- Accepted forms:
----   • Flat patch list  { {scan, offset, patch, unpatch}, … }  → wrapped under DEFAULT_ARCH
----   • Arch map         { ["arm64-v8a"] = { {…}, … }, … }
----   • Callback         function(done, ...)                     → wrapped under DEFAULT_ARCH
----   • Arch-keyed cbs   { ["arm64-v8a"] = function, … }
----
----@param patch_or_callback any
----@return table arch_map  { [arch] = resolvedValue }
----@return any   resolved  Value for DEVICE_ARCH, or nil if unsupported
-local function resolve_arch(patch_or_callback)
-    local arch_map
-
-    if is_patch_list(patch_or_callback) then
-        -- Bare patch list — belongs to the default arch only.
-        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
-    elseif type(patch_or_callback) == "table" then
-        -- Must be an arch-keyed map (values are either patch lists or callbacks).
-        arch_map = patch_or_callback
-    else
-        -- Bare callback function — belongs to the default arch only.
-        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
-    end
-
-    return arch_map, arch_map[DEVICE_ARCH]
 end
 
 
@@ -202,7 +162,7 @@ end
 ---Creates a UI module card with automatic architecture validation.
 ---
 ---For "switch" mode with a patch table the engine handles enable/disable via
----apply_patch. For all other modes (button, slider, input, …) the resolved
+---apply_patch. For all other modes (button, slider, input, …) the value must
 ---value must be a callback: function(done, ...).
 ---
 ---Read-only ("ro") modules bypass arch resolution entirely.
@@ -213,7 +173,7 @@ end
 ---@param desc             string Description shown in the card
 ---@param mode             string "switch" | "button" | "slider" | "input" | "ro" | …
 ---@param extra            any    Mode-specific config (options table, slider config, etc.)
----@param patch_or_callback any   Patch list, arch-map, or callback (see resolve_arch)
+---@param patch_or_callback any   Patch list or callback (from aobs table or inline fn)
 function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
     -- Read-only cards need no arch check.
     if mode == "ro" then
@@ -221,23 +181,23 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         return
     end
 
-    local arch_map, resolved = resolve_arch(patch_or_callback)
-
-    -- No data for this arch → show a disabled placeholder card.
-    if not resolved then
+    -- nil means the data key doesn't exist in aobs/offsets for this version.
+    -- Show a "not available for this version" placeholder rather than an arch error.
+    if patch_or_callback == nil then
         addModule(parent, id .. "_na", title,
-            T("patches.requires_arch", arch_list_string(arch_map), DEVICE_ARCH),
+            T("patches.no_data_this_version"),
             "ro", T("common.not_available"), nil)
         return
     end
 
+    -- patch_or_callback is either a patch list or a callback at this point.
     local callback
 
-    if mode == "switch" and is_patch_list(resolved) then
+    if mode == "switch" and is_patch_list(patch_or_callback) then
         -- Patch-backed toggle: delegate to apply_patch inside the scheduler.
         callback = function(done, state)
             scheduler:add(function(finish_task)
-                local fail_count = apply_patch(id, resolved, state)
+                local fail_count = apply_patch(id, patch_or_callback, state)
                 if fail_count == 0 then
                     showToast(title .. (state and T("patches.suffix_enabled") or T("patches.suffix_disabled")))
                 else
@@ -255,7 +215,7 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         -- because the outer task would never call finish_task() while waiting on the
         -- inner task, which can't run until the outer task finishes.
         callback = function(done, ...)
-            resolved(done, ...)
+            patch_or_callback(done, ...)
         end
     end
 

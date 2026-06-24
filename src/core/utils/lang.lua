@@ -54,6 +54,16 @@ local function tryLoadLangFile(code)
     return result
 end
 
+-- ── Credits base layer ───────────────────────────────────────────────────────
+-- Loaded before EN so that arch-universal content (names, handles, URLs) lives
+-- in one place. T() checks CREDITS last, after ACTIVE and EN, so a lang file
+-- can still override any key here if truly needed (shouldn't be necessary).
+local ok_credits, CREDITS = pcall(loadModule, "configs/credits.lua")
+if not ok_credits or type(CREDITS) ~= "table" then
+    LOG.warn("Lang", "configs/credits.lua failed to load — credits will fall through to EN")
+    CREDITS = {}
+end
+
 local EN = tryLoadLangFile("en")
 if not EN then
     -- English itself is the framework's hard dependency; if it's missing
@@ -90,6 +100,7 @@ LANG_AVAILABLE = AVAILABLE
 function T(key, ...)
     local entry = ACTIVE[key]
     if entry == nil then entry = EN[key] end
+    if entry == nil then entry = CREDITS[key] end
     if entry == nil then
         LOG.warn("Lang", "Missing translation key: " .. tostring(key))
         return key

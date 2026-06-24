@@ -1,85 +1,82 @@
 -- data/manifest.lua — Version × Architecture data tree
 --
--- ── Structure ─────────────────────────────────────────────────────────────
+-- ── Chain structure ────────────────────────────────────────────────────────────
 --
 --   [arch] = {
---       default_base = "data/<arch>/base.lua",  -- REQUIRED. Also marks this
---                                                 -- arch as supported (its
---                                                 -- presence = arch_t exists).
+--       chain = {
+--           -- Each entry is applied in order, oldest → newest.
+--           -- The engine walks up to (and including) the user's game version.
 --
---       [major] = {
---           [minor] = {
---               base = "data/<arch>/base_X.Y.lua",  -- OPTIONAL. New full
---                                                     -- baseline for this
---                                                     -- X.Y era. Omit to
---                                                     -- inherit default_base.
+--           { version = "1.73.3", file = "data/<arch>/1.73.3.lua", full = true },
+--           --   └─ full = true  → complete baseline; resets accumulated state
+--           --                     before merging. Use for the first entry in a
+--           --                     chain, and whenever a game update rewrites so
+--           --                     many AOBs that a diff would be larger than a
+--           --                     fresh file.
 --
---               [patch] = "data/<arch>/vX.Y.Z.lua",  -- OPTIONAL. Diff-only
---                                                      -- override, merged on
---                                                      -- top of `base` above.
---           },
+--           { version = "1.73.5", file = "data/<arch>/1.73.5.lua" },
+--           --   └─ full absent  → diff only. Only the aobs/offsets keys present
+--           --                     in this file overwrite the accumulated state;
+--           --                     everything else is kept as-is from earlier
+--           --                     entries.
+--
+--           { version = "1.74.0", file = "data/<arch>/1.74.0.lua", full = true },
+--           --   └─ New era, full reset. Users on 1.73.x never reach this entry.
 --       },
 --   }
 --
---   major/minor/patch are STRING keys ("1", "73", "3"), taken verbatim from
---   the game's versionName "1.73.3".
+-- ── Resolution rules ──────────────────────────────────────────────────────────
 --
--- ── Resolution (see core/engines/arch.lua) ───────────────────────────────────
+--   Walk the chain from index 1 forward.  Stop the moment an entry's version
+--   exceeds the device's game version.  Accumulate changes from every entry
+--   visited:
 --
---   1. arch_t = manifest[DEVICE_ARCH], or manifest[DEFAULT_ARCH] if the
---      current arch has no entry (with a warning — lib patches likely
---      won't match on the wrong arch's base).
+--     • full = true  → clear accumulated aobs/offsets, then merge this file.
+--     • diff         → merge this file on top of what we already have.
 --
---   2. minor_t = arch_t[major][minor], or {} if that major/minor combo
---      isn't mapped yet (brand new version — falls through to step 3/4
---      with no override, using default_base as-is).
+--   Result: users on any version in the chain get the exact data built up to
+--   their version.  Users on an OLDER version than the first entry get only
+--   that first entry's data (the baseline).  Users on a NEWER version than the
+--   last entry get the most recent known data + a "newer version" warning —
+--   much better than silently running on stale 1.73.3 offsets forever.
 --
---   3. base_path = minor_t.base or arch_t.default_base
---      → loaded as the full baseline.
+-- ── When to add what ──────────────────────────────────────────────────────────
 --
---   4. override_path = minor_t[patch] (may be nil)
---      → if present, shallow-merged on top of base per `aobs` group key
---        and per `offsets` key.
+--   • Game update changes NOTHING for you → add no entry; existing users are
+--     unaffected, newer-version users get the last known data + warning.
 --
--- ── When to add what ─────────────────────────────────────────────────────────
+--   • A patch bump shifts ONE offset → append a tiny diff entry containing
+--     only that changed key, e.g.:
+--       { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" }
+--     where 1.73.5.lua returns { offsets = { raceInfo = 0x200DEAD } }
 --
---   • Most patch bumps change NOTHING → no entry needed at all. They fall
---     through to default_base (or the era's `base`) untouched.
+--   • A minor/major bump rewrites most AOBs → append a full baseline entry:
+--       { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }
+--     Users still on 1.73.x never walk past their version, so the old data
+--     stays alive for them automatically — no deletion needed.
 --
---   • A patch bump shifts ONE offset → add a tiny diff file under
---     [major][minor][patch], e.g. v1.73.3.lua containing just that key.
---
---   • A minor/major bump rewrites everything (new lib, new AOB bytes
---     everywhere) → write a fresh full base_X.Y.lua ONCE, point
---     [major][minor].base at it. Subsequent patches in that era go back
---     to being tiny diffs against THIS new base.
---
--- ── Adding a new arch ───────────────────────────────────────────────────────
+-- ── Adding a new arch ─────────────────────────────────────────────────────────
 --   1. Create data/<arch>/base.lua (full aobs + offsets).
---   2. Add manifest[<arch>] = { default_base = "data/<arch>/base.lua" }.
---   3. Add version entries as needed — no changes to core/ required.
+--   2. Add manifest[<arch>] = { chain = { { version = "...", file = "...", full = true } } }.
+--   3. Append diff entries as versions release.  No changes to core/ required.
 
 return {
 
     ["arm64-v8a"] = {
-        default_base = "data/arm64-v8a/1.73.3.lua",
-
-        ["1"] = {
-            ["73"] = {
-                ["3"] = "data/arm64-v8a/1.73.3.lua",
-            },
-            
+        chain = {
+            { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
+            -- Example future entries (add when a new game update releases):
+            -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
+            -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era
         },
     },
-    
+
     ["x86_64"] = {
-        default_base = "data/x86_64/1.73.3.lua",
-
-        ["1"] = {
-            ["73"] = {
-                ["3"] = "data/x86_64/1.73.3.lua",
-            },
-            
+        chain = {
+            { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
+            -- Example future entries:
+            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
         },
     },
+
 }
