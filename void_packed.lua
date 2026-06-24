@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 04:01:48
+-- Packed by bundle.py  •  2026-06-24 01:37:06
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -29,64 +29,6 @@ UI = {
 }
 
 return UI
-end
-
-__vfs['configs/credits.lua'] = function(...)
--- configs/credits.lua — Single source of truth for all arch-universal about/credits content.
---
--- These keys are language-independent (names, handles, URLs) and are shared
--- across every lang file. They are injected into T() as a base layer BEFORE
--- the English fallback, so lang files never need to define them.
---
--- To update a credit: edit here only. All languages update automatically.
-
-return {
-
--- ── Script owner ──────────────────────────────────────────────────────────
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
-
--- ── Script developers ─────────────────────────────────────────────────────
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
-
--- ── Translators ───────────────────────────────────────────────────────────
--- One entry per language. Names and handles are not translated.
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-]],
-
--- ── Credits ───────────────────────────────────────────────────────────────
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
-
--- ── Special thanks ────────────────────────────────────────────────────────
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
-
-}
-
 end
 
 __vfs['configs/rewards.lua'] = function(...)
@@ -22635,10 +22577,42 @@ return {
 ["about.about_script.title"] = "حول السكريبت",
 ["about.about_script.desc"] = "سكريبت قوي ومحسّن للغاية لمعالجة الذاكرة مبني لـ Hill Climb Racing 2 على بيئة Pivot المخصصة.\n\nتنزيل Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "مالك السكريبت",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "مطور السكريبت",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "مترجم السكريبت",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "الشكر والتقدير",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "شكر خاص",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "وضع التصحيح",
@@ -22692,14 +22666,14 @@ return {
 ["player.hide_flag.desc"] = "إخفاء علم لاعبك في السباق",
 ["player.hide_flag.enabled"] = "إخفاء العلم مفعّل",
 ["player.hide_flag.disabled"] = "إخفاء العلم معطّل",
-["vehicle.fuel.title"] = "الوقود",
-["vehicle.fuel.desc"] = "تثبيت الوقود على قيمة ثابتة أثناء السباق (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "كمية الوقود (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "إعادة تعيين",
-["vehicle.fuel.invalid"] = "قيمة غير صالحة، يجب أن تكون 0 – 100",
-["vehicle.fuel.applied"] = "تم تثبيت الوقود على %s",
-["vehicle.fuel.reset"] = "تم استعادة الوقود",
-["vehicle.fuel.not_applied"] = "الوقود غير نشط",
+["player.fuel.title"] = "الوقود",
+["player.fuel.desc"] = "تثبيت الوقود على قيمة ثابتة أثناء السباق (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "كمية الوقود (0 – 100)",
+["player.fuel.prompt_reset"] = "إعادة تعيين",
+["player.fuel.invalid"] = "قيمة غير صالحة، يجب أن تكون 0 – 100",
+["player.fuel.applied"] = "تم تثبيت الوقود على %s",
+["player.fuel.reset"] = "تم استعادة الوقود",
+["player.fuel.not_applied"] = "الوقود غير نشط",
 ["player.zoom.title"] = "ضبط التكبير",
 ["player.zoom.desc"] = "ضبط مدى قرب أو بُعد الكاميرا",
 ["player.slider.min"] = "الحد الأدنى",
@@ -23162,10 +23136,42 @@ return {
 ["about.about_script.title"] = "স্ক্রিপ্ট সম্পর্কে",
 ["about.about_script.desc"] = "Hill Climb Racing 2-এর জন্য কাস্টম Pivot পরিবেশে নির্মিত একটি শক্তিশালী ও অত্যন্ত অপটিমাইজড মেমরি ম্যানিপুলেশন স্ক্রিপ্ট।\n\nPivot ডাউনলোড:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "স্ক্রিপ্ট মালিক",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "স্ক্রিপ্ট ডেভেলপার",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "স্ক্রিপ্ট অনুবাদক",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "ক্রেডিট",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "বিশেষ ধন্যবাদ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ডিবাগ মোড",
@@ -23219,14 +23225,14 @@ return {
 ["player.hide_flag.desc"] = "রেসে আপনার পতাকা লুকান",
 ["player.hide_flag.enabled"] = "পতাকা লুকানো সক্রিয়",
 ["player.hide_flag.disabled"] = "পতাকা লুকানো নিষ্ক্রিয়",
-["vehicle.fuel.title"] = "জ্বালানি",
-["vehicle.fuel.desc"] = "রেসের সময় জ্বালানি একটি নির্দিষ্ট মানে লক করুন (০.০ – ১০০.০)",
-["vehicle.fuel.prompt_amount"] = "জ্বালানির পরিমাণ (০ – ১০০)",
-["vehicle.fuel.prompt_reset"] = "রিসেট",
-["vehicle.fuel.invalid"] = "অবৈধ মান, ০ – ১০০ হতে হবে",
-["vehicle.fuel.applied"] = "জ্বালানি %s-এ লক করা হয়েছে",
-["vehicle.fuel.reset"] = "জ্বালানি পুনরুদ্ধার করা হয়েছে",
-["vehicle.fuel.not_applied"] = "জ্বালানি সক্রিয় নয়",
+["player.fuel.title"] = "জ্বালানি",
+["player.fuel.desc"] = "রেসের সময় জ্বালানি একটি নির্দিষ্ট মানে লক করুন (০.০ – ১০০.০)",
+["player.fuel.prompt_amount"] = "জ্বালানির পরিমাণ (০ – ১০০)",
+["player.fuel.prompt_reset"] = "রিসেট",
+["player.fuel.invalid"] = "অবৈধ মান, ০ – ১০০ হতে হবে",
+["player.fuel.applied"] = "জ্বালানি %s-এ লক করা হয়েছে",
+["player.fuel.reset"] = "জ্বালানি পুনরুদ্ধার করা হয়েছে",
+["player.fuel.not_applied"] = "জ্বালানি সক্রিয় নয়",
 ["player.zoom.title"] = "জুম সামঞ্জস্য করুন",
 ["player.zoom.desc"] = "আপনার ক্যামেরা কত কাছে বা দূরে তা সামঞ্জস্য করুন",
 ["player.slider.min"] = "সর্বনিম্ন",
@@ -23687,10 +23693,41 @@ return {
 ["about.about_script.title"] = "Über das Skript",
 ["about.about_script.desc"] = "Ein mächtiges und hochgradig optimiertes Skript zur Speichermanipulation, entwickelt für Hill Climb Racing 2 auf der maßgeschneiderten Pivot-Umgebung.\n\nPivot herunterladen:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Skript-Eigentümer",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Skript-Entwickler",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Übersetzer",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Credits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (Discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Besonderer Dank an",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug-Modus",
@@ -24015,7 +24052,7 @@ return {
 ["ui.loading"] = "Loading",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.no_data_this_version"] = "Not available for your game version.",
+["patches.requires_arch"] = "Requires %s device (your device: %s)",
 ["patches.suffix_enabled"] = " Enabled",
 ["patches.suffix_disabled"] = " Disabled",
 ["patches.pattern_not_found"] = "Failed: %d pattern(s) not found",
@@ -24026,7 +24063,6 @@ return {
 ["arch.non_primary_arch_msg"] = "Detected: %s\nSome or all lib-patches may not work.",
 ["arch.unknown_version_msg"] = "Game version unknown. Try again after the game loads.",
 ["arch.no_base_data_msg"] = "Internal error: no base data available for this architecture.",
-["arch.newer_version_msg"] = "Your game version (%s) is newer than the latest known data (%s).\nVOID will use the closest available data — some features may not work correctly.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Scheduler Warning: Task crashed -> %s",
@@ -24054,19 +24090,6 @@ return {
 ["tabs.sep_script"] = "SCRIPT MENU",
 ["tabs.settings"] = "SETTINGS",
 ["tabs.about"] = "ABOUT",
-["tabs.console"] = "CONSOLE",
-
--- ── modules/tabs/console.lua ─────────────────────────────────────────────────
-["console.desc"] = "Crash reports, scheduler failures, and all log entries. Tap Copy all to share.",
-["console.copy_all"] = "Copy all",
-["console.refresh"] = "Refresh",
-["console.clear"] = "Clear",
-["console.copied"] = "Logs copied to clipboard",
-["console.cleared"] = "Console cleared",
-["console.empty"] = "No crashes or warnings recorded.",
-["console.crashes_header"] = "CRASHES & ERRORS (%d)",
-["console.logs_header"] = "LOGS (%d)",
-["console.unavailable"] = "Crash handler not available.",
 
 ["registry.module_load_failed"] = "Module failed to load. Check logs for details.",
 ["registry.module_runtime_error"] = "Runtime error: %s",
@@ -24193,10 +24216,42 @@ return {
 ["about.about_script.title"] = "About Script",
 ["about.about_script.desc"] = "A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom Pivot environment.\n\nDownload Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Script Owner",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Script Developer",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Script Translator",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Credits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Special Thanks",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug Mode",
@@ -24205,17 +24260,13 @@ return {
 ["other.debug_mode.disabled"] = "Debug Mode Disabled",
 ["other.hint.width"] = "Width",
 ["other.hint.height"] = "Height",
-["other.resolution.title"] = "Set Resolution",
+["other.resolution.title"] = "Adjust Resolution",
 ["other.resolution.desc"] = "Adjust the game width and height (default is 1280x720)",
 ["other.resolution.applied"] = "Resolution set to %dx%d",
-["other.resolution_offset.title"] = "Set Resolution Offset",
+["other.resolution_offset.title"] = "Adjust Resolution Offset",
 ["other.resolution_offset.desc"] = "Adjust the game width offset and height offset (default is 0x0), best for small resolution in a large screen.",
 ["other.resolution_offset.applied"] = "Resolution offset set to %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView not found",
-["other.aspect_ratio.title"] = "Change Aspect Ratio",
-["other.aspect_ratio.desc"] = "Force a display aspect ratio (applies a matching resolution at 1080p height).",
-["other.aspect_ratio.options"] = {"16:9", "18:9", "19.5:9", "20:9", "21:9", "4:3"},
-["other.aspect_ratio.applied"] = "Aspect ratio set to %s",
 
 -- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
 ["shop.free_chest.title"] = "Free Chest",
@@ -24254,14 +24305,14 @@ return {
 ["player.hide_flag.desc"] = "Hide your player flag at race",
 ["player.hide_flag.enabled"] = "Hide Flag Enabled",
 ["player.hide_flag.disabled"] = "Hide Flag Disabled",
-["vehicle.fuel.title"] = "Set Fuel",
-["vehicle.fuel.desc"] = "Lock fuel to a constant value during race (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Fuel amount (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Reset",
-["vehicle.fuel.invalid"] = "Invalid value, must be 0 – 100",
-["vehicle.fuel.applied"] = "Fuel locked to %s",
-["vehicle.fuel.reset"] = "Fuel restored",
-["vehicle.fuel.not_applied"] = "Fuel not active",
+["player.fuel.title"] = "Set Fuel",
+["player.fuel.desc"] = "Lock fuel to a constant value during race (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Fuel amount (0 – 100)",
+["player.fuel.prompt_reset"] = "Reset",
+["player.fuel.invalid"] = "Invalid value, must be 0 – 100",
+["player.fuel.applied"] = "Fuel locked to %s",
+["player.fuel.reset"] = "Fuel restored",
+["player.fuel.not_applied"] = "Fuel not active",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",
@@ -24723,10 +24774,41 @@ return {
 ["about.about_script.title"] = "Acerca del Script",
 ["about.about_script.desc"] = "Un script de manipulación de memoria potente y altamente optimizado para Hill Climb Racing 2 en el entorno Pivot personalizado.\n\nDescarga Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propietario del Script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desarrolladores del Script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Traductor del Script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Créditos",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Agradecimientos Especiales",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo Depuración",
@@ -25213,10 +25295,42 @@ return {
 ["about.about_script.title"] = "À propos du script",
 ["about.about_script.desc"] = "Un script de manipulation de mémoire puissant et hautement optimisé construit pour Hill Climb Racing 2 sur l'environnement Pivot personnalisé.\n\nTélécharger Pivot :\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propriétaire du script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Développeur du script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Traducteur du script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Crédits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Remerciements spéciaux",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode débogage",
@@ -25270,14 +25384,14 @@ return {
 ["player.hide_flag.desc"] = "Masquer votre drapeau de joueur en course",
 ["player.hide_flag.enabled"] = "Masquage du drapeau activé",
 ["player.hide_flag.disabled"] = "Masquage du drapeau désactivé",
-["vehicle.fuel.title"] = "Carburant",
-["vehicle.fuel.desc"] = "Verrouiller le carburant à une valeur constante pendant la course (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Quantité de carburant (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Réinitialiser",
-["vehicle.fuel.invalid"] = "Valeur invalide, doit être comprise entre 0 et 100",
-["vehicle.fuel.applied"] = "Carburant verrouillé à %s",
-["vehicle.fuel.reset"] = "Carburant restauré",
-["vehicle.fuel.not_applied"] = "Carburant inactif",
+["player.fuel.title"] = "Carburant",
+["player.fuel.desc"] = "Verrouiller le carburant à une valeur constante pendant la course (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Quantité de carburant (0 – 100)",
+["player.fuel.prompt_reset"] = "Réinitialiser",
+["player.fuel.invalid"] = "Valeur invalide, doit être comprise entre 0 et 100",
+["player.fuel.applied"] = "Carburant verrouillé à %s",
+["player.fuel.reset"] = "Carburant restauré",
+["player.fuel.not_applied"] = "Carburant inactif",
 ["player.zoom.title"] = "Ajuster le zoom",
 ["player.zoom.desc"] = "Ajuster la proximité ou l'éloignement de votre caméra",
 ["player.slider.min"] = "Min",
@@ -25485,563 +25599,7 @@ return {
 end
 
 __vfs['configs/lang/hi.lua'] = function(...)
---[[
-  configs/lang/hi.lua — हिन्दी (Hindi)
 
-  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
-  Looked up at runtime via the global T(key, ...) function, e.g.:
-      T("common.ok")                          -> "ठीक है"
-      T("settings.window_width_desc", 400, 650) -> "फ्लोटिंग मेनू की चौड़ाई (400 - 650 dp)"
-
-  Conventions:
-    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
-    - %s / %d / %X etc. are string.format placeholders — keep them in the
-      same order when translating, but they don't need to keep the same
-      letter (e.g. %s can become %d if the translated grammar needs it).
-    - Entries that are Lua arrays (e.g. spinner option lists) are returned
-      as-is, untouched by string.format.
-    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
-      translated — only user-visible text (dialogs, toasts, buttons,
-      module titles/descriptions) lives here.
-
-  This file handles the Hindi localization for the VOID script.
-]]
-
-return {
-
--- ── Common / shared (buttons, generic dialog text) ───────────────────────────
-["common.ok"] = "ठीक है",
-["common.cancel"] = "रद्द करें",
-["common.yes"] = "हाँ",
-["common.no"] = "नहीं",
-["common.failed"] = "विफल",
-["common.success"] = "सफल",
-["common.later"] = "बाद में",
-["common.got_it"] = "समझ गया",
-["common.retry"] = "पुनः प्रयास करें",
-["common.wait_safe"] = "प्रतीक्षा करें (सुरक्षित)",
-["common.waiting"] = "प्रतीक्षा...",
-["common.force_exit"] = "जबरदस्ती बाहर निकलें",
-["common.proceed_anyway"] = "फिर भी आगे बढ़ें",
-["common.manual_mode"] = "मैन्युअल मोड",
-["common.update_button"] = "अपडेट करें",
-["common.launch_failed"] = "लॉन्च विफल",
-["common.confirm_exit_title"] = "बाहर निकलने की पुष्टि करें",
-["common.confirm_exit_msg"] = "स्क्रिप्ट से बाहर निकलें?",
-["common.not_available"] = "उपलब्ध नहीं",
-["common.warning"] = "चेतावनी",
-
--- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
-["main.exit_active_ops_title"] = "चेतावनी: सक्रिय ऑपरेशन",
-["main.exit_active_ops_msg"] = "%d बैकग्राउंड कार्य चल रहे हैं।\nजबरदस्ती बाहर निकलने से गेम की स्थिति खराब हो सकती है।",
-["main.initializing"] = "आरंभ हो रहा है...",
-["main.no_app_found"] = "कोई ऐप नहीं मिला",
-["main.arch_64bit_required_title"] = "64-बिट आवश्यक",
-["main.arch_64bit_required_msg"] = "ARMv8a अनिवार्य है। x86_64 आंशिक रूप से समर्थित है।",
-
-["main.update_available_title"] = "अपडेट उपलब्ध",
-["main.update_available_msg"] = "v%s उपलब्ध है (वर्तमान: v%s)\n\n%s\n\nअभी अपडेट करें?",
-["main.no_changelog"] = "कोई परिवर्तन लॉग नहीं।",
-["main.downloading_version"] = "v%s डाउनलोड हो रहा है...",
-["main.update_download_failed_msg"] = "अपडेट डाउनलोड नहीं हो सका:\n%s",
-["main.update_write_failed_msg"] = "इसमें लिखा नहीं जा सका:\n%s",
-["main.update_done_title"] = "VOID v%s में अपडेट हुआ",
-["main.update_done_msg"] = "VOID सफलतापूर्वक अपडेट हो गया।\n\nनई स्क्रिप्ट इस रूप में सहेजी गई है:\nvoid_v%s.lua\n\nअपडेट लागू करने के लिए इसे GameGuardian से चलाएं।",
-["main.launching_version"] = "v%s लॉन्च हो रहा है...",
-["main.launch_failed_msg"] = "डाउनलोड हो गया लेकिन चल नहीं सका:\n%s",
-
-["main.multiple_spaces_title"] = "एकाधिक स्पेस मिले",
-["main.multiple_spaces_desc"] = "HCR2 %d वर्चुअल स्पेस में मिला।\nउस स्पेस का चयन करें जिसमें आप अभी खेल रहे हैं।",
-["main.select_space_toast"] = "जारी रखने के लिए एक स्पेस चुनें।",
-["main.user_space_item"] = "उपयोगकर्ता %s  —  %s",
-["main.permission_error_title"] = "अनुमति त्रुटि",
-["main.permission_error_msg"] = "शेल एक्सेस अस्वीकार कर दिया गया।\n\nVoid को आपके वर्चुअल स्पेस में HCR2 ढूंढने के लिए इसकी आवश्यकता है। यदि आप यह सत्यापित करना चाहते हैं कि कौन सा कमांड चल रहा है तो Void सोर्स कोड देखें।",
-["main.hcr2_not_found_title"] = "HCR2 डेटा नहीं मिला",
-["main.hcr2_not_found_msg"] = "Void आपके वर्चुअल स्पेस में HCR2 डेटा ढूंढ नहीं सका। यह तब हो सकता है यदि HCR2 अभी तक लॉन्च नहीं हुआ है, या आपका वर्चुअल स्पेस ऐप असामान्य पथ संरचना का उपयोग करता है।\n\nगेम फ़ाइलों पर निर्भर सुविधाएँ (इवेंट रिवॉर्ड्स, आदि) मान्य पथ के बिना काम नहीं करेंगी।",
-["main.manual_data_path_title"] = "मैन्युअल डेटा पथ",
-["main.manual_data_path_hint"] = "HCR2 डेटा पथ दर्ज करें",
-["main.manual_path_cancelled"] = "रद्द किया गया — पथ के बिना आगे बढ़ रहा है।",
-["main.waiting_for_lib"] = "%s की प्रतीक्षा...",
-["main.initialized"] = "आरंभ हुआ",
-["main.gamestatus_not_found"] = "GameStatus नहीं मिला",
-["main.dont_interrupt"] = "इस स्क्रिप्ट को बाधित न करें",
-
--- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
-["ui.size_saved_restart"] = "आकार सहेजा गया! स्क्रिप्ट पुनः आरंभ करें",
-["ui.category_error"] = "त्रुटि: %s",
-["ui.category_not_found"] = "श्रेणी नहीं मिली",
-["ui.na"] = "लागू नहीं",
-["ui.spinner_select"] = "चुनें",
-["ui.slider_default_title"] = "मान",
-["ui.loading"] = "लोड हो रहा है",
-
--- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.requires_arch"] = "%s डिवाइस की आवश्यकता है (आपका डिवाइस: %s)",
-["patches.suffix_enabled"] = " सक्षम",
-["patches.suffix_disabled"] = " अक्षम",
-["patches.pattern_not_found"] = "विफल: %d पैटर्न नहीं मिले",
-
--- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
-["arch.warning_title"] = "आर्किटेक्चर चेतावनी",
-["arch.unknown_arch_msg"] = "आपका आर्किटेक्चर अज्ञात है। क्या लाइब्रेरी लोड हुई? आप कौन सा सिस्टम उपयोग कर रहे हैं?",
-["arch.non_primary_arch_msg"] = "पाया गया: %s\nकुछ या सभी लिब-पैच काम नहीं कर सकते।",
-["arch.unknown_version_msg"] = "गेम का संस्करण अज्ञात है। गेम लोड होने के बाद पुनः प्रयास करें।",
-["arch.no_base_data_msg"] = "आंतरिक त्रुटि: इस आर्किटेक्चर के लिए कोई आधार डेटा उपलब्ध नहीं है।",
-
--- ── core/engines/scheduler.lua ────────────────────────────────────────────────
-["scheduler.task_crashed"] = "शेड्यूलर चेतावनी: कार्य क्रैश हुआ -> %s",
-
--- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
-["errors.http_error_code"] = "HTTP त्रुटि कोड: %s",
-["errors.crashed"] = "क्रैश हुआ: %s",
-["errors.url_missing"] = "URL पैरामीटर अनुपस्थित या खाली है",
-["errors.file_path_missing"] = "फ़ाइल पथ अनुपस्थित है",
-["errors.download_url_missing"] = "URL अनुपस्थित है",
-["errors.dest_path_missing"] = "गंतव्य पथ अनुपस्थित है",
-
--- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
-["tabs.sep_game"] = "गेम मेनू",
-["tabs.account"] = "खाता मेनू",
-["tabs.vehicle"] = "वाहन मेनू",
-["tabs.player"] = "खिलाड़ी मेनू",
-["tabs.adventure"] = "साहसिक मेनू",
-["tabs.cups"] = "कप मेनू",
-["tabs.team"] = "टीम मेनू",
-["tabs.event"] = "इवेंट मेनू",
-["tabs.creative"] = "क्रिएटिव मेनू",
-["tabs.shop"] = "दुकान मेनू",
-["tabs.other"] = "अन्य मेनू",
-["tabs.sep_script"] = "स्क्रिप्ट मेनू",
-["tabs.settings"] = "सेटिंग्स",
-["tabs.about"] = "परिचय",
-
-["registry.module_load_failed"] = "मॉड्यूल लोड नहीं हुआ। विवरण के लिए लॉग देखें।",
-["registry.module_runtime_error"] = "रनटाइम त्रुटि: %s",
-["registry.error"] = "त्रुटि",
-
--- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
-["settings.section_updates"] = "अपडेट",
-["settings.auto_update.title"] = "स्वचालित अपडेट",
-["settings.auto_update.desc"] = "स्टार्टअप पर VOID स्वचालित रूप से अपडेट करें",
-["settings.dev_mode_title"] = "डेव मोड",
-["settings.auto_update.dev_mode_msg"] = "main.lua के लिए स्वचालित अपडेट अक्षम है (डेव बिल्ड)।",
-["settings.check_updates.title"] = "अपडेट जाँचें",
-["settings.check_updates.desc"] = "GitHub पर नवीनतम VOID रिलीज़ देखें",
-["settings.check_updates.dev_mode_msg"] = "main.lua के लिए अपडेट जाँच अक्षम है (डेव बिल्ड)।\n\nमैन्युअल रूप से रिपो से पुल करें।",
-["settings.check_updates.checking"] = "अपडेट की जाँच हो रही है...",
-["settings.check_updates.failed_title"] = "अपडेट जाँच विफल",
-["settings.check_updates.failed_msg"] = "GitHub तक पहुँच नहीं सका:\n%s",
-["settings.check_updates.up_to_date_title"] = "अद्यतित",
-["settings.check_updates.up_to_date_msg"] = "आप पहले से ही नवीनतम संस्करण पर हैं (v%s)।",
-["settings.check_updates.no_changelog"] = "कोई परिवर्तन लॉग उपलब्ध नहीं।",
-["settings.check_updates.available_msg"] = "v%s  (वर्तमान: v%s)\n\n%s\n\nइस स्क्रिप्ट को डाउनलोड और बदलें?",
-["settings.check_updates.no_asset_msg"] = "रिलीज़ में कोई .lua एसेट नहीं मिला।",
-["settings.check_updates.download_failed_title"] = "डाउनलोड विफल",
-["settings.check_updates.write_failed_title"] = "लेखन विफल",
-["settings.check_updates.done_title"] = "संपन्न",
-["settings.check_updates.done_msg"] = "v%s में अपडेट हुआ। लागू करने के लिए स्क्रिप्ट पुनः आरंभ करें।",
-["settings.check_updates.restart_button"] = "पुनः आरंभ करें",
-
-["settings.section_language"] = "भाषा",
-["settings.language.title"] = "भाषा",
-["settings.language.desc"] = "मेनू के लिए अपनी पसंदीदा भाषा चुनें",
-["settings.language.changed"] = "भाषा %s पर सेट की गई",
-["settings.language.failed"] = "वह भाषा लोड नहीं हुई",
-["settings.language.restart_msg"] = "भाषा पूरी तरह से लागू करने के लिए स्क्रिप्ट पुनः आरंभ करें",
-
-["settings.region.other"] = "अ: अन्य",
-["settings.region.cpp_alloc"] = "Ca: C++ आवंटन",
-["settings.region.unknown"] = "अज: अज्ञात",
-["settings.section_memory"] = "मेमोरी",
-["settings.memory_range.title"] = "मेमोरी रेंज",
-["settings.memory_range.desc"] = "वर्तमान चयनित मेमोरी रेंज\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुनी गई)",
-["settings.gamestatus.title"] = "GameStatus",
-["settings.gamestatus.desc"] = "वर्तमान gamestatus पता\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुना गया)",
-["settings.gamestatus_raw.title"] = "GameStatus (कच्चा)",
-["settings.gamestatus_raw.desc"] = "वर्तमान gamestatus (कच्चा) पता\n(स्क्रिप्ट द्वारा स्वचालित रूप से चुना गया)",
-["settings.clear_memory.title"] = "सहेजी गई मेमोरी साफ़ करें",
-["settings.clear_memory.desc"] = "पूरा गेम पुनः आरंभ किए बिना VOID की सभी सहेजी गई मेमोरी साफ़ करें।",
-
-["settings.section_ui_customizations"] = "UI अनुकूलन",
-["settings.theme_store.title"] = "थीम स्टोर",
-["settings.theme_store.desc"] = "समुदाय Void थीम ब्राउज़ और इंस्टॉल करें",
-["settings.theme_store.unreachable_msg"] = "थीम स्टोर तक नहीं पहुँच सका:\n%s",
-["settings.theme_store.parse_failed_msg"] = "थीम स्टोर डेटा पार्स नहीं हो सका।",
-["settings.theme_store.list_title"] = "Void थीम स्टोर",
-["settings.theme_store.search_results_desc"] = "खोज परिणाम: %s मिले",
-["settings.theme_store.available_desc"] = "%s थीम उपलब्ध",
-["settings.theme_store.by_author"] = "%s द्वारा",
-["settings.theme_store.search_item"] = "🔍 खोजें...",
-["settings.theme_store.clear_search_item"] = "✕ खोज साफ़ करें",
-["settings.theme_store.search_title"] = "थीम खोजें",
-["settings.theme_store.search_hint"] = "थीम का नाम, लेखक या विवरण",
-["settings.theme_store.no_results"] = "%s के लिए कोई थीम नहीं मिली",
-["settings.theme_store.detail_msg"] = "%s द्वारा\n\n%s\n\nID: %s",
-["settings.theme_store.install_button"] = "थीम इंस्टॉल करें",
-["settings.theme_downloading_bg"] = "पृष्ठभूमि छवि डाउनलोड हो रही है...",
-["settings.theme_imported"] = "थीम आयात हुई!",
-["settings.theme_invalid_bundle"] = "अमान्य बंडल प्रारूप।",
-["settings.theme_cloud_error"] = "क्लाउड त्रुटि: %s",
-["settings.reset_theme.title"] = "थीम रीसेट करें",
-["settings.reset_theme.desc"] = "कस्टम थीम और पृष्ठभूमि छवि को डिफ़ॉल्ट पर रीसेट करें",
-["settings.import_theme.title"] = "थीम आयात करें",
-["settings.import_theme.desc"] = "क्लाउड से कस्टम थीम आयात करें",
-["settings.import_theme.hint"] = "शेयर ID दर्ज करें",
-["settings.export_theme.title"] = "थीम निर्यात करें",
-["settings.export_theme.desc"] = "कस्टम थीम और पृष्ठभूमि छवि को क्लाउड पर निर्यात करें",
-["settings.export_theme.share_id_msg"] = "शेयर ID: %s\n\nक्लिपबोर्ड पर कॉपी हुआ।",
-["settings.export_theme.upload_failed_msg"] = "अपलोड विफल: %s",
-["settings.export_theme.size_warning_title"] = "अपलोड आकार चेतावनी",
-["settings.export_theme.size_warning_msg"] = "कस्टम पृष्ठभूमि छवि शामिल करें? यह आपकी छवि के आकार के अनुसार अपलोड आकार बढ़ाएगा।",
-["settings.export_theme.uploading_bg"] = "Catbox पर पृष्ठभूमि छवि अपलोड हो रही है...",
-["settings.export_theme.image_upload_failed_title"] = "त्रुटि",
-["settings.export_theme.image_upload_failed_msg"] = "छवि अपलोड विफल: %s",
-["settings.tabs_icon.title"] = "टैब आइकन",
-["settings.tabs_icon.desc"] = "टैब आइकन बदलें",
-["settings.tabs_icon.hint"] = "आइकन दर्ज करें",
-["settings.tabs_icon.empty_error"] = "खाली नहीं हो सकता",
-
-["settings.bg_opacity.title"] = "पृष्ठभूमि अपारदर्शिता",
-["settings.bg_opacity.desc"] = "पैनल, कार्ड और हेडर की पारदर्शिता",
-["settings.slider.alpha"] = "अल्फा",
-["settings.bg_image_opacity.title"] = "पृष्ठभूमि छवि अपारदर्शिता",
-["settings.bg_image_opacity.desc"] = "शुद्ध पूर्णांक चैनलों का उपयोग करके दृश्यता अल्फा सेटिंग्स सीधे समायोजित करें।",
-["settings.bg_image_picker.title"] = "पृष्ठभूमि छवि",
-["settings.bg_image_picker.desc"] = "अपनी कस्टम लेआउट पृष्ठभूमि छवि के लिए पूर्ण फ़ाइल पथ संशोधित करने के लिए टैप करें",
-["settings.bg_image_picker.path_label"] = "पूर्ण छवि फ़ाइल पथ (.jpg या .png):",
-["settings.bg_image_picker.remove_label"] = "पृष्ठभूमि छवि हटाएँ",
-["settings.bg_image_picker.success_title"] = "सफल",
-["settings.bg_image_picker.removed_msg"] = "पृष्ठभूमि छवि हटा दी गई",
-["settings.bg_image_picker.added_msg"] = "पृष्ठभूमि छवि जोड़ी गई",
-["settings.bg_image_picker.not_found_msg"] = "फ़ाइल नहीं मिली या पढ़ने का कार्य अस्वीकृत:\n%s",
-
-["settings.bg_rgb.title"] = "पृष्ठभूमि RGB",
-["settings.bg_rgb.desc"] = "पैनल पृष्ठभूमि के लिए रंग (हेडर और कार्ड स्वचालित रूप से स्केल होते हैं)",
-["settings.slider.r"] = "R",
-["settings.slider.g"] = "G",
-["settings.slider.b"] = "B",
-["settings.accent_rgb.title"] = "एक्सेंट RGB",
-["settings.accent_rgb.desc"] = "बटन, टॉगल और सक्रिय कार्ड के लिए रंग (म्यूट रंग स्वचालित रूप से व्युत्पन्न)",
-["settings.logo_rgb.title"] = "हाइलाइट RGB",
-["settings.logo_rgb.desc"] = "लेबल, आइकन और इंटरैक्टिव टेक्स्ट के लिए रंग (हमेशा पूरी तरह से अपारदर्शी)",
-["settings.sub_rgb.title"] = "उप-पाठ RGB",
-["settings.sub_rgb.desc"] = "विवरण और निष्क्रिय टैब लेबल के लिए रंग",
-["settings.text_rgb.title"] = "पाठ RGB",
-["settings.text_rgb.desc"] = "मुख्य मेनू पाठ के लिए रंग",
-
-["settings.win_width.title"] = "मेनू चौड़ाई",
-["settings.win_width.desc"] = "फ्लोटिंग मेनू की चौड़ाई (%d – %d dp)",
-["settings.slider.width"] = "चौड़ाई",
-["settings.win_height.title"] = "मेनू ऊँचाई",
-["settings.win_height.desc"] = "स्क्रॉल करने योग्य सामग्री क्षेत्र की ऊँचाई (%d – %d dp)",
-["settings.slider.height"] = "ऊँचाई",
-
--- ── modules/tabs/about.lua ────────────────────────────────────────────────────
-["about.about_script.title"] = "स्क्रिप्ट के बारे में",
-["about.about_script.desc"] = "Hill Climb Racing 2 के लिए कस्टम Pivot वातावरण पर निर्मित एक शक्तिशाली और अत्यधिक अनुकूलित मेमोरी हेरफेर स्क्रिप्ट।\n\nPivot डाउनलोड करें:\nhttps://github.com/vekendianorg/pivot/releases/",
-["about.script_owner.title"] = "स्क्रिप्ट स्वामी",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
-["about.script_dev.title"] = "स्क्रिप्ट डेवलपर",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
-["about.script_translator.title"] = "स्क्रिप्ट अनुवादक",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-- हिन्दी: AMR (github: amr-gt)
-- Italiano: AMR (github: amr-gt)
-]],
-["about.credits.title"] = "क्रेडिट",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
-["about.special_thanks.title"] = "विशेष धन्यवाद",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
-
--- ── modules/tabs/other.lua ────────────────────────────────────────────────────
-["other.debug_mode.title"] = "डीबग मोड",
-["other.debug_mode.desc"] = "इन-गेम डीबग मोड टॉगल करें",
-["other.debug_mode.enabled"] = "डीबग मोड सक्षम",
-["other.debug_mode.disabled"] = "डीबग मोड अक्षम",
-["other.hint.width"] = "चौड़ाई",
-["other.hint.height"] = "ऊँचाई",
-["other.resolution.title"] = "रेज़ोल्यूशन समायोजित करें",
-["other.resolution.desc"] = "गेम की चौड़ाई और ऊँचाई समायोजित करें (डिफ़ॉल्ट 1280x720 है)",
-["other.resolution.applied"] = "रेज़ोल्यूशन %dx%d पर सेट हुआ",
-["other.resolution_offset.title"] = "रेज़ोल्यूशन ऑफ़सेट समायोजित करें",
-["other.resolution_offset.desc"] = "गेम की चौड़ाई ऑफ़सेट और ऊँचाई ऑफ़सेट समायोजित करें (डिफ़ॉल्ट 0x0 है), बड़ी स्क्रीन पर छोटे रेज़ोल्यूशन के लिए सर्वोत्तम।",
-["other.resolution_offset.applied"] = "रेज़ोल्यूशन ऑफ़सेट %dx%d पर सेट हुआ",
-["other.glsurface_not_found"] = "GLSurfaceView नहीं मिला",
-
--- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
-["shop.free_chest.title"] = "मुफ्त चेस्ट",
-["shop.free_chest.desc"] = "दुकान टैब में चेस्ट मुफ्त करें",
-["shop.free_chest.enabled"] = "मुफ्त चेस्ट सक्षम",
-["shop.free_chest.disabled"] = "मुफ्त चेस्ट अक्षम",
-["shop.free_purchases.title"] = "मुफ्त खरीदारी",
-["shop.free_purchases.desc"] = "दुकान टैब में कुछ दैनिक ऑफ़र मुफ्त करें (पॉपअप/बैज के रूप में विशेष ऑफ़र के लिए भी काम करता है)",
-["shop.free_purchases.progress"] = "%d/%d",
-["shop.free_purchases.success"] = "मुफ्त खरीदारी सफल",
-["shop.change_chest.title"] = "चेस्ट बदलें",
-["shop.change_chest.desc"] = "लीजेंडरी चेस्ट को चयनित चेस्ट में बदलें",
-["shop.change_chest.changed"] = "चेस्ट %s में बदला गया",
-["shop.change_chest.options"] = {
-    "सामान्य चेस्ट", "असामान्य चेस्ट", "दुर्लभ चेस्ट", "महाकाव्य चेस्ट",
-    "चैंपियन चेस्ट", "विशेष चेस्ट 1", "क्रिसमस चेस्ट", "लीजेंडरी चेस्ट",
-    "नीला चेस्ट", "VIP चेस्ट 1", "VIP चेस्ट 2", "वीडियो चेस्ट",
-    "स्टार्टर चेस्ट", "विशेष चेस्ट 2", "Fingersoft चेस्ट", "मेगा चेस्ट",
-    "टीम स्पिरिट चेस्ट", "स्टाइल चेस्ट", "पौराणिक चेस्ट"
-},
-
--- ── modules/tabs/player.lua ───────────────────────────────────────────────────
-["player.auto_detach.title"] = "स्वचालित अलगाव",
-["player.auto_detach.desc"] = "रैली कार की छत जैसे भागों को स्वचालित रूप से अलग करें",
-["player.auto_die.title"] = "स्वचालित मृत्यु",
-["player.auto_die.desc"] = "स्वचालित रूप से मृत्यु का कारण बनें (ईंधन समाप्त)",
-["player.no_clip.title"] = "नो-क्लिप",
-["player.no_clip.desc"] = "अपने खिलाड़ी को बिना मरे वस्तुओं के माध्यम से जाने दें (आप कप में फिनिश लाइनों के ऊपर जा सकते हैं)",
-["player.no_clip.enabled"] = "नो-क्लिप सक्षम",
-["player.no_clip.disabled"] = "नो-क्लिप अक्षम",
-["player.hide_name.title"] = "नाम छुपाएं",
-["player.hide_name.desc"] = "दौड़ में अपना खिलाड़ी नाम छुपाएं",
-["player.hide_name.enabled"] = "नाम छुपाना सक्षम",
-["player.hide_name.disabled"] = "नाम छुपाना अक्षम",
-["player.hide_flag.title"] = "ध्वज छुपाएं",
-["player.hide_flag.desc"] = "दौड़ में अपना खिलाड़ी ध्वज छुपाएं",
-["player.hide_flag.enabled"] = "ध्वज छुपाना सक्षम",
-["player.hide_flag.disabled"] = "ध्वज छुपाना अक्षम",
-["vehicle.fuel.title"] = "ईंधन",
-["vehicle.fuel.desc"] = "दौड़ के दौरान ईंधन को एक स्थिर मान पर लॉक करें (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "ईंधन की मात्रा (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "रीसेट",
-["vehicle.fuel.invalid"] = "अमान्य मान, 0 – 100 होना चाहिए",
-["vehicle.fuel.applied"] = "ईंधन %s पर लॉक हुआ",
-["vehicle.fuel.reset"] = "ईंधन बहाल हुआ",
-["vehicle.fuel.not_applied"] = "ईंधन सक्रिय नहीं",
-["player.zoom.title"] = "ज़ूम समायोजित करें",
-["player.zoom.desc"] = "आपका कैमरा कितना निकट या दूर है समायोजित करें",
-["player.slider.min"] = "न्यूनतम",
-["player.slider.max"] = "अधिकतम",
-["player.gravity.title"] = "गुरुत्वाकर्षण समायोजित करें",
-["player.gravity.desc"] = "गुरुत्वाकर्षण कितना मजबूत है समायोजित करें",
-["player.slider.x"] = "X",
-["player.slider.y"] = "Y",
-
--- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
-["adventure.auto_adventure_chests.title"] = "स्वचालित साहसिक चेस्ट (अस्थिर)",
-["adventure.auto_adventure_chests.desc"] = "अपने साहसिक चेस्ट को स्वचालित रूप से स्तर ऊपर करें",
-["adventure.auto_adventure_chests.none_found"] = "कोई साहसिक चेस्ट नहीं मिला",
-["adventure.auto_adventure_chests.done"] = "संपन्न",
-
-["adventure.set_distance.title"] = "दूरी सेट करें",
-["adventure.set_distance.desc"] = "आपकी साहसिक दौड़ की दूरी को एक कस्टम मान पर सेट करता है। सक्रिय दौड़ में होना चाहिए। अधिक दूरी अधिक सितारे प्राप्त कर सकती है। 5000m पर अधिकतम सितारे। (टेलीपोर्ट फ़ंक्शन नहीं)",
-["adventure.set_distance.loop_active_title"] = "दूरी सेट करें — लूप सक्रिय",
-["adventure.set_distance.loop_active_msg"] = "दूरी लूप वर्तमान में चल रहा है।\nआप क्या करना चाहते हैं?",
-["adventure.set_distance.stop_loop"] = "लूप रोकें",
-["adventure.set_distance.keep_running"] = "चलते रहें",
-["adventure.set_distance.loop_will_stop"] = "वर्तमान टिक के बाद लूप बंद हो जाएगा।",
-["adventure.set_distance.prompt_target"] = "लक्ष्य दूरी (मीटर)",
-["adventure.set_distance.prompt_loop"] = "लूप (स्वचालित पुनः लागू)",
-["adventure.set_distance.prompt_interval"] = "लूप अंतराल (ms, न्यूनतम 250)",
-["adventure.set_distance.over_max_title"] = "दूरी चेतावनी",
-["adventure.set_distance.over_max_msg"] = "5000m से अधिक दूरी आपको कोई सितारे नहीं देगी।\n\nदौड़ दूरी को पंजीकृत करेगी, लेकिन कोई सितारा पुरस्कार नहीं दिया जाएगा। जारी रखें?",
-["adventure.set_distance.continue_button"] = "जारी रखें",
-["adventure.set_distance.not_in_adventure"] = "पहले साहसिक टैब पर जाएं और एक दौड़ शुरू करें",
-["adventure.set_distance.start_race_first"] = "पहले एक दौड़ शुरू करें",
-["adventure.set_distance.applied"] = "दूरी सेट: %sm",
-["adventure.set_distance.loop_stopped"] = "दूरी सेट करें लूप बंद हुआ।",
-["adventure.set_distance.loop_running"] = "दूरी लूप चल रहा है — रोकने के लिए दूरी सेट करें टैप करें",
-["adventure.set_distance.loop_warn_title"] = "दूरी लूप चेतावनी",
-["adventure.set_distance.loop_warn_msg"] = "लूप मोड हर %s ms पर मेमोरी में लिखता है।\n\nकम अंतराल का उपयोग करने से अस्थिरता, दृश्य गड़बड़ी या गेम क्रैश हो सकता है।\n\nफिर भी जारी रखें?",
-
--- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
-["cups.adjust_countdown.title"] = "काउंटडाउन समायोजित करें",
-["cups.adjust_countdown.desc"] = "दौड़ शुरू करने से पहले काउंटडाउन समायोजित करें",
-["cups.slider.seconds"] = "सेकंड",
-["cups.adjust_countdown.applied"] = "काउंटडाउन %ss पर समायोजित हुआ",
-["cups.auto_win.title"] = "स्वचालित जीत",
-["cups.auto_win.desc"] = "आपकी दौड़ का परिणाम चाहे जो भी हो स्वचालित रूप से जीतें",
-["cups.force_boss.title"] = "बॉस को बाध्य करें",
-["cups.force_boss.desc"] = "बॉस हमेशा दिखाई दे",
-["cups.force_cup.title"] = "कप को बाध्य करें",
-["cups.force_cup.desc"] = "एक एकल कप को बाध्य करता है",
-["cups.force_cup.not_found"] = "कप बाध्य नहीं मिला। बाद में पुनः प्रयास करें।",
-["cups.force_cup.enabled"] = "कप बाध्य सक्षम",
-["cups.force_cup.disabled"] = "कप बाध्य अक्षम",
-["cups.set_time.title"] = "समय सेट करें",
-["cups.set_time.desc"] = "अपना दौड़ का समय सेट करें (सुरक्षा कारणों से समय फ्रीज नहीं होगा)। सक्रिय कप दौड़ में होना चाहिए। (उदा: 1:09.069, 7.284)",
-["cups.set_time.hint"] = "समय (1:09.069 या 7.284)",
-["cups.set_time.invalid_format"] = "अमान्य प्रारूप। 1:09.069 या 7.284 का उपयोग करें",
-["cups.set_time.no_negative"] = "कोई नकारात्मक मान नहीं",
-["cups.set_time.not_in_cup"] = "पहले कप टैब पर जाएं और एक दौड़ शुरू करें",
-["cups.set_time.start_race_first"] = "पहले एक दौड़ शुरू करें",
-["cups.set_time.applied"] = "समय %s पर सेट हुआ",
-["cups.unlimited_tasks.title"] = "असीमित कार्य",
-["cups.unlimited_tasks.desc"] = "सभी कार्यों को पूर्ण और हमेशा दावा करने योग्य के रूप में फ्रीज करें। बार-बार पुरस्कार दावा करें।",
-["cups.unlimited_tasks.resolve_failed"] = "कार्य सूची हल करने में विफल",
-["cups.unlimited_tasks.none_found"] = "कोई कार्य नहीं मिला",
-["cups.unlimited_tasks.enabled"] = "असीमित कार्य सक्षम",
-["cups.unlimited_tasks.disabled"] = "असीमित कार्य अक्षम",
-["cups.unlimited_tasks.none_to_freeze"] = "फ्रीज करने के लिए कोई कार्य नहीं",
-["cups.rank_points_bonus.title"] = "+498 रैंक अंक",
-["cups.rank_points_bonus.desc"] = "सभी लीग कार्यों को 200 अंकों के बजाय 498 अंक दें, अन्य पुरस्कार हटाएँ।",
-["cups.rank_points_bonus.none_found"] = "कोई लीग कार्य नहीं मिला",
-["cups.rank_points_bonus.boosted"] = "रैंक अंक बढ़ाए गए: %s",
-["cups.rank_points_bonus.no_match"] = "कोई मिलान लीग कार्य नहीं मिला",
-["cups.rank_points_bonus.nothing_to_restore"] = "बहाल करने के लिए कुछ नहीं",
-["cups.rank_points_bonus.restored"] = "बहाल: %s",
-
--- ── modules/tabs/event.lua ────────────────────────────────────────────────────
-["event.patch_rewards.title"] = "इवेंट रिवॉर्ड्स पैच",
-["event.patch_rewards.desc"] = "वर्तमान सार्वजनिक इवेंट रिवॉर्ड्स को VOID द्वारा प्रदान किए गए कस्टम रिवॉर्ड्स पर पैच करें (गेम पुनः आरंभ आवश्यक)",
-["event.restore_events.title"] = "इवेंट रिवॉर्ड्स बहाल करें",
-["event.restore_events.desc"] = "गेम सर्वर पुनर्प्राप्ति के लिए संशोधित इवेंट JSON हटाएँ (गेम पुनः आरंभ आवश्यक)",
-
-["event.checking_permissions"] = "पर्यावरण अनुमतियों की जाँच हो रही है...",
-["event.scanning_files"] = "सक्रिय फ़ाइलें स्कैन हो रही हैं...",
-["event.decode_rewards_failed"] = "रिवॉर्ड्स JSON डिकोड नहीं हुआ",
-["event.workspace_creation_failed"] = "गंभीर: कार्यक्षेत्र निर्माण विफल: %s",
-["event.workspace_creation_failed_dialog"] = "गंभीर: कार्यक्षेत्र निर्देशिका नहीं बन सकी।\n%s",
-["event.file_inaccessible"] = "फ़ाइल इस पथ पर पहुँच योग्य नहीं: %s",
-["event.predecrypt_not_found"] = "पूर्व-डिक्रिप्ट: स्रोत नहीं मिला: %s",
-["event.predecrypt_empty"] = "पूर्व-डिक्रिप्ट: स्रोत खाली है (0 बाइट्स): %s",
-["event.decode_active_failed"] = "इस पथ पर active_events.json डिकोड नहीं हुआ: %s",
-["event.no_active_events"] = "इस पथ पर कोई सक्रिय इवेंट नहीं मिला: %s",
-["event.cannot_open_active"] = "इस पथ पर active_events.json नहीं खुल सका: %s",
-["event.decrypt_active_failed"] = "इस पथ पर active_events.json डिक्रिप्ट नहीं हुआ: %s",
-["event.root_copy_failed"] = "रूट कॉपी विफल: %s",
-
-["event.select_events_patch"] = "पैच करने के लिए इवेंट चुनें:\nपथ: %s",
-["event.user_cancelled"] = "उपयोगकर्ता ने इस पथ के लिए चयन रद्द किया: %s",
-["event.rewards_unavailable"] = "एम्बेडेड रिवॉर्ड्स उपलब्ध नहीं, इस पथ के लिए पैच छोड़ रहा है: %s",
-["event.skipped_unreadable"] = "अपठनीय इवेंट छोड़ा गया: %s",
-["event.predecrypt_event_not_found"] = "पूर्व-डिक्रिप्ट: इवेंट नहीं मिला: %s",
-["event.predecrypt_event_empty"] = "पूर्व-डिक्रिप्ट: इवेंट खाली है (0 बाइट्स): %s",
-["event.processing_failed"] = "%s संसाधित नहीं हुआ: %s",
-["event.cannot_open_decrypted"] = "डिक्रिप्टेड फ़ाइल नहीं खुल सकी: %s",
-["event.decrypt_event_failed"] = "इवेंट डिक्रिप्ट नहीं हुआ: %s",
-["event.loop_crash"] = "महत्वपूर्ण फ़ाइल प्रसंस्करण लूप क्रैश: %s",
-
-["event.success_header"] = "सफलतापूर्वक:",
-["event.success_removed_header"] = "सफलतापूर्वक हटाया गया (पुनः आरंभ पर बहाल होगा):",
-["event.success_item"] = "- %s",
-["event.success_item_json"] = "- %s.json",
-["event.failed_header"] = "विफल:",
-["event.failed_item"] = "- %s",
-
-["event.patch_results_title"] = "पैच परिणाम",
-["event.restore_results_title"] = "बहाली परिणाम",
-["event.restart_required_title"] = "पुनः आरंभ आवश्यक",
-["event.patch_restart_msg"] = "गेम बंद कर दिया गया है और यह स्क्रिप्ट बाहर निकलेगी, पैच प्रभाव देखने के लिए इसे फिर से शुरू करें",
-["event.restore_restart_msg"] = "सर्वर फ़ाइल सिंक्रोनाइज़ेशन की अनुमति देने के लिए गेम अब बंद हो जाएगा।",
-["event.finishing_tasks_patch"] = "लंबित बैकग्राउंड कार्य समाप्त हो रहे हैं... कृपया प्रतीक्षा करें।",
-["event.finishing_tasks_restore"] = "लंबित बैकग्राउंड कार्य समाप्त हो रहे हैं...",
-["event.patch_failed_msg"] = "पैच करने में विफल, पुनः प्रयास करें।",
-
-["event.select_events_restore"] = "बहाल करने (हटाने) के लिए फ़ाइलें चुनें:\nपथ: %s",
-["event.delete_failed"] = "%s हटाने में विफल: %s",
-
--- ── modules/tabs/account.lua ──────────────────────────────────────────────────
-["account.change_name.title"] = "नाम बदलें",
-["account.change_name.desc"] = "अपना खिलाड़ी नाम बदलें",
-["account.change_name.hint"] = "नाम दर्ज करें",
-["account.change_name.empty"] = "पहले एक नाम दर्ज करें",
-["account.change_name.too_long_title"] = "नाम बहुत लंबा",
-["account.change_name.too_long_msg"] = "आपका नाम बहुत लंबा है, कृपया इसे छोटा करें",
-["account.change_name.resolve_failed"] = "नाम पॉइंटर हल करने में विफल",
-["account.change_name.applied"] = "नाम %s में बदला गया",
-
-["account.change_gp.title"] = "गैरेज पावर बदलें",
-["account.change_gp.desc"] = "प्रोफ़ाइल गैरेज पावर बदलता है (यदि अधिक हो तो बनी रहती है)। यदि अधिकतम से अधिक हो तो रीसेट करने के लिए 8 सेट करें, लेकिन केवल तभी जब आपकी वास्तविक GP पहले से ही सीमा के नीचे तय हो।",
-["account.change_gp.hint"] = "गैरेज पावर दर्ज करें",
-["account.change_gp.max_int_title"] = "अधिकतम 32-बिट int तक पहुँच गया",
-["account.change_gp.lower_value"] = "कृपया अपना मान कम करें",
-["account.change_gp.too_low_title"] = "बहुत कम",
-["account.change_gp.higher_value"] = "कृपया अपना मान बढ़ाएँ",
-["account.change_gp.applied"] = "गैरेज पावर %s में बदली गई",
-
-["account.fake_unlock.title"] = "नकली अनलॉक",
-["account.fake_unlock.desc"] = "सभी अनुकूलन अस्थायी रूप से अनलॉक करें",
-["account.fake_vip.title"] = "नकली VIP",
-["account.fake_vip.desc"] = "VIP सदस्यता स्थिति को स्थानीय रूप से टॉगल करें",
-
-["account.fake_rank.title"] = "नकली रैंक",
-["account.fake_rank.desc"] = "अपनी रैंक को तुरंत नकली लीजेंडरी पर सेट करें",
-["account.fake_rank.race_warn_title"] = "दौड़ आवश्यक",
-["account.fake_rank.race_warn_msg"] = "नकली रैंक केवल तभी लागू की जानी चाहिए जब कोई कप दौड़ सक्रिय रूप से चल रही हो।\n\nइसे दौड़ के बाहर लागू करने पर शैडो बैन हो सकता है।\n\nजारी रखने से पहले सुनिश्चित करें कि आप पहले से ही कप दौड़ के अंदर हैं।\n\nफिर भी जारी रखें?",
-["account.fake_rank.continue_button"] = "जारी रखें",
-["account.fake_rank.applied"] = "नकली रैंक इंजेक्ट की गई",
-["account.fake_rank.not_in_cups"] = "पहले एक दौड़ शुरू करें",
-
--- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
-["vehicle.parts_slot.title"] = "पार्ट्स स्लॉट समायोजित करें",
-["vehicle.parts_slot.desc"] = "सभी वाहनों के लिए पार्ट्स स्लॉट समायोजित करें",
-["vehicle.parts_slot.slider_title"] = "स्लॉट",
-["vehicle.parts_slot.no_vehicles"] = "कोई वाहन नहीं मिला",
-["vehicle.parts_slot.applied"] = "पार्ट्स स्लॉट समायोजित: %d वाहन",
-
-["vehicle.parts_modifier.title"] = "पार्ट्स संशोधक",
-["vehicle.parts_modifier.desc"] = "सक्रिय दौड़ में ट्यूनिंग पार्ट स्तर मान संशोधित करें",
-["vehicle.parts_modifier.select"] = "एक पार्ट चुनें",
-["vehicle.parts_modifier.prompt_level"] = "स्तर: ",
-["vehicle.parts_modifier.prompt_digit0"] = "अंक: ",
-["vehicle.parts_modifier.prompt_digit1"] = "पूंछ: ",
-["vehicle.parts_modifier.prompt_reset"] = "रीसेट",
-["vehicle.parts_modifier.invalid"] = "अमान्य स्तर मान",
-["vehicle.parts_modifier.not_found"] = "पार्ट मेमोरी में नहीं मिला",
-["vehicle.parts_modifier.applied"] = "%s स्तर %s पर सेट हुआ",
-["vehicle.parts_modifier.reset"] = "%s रीसेट हुआ",
-
-["vehicle.unlock_vehicles.title"] = "वाहन अनलॉक करें",
-["vehicle.unlock_vehicles.desc"] = "सभी वाहनों को सिक्कों के साथ खरीदने के लिए उपलब्ध कराएँ",
-["vehicle.unlock_vehicles.no_vehicles"] = "कोई वाहन नहीं मिला",
-["vehicle.unlock_vehicles.unlocked"] = "वाहन अनलॉक: %d",
-["vehicle.unlock_vehicles.none_to_unlock"] = "अनलॉक करने के लिए कोई वाहन नहीं",
-
-["vehicle.max_vehicles.title"] = "अधिकतम वाहन",
-["vehicle.max_vehicles.desc"] = "सभी अनलॉक वाहनों के अपग्रेड स्तरों को तुरंत अधिकतम करें",
-["vehicle.max_vehicles.no_vehicles"] = "वाहन सूची हल करने में विफल",
-["vehicle.max_vehicles.all_maxed"] = "सभी वाहन अधिकतम हुए",
-["vehicle.max_vehicles.failed"] = "वाहन अधिकतम करने में विफल",
-
-["vehicle.max_mastery.title"] = "अधिकतम महारत",
-["vehicle.max_mastery.desc"] = "सभी अनलॉक और अधिकतम वाहनों की महारत को तुरंत अधिकतम करें।",
-["vehicle.max_mastery.all_maxed"] = "सभी महारत अधिकतम हुईं",
-["vehicle.max_mastery.failed"] = "महारत अधिकतम करने में विफल",
-
-["vehicle.max_parts.title"] = "अधिकतम पार्ट्स",
-["vehicle.max_parts.desc"] = "सभी वाहनों के लिए सभी अनलॉक पार्ट स्तरों को तुरंत अधिकतम करें।",
-["vehicle.max_parts.no_vehicles"] = "वाहन सूची हल करने में विफल",
-["vehicle.max_parts.all_maxed"] = "सभी पार्ट्स अधिकतम हुए",
-["vehicle.max_parts.failed"] = "पार्ट्स अधिकतम करने में विफल",
-
-["vehicle.common.no_vehicles"] = "कोई वाहन नहीं मिला",
-["vehicle.common.progress"] = "%d/%d",
-["vehicle.common.resolve_list_failed"] = "वाहन सूची हल करने में विफल",
-["vehicle.common.no_zero_region"] = "कोई शून्य क्षेत्र नहीं मिला",
-
-}
 
 end
 
@@ -26300,10 +25858,41 @@ return {
 ["about.about_script.title"] = "Tentang Skrip",
 ["about.about_script.desc"] = "Skrip manipulasi memori yang kuat dan sangat dioptimalkan yang dibuat untuk Hill Climb Racing 2 di lingkungan kustom Pivot.\n\nUnduh Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Pemilik Skrip",
+["about.script_owner.desc"] = "- Organisasi Vekendian (github: vekendianorg)",
 ["about.script_dev.title"] = "Pengembang Skrip",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Penerjemah Skrip",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Kredit",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Terima Kasih Khusus",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode Debug",
@@ -26535,563 +26124,7 @@ return {
 end
 
 __vfs['configs/lang/it.lua'] = function(...)
---[[
-  configs/lang/it.lua — Italiano (Italian)
 
-  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
-  Looked up at runtime via the global T(key, ...) function, e.g.:
-      T("common.ok")                          -> "OK"
-      T("settings.window_width_desc", 400, 650) -> "Larghezza del menu flottante (400 - 650 dp)"
-
-  Conventions:
-    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
-    - %s / %d / %X etc. are string.format placeholders — keep them in the
-      same order when translating, but they don't need to keep the same
-      letter (e.g. %s can become %d if the translated grammar needs it).
-    - Entries that are Lua arrays (e.g. spinner option lists) are returned
-      as-is, untouched by string.format.
-    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
-      translated — only user-visible text (dialogs, toasts, buttons,
-      module titles/descriptions) lives here.
-
-  This file handles the Italian localization for the VOID script.
-]]
-
-return {
-
--- ── Common / shared (buttons, generic dialog text) ───────────────────────────
-["common.ok"] = "OK",
-["common.cancel"] = "Annulla",
-["common.yes"] = "Sì",
-["common.no"] = "No",
-["common.failed"] = "Fallito",
-["common.success"] = "Successo",
-["common.later"] = "Più tardi",
-["common.got_it"] = "Capito",
-["common.retry"] = "Riprova",
-["common.wait_safe"] = "Attendi (Sicuro)",
-["common.waiting"] = "In attesa...",
-["common.force_exit"] = "Esci Forzatamente",
-["common.proceed_anyway"] = "Procedi Comunque",
-["common.manual_mode"] = "Modalità Manuale",
-["common.update_button"] = "AGGIORNA",
-["common.launch_failed"] = "Avvio Fallito",
-["common.confirm_exit_title"] = "Conferma Uscita",
-["common.confirm_exit_msg"] = "Uscire dallo Script?",
-["common.not_available"] = "Non Disponibile",
-["common.warning"] = "Avviso",
-
--- ── main.lua (boot, updater, virtual-space detection, main loop) ─────────────
-["main.exit_active_ops_title"] = "Avviso: Operazioni Attive",
-["main.exit_active_ops_msg"] = "Ci sono %d attività in background.\nForzare l'uscita potrebbe corrompere lo stato del gioco.",
-["main.initializing"] = "Inizializzazione...",
-["main.no_app_found"] = "Nessuna app trovata",
-["main.arch_64bit_required_title"] = "64-bit Richiesto",
-["main.arch_64bit_required_msg"] = "ARMv8a è obbligatoria. x86_64 è parzialmente supportata.",
-
-["main.update_available_title"] = "Aggiornamento Disponibile",
-["main.update_available_msg"] = "v%s è disponibile (attuale: v%s)\n\n%s\n\nAggiornare ora?",
-["main.no_changelog"] = "Nessun changelog.",
-["main.downloading_version"] = "Download di v%s...",
-["main.update_download_failed_msg"] = "Impossibile scaricare l'aggiornamento:\n%s",
-["main.update_write_failed_msg"] = "Impossibile scrivere in:\n%s",
-["main.update_done_title"] = "VOID Aggiornato a v%s",
-["main.update_done_msg"] = "VOID è stato aggiornato con successo.\n\nIl nuovo script è stato salvato come:\nvoid_v%s.lua\n\nEseguilo da GameGuardian per applicare l'aggiornamento.",
-["main.launching_version"] = "Avvio di v%s...",
-["main.launch_failed_msg"] = "Scaricato ma non eseguibile:\n%s",
-
-["main.multiple_spaces_title"] = "Spazi Multipli Rilevati",
-["main.multiple_spaces_desc"] = "HCR2 è stato trovato in %d spazi virtuali.\nSeleziona lo spazio in cui stai giocando.",
-["main.select_space_toast"] = "Seleziona uno spazio per continuare.",
-["main.user_space_item"] = "Utente %s  —  %s",
-["main.permission_error_title"] = "Errore di Permesso",
-["main.permission_error_msg"] = "L'accesso alla shell è stato negato.\n\nVoid ne ha bisogno per localizzare HCR2 nel tuo spazio virtuale. Controlla il codice sorgente di Void per verificare quale comando viene eseguito.",
-["main.hcr2_not_found_title"] = "Dati HCR2 Non Trovati",
-["main.hcr2_not_found_msg"] = "Void non ha trovato i dati HCR2 nel tuo spazio virtuale. Questo può accadere se HCR2 non è stato ancora avviato, o se la tua app dello spazio virtuale usa una struttura di percorso insolita.\n\nLe funzionalità che dipendono dai file di gioco (Ricompense Eventi, ecc.) non funzioneranno senza un percorso valido.",
-["main.manual_data_path_title"] = "Percorso Dati Manuale",
-["main.manual_data_path_hint"] = "Inserisci il percorso dei dati HCR2",
-["main.manual_path_cancelled"] = "Annullato — procedendo senza percorso.",
-["main.waiting_for_lib"] = "In attesa di %s...",
-["main.initialized"] = "Inizializzato",
-["main.gamestatus_not_found"] = "GameStatus Non Trovato",
-["main.dont_interrupt"] = "Non interrompere questo script",
-
--- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
-["ui.size_saved_restart"] = "Dimensione salvata! Riavvia lo script",
-["ui.category_error"] = "Errore: %s",
-["ui.category_not_found"] = "Categoria Non Trovata",
-["ui.na"] = "N/D",
-["ui.spinner_select"] = "Seleziona",
-["ui.slider_default_title"] = "Valore",
-["ui.loading"] = "Caricamento",
-
--- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.requires_arch"] = "Richiede dispositivo %s (tuo dispositivo: %s)",
-["patches.suffix_enabled"] = " Attivato",
-["patches.suffix_disabled"] = " Disattivato",
-["patches.pattern_not_found"] = "Fallito: %d pattern non trovati",
-
--- ── core/engines/arch.lua (architecture detection warnings) ──────────────────
-["arch.warning_title"] = "Avviso Architettura",
-["arch.unknown_arch_msg"] = "La tua architettura è sconosciuta. La libreria è caricata? Che sistema stai usando?",
-["arch.non_primary_arch_msg"] = "Rilevato: %s\nAlcune o tutte le patch della libreria potrebbero non funzionare.",
-["arch.unknown_version_msg"] = "Versione del gioco sconosciuta. Riprova dopo il caricamento del gioco.",
-["arch.no_base_data_msg"] = "Errore interno: nessun dato base disponibile per questa architettura.",
-
--- ── core/engines/scheduler.lua ────────────────────────────────────────────────
-["scheduler.task_crashed"] = "Avviso Scheduler: Attività crashata -> %s",
-
--- ── core/utils/paste.lua + catbox.lua (network error strings) ────────────────
-["errors.http_error_code"] = "Codice Errore HTTP: %s",
-["errors.crashed"] = "Crash: %s",
-["errors.url_missing"] = "Il parametro URL è mancante o vuoto",
-["errors.file_path_missing"] = "Il percorso del file è mancante",
-["errors.download_url_missing"] = "L'URL è mancante",
-["errors.dest_path_missing"] = "Il percorso di destinazione è mancante",
-
--- ── modules/registry.lua (sidebar tab labels + module-load error cards) ──────
-["tabs.sep_game"] = "MENU GIOCO",
-["tabs.account"] = "MENU ACCOUNT",
-["tabs.vehicle"] = "MENU VEICOLO",
-["tabs.player"] = "MENU GIOCATORE",
-["tabs.adventure"] = "MENU AVVENTURA",
-["tabs.cups"] = "MENU COPPE",
-["tabs.team"] = "MENU SQUADRA",
-["tabs.event"] = "MENU EVENTI",
-["tabs.creative"] = "MENU CREATIVO",
-["tabs.shop"] = "MENU NEGOZIO",
-["tabs.other"] = "MENU ALTRO",
-["tabs.sep_script"] = "MENU SCRIPT",
-["tabs.settings"] = "IMPOSTAZIONI",
-["tabs.about"] = "INFO",
-
-["registry.module_load_failed"] = "Caricamento modulo fallito. Controlla i log per i dettagli.",
-["registry.module_runtime_error"] = "Errore runtime: %s",
-["registry.error"] = "Errore",
-
--- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
-["settings.section_updates"] = "Aggiornamenti",
-["settings.auto_update.title"] = "Aggiornamento Automatico",
-["settings.auto_update.desc"] = "Aggiorna VOID automaticamente all'avvio",
-["settings.dev_mode_title"] = "Modalità Sviluppatore",
-["settings.auto_update.dev_mode_msg"] = "L'aggiornamento automatico è disattivato per main.lua (build di sviluppo).",
-["settings.check_updates.title"] = "Controlla Aggiornamenti",
-["settings.check_updates.desc"] = "Controlla l'ultima versione di VOID su GitHub",
-["settings.check_updates.dev_mode_msg"] = "Il controllo aggiornamenti è disattivato per main.lua (build di sviluppo).\n\nEsegui il pull manualmente dal repo.",
-["settings.check_updates.checking"] = "Controllo aggiornamenti...",
-["settings.check_updates.failed_title"] = "Controllo Aggiornamenti Fallito",
-["settings.check_updates.failed_msg"] = "Impossibile raggiungere GitHub:\n%s",
-["settings.check_updates.up_to_date_title"] = "Aggiornato",
-["settings.check_updates.up_to_date_msg"] = "Sei già all'ultima versione (v%s).",
-["settings.check_updates.no_changelog"] = "Nessun changelog disponibile.",
-["settings.check_updates.available_msg"] = "v%s  (attuale: v%s)\n\n%s\n\nScaricare e sostituire questo script?",
-["settings.check_updates.no_asset_msg"] = "Nessun asset .lua trovato nella release.",
-["settings.check_updates.download_failed_title"] = "Download Fallito",
-["settings.check_updates.write_failed_title"] = "Scrittura Fallita",
-["settings.check_updates.done_title"] = "Fatto",
-["settings.check_updates.done_msg"] = "Aggiornato a v%s. Riavvia lo script per applicare.",
-["settings.check_updates.restart_button"] = "Riavvia",
-
-["settings.section_language"] = "Lingua",
-["settings.language.title"] = "Lingua",
-["settings.language.desc"] = "Scegli la tua lingua preferita per il menu",
-["settings.language.changed"] = "Lingua impostata su %s",
-["settings.language.failed"] = "Caricamento di quella lingua fallito",
-["settings.language.restart_msg"] = "Riavvia lo script per applicare completamente la lingua",
-
-["settings.region.other"] = "A: Altro",
-["settings.region.cpp_alloc"] = "Ca: alloc C++",
-["settings.region.unknown"] = "S: Sconosciuto",
-["settings.section_memory"] = "Memoria",
-["settings.memory_range.title"] = "Intervallo di Memoria",
-["settings.memory_range.desc"] = "Intervallo di memoria attualmente selezionato\n(scelto automaticamente dallo script)",
-["settings.gamestatus.title"] = "GameStatus",
-["settings.gamestatus.desc"] = "Indirizzo GameStatus attuale\n(scelto automaticamente dallo script)",
-["settings.gamestatus_raw.title"] = "GameStatus (Raw)",
-["settings.gamestatus_raw.desc"] = "Indirizzo GameStatus (raw) attuale\n(scelto automaticamente dallo script)",
-["settings.clear_memory.title"] = "Cancella Memoria Salvata",
-["settings.clear_memory.desc"] = "Cancella tutta la memoria salvata da VOID senza dover riavviare il gioco.",
-
-["settings.section_ui_customizations"] = "Personalizzazioni UI",
-["settings.theme_store.title"] = "Negozio Temi",
-["settings.theme_store.desc"] = "Sfoglia e installa i temi della community Void",
-["settings.theme_store.unreachable_msg"] = "Impossibile raggiungere il negozio temi:\n%s",
-["settings.theme_store.parse_failed_msg"] = "Impossibile analizzare i dati del negozio temi.",
-["settings.theme_store.list_title"] = "Negozio Temi Void",
-["settings.theme_store.search_results_desc"] = "Risultati ricerca: %s trovati",
-["settings.theme_store.available_desc"] = "%s temi disponibili",
-["settings.theme_store.by_author"] = "di %s",
-["settings.theme_store.search_item"] = "🔍 Cerca...",
-["settings.theme_store.clear_search_item"] = "✕ Cancella ricerca",
-["settings.theme_store.search_title"] = "Cerca Temi",
-["settings.theme_store.search_hint"] = "Nome tema, autore o descrizione",
-["settings.theme_store.no_results"] = "Nessun tema trovato per: %s",
-["settings.theme_store.detail_msg"] = "Di %s\n\n%s\n\nID: %s",
-["settings.theme_store.install_button"] = "Installa Tema",
-["settings.theme_downloading_bg"] = "Download dell'immagine di sfondo...",
-["settings.theme_imported"] = "Tema importato!",
-["settings.theme_invalid_bundle"] = "Formato bundle non valido.",
-["settings.theme_cloud_error"] = "Errore cloud: %s",
-["settings.reset_theme.title"] = "Ripristina Tema",
-["settings.reset_theme.desc"] = "Ripristina tema personalizzato e immagine di sfondo al default",
-["settings.import_theme.title"] = "Importa Tema",
-["settings.import_theme.desc"] = "Importa tema personalizzato dal cloud",
-["settings.import_theme.hint"] = "Inserisci ID di Condivisione",
-["settings.export_theme.title"] = "Esporta Tema",
-["settings.export_theme.desc"] = "Esporta tema personalizzato e immagine di sfondo sul cloud",
-["settings.export_theme.share_id_msg"] = "ID di Condivisione: %s\n\nCopiato negli appunti.",
-["settings.export_theme.upload_failed_msg"] = "Upload fallito: %s",
-["settings.export_theme.size_warning_title"] = "Avviso Dimensione Upload",
-["settings.export_theme.size_warning_msg"] = "Includere l'immagine di sfondo personalizzata? Aumenterà la dimensione dell'upload a seconda della dimensione della tua immagine.",
-["settings.export_theme.uploading_bg"] = "Caricamento immagine di sfondo su Catbox...",
-["settings.export_theme.image_upload_failed_title"] = "Errore",
-["settings.export_theme.image_upload_failed_msg"] = "Caricamento immagine fallito: %s",
-["settings.tabs_icon.title"] = "Icona Schede",
-["settings.tabs_icon.desc"] = "Cambia l'icona delle schede",
-["settings.tabs_icon.hint"] = "Inserisci Icona",
-["settings.tabs_icon.empty_error"] = "Non può essere vuoto",
-
-["settings.bg_opacity.title"] = "Opacità Sfondo",
-["settings.bg_opacity.desc"] = "Trasparenza di pannelli, schede e intestazione",
-["settings.slider.alpha"] = "Alfa",
-["settings.bg_image_opacity.title"] = "Opacità Immagine Sfondo",
-["settings.bg_image_opacity.desc"] = "Regola le impostazioni alfa di visibilità direttamente usando canali interi puri.",
-["settings.bg_image_picker.title"] = "Immagine Sfondo",
-["settings.bg_image_picker.desc"] = "Tocca per modificare il percorso assoluto del file per l'immagine di sfondo personalizzata",
-["settings.bg_image_picker.path_label"] = "Percorso Assoluto Immagine (.jpg o .png):",
-["settings.bg_image_picker.remove_label"] = "Rimuovi Immagine Sfondo",
-["settings.bg_image_picker.success_title"] = "Successo",
-["settings.bg_image_picker.removed_msg"] = "Immagine Sfondo Rimossa",
-["settings.bg_image_picker.added_msg"] = "Immagine sfondo aggiunta",
-["settings.bg_image_picker.not_found_msg"] = "File non trovato o operazione di lettura negata:\n%s",
-
-["settings.bg_rgb.title"] = "Sfondo RGB",
-["settings.bg_rgb.desc"] = "Tonalità per gli sfondi dei pannelli (Intestazione e Scheda si adattano automaticamente)",
-["settings.slider.r"] = "R",
-["settings.slider.g"] = "G",
-["settings.slider.b"] = "B",
-["settings.accent_rgb.title"] = "Accento RGB",
-["settings.accent_rgb.desc"] = "Tonalità per pulsanti, interruttori e schede attive (colore smorzato derivato automaticamente)",
-["settings.logo_rgb.title"] = "Evidenziazione RGB",
-["settings.logo_rgb.desc"] = "Colore per etichette, icone e testo interattivo (sempre completamente opaco)",
-["settings.sub_rgb.title"] = "Sottotesto RGB",
-["settings.sub_rgb.desc"] = "Colore per descrizioni ed etichette delle schede inattive",
-["settings.text_rgb.title"] = "Testo RGB",
-["settings.text_rgb.desc"] = "Colore per il testo del menu principale",
-
-["settings.win_width.title"] = "Larghezza Menu",
-["settings.win_width.desc"] = "Larghezza del menu flottante (%d – %d dp)",
-["settings.slider.width"] = "Larghezza",
-["settings.win_height.title"] = "Altezza Menu",
-["settings.win_height.desc"] = "Altezza dell'area di contenuto scrollabile (%d – %d dp)",
-["settings.slider.height"] = "Altezza",
-
--- ── modules/tabs/about.lua ────────────────────────────────────────────────────
-["about.about_script.title"] = "Informazioni Script",
-["about.about_script.desc"] = "Uno script di manipolazione della memoria potente e altamente ottimizzato costruito per Hill Climb Racing 2 sull'ambiente Pivot personalizzato.\n\nScarica Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
-["about.script_owner.title"] = "Proprietario Script",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
-["about.script_dev.title"] = "Sviluppatore Script",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
-["about.script_translator.title"] = "Traduttore Script",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-- हिन्दी: AMR (github: amr-gt)
-- Italiano: AMR (github: amr-gt)
-]],
-["about.credits.title"] = "Crediti",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
-["about.special_thanks.title"] = "Ringraziamenti Speciali",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
-
--- ── modules/tabs/other.lua ────────────────────────────────────────────────────
-["other.debug_mode.title"] = "Modalità Debug",
-["other.debug_mode.desc"] = "Attiva/disattiva la modalità debug nel gioco",
-["other.debug_mode.enabled"] = "Modalità Debug Attivata",
-["other.debug_mode.disabled"] = "Modalità Debug Disattivata",
-["other.hint.width"] = "Larghezza",
-["other.hint.height"] = "Altezza",
-["other.resolution.title"] = "Regola Risoluzione",
-["other.resolution.desc"] = "Regola la larghezza e l'altezza del gioco (default 1280x720)",
-["other.resolution.applied"] = "Risoluzione impostata su %dx%d",
-["other.resolution_offset.title"] = "Regola Offset Risoluzione",
-["other.resolution_offset.desc"] = "Regola l'offset di larghezza e altezza del gioco (default 0x0), ideale per piccole risoluzioni su grandi schermi.",
-["other.resolution_offset.applied"] = "Offset risoluzione impostato su %dx%d",
-["other.glsurface_not_found"] = "GLSurfaceView non trovato",
-
--- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
-["shop.free_chest.title"] = "Baule Gratuito",
-["shop.free_chest.desc"] = "Rendi i bauli gratuiti nella scheda Negozio",
-["shop.free_chest.enabled"] = "Baule Gratuito Attivato",
-["shop.free_chest.disabled"] = "Baule Gratuito Disattivato",
-["shop.free_purchases.title"] = "Acquisti Gratuiti",
-["shop.free_purchases.desc"] = "Rendi alcuni affari giornalieri gratuiti nella scheda negozio (funziona anche per offerte speciali come popup/badge)",
-["shop.free_purchases.progress"] = "%d/%d",
-["shop.free_purchases.success"] = "Acquisto Gratuito Riuscito",
-["shop.change_chest.title"] = "Cambia Baule",
-["shop.change_chest.desc"] = "Cambia il baule leggendario con il baule selezionato",
-["shop.change_chest.changed"] = "Baule cambiato in %s",
-["shop.change_chest.options"] = {
-    "Baule Comune", "Baule Non Comune", "Baule Raro", "Baule Epico",
-    "Baule Campione", "Baule Speciale 1", "Baule di Natale", "Baule Leggendario",
-    "Baule Blu", "Baule VIP 1", "Baule VIP 2", "Baule Video",
-    "Baule Iniziale", "Baule Speciale 2", "Baule Fingersoft", "Mega Baule",
-    "Baule Spirito di Squadra", "Baule Stile", "Baule Mitico"
-},
-
--- ── modules/tabs/player.lua ───────────────────────────────────────────────────
-["player.auto_detach.title"] = "Distacco Automatico",
-["player.auto_detach.desc"] = "Distacca automaticamente parti come il tetto della Rally Car",
-["player.auto_die.title"] = "Morte Automatica",
-["player.auto_die.desc"] = "Provoca automaticamente la morte (carburante esaurito)",
-["player.no_clip.title"] = "No-Clip",
-["player.no_clip.desc"] = "Fai passare il tuo giocatore attraverso gli oggetti senza morire (puoi superare le linee di arrivo nelle coppe)",
-["player.no_clip.enabled"] = "No-Clip Attivato",
-["player.no_clip.disabled"] = "No-Clip Disattivato",
-["player.hide_name.title"] = "Nascondi Nome",
-["player.hide_name.desc"] = "Nascondi il nome del tuo giocatore in gara",
-["player.hide_name.enabled"] = "Nascondi Nome Attivato",
-["player.hide_name.disabled"] = "Nascondi Nome Disattivato",
-["player.hide_flag.title"] = "Nascondi Bandiera",
-["player.hide_flag.desc"] = "Nascondi la bandiera del tuo giocatore in gara",
-["player.hide_flag.enabled"] = "Nascondi Bandiera Attivato",
-["player.hide_flag.disabled"] = "Nascondi Bandiera Disattivato",
-["vehicle.fuel.title"] = "Carburante",
-["vehicle.fuel.desc"] = "Blocca il carburante a un valore costante durante la gara (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Quantità di carburante (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Ripristina",
-["vehicle.fuel.invalid"] = "Valore non valido, deve essere 0 – 100",
-["vehicle.fuel.applied"] = "Carburante bloccato a %s",
-["vehicle.fuel.reset"] = "Carburante ripristinato",
-["vehicle.fuel.not_applied"] = "Carburante non attivo",
-["player.zoom.title"] = "Regola Zoom",
-["player.zoom.desc"] = "Regola quanto è vicina o lontana la tua fotocamera",
-["player.slider.min"] = "Min",
-["player.slider.max"] = "Max",
-["player.gravity.title"] = "Regola Gravità",
-["player.gravity.desc"] = "Regola quanto è forte la gravità",
-["player.slider.x"] = "X",
-["player.slider.y"] = "Y",
-
--- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
-["adventure.auto_adventure_chests.title"] = "Bauli Avventura Automatici (instabile)",
-["adventure.auto_adventure_chests.desc"] = "Aumenta automaticamente il livello dei tuoi bauli avventura",
-["adventure.auto_adventure_chests.none_found"] = "Nessun baule avventura trovato",
-["adventure.auto_adventure_chests.done"] = "Fatto",
-
-["adventure.set_distance.title"] = "Imposta Distanza",
-["adventure.set_distance.desc"] = "Imposta la distanza della tua gara avventura su un valore personalizzato. Devi essere in una gara attiva. Una distanza maggiore può dare più stelle. Massimo stelle a 5000m. (Non è una funzione di teletrasporto)",
-["adventure.set_distance.loop_active_title"] = "Imposta Distanza — Ciclo Attivo",
-["adventure.set_distance.loop_active_msg"] = "Il ciclo di distanza è attualmente in esecuzione.\nCosa vuoi fare?",
-["adventure.set_distance.stop_loop"] = "Ferma Ciclo",
-["adventure.set_distance.keep_running"] = "Continua",
-["adventure.set_distance.loop_will_stop"] = "Il ciclo si fermerà dopo il tick corrente.",
-["adventure.set_distance.prompt_target"] = "Distanza target (metri)",
-["adventure.set_distance.prompt_loop"] = "Ciclo (riapplicazione automatica)",
-["adventure.set_distance.prompt_interval"] = "Intervallo ciclo (ms, min 250)",
-["adventure.set_distance.over_max_title"] = "Avviso Distanza",
-["adventure.set_distance.over_max_msg"] = "Una distanza superiore a 5000m non ti darà stelle.\n\nLa gara registrerà comunque la distanza, ma non verranno date ricompense in stelle. Continuare?",
-["adventure.set_distance.continue_button"] = "Continua",
-["adventure.set_distance.not_in_adventure"] = "Vai alla scheda Avventura e inizia prima una gara",
-["adventure.set_distance.start_race_first"] = "Inizia prima una gara",
-["adventure.set_distance.applied"] = "Distanza impostata: %sm",
-["adventure.set_distance.loop_stopped"] = "Ciclo Imposta Distanza fermato.",
-["adventure.set_distance.loop_running"] = "Ciclo distanza in esecuzione — tocca Imposta Distanza per fermare",
-["adventure.set_distance.loop_warn_title"] = "Avviso Ciclo Distanza",
-["adventure.set_distance.loop_warn_msg"] = "La modalità ciclo scrive in memoria ogni %s ms.\n\nUsare un intervallo breve può aumentare instabilità, glitch visivi o crash del gioco.\n\nContinuare comunque?",
-
--- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
-["cups.adjust_countdown.title"] = "Regola Conto alla Rovescia",
-["cups.adjust_countdown.desc"] = "Regola il conto alla rovescia prima di iniziare la gara",
-["cups.slider.seconds"] = "Secondi",
-["cups.adjust_countdown.applied"] = "Conto alla rovescia regolato a %ss",
-["cups.auto_win.title"] = "Vittoria Automatica",
-["cups.auto_win.desc"] = "Vinci automaticamente qualunque sia il risultato della tua gara",
-["cups.force_boss.title"] = "Forza Boss",
-["cups.force_boss.desc"] = "Il boss appare sempre",
-["cups.force_cup.title"] = "Forza Coppa",
-["cups.force_cup.desc"] = "Forza una singola coppa",
-["cups.force_cup.not_found"] = "Forza Coppa non trovata. Riprova più tardi.",
-["cups.force_cup.enabled"] = "Forza Coppa Attivato",
-["cups.force_cup.disabled"] = "Forza Coppa Disattivato",
-["cups.set_time.title"] = "Imposta Tempo",
-["cups.set_time.desc"] = "Imposta il tempo della tua gara (non congelerà il tempo per sicurezza). Devi essere in una gara di coppa attiva. (es. 1:09.069, 7.284)",
-["cups.set_time.hint"] = "Tempo (1:09.069 o 7.284)",
-["cups.set_time.invalid_format"] = "Formato non valido. Usa 1:09.069 o 7.284",
-["cups.set_time.no_negative"] = "Nessun valore negativo",
-["cups.set_time.not_in_cup"] = "Vai alla scheda Coppe e inizia prima una gara",
-["cups.set_time.start_race_first"] = "Inizia prima una gara",
-["cups.set_time.applied"] = "Tempo impostato su %s",
-["cups.unlimited_tasks.title"] = "Attività Illimitate",
-["cups.unlimited_tasks.desc"] = "Blocca tutte le attività come completate e sempre richiedibili. Richiedi ricompense ripetutamente.",
-["cups.unlimited_tasks.resolve_failed"] = "Impossibile risolvere l'elenco delle attività",
-["cups.unlimited_tasks.none_found"] = "Nessuna attività trovata",
-["cups.unlimited_tasks.enabled"] = "Attività Illimitate Attivate",
-["cups.unlimited_tasks.disabled"] = "Attività Illimitate Disattivate",
-["cups.unlimited_tasks.none_to_freeze"] = "Nessuna attività da bloccare",
-["cups.rank_points_bonus.title"] = "+498 Punti Classifica",
-["cups.rank_points_bonus.desc"] = "Fai in modo che tutte le attività della lega ti diano 498 punti invece di 200, e rimuovi anche altre ricompense.",
-["cups.rank_points_bonus.none_found"] = "Nessuna attività lega trovata",
-["cups.rank_points_bonus.boosted"] = "Punti classifica potenziati: %s",
-["cups.rank_points_bonus.no_match"] = "Nessuna attività lega corrispondente trovata",
-["cups.rank_points_bonus.nothing_to_restore"] = "Niente da ripristinare",
-["cups.rank_points_bonus.restored"] = "Ripristinato: %s",
-
--- ── modules/tabs/event.lua ────────────────────────────────────────────────────
-["event.patch_rewards.title"] = "Patch Ricompense Eventi",
-["event.patch_rewards.desc"] = "Applica patch alle ricompense dell'evento pubblico attuale con quelle personalizzate fornite da VOID (richiede riavvio del gioco)",
-["event.restore_events.title"] = "Ripristina Ricompense Eventi",
-["event.restore_events.desc"] = "Elimina i JSON degli eventi modificati per forzare il ripristino del server di gioco (richiede riavvio del gioco)",
-
-["event.checking_permissions"] = "Controllo permessi ambiente...",
-["event.scanning_files"] = "Scansione file attivi...",
-["event.decode_rewards_failed"] = "Decodifica del JSON delle ricompense fallita",
-["event.workspace_creation_failed"] = "FATALE: Creazione workspace fallita: %s",
-["event.workspace_creation_failed_dialog"] = "FATALE: Impossibile creare la directory del workspace.\n%s",
-["event.file_inaccessible"] = "File inaccessibile al percorso: %s",
-["event.predecrypt_not_found"] = "Pre-decrypt: sorgente non trovata: %s",
-["event.predecrypt_empty"] = "Pre-decrypt: la sorgente è vuota (0 byte): %s",
-["event.decode_active_failed"] = "Decodifica di active_events.json fallita al percorso: %s",
-["event.no_active_events"] = "Nessun evento attivo trovato al percorso: %s",
-["event.cannot_open_active"] = "Impossibile aprire active_events.json al percorso: %s",
-["event.decrypt_active_failed"] = "Decrypt di active_events.json fallito al percorso: %s",
-["event.root_copy_failed"] = "Copia root fallita: %s",
-
-["event.select_events_patch"] = "Seleziona eventi da patchare:\nPercorso: %s",
-["event.user_cancelled"] = "Utente ha annullato la selezione per il percorso: %s",
-["event.rewards_unavailable"] = "Ricompense incorporate non disponibili, salto patch per il percorso: %s",
-["event.skipped_unreadable"] = "Evento illeggibile saltato: %s",
-["event.predecrypt_event_not_found"] = "Pre-decrypt: evento non trovato: %s",
-["event.predecrypt_event_empty"] = "Pre-decrypt: l'evento è vuoto (0 byte): %s",
-["event.processing_failed"] = "Elaborazione di %s fallita: %s",
-["event.cannot_open_decrypted"] = "Impossibile aprire il file decriptato: %s",
-["event.decrypt_event_failed"] = "Decrypt dell'evento fallito: %s",
-["event.loop_crash"] = "Ciclo critico di elaborazione file crashato: %s",
-
-["event.success_header"] = "Con successo:",
-["event.success_removed_header"] = "Rimosso con successo (Verrà Ripristinato al Riavvio):",
-["event.success_item"] = "- %s",
-["event.success_item_json"] = "- %s.json",
-["event.failed_header"] = "Fallito:",
-["event.failed_item"] = "- %s",
-
-["event.patch_results_title"] = "Risultati Patch",
-["event.restore_results_title"] = "Risultati Ripristino",
-["event.restart_required_title"] = "Riavvio Richiesto",
-["event.patch_restart_msg"] = "Il gioco è stato chiuso e questo script uscirà, riavvialo per vedere gli effetti della patch",
-["event.restore_restart_msg"] = "Il gioco ora si chiuderà per consentire la sincronizzazione dei file del server.",
-["event.finishing_tasks_patch"] = "Completamento attività in background in sospeso... Attendere prego.",
-["event.finishing_tasks_restore"] = "Completamento attività in background in sospeso...",
-["event.patch_failed_msg"] = "Patch fallita, riprova.",
-
-["event.select_events_restore"] = "Seleziona file da ripristinare (eliminare):\nPercorso: %s",
-["event.delete_failed"] = "Eliminazione di %s fallita: %s",
-
--- ── modules/tabs/account.lua ──────────────────────────────────────────────────
-["account.change_name.title"] = "Cambia Nome",
-["account.change_name.desc"] = "Cambia il nome del tuo giocatore",
-["account.change_name.hint"] = "Inserisci Nome",
-["account.change_name.empty"] = "Inserisci prima un nome",
-["account.change_name.too_long_title"] = "Nome Troppo Lungo",
-["account.change_name.too_long_msg"] = "Il tuo nome è troppo lungo, accorcialo",
-["account.change_name.resolve_failed"] = "Impossibile risolvere il puntatore del nome",
-["account.change_name.applied"] = "Nome cambiato in %s",
-
-["account.change_gp.title"] = "Cambia Potenza Garage",
-["account.change_gp.desc"] = "Cambia la potenza del garage del profilo (persiste se più alta). Imposta a 8 per ripristinare se supera il massimo, ma solo se il tuo GP effettivo è già fissato sotto il limite.",
-["account.change_gp.hint"] = "Inserisci Potenza Garage",
-["account.change_gp.max_int_title"] = "Raggiunto il massimo int a 32 bit",
-["account.change_gp.lower_value"] = "Abbassa il valore",
-["account.change_gp.too_low_title"] = "Troppo Basso",
-["account.change_gp.higher_value"] = "Aumenta il valore",
-["account.change_gp.applied"] = "La Potenza del Garage è stata cambiata in %s",
-
-["account.fake_unlock.title"] = "Sblocco Falso",
-["account.fake_unlock.desc"] = "Sblocca tutte le personalizzazioni temporaneamente",
-["account.fake_vip.title"] = "VIP Falso",
-["account.fake_vip.desc"] = "Attiva/disattiva lo stato di abbonamento VIP localmente",
-
-["account.fake_rank.title"] = "Classifica Falsa",
-["account.fake_rank.desc"] = "Imposta la tua classifica a leggendaria falsa istantaneamente",
-["account.fake_rank.race_warn_title"] = "Gara Richiesta",
-["account.fake_rank.race_warn_msg"] = "La Classifica Falsa dovrebbe essere applicata solo mentre una gara di Coppe è attivamente in esecuzione.\n\nApplicarla al di fuori di una gara potrebbe comportare un shadow ban.\n\nAssicurati di essere già all'interno di una gara di Coppe prima di continuare.\n\nContinuare comunque?",
-["account.fake_rank.continue_button"] = "Continua",
-["account.fake_rank.applied"] = "Classifica falsa iniettata",
-["account.fake_rank.not_in_cups"] = "Inizia prima una gara",
-
--- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
-["vehicle.parts_slot.title"] = "Regola Slot Parti",
-["vehicle.parts_slot.desc"] = "Regola lo slot delle parti per tutti i veicoli",
-["vehicle.parts_slot.slider_title"] = "Slot",
-["vehicle.parts_slot.no_vehicles"] = "Nessun veicolo trovato",
-["vehicle.parts_slot.applied"] = "Slot parti regolato: %d veicoli",
-
-["vehicle.parts_modifier.title"] = "Modificatore Parti",
-["vehicle.parts_modifier.desc"] = "Modifica i livelli delle parti di tuning in gara attiva",
-["vehicle.parts_modifier.select"] = "Seleziona una parte",
-["vehicle.parts_modifier.prompt_level"] = "Livello: ",
-["vehicle.parts_modifier.prompt_digit0"] = "Cifra: ",
-["vehicle.parts_modifier.prompt_digit1"] = "Coda: ",
-["vehicle.parts_modifier.prompt_reset"] = "Ripristina",
-["vehicle.parts_modifier.invalid"] = "Valore livello non valido",
-["vehicle.parts_modifier.not_found"] = "Parte non trovata in memoria",
-["vehicle.parts_modifier.applied"] = "%s impostato al livello %s",
-["vehicle.parts_modifier.reset"] = "%s ripristinato",
-
-["vehicle.unlock_vehicles.title"] = "Sblocca Veicoli",
-["vehicle.unlock_vehicles.desc"] = "Sblocca tutti i veicoli per l'acquisto con monete",
-["vehicle.unlock_vehicles.no_vehicles"] = "Nessun veicolo trovato",
-["vehicle.unlock_vehicles.unlocked"] = "Veicoli sbloccati: %d",
-["vehicle.unlock_vehicles.none_to_unlock"] = "Nessun veicolo da sbloccare",
-
-["vehicle.max_vehicles.title"] = "Veicoli Massimi",
-["vehicle.max_vehicles.desc"] = "Massimizza istantaneamente i livelli di potenziamento di tutti i veicoli sbloccati",
-["vehicle.max_vehicles.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
-["vehicle.max_vehicles.all_maxed"] = "Tutti i veicoli massimizzati",
-["vehicle.max_vehicles.failed"] = "Massimizzazione veicoli fallita",
-
-["vehicle.max_mastery.title"] = "Maestria Massima",
-["vehicle.max_mastery.desc"] = "Massimizza istantaneamente le maestrie di tutti i veicoli sbloccati e massimizzati.",
-["vehicle.max_mastery.all_maxed"] = "Tutte le maestrie massimizzate",
-["vehicle.max_mastery.failed"] = "Massimizzazione maestrie fallita",
-
-["vehicle.max_parts.title"] = "Parti Massime",
-["vehicle.max_parts.desc"] = "Massimizza istantaneamente i livelli di tutte le parti sbloccate per tutti i veicoli.",
-["vehicle.max_parts.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
-["vehicle.max_parts.all_maxed"] = "Tutte le parti massimizzate",
-["vehicle.max_parts.failed"] = "Massimizzazione parti fallita",
-
-["vehicle.common.no_vehicles"] = "Nessun veicolo trovato",
-["vehicle.common.progress"] = "%d/%d",
-["vehicle.common.resolve_list_failed"] = "Impossibile risolvere l'elenco veicoli",
-["vehicle.common.no_zero_region"] = "Nessuna regione zero trovata",
-
-}
 
 end
 
@@ -27351,10 +26384,42 @@ return {
 ["about.about_script.title"] = "Sobre o Script",
 ["about.about_script.desc"] = "Um poderoso e altamente otimizado script de manipulação de memória construído para Hill Climb Racing 2 no ambiente Pivot personalizado.\n\nBaixar Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Proprietário do Script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desenvolvedor do Script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Tradutor do Script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Créditos",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Agradecimentos Especiais",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo de Depuração",
@@ -27408,14 +26473,14 @@ return {
 ["player.hide_flag.desc"] = "Ocultar sua bandeira de jogador na corrida",
 ["player.hide_flag.enabled"] = "Ocultar Bandeira Ativado",
 ["player.hide_flag.disabled"] = "Ocultar Bandeira Desativado",
-["vehicle.fuel.title"] = "Combustível",
-["vehicle.fuel.desc"] = "Travar o combustível em um valor constante durante a corrida (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Quantidade de combustível (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Redefinir",
-["vehicle.fuel.invalid"] = "Valor inválido, deve ser 0 – 100",
-["vehicle.fuel.applied"] = "Combustível travado em %s",
-["vehicle.fuel.reset"] = "Combustível restaurado",
-["vehicle.fuel.not_applied"] = "Combustível não ativo",
+["player.fuel.title"] = "Combustível",
+["player.fuel.desc"] = "Travar o combustível em um valor constante durante a corrida (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Quantidade de combustível (0 – 100)",
+["player.fuel.prompt_reset"] = "Redefinir",
+["player.fuel.invalid"] = "Valor inválido, deve ser 0 – 100",
+["player.fuel.applied"] = "Combustível travado em %s",
+["player.fuel.reset"] = "Combustível restaurado",
+["player.fuel.not_applied"] = "Combustível não ativo",
 ["player.zoom.title"] = "Ajustar Zoom",
 ["player.zoom.desc"] = "Ajustar o quão perto ou longe sua câmera está",
 ["player.slider.min"] = "Mín",
@@ -27877,10 +26942,41 @@ return {
 ["about.about_script.title"] = "О скрипте",
 ["about.about_script.desc"] = "Мощный и оптимизированный скрипт для манипуляции памятью, созданный для Hill Climb Racing 2 в кастомном окружении Pivot.\n\nСкачать Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Владелец скрипта",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Разработчики скрипта",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Переводчики скрипта",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Авторы",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Особая благодарность",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",
@@ -28367,10 +27463,41 @@ return {
 ["about.about_script.title"] = "เกี่ยวกับสคริปต์",
 ["about.about_script.desc"] = "สคริปต์ปรับแต่งและจัดการหน่วยความจำที่ทรงพลังและลื่นไหลสุดๆ ทำมาเพื่อเกม Hill Climb Racing 2 บนแอปจำลอง Pivot โดยเฉพาะ\n\nดาวน์โหลด Pivot ได้ที่นี่เลย:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "เจ้าของสคริปต์",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "ทีมพัฒนาร่วม",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "คนแปลภาษา",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "ขอบคุณเป็นพิเศษ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "โหมดดีบักในเกม",
@@ -28859,10 +27986,42 @@ return {
 ["about.about_script.title"] = "Betik Hakkında",
 ["about.about_script.desc"] = "Hill Climb Racing 2 için özel Pivot ortamında oluşturulmuş güçlü ve son derece optimize edilmiş bir bellek manipülasyon betiği.\n\nPivot'u İndir:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Betik Sahibi",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Betik Geliştiricisi",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Betik Çevirmeni",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Katkıda Bulunanlar",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Özel Teşekkürler",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Hata Ayıklama Modu",
@@ -28916,14 +28075,14 @@ return {
 ["player.hide_flag.desc"] = "Yarışta oyuncu bayrağınızı gizleyin",
 ["player.hide_flag.enabled"] = "Bayrağı Gizle Etkin",
 ["player.hide_flag.disabled"] = "Bayrağı Gizle Devre Dışı",
-["vehicle.fuel.title"] = "Yakıt",
-["vehicle.fuel.desc"] = "Yarış sırasında yakıtı sabit bir değerde kilitle (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Yakıt miktarı (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Sıfırla",
-["vehicle.fuel.invalid"] = "Geçersiz değer, 0 – 100 arası olmalı",
-["vehicle.fuel.applied"] = "Yakıt %s olarak kilitlendi",
-["vehicle.fuel.reset"] = "Yakıt geri yüklendi",
-["vehicle.fuel.not_applied"] = "Yakıt aktif değil",
+["player.fuel.title"] = "Yakıt",
+["player.fuel.desc"] = "Yarış sırasında yakıtı sabit bir değerde kilitle (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Yakıt miktarı (0 – 100)",
+["player.fuel.prompt_reset"] = "Sıfırla",
+["player.fuel.invalid"] = "Geçersiz değer, 0 – 100 arası olmalı",
+["player.fuel.applied"] = "Yakıt %s olarak kilitlendi",
+["player.fuel.reset"] = "Yakıt geri yüklendi",
+["player.fuel.not_applied"] = "Yakıt aktif değil",
 ["player.zoom.title"] = "Yakınlaştırmayı Ayarla",
 ["player.zoom.desc"] = "Kameranızın ne kadar yakın veya uzak olduğunu ayarlayın",
 ["player.slider.min"] = "Min",
@@ -29386,10 +28545,42 @@ return {
 ["about.about_script.title"] = "Про скрипт",
 ["about.about_script.desc"] = "Потужний та високооптимізований скрипт для маніпуляції пам'яттю, створений для Hill Climb Racing 2 у спеціальному середовищі Pivot.\n\nЗавантажити Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Власник скрипту",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Розробник скрипту",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Перекладач скрипту",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Подяки",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Особлива подяка",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим налагодження",
@@ -29443,14 +28634,14 @@ return {
 ["player.hide_flag.desc"] = "Приховати прапор гравця в гонці",
 ["player.hide_flag.enabled"] = "Приховування прапора увімкнено",
 ["player.hide_flag.disabled"] = "Приховування прапора вимкнено",
-["vehicle.fuel.title"] = "Паливо",
-["vehicle.fuel.desc"] = "Зафіксувати паливо на постійному значенні під час гонки (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "Кількість палива (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "Скинути",
-["vehicle.fuel.invalid"] = "Недійсне значення, має бути 0 – 100",
-["vehicle.fuel.applied"] = "Паливо зафіксовано на %s",
-["vehicle.fuel.reset"] = "Паливо відновлено",
-["vehicle.fuel.not_applied"] = "Паливо не активно",
+["player.fuel.title"] = "Паливо",
+["player.fuel.desc"] = "Зафіксувати паливо на постійному значенні під час гонки (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "Кількість палива (0 – 100)",
+["player.fuel.prompt_reset"] = "Скинути",
+["player.fuel.invalid"] = "Недійсне значення, має бути 0 – 100",
+["player.fuel.applied"] = "Паливо зафіксовано на %s",
+["player.fuel.reset"] = "Паливо відновлено",
+["player.fuel.not_applied"] = "Паливо не активно",
 ["player.zoom.title"] = "Налаштувати масштаб",
 ["player.zoom.desc"] = "Налаштувати, наскільки близько чи далеко ваша камера",
 ["player.slider.min"] = "Мін",
@@ -29913,10 +29104,42 @@ return {
 ["about.about_script.title"] = "اسکرپٹ کے بارے میں",
 ["about.about_script.desc"] = "Hill Climb Racing 2 کے لیے کسٹم Pivot ماحول پر بنایا گیا ایک طاقتور اور انتہائی بہتر میموری ہیرا پھیری اسکرپٹ۔\n\nPivot ڈاؤن لوڈ کریں:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "اسکرپٹ کا مالک",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "اسکرپٹ ڈویلپر",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "اسکرپٹ مترجم",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "اعترافات",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "خصوصی شکریہ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ڈیبگ موڈ",
@@ -29970,14 +29193,14 @@ return {
 ["player.hide_flag.desc"] = "ریس میں اپنا جھنڈا چھپائیں",
 ["player.hide_flag.enabled"] = "جھنڈا چھپانا فعال",
 ["player.hide_flag.disabled"] = "جھنڈا چھپانا غیر فعال",
-["vehicle.fuel.title"] = "ایندھن",
-["vehicle.fuel.desc"] = "ریس کے دوران ایندھن کو ایک مستقل قدر پر بند کریں (0.0 – 100.0)",
-["vehicle.fuel.prompt_amount"] = "ایندھن کی مقدار (0 – 100)",
-["vehicle.fuel.prompt_reset"] = "ری سیٹ",
-["vehicle.fuel.invalid"] = "غلط قدر، 0 – 100 ہونی چاہیے",
-["vehicle.fuel.applied"] = "ایندھن %s پر بند کر دیا گیا",
-["vehicle.fuel.reset"] = "ایندھن بحال ہو گیا",
-["vehicle.fuel.not_applied"] = "ایندھن فعال نہیں",
+["player.fuel.title"] = "ایندھن",
+["player.fuel.desc"] = "ریس کے دوران ایندھن کو ایک مستقل قدر پر بند کریں (0.0 – 100.0)",
+["player.fuel.prompt_amount"] = "ایندھن کی مقدار (0 – 100)",
+["player.fuel.prompt_reset"] = "ری سیٹ",
+["player.fuel.invalid"] = "غلط قدر، 0 – 100 ہونی چاہیے",
+["player.fuel.applied"] = "ایندھن %s پر بند کر دیا گیا",
+["player.fuel.reset"] = "ایندھن بحال ہو گیا",
+["player.fuel.not_applied"] = "ایندھن فعال نہیں",
 ["player.zoom.title"] = "زوم ایڈجسٹ کریں",
 ["player.zoom.desc"] = "اپنا کیمرہ کتنا قریب یا دور ہے ایڈجسٹ کریں",
 ["player.slider.min"] = "کم از کم",
@@ -30228,7 +29451,7 @@ if #missing > 0 then fail("Missing classes:\n" .. table.concat(missing, "\n")) e
 end
 
 __vfs['core/engines/arch.lua'] = function(...)
--- core/engines/arch.lua — Architecture detection + chain-based version resolution
+-- core/engines/arch.lua — Architecture detection + manifest-driven data loading
 -- Sets globals: DEVICE_ARCH, BaseLib, aobs, offsets
 -- Depends on: loadModule, memory (already loaded), gg, showDialog, LOG,
 --             DEFAULT_ARCH (set in main.lua)
@@ -30269,110 +29492,12 @@ if DEVICE_ARCH ~= "arm64-v8a" then
 end
 
 
--- ── Version comparison ────────────────────────────────────────────────────────
-
--- Splits "1.73.5" into { 1, 73, 5 }.
-local function parse_version(v)
-    local ma, mi, pa = v:match("(%d+)%.(%d+)%.(%d+)")
-    if not ma then return nil end
-    return { tonumber(ma), tonumber(mi), tonumber(pa) }
-end
-
--- Returns -1, 0, or 1 — same contract as C's strcmp.
-local function cmp_version(a, b)
-    for i = 1, 3 do
-        if     a[i] < b[i] then return -1
-        elseif a[i] > b[i] then return  1
-        end
-    end
-    return 0
-end
-
-
--- ── Chain resolution ──────────────────────────────────────────────────────────
+-- ── Manifest-driven data resolution ──────────────────────────────────────────
 --
--- The manifest supplies an ordered `chain` array per arch.  Each entry is:
---
---   { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true }
---
--- `full = true`  → the file is a complete baseline (aobs + offsets).
---                  The engine resets its accumulated state before applying it.
---
--- `full = false` (or absent) → the file is a diff.  Only the keys present
---                  inside `aobs` / `offsets` replace the matching keys in the
---                  accumulated state; everything else is kept as-is.
---
--- The engine walks the chain from the beginning up to (and including) the
--- closest entry whose version is ≤ the device's game version, accumulating
--- changes as it goes.  This means:
---
---   • Users on 1.73.3 see exactly the 1.73.3 data.
---   • Users on 1.73.5 see 1.73.3 base + whatever 1.73.5 changed.
---   • Users on 1.74.0 (a new era) see only the fresh 1.74.0 baseline because
---     that entry is marked `full = true`, resetting the accumulated state.
---   • Users on an unknown future version (e.g. 1.75.0) see the last known
---     entry and get a "running on newer version" warning — same behaviour as
---     the old default_base fallback, but now it's the most recent data rather
---     than the oldest.
-
-local function resolve_chain(chain, device_ver_t)
-    -- `state` is what we accumulate across the chain walk.
-    local state = { aobs = {}, offsets = {} }
-    -- `last_applied` tracks the highest version we successfully merged into
-    -- state, for the "running on newer game" warning message.
-    local last_applied = nil
-
-    for _, entry in ipairs(chain) do
-        local entry_ver_t = parse_version(entry.version)
-        if not entry_ver_t then
-            LOG.warn("Arch", "Chain entry has unparseable version: " .. tostring(entry.version) .. " — skipped")
-            goto continue
-        end
-
-        -- Stop walking once the chain passes the device version.
-        if cmp_version(entry_ver_t, device_ver_t) > 0 then
-            LOG.info("Arch", "Chain walk stopped before " .. entry.version .. " (device is older)")
-            break
-        end
-
-        -- Load the file.
-        local ok, data = pcall(loadModule, entry.file)
-        if not ok or type(data) ~= "table" then
-            LOG.error("Arch", "Failed to load chain entry " .. entry.version .. " (" .. tostring(entry.file) .. "): " .. tostring(data))
-            goto continue
-        end
-
-        -- A full baseline resets accumulated state before merging.
-        if entry.full then
-            LOG.info("Arch", "Chain: full baseline reset at " .. entry.version)
-            state = { aobs = {}, offsets = {} }
-        end
-
-        -- Merge aobs: per-group keys replace existing ones.
-        if type(data.aobs) == "table" then
-            for k, v in pairs(data.aobs) do
-                state.aobs[k] = v
-            end
-        end
-
-        -- Merge offsets: per-key replacement.
-        if type(data.offsets) == "table" then
-            for k, v in pairs(data.offsets) do
-                state.offsets[k] = v
-            end
-        end
-
-        last_applied = entry.version
-        LOG.info("Arch", "Chain: applied " .. entry.version .. (entry.full and " [full]" or " [diff]"))
-
-        ::continue::
-    end
-
-    return state, last_applied
-end
-
-
--- ── Manifest loading ──────────────────────────────────────────────────────────
+-- See data/manifest.lua for the full structure/resolution writeup. Short
+-- version: arch_t[major][minor].base (or arch_t.default_base) is the full
+-- baseline; arch_t[major][minor][patch] is an optional diff-only override,
+-- shallow-merged on top per `aobs` group key / `offsets` key.
 
 local manifest    = loadModule("data/manifest.lua")
 local pkg_version = gg.getTargetInfo().versionName
@@ -30384,40 +29509,11 @@ if type(pkg_version) ~= "string" then
     os.exit(0)
 end
 
-local device_ver_t = parse_version(pkg_version)
-if not device_ver_t then
-    LOG.fatal("Arch", "Could not parse game version: " .. pkg_version)
-    showDialog(T("common.warning"), T("arch.unknown_version_msg"), T("common.ok"))
-    os.exit(0)
-end
-
--- Resolve which arch's tree to use.
-local arch_t = manifest[DEVICE_ARCH]
-if not arch_t then
-    LOG.warn("Arch", string.format(
-        "No manifest entry for '%s' — falling back to '%s' (lib patches likely won't match)",
-        DEVICE_ARCH, DEFAULT_ARCH))
-    arch_t = manifest[DEFAULT_ARCH]
-end
-
-if not arch_t or not arch_t.chain or #arch_t.chain == 0 then
-    LOG.fatal("Arch", "Manifest missing or empty chain for resolved arch — cannot continue")
-    showDialog(T("common.warning"), T("arch.no_base_data_msg"), T("common.ok"))
-    os.exit(0)
-end
-
--- Walk the chain.
-local resolved, last_applied = resolve_chain(arch_t.chain, device_ver_t)
-
--- Warn if the game version is newer than anything in the chain.
-local last_chain_ver_t = parse_version(arch_t.chain[#arch_t.chain].version)
-if last_chain_ver_t and cmp_version(device_ver_t, last_chain_ver_t) > 0 then
-    LOG.warn("Arch", string.format(
-        "Game v%s is newer than the latest chain entry (%s) — using best available data",
-        pkg_version, arch_t.chain[#arch_t.chain].version))
-    showDialog(T("arch.warning_title"),
-        T("arch.newer_version_msg", pkg_version, arch_t.chain[#arch_t.chain].version),
-        T("common.proceed_anyway"))
+local function shallow_merge(base_t, override_t)
+    local merged = {}
+    for k, v in pairs(base_t or {}) do merged[k] = v end
+    for k, v in pairs(override_t or {}) do merged[k] = v end
+    return merged
 end
 
 local function count(t)
@@ -30426,161 +29522,44 @@ local function count(t)
     return n
 end
 
-aobs    = resolved.aobs
-offsets = resolved.offsets
-
-LOG.info("Arch", string.format(
-    "Data resolved | chain_applied=%s | aobs=%d groups | offsets=%d entries",
-    tostring(last_applied), count(aobs), count(offsets)))
-
+-- Resolve which arch's tree to use. Unsupported arches fall back to
+-- DEFAULT_ARCH's tree so the script still runs (with a warning) instead of
+-- hard-exiting.
+local arch_t = manifest[DEVICE_ARCH]
+if not arch_t then
+    LOG.warn("Arch", string.format(
+        "No manifest entry for '%s' — falling back to '%s' (lib patches likely won't match)",
+        DEVICE_ARCH, DEFAULT_ARCH))
+    arch_t = manifest[DEFAULT_ARCH]
 end
 
-__vfs['core/engines/crash_handler.lua'] = function(...)
---[[
-  core/engines/crash_handler.lua — Structured error capture layer
-
-  Keeps two in-memory ring buffers that feed the Console tab:
-    • crashes — explicit captures with a traceback (scheduler task failures,
-                feature-module load failures, guarded calls). Cap: 50.
-    • logs    — every LOG line (all levels: INFO/DEBUG/WARN/ERROR/FATAL),
-                mirrored here via a sink installed into main.lua's logger. Cap: 250.
-
-  Also provides loadFeature(), a NON-FATAL loader for feature/core modules: a
-  crash while loading one feature is captured and a safe stub is returned, so
-  the rest of the UI keeps working instead of the whole script exiting.
-
-  Sets global: CrashHandler  (assigned by main.lua from this file's return)
-  Installs:    __log_sink     (read by the logger in main.lua)
-
-  Globals used: loadModule, LOG, os.
-]]
-
-local MAX_CRASHES = 50
-local MAX_LOGS    = 250  -- all levels are captured now, so allow a deeper tail
-
-local crashes = {}   -- ring buffer (oldest first)
-local logs    = {}   -- ring buffer (oldest first)
-
-local function push(ring, max, entry)
-    ring[#ring + 1] = entry
-    if #ring > max then table.remove(ring, 1) end
+if not arch_t or not arch_t.default_base then
+    LOG.fatal("Arch", "Manifest missing default_base for resolved arch — cannot continue")
+    showDialog(T("common.warning"), T("arch.no_base_data_msg"), T("common.ok"))
+    
 end
 
--- Wall-clock stamp. os.date is available in this environment.
-local function stamp()
-    local ok, s = pcall(os.date, "%H:%M:%S")
-    return ok and s or "??:??:??"
+local major, minor, patch = pkg_version:match("(%d+)%.(%d+)%.(%d+)")
+local minor_t = ((arch_t[major] or {})[minor]) or {}
+
+local base_path = minor_t.base or arch_t.default_base
+local base = loadModule(base_path)
+LOG.info("Arch", string.format("Base loaded: %s", base_path))
+
+local override_path = minor_t[patch]
+local override = nil
+if override_path then
+    override = loadModule(override_path)
+    LOG.info("Arch", string.format("Override matched: v%s.%s.%s -> %s", major, minor, patch, override_path))
+else
+    LOG.info("Arch", string.format("No override for v%s.%s.%s — using base as-is", major, minor, patch))
 end
 
-local function trim(s) return (tostring(s):gsub("%s+$", "")) end
+aobs    = shallow_merge(base.aobs, override and override.aobs)
+offsets = shallow_merge(base.offsets, override and override.offsets)
 
-local CrashHandler = {}
-
--- Record a crash. `traceback` is optional but strongly preferred.
-function CrashHandler.capture(tag, message, traceback)
-    local entry = {
-        kind      = "crash",
-        ts        = stamp(),
-        tag       = tostring(tag or "?"),
-        message   = trim(message),
-        traceback = traceback and tostring(traceback) or nil,
-    }
-    push(crashes, MAX_CRASHES, entry)
-    -- Mirror to the debug log for file persistence. The "[CRASH]" sentinel
-    -- lets onLog skip it so it isn't double-listed in the logs ring.
-    if LOG then pcall(LOG.error, entry.tag, "[CRASH] " .. entry.message) end
-    return entry
-end
-
--- LOG sink installed into main.lua's _write. Keeps every level; the Console
--- colors them by severity. Crash mirrors (tagged "[CRASH]") are skipped so they
--- aren't double-listed alongside the crashes ring.
-function CrashHandler.onLog(level, tag, message)
-    local lv = trim(level)
-    if type(message) == "string" and message:find("[CRASH]", 1, true) then return end
-    push(logs, MAX_LOGS, {
-        kind    = "log",
-        ts      = stamp(),
-        level   = lv,
-        tag     = tostring(tag or ""),
-        message = tostring(message or ""),
-    })
-end
-
--- Run fn(...) guarded; capture (with traceback) on error.
--- Returns ok, result (result is nil on failure).
-function CrashHandler.guard(tag, fn, ...)
-    local args, n = { ... }, select("#", ...)
-    local ok, res = xpcall(
-        function() return fn(table.unpack(args, 1, n)) end,
-        function(e) return (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e) end
-    )
-    if not ok then
-        CrashHandler.capture(tag, (tostring(res):match("^[^\n]*")) or res, res)
-        return false, nil
-    end
-    return true, res
-end
-
--- Non-fatal feature/core module loader. On failure, captures the crash and
--- returns a stub table: indexing any key yields a no-op function that still
--- invokes a trailing callback argument (cb/done), so the UI never hard-locks.
-local STUB = setmetatable({}, {
-    __index = function()
-        return function(...)
-            local a = { ... }
-            local last = a[#a]
-            if type(last) == "function" then pcall(last, "unavailable") end
-        end
-    end,
-})
-
-function CrashHandler.loadFeature(name)
-    local mod, err = loadModule(name, true)  -- soft = non-fatal
-    if mod == nil then
-        CrashHandler.capture("loadFeature", "Failed to load " .. tostring(name) .. ": " .. tostring(err), err)
-        return STUB
-    end
-    return mod
-end
-
--- ── Accessors for the Console tab ─────────────────────────────────────────────
-
-function CrashHandler.getCrashes() return crashes end
-function CrashHandler.getLogs()    return logs end
-function CrashHandler.counts()     return #crashes, #logs end
-function CrashHandler.isEmpty()    return #crashes == 0 and #logs == 0 end
-
-function CrashHandler.clear()
-    for i = #crashes, 1, -1 do crashes[i] = nil end
-    for i = #logs, 1, -1 do logs[i] = nil end
-end
-
--- Flat text dump for the Console "Copy all" button.
-function CrashHandler.formatAll()
-    local out = {}
-    out[#out + 1] = "===== VOID Console ====="
-    out[#out + 1] = "crashes=" .. #crashes .. "  logs=" .. #logs
-    out[#out + 1] = ""
-    out[#out + 1] = "----- CRASHES & ERRORS -----"
-    if #crashes == 0 then out[#out + 1] = "(none)" end
-    for _, e in ipairs(crashes) do
-        out[#out + 1] = string.format("[%s] [%s] %s", e.ts, e.tag, e.message)
-        if e.traceback then out[#out + 1] = e.traceback end
-        out[#out + 1] = ""
-    end
-    out[#out + 1] = "----- LOGS -----"
-    if #logs == 0 then out[#out + 1] = "(none)" end
-    for _, e in ipairs(logs) do
-        out[#out + 1] = string.format("[%s] [%s] [%s] %s", e.ts, e.level, e.tag, e.message)
-    end
-    return table.concat(out, "\n")
-end
-
--- Install the logger sink so WARN+ lines start flowing in immediately.
-__log_sink = CrashHandler.onLog
-
-return CrashHandler
+LOG.info("Arch", string.format("Data resolved | aobs=%d groups | offsets=%d entries",
+    count(aobs), count(offsets)))
 
 end
 
@@ -30871,11 +29850,51 @@ local function verify_pattern(base, patterns)
     return true
 end
 
+---Returns a human-readable list of supported architectures from a patch table.
+---@param arch_map table { [arch_name] = data }
+---@return string Comma-separated architecture names, e.g. "arm64-v8a or x86_64"
+local function arch_list_string(arch_map)
+    local names = {}
+    for arch in pairs(arch_map) do
+        table.insert(names, arch)
+    end
+    return table.concat(names, " or ")
+end
+
 ---Returns true if `t` is a flat array of patch entries (each entry has a `scan` key).
+---Used to distinguish { {scan=…}, {scan=…} } from { ["arm64-v8a"] = {…} }.
 ---@param t table
 ---@return boolean
 local function is_patch_list(t)
     return type(t) == "table" and type(t[1]) == "table" and t[1].scan ~= nil
+end
+
+---Normalises the `patch_or_callback` argument of addArchModule into an arch map.
+---
+--- Accepted forms:
+---   • Flat patch list  { {scan, offset, patch, unpatch}, … }  → wrapped under DEFAULT_ARCH
+---   • Arch map         { ["arm64-v8a"] = { {…}, … }, … }
+---   • Callback         function(done, ...)                     → wrapped under DEFAULT_ARCH
+---   • Arch-keyed cbs   { ["arm64-v8a"] = function, … }
+---
+---@param patch_or_callback any
+---@return table arch_map  { [arch] = resolvedValue }
+---@return any   resolved  Value for DEVICE_ARCH, or nil if unsupported
+local function resolve_arch(patch_or_callback)
+    local arch_map
+
+    if is_patch_list(patch_or_callback) then
+        -- Bare patch list — belongs to the default arch only.
+        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
+    elseif type(patch_or_callback) == "table" then
+        -- Must be an arch-keyed map (values are either patch lists or callbacks).
+        arch_map = patch_or_callback
+    else
+        -- Bare callback function — belongs to the default arch only.
+        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
+    end
+
+    return arch_map, arch_map[DEVICE_ARCH]
 end
 
 
@@ -30975,7 +29994,7 @@ end
 ---Creates a UI module card with automatic architecture validation.
 ---
 ---For "switch" mode with a patch table the engine handles enable/disable via
----apply_patch. For all other modes (button, slider, input, …) the value must
+---apply_patch. For all other modes (button, slider, input, …) the resolved
 ---value must be a callback: function(done, ...).
 ---
 ---Read-only ("ro") modules bypass arch resolution entirely.
@@ -30986,7 +30005,7 @@ end
 ---@param desc             string Description shown in the card
 ---@param mode             string "switch" | "button" | "slider" | "input" | "ro" | …
 ---@param extra            any    Mode-specific config (options table, slider config, etc.)
----@param patch_or_callback any   Patch list or callback (from aobs table or inline fn)
+---@param patch_or_callback any   Patch list, arch-map, or callback (see resolve_arch)
 function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
     -- Read-only cards need no arch check.
     if mode == "ro" then
@@ -30994,23 +30013,23 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         return
     end
 
-    -- nil means the data key doesn't exist in aobs/offsets for this version.
-    -- Show a "not available for this version" placeholder rather than an arch error.
-    if patch_or_callback == nil then
+    local arch_map, resolved = resolve_arch(patch_or_callback)
+
+    -- No data for this arch → show a disabled placeholder card.
+    if not resolved then
         addModule(parent, id .. "_na", title,
-            T("patches.no_data_this_version"),
+            T("patches.requires_arch", arch_list_string(arch_map), DEVICE_ARCH),
             "ro", T("common.not_available"), nil)
         return
     end
 
-    -- patch_or_callback is either a patch list or a callback at this point.
     local callback
 
-    if mode == "switch" and is_patch_list(patch_or_callback) then
+    if mode == "switch" and is_patch_list(resolved) then
         -- Patch-backed toggle: delegate to apply_patch inside the scheduler.
         callback = function(done, state)
             scheduler:add(function(finish_task)
-                local fail_count = apply_patch(id, patch_or_callback, state)
+                local fail_count = apply_patch(id, resolved, state)
                 if fail_count == 0 then
                     showToast(title .. (state and T("patches.suffix_enabled") or T("patches.suffix_disabled")))
                 else
@@ -31028,7 +30047,7 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         -- because the outer task would never call finish_task() while waiting on the
         -- inner task, which can't run until the outer task finishes.
         callback = function(done, ...)
-            patch_or_callback(done, ...)
+            resolved(done, ...)
         end
     end
 
@@ -31079,24 +30098,14 @@ function scheduler:_next()
     local current_task = table.remove(queue, 1)
     LOG.dbg(TAG, "Starting task. Remaining in queue: " .. tostring(#queue))
 
-    local tb
-    local ok, err = xpcall(function()
+    local ok, err = pcall(function()
         current_task(function()
             scheduler:_next()
         end)
-    end, function(e)
-        tb = (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e)
-        return e
     end)
 
     if not ok then
-        -- Capture with traceback for the Console tab; fall back to a plain log
-        -- if the crash handler hasn't loaded yet.
-        if CrashHandler then
-            CrashHandler.capture(TAG, err, tb)
-        else
-            LOG.error(TAG, "Task crashed: " .. tostring(err))
-        end
+        LOG.error(TAG, "Task crashed: " .. tostring(err))
         gg.alert(T("scheduler.task_crashed", tostring(err)))
         self:_next()
     end
@@ -31617,8 +30626,6 @@ local AVAILABLE = {
     { code = "ur", name = "اردو" },
     { code = "fr", name = "Français" },
     { code = "uk", name = "Українська" },
-    { code = "tr", name = "Türkçe" },
-    { code = "pt-BR", name = "Português (Brasil)" },
     -- more languages soon
 }
 
@@ -31631,16 +30638,6 @@ local function tryLoadLangFile(code)
     local ok, result = pcall(loadModule, "configs/lang/" .. code .. ".lua")
     if not ok or type(result) ~= "table" then return nil end
     return result
-end
-
--- ── Credits base layer ───────────────────────────────────────────────────────
--- Loaded before EN so that arch-universal content (names, handles, URLs) lives
--- in one place. T() checks CREDITS last, after ACTIVE and EN, so a lang file
--- can still override any key here if truly needed (shouldn't be necessary).
-local ok_credits, CREDITS = pcall(loadModule, "configs/credits.lua")
-if not ok_credits or type(CREDITS) ~= "table" then
-    LOG.warn("Lang", "configs/credits.lua failed to load — credits will fall through to EN")
-    CREDITS = {}
 end
 
 local EN = tryLoadLangFile("en")
@@ -31679,7 +30676,6 @@ LANG_AVAILABLE = AVAILABLE
 function T(key, ...)
     local entry = ACTIVE[key]
     if entry == nil then entry = EN[key] end
-    if entry == nil then entry = CREDITS[key] end
     if entry == nil then
         LOG.warn("Lang", "Missing translation key: " .. tostring(key))
         return key
@@ -31909,85 +30905,88 @@ end
 __vfs['data/manifest.lua'] = function(...)
 -- data/manifest.lua — Version × Architecture data tree
 --
--- ── Chain structure ────────────────────────────────────────────────────────────
+-- ── Structure ─────────────────────────────────────────────────────────────
 --
 --   [arch] = {
---       chain = {
---           -- Each entry is applied in order, oldest → newest.
---           -- The engine walks up to (and including) the user's game version.
+--       default_base = "data/<arch>/base.lua",  -- REQUIRED. Also marks this
+--                                                 -- arch as supported (its
+--                                                 -- presence = arch_t exists).
 --
---           { version = "1.73.3", file = "data/<arch>/1.73.3.lua", full = true },
---           --   └─ full = true  → complete baseline; resets accumulated state
---           --                     before merging. Use for the first entry in a
---           --                     chain, and whenever a game update rewrites so
---           --                     many AOBs that a diff would be larger than a
---           --                     fresh file.
+--       [major] = {
+--           [minor] = {
+--               base = "data/<arch>/base_X.Y.lua",  -- OPTIONAL. New full
+--                                                     -- baseline for this
+--                                                     -- X.Y era. Omit to
+--                                                     -- inherit default_base.
 --
---           { version = "1.73.5", file = "data/<arch>/1.73.5.lua" },
---           --   └─ full absent  → diff only. Only the aobs/offsets keys present
---           --                     in this file overwrite the accumulated state;
---           --                     everything else is kept as-is from earlier
---           --                     entries.
---
---           { version = "1.74.0", file = "data/<arch>/1.74.0.lua", full = true },
---           --   └─ New era, full reset. Users on 1.73.x never reach this entry.
+--               [patch] = "data/<arch>/vX.Y.Z.lua",  -- OPTIONAL. Diff-only
+--                                                      -- override, merged on
+--                                                      -- top of `base` above.
+--           },
 --       },
 --   }
 --
--- ── Resolution rules ──────────────────────────────────────────────────────────
+--   major/minor/patch are STRING keys ("1", "73", "3"), taken verbatim from
+--   the game's versionName "1.73.3".
 --
---   Walk the chain from index 1 forward.  Stop the moment an entry's version
---   exceeds the device's game version.  Accumulate changes from every entry
---   visited:
+-- ── Resolution (see core/engines/arch.lua) ───────────────────────────────────
 --
---     • full = true  → clear accumulated aobs/offsets, then merge this file.
---     • diff         → merge this file on top of what we already have.
+--   1. arch_t = manifest[DEVICE_ARCH], or manifest[DEFAULT_ARCH] if the
+--      current arch has no entry (with a warning — lib patches likely
+--      won't match on the wrong arch's base).
 --
---   Result: users on any version in the chain get the exact data built up to
---   their version.  Users on an OLDER version than the first entry get only
---   that first entry's data (the baseline).  Users on a NEWER version than the
---   last entry get the most recent known data + a "newer version" warning —
---   much better than silently running on stale 1.73.3 offsets forever.
+--   2. minor_t = arch_t[major][minor], or {} if that major/minor combo
+--      isn't mapped yet (brand new version — falls through to step 3/4
+--      with no override, using default_base as-is).
 --
--- ── When to add what ──────────────────────────────────────────────────────────
+--   3. base_path = minor_t.base or arch_t.default_base
+--      → loaded as the full baseline.
 --
---   • Game update changes NOTHING for you → add no entry; existing users are
---     unaffected, newer-version users get the last known data + warning.
+--   4. override_path = minor_t[patch] (may be nil)
+--      → if present, shallow-merged on top of base per `aobs` group key
+--        and per `offsets` key.
 --
---   • A patch bump shifts ONE offset → append a tiny diff entry containing
---     only that changed key, e.g.:
---       { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" }
---     where 1.73.5.lua returns { offsets = { raceInfo = 0x200DEAD } }
+-- ── When to add what ─────────────────────────────────────────────────────────
 --
---   • A minor/major bump rewrites most AOBs → append a full baseline entry:
---       { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }
---     Users still on 1.73.x never walk past their version, so the old data
---     stays alive for them automatically — no deletion needed.
+--   • Most patch bumps change NOTHING → no entry needed at all. They fall
+--     through to default_base (or the era's `base`) untouched.
 --
--- ── Adding a new arch ─────────────────────────────────────────────────────────
+--   • A patch bump shifts ONE offset → add a tiny diff file under
+--     [major][minor][patch], e.g. v1.73.3.lua containing just that key.
+--
+--   • A minor/major bump rewrites everything (new lib, new AOB bytes
+--     everywhere) → write a fresh full base_X.Y.lua ONCE, point
+--     [major][minor].base at it. Subsequent patches in that era go back
+--     to being tiny diffs against THIS new base.
+--
+-- ── Adding a new arch ───────────────────────────────────────────────────────
 --   1. Create data/<arch>/base.lua (full aobs + offsets).
---   2. Add manifest[<arch>] = { chain = { { version = "...", file = "...", full = true } } }.
---   3. Append diff entries as versions release.  No changes to core/ required.
+--   2. Add manifest[<arch>] = { default_base = "data/<arch>/base.lua" }.
+--   3. Add version entries as needed — no changes to core/ required.
 
 return {
 
     ["arm64-v8a"] = {
-        chain = {
-            { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
-            -- Example future entries (add when a new game update releases):
-            -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
-            -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era
+        default_base = "data/arm64-v8a/1.73.3.lua",
+
+        ["1"] = {
+            ["73"] = {
+                ["3"] = "data/arm64-v8a/1.73.3.lua",
+            },
+            
         },
     },
-
+    
     ["x86_64"] = {
-        chain = {
-            { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
-            -- Example future entries:
-            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
+        default_base = "data/x86_64/1.73.3.lua",
+
+        ["1"] = {
+            ["73"] = {
+                ["3"] = "data/x86_64/1.73.3.lua",
+            },
+            
         },
     },
-
 }
 
 end
@@ -32037,48 +31036,11 @@ return {
 end
 
 __vfs['data/x86_64/1.73.3.lua'] = function(...)
--- data/x86_64/1.73.3.lua — x86_64 baseline for 1.73.3
---
--- AOB patterns are identical to arm64-v8a for this version; only offsets differ.
--- If AOBs ever diverge between arches, add them here explicitly.
+-- data/x86_64/1.73.3.lua — Override for 1.73.3 (x86_64)
 
 return {
-    aobs = {
-        fakeVip = {
-            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 4, patch = "h 28 00 80 52", unpatch = "h 68 B2 40 39"},
-        },
-
-        fakeUnlock = {
-            {scan = "h 36 C5 40 F9", pattern = { { offset = 0x164, valid = {"h E0 03 1F 2A"} }, { offset = 0x16C, valid = {"h 20 00 80 52"} } }, offset = 0x164, patch = "h 20 00 80 52", unpatch = "h E0 03 1F 2A"},
-        },
-
-        autoDetach = {
-            {scan = "h 08 20 20 1E 85 00 00 54 E0 03 13 AA E1 03 14 AA", offset = 4, patch = "h 1F 20 03 D5", unpatch = "h 85 00 00 54"},
-        },
-
-        autoWin = {
-            {scan = "h E8 5F 5D A9 16 61 40 B9", offset = 4, patch = "h 55 00 80 52", unpatch = "h 16 61 40 B9"},
-            {scan = "h E0 5F 40 F9 09 4D 40 BD", offset = 4, patch = "h 0A 90 32 1E", unpatch = "h 09 4D 40 BD"},
-        },
-
-        autoDie = {
-            {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 12, patch = "h 00 00 80 52", unpatch = "h 45 00 00 54"},
-            {scan = "h 60 56 08 BD 60 56 48 BD 08 20 20 1E", offset = 16, patch = "h 60 56 08 B9", unpatch = "h 7F 56 08 B9"},
-        },
-
-        forceBoss = {
-            {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
-            {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
-        },
-
-        fuel = {
-            {scan = "h 61 56 48 BD 00 C0 22 1E 21 C0 22 1E 00 84 48 1F 00 40 62 1E 60 56 08 BD", offset = 4},
-        },
-    },
     offsets = {
-        raceInfo     = 0x2066508, -- x86_64-specific
-        vnpStats     = 0x2060CA0,
-        customTracks = 0x1FE27F0,
+        raceInfo = 0x2066508,
     },
 }
 
@@ -32112,7 +31074,6 @@ local TAB_DEFS = {
     { "other", "tabs.other" },
     { "separator", "tabs.sep_script" },
     { "settings", "tabs.settings" },
-    { "console", "tabs.console" },
     { "about", "tabs.about" },
 }
 
@@ -32144,17 +31105,14 @@ for _, def in ipairs(TAB_DEFS) do
         end
 
         -- First access: attempt to load.
-        -- Soft load: a broken tab returns nil instead of os.exit()'ing the whole
-        -- script, so the error card below can actually be shown (a plain
-        -- pcall(loadModule, ...) can't catch the hard loader's os.exit).
         if not loadCache[id] then
-            local result, err = loadModule(path, true)
+            local ok, result = pcall(loadModule, path)
 
-            if type(result) == "function" then
+            if ok and type(result) == "function" then
                 loadCache[id] = result
                 LOG.info("Registry", "Module loaded OK: " .. id)
             else
-                LOG.error("Registry", "Failed to load module [" .. id .. "]: " .. tostring(err))
+                LOG.error("Registry", "Failed to load module [" .. id .. "]: " .. tostring(result))
                 loadCache[id] = false
                 addModule(container, id .. "_err", id,
                     T("registry.module_load_failed"), "ro", T("registry.error"), nil)
@@ -32176,2642 +31134,6 @@ return tabHandlers, categoryHandlers
 
 end
 
-__vfs['modules/lib/raceinfo.lua'] = function(...)
---[[
-  modules/lib/raceinfo.lua — Shared race-info base-pointer resolver
-
-  The Cups "Set Time" and Adventure "Set Distance" features both resolve the
-  same in-race object by walking:
-
-      anchor = BaseLib + offsets.raceInfo
-        → refs to the anchor (level 1)
-          → refs to those refs, minus 0xAC (level 2)
-            → that address inside C_ALLOC (level 3) → resolved pointer
-
-  This walk used to be copy-pasted in both core modules. It lives here once;
-  callers differ only in their persistent cache key and an optional validator
-  applied to a cached base (e.g. "is a race actually running right now?").
-
-  Globals used: memory, gg, BaseRegion, BaseLib, offsets, LOG.
-]]
-
-local TAG = "RaceInfo"
-
-local raceinfo = {}
-
--- Resolve the race-info base pointer.
---   cacheKey  : persistent memory key for the resolved pointer address.
---   validate  : optional function(base) -> bool. When a cached pointer still
---               resolves, the base is returned only if validate(base) passes;
---               otherwise nil is returned and the cache is KEPT (so the next
---               attempt can reuse it once the player is back in a race).
--- Returns the base address, or nil if it can't be resolved.
-function raceinfo.resolve(cacheKey, validate)
-    local cachedPtr = memory:load(cacheKey)
-    if cachedPtr and cachedPtr ~= 0 then
-        local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
-        if verify and verify[1] and verify[1].value ~= 0 then
-            local base = verify[1].value
-            if validate and not validate(base) then
-                LOG.warn(TAG, "Cached base failed validation — cache kept.")
-                return nil
-            end
-            LOG.dbg(TAG, string.format("Cache hit: ptr=0x%X → base=0x%X", cachedPtr, base))
-            return base
-        else
-            LOG.warn(TAG, "ptr invalid — clearing cache (" .. tostring(cacheKey) .. ")")
-            memory:save(cacheKey, nil)
-        end
-    end
-
-    local anchorTarget = BaseLib + offsets.raceInfo
-    LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
-
-    gg.clearResults()
-    gg.setRanges(BaseRegion)
-    gg.searchNumber(anchorTarget, 32)
-    local level1Results = gg.getResults(gg.getResultsCount())
-    gg.clearResults()
-
-    if #level1Results == 0 then
-        LOG.warn(TAG, "Level 1: no refs found")
-        return nil
-    end
-
-    local resolvedBase = nil
-
-    for _, ref1 in ipairs(level1Results) do
-        gg.clearResults()
-        gg.setRanges(BaseRegion)
-        gg.searchNumber(ref1.address, 32)
-        local level2Results = gg.getResults(gg.getResultsCount())
-        gg.clearResults()
-
-        for _, ref2 in ipairs(level2Results) do
-            local offsetAddr = ref2.address - 0xAC
-
-            gg.clearResults()
-            gg.setRanges(gg.REGION_C_ALLOC)
-            gg.searchNumber(offsetAddr, 32)
-            local level3Results = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-
-            if #level3Results > 0 then
-                local pointerReads = {}
-                for _, ref3 in ipairs(level3Results) do
-                    table.insert(pointerReads, { address = ref3.address, flags = 32 })
-                end
-                local resolvedPointers = gg.getValues(pointerReads)
-                if resolvedPointers then
-                    for _, ptr in ipairs(resolvedPointers) do
-                        if ptr and ptr.value and ptr.value ~= 0 then
-                            memory:save(cacheKey, ptr.address)
-                            resolvedBase = ptr.value
-                            LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → base=0x%X", ptr.address, resolvedBase))
-                            break
-                        end
-                    end
-                end
-            end
-
-            if resolvedBase then break end
-        end
-
-        if resolvedBase then break end
-    end
-
-    return resolvedBase
-end
-
-return raceinfo
-
-end
-
-__vfs['modules/ops/account.lua'] = function(...)
---[[
-  modules/ops/account.lua — Account feature memory ops (no UI)
-  Contract: see modules/ops/README.md. Order mirrors the Account tab.
-
-  Globals used: scheduler, memory, gg, BaseGameStatus, BaseGameStatusRaw, LOG.
-]]
-
-local M = {}
-
--- Change the player name (max 12 bytes).
--- status: "empty" | "too_long" | "resolve_failed" | "applied"
-function M.changeName(val, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "ChangeName"
-
-        if val == nil or val == "" then
-            LOG.warn(TAG, "Empty input — aborted")
-            finishTask(); cb("empty"); return
-        end
-
-        local nameBytes = {}
-        local byteCount = 0
-
-        for _, code in utf8.codes(val) do
-            local encoded = utf8.char(code)
-            local bytes   = { encoded:byte(1, -1) }
-            if byteCount + #bytes > 12 then
-                LOG.warn(TAG, "Name exceeds 12 bytes — aborted")
-                finishTask(); cb("too_long"); return
-            end
-            for _, b in ipairs(bytes) do
-                table.insert(nameBytes, b)
-                byteCount = byteCount + 1
-            end
-        end
-
-        while #nameBytes < 12 do table.insert(nameBytes, 0) end
-
-        local namePtr = gg.getValues({{ address = BaseGameStatus + 0x38, flags = 32 }})[1].value
-        if not namePtr or namePtr == 0 then
-            LOG.fatal(TAG, "namePtr is nil or 0")
-            finishTask(); cb("resolve_failed"); return
-        end
-
-        local writes = {{ address = namePtr, flags = 1, value = byteCount * 2 }}
-        for i = 1, #nameBytes do
-            writes[#writes + 1] = { address = namePtr + i, flags = 1, value = nameBytes[i] }
-        end
-
-        gg.setValues(writes)
-        LOG.info(TAG, string.format("Done. byteCount=%d namePtr=0x%X", byteCount, namePtr))
-        finishTask()
-        cb("applied")
-    end)
-end
-
--- Set Gameplay (GP) currency. Valid range: 8 .. 2147483647.
--- status: "max_int" | "too_low" | "applied"
-function M.changeGp(val, cb)
-    scheduler:add(function(finishTask)
-        local n = tonumber(val)
-        if n and n > 2147483647 then
-            finishTask(); cb("max_int"); return
-        elseif not n or n < 8 then
-            finishTask(); cb("too_low"); return
-        end
-
-        gg.setValues({
-            { address = BaseGameStatus + 0x4F4, flags = 4, value = val }
-        })
-
-        finishTask()
-        cb("applied")
-    end)
-end
-
--- ── Fake rank ─────────────────────────────────────────────────────────────────
-
--- Quick synchronous read used by the tab to gate the fake-rank action:
--- is the game currently on the Cups tab? (activeTab == 1)
-function M.isCupsTab()
-    local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
-    return type(activeTab) == "table" and activeTab[1] ~= nil and activeTab[1].value == 1
-end
-
--- Apply fake rank (writes 50.0). The tab confirms M.isCupsTab() and shows the
--- race-warning dialog BEFORE calling this.
--- status: "applied"
-function M.applyFakeRank(cb)
-    scheduler:add(function(finishTask)
-        gg.setValues({
-            { address = BaseGameStatus + 0x200, flags = 16, value = 50.0 }
-        })
-        LOG.info("FakeRank", "Fake rank applied.")
-        finishTask()
-        cb("applied")
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/adventure.lua'] = function(...)
---[[
-  modules/ops/adventure.lua — Adventure feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  set_distance supports an optional re-apply loop. Because the loop must emit
-  periodic UI feedback, the tab passes a small `ui` handler table; core never
-  calls showToast/showDialog directly.
-
-  Globals used: scheduler, memory, gg, BaseRegion, BaseGameStatusRaw, BaseLib,
-  offsets, LOG.
-]]
-
-local raceinfo = loadModule("modules/lib/raceinfo.lua")
-
-local M = {}
-
--- Auto adventure chests. status: "none_found" | "done"
-function M.autoAdventureChests(cb)
-    scheduler:add(function(finishTask)
-        local TAG = "AutoAdventureChests"
-        LOG.info(TAG, "Module activated.")
-
-        gg.clearResults()
-        gg.setRanges(BaseRegion)
-        gg.searchNumber("500;500::5", 4)
-        local res = gg.getResults(gg.getResultsCount())
-
-        if #res == 0 then
-            LOG.warn(TAG, "Search returned 0 results.")
-            finishTask(); cb("none_found"); return
-        end
-
-        LOG.dbg(TAG, "Results found: " .. tostring(#res))
-
-        gg.editAll("-1", 4)
-        gg.clearResults()
-
-        LOG.info(TAG, "Done.")
-        finishTask()
-        cb("done")
-    end)
-end
-
--- ── Set distance (+ optional re-apply loop) ──────────────────────────────────
-
--- Loop state helpers (synchronous; gate the loop-active dialog in the tab).
-function M.isLoopActive() return memory:load("set_distance_loop") and true or false end
-function M.stopLoop()     memory:save("set_distance_loop", false) end
-
-local TAG = "SetDistance"
-
-local function isValidDistanceBase(addr)
-    local check = gg.getValues({
-        { address = addr + 0x0,  flags = 4  },
-        { address = addr + 0x10, flags = 16 },
-        { address = addr + 0x14, flags = 16 },
-    })
-    if not check or #check ~= 3 then return false end
-
-    local dist   = check[1].value
-    local float1 = check[2].value
-    local float2 = check[3].value
-
-    if type(dist) ~= "number" or dist < 0 or dist > 999999 then return false end
-    if type(float1) ~= "number" or float1 == 0 then return false end
-    if type(float2) ~= "number" or float2 == 0 then return false end
-
-    return true
-end
-
--- Apply the distance once. Returns "ok" | "not_in_adventure" | "start_race_first".
-local function applyDistance(target_meters)
-    local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
-    local isAdventureTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 0)
-
-    if not isAdventureTab then
-        LOG.warn(TAG, "Not in Adventure tab.")
-        return "not_in_adventure"
-    end
-
-    -- Validator keeps a cached pointer only while a race is actually live.
-    local distanceBase = raceinfo.resolve("set_distance_ptr", isValidDistanceBase)
-    if not distanceBase then
-        LOG.fatal(TAG, "Failed to resolve distanceBase.")
-        return "start_race_first"
-    end
-
-    gg.setValues({
-        { address = distanceBase + 0x0,  flags = 4,  value = target_meters },
-        { address = distanceBase + 0x10, flags = 16, value = 2000000000 },
-        { address = distanceBase + 0x14, flags = 16, value = 2000000000 },
-    })
-
-    LOG.info(TAG, "Distance set: " .. tostring(target_meters) .. "m")
-    return "ok"
-end
-
--- Set distance (with optional re-apply loop).
--- params = { target_meters, loop_enabled, loop_interval }
--- ui = {
---   onApply(status, phase)  -- phase: "initial" | "loop"
---   onLoopRunning()         -- every 2 loop ticks
---   onLoopStopped()         -- when the loop flag is cleared
--- }
--- The tab releases its card (done()) right after calling this; ui has no done.
-function M.setDistance(params, ui)
-    local target_meters = params.target_meters
-    local loop_enabled  = params.loop_enabled
-    local loop_interval = params.loop_interval
-
-    scheduler:add(function(finishTask)
-        local status = applyDistance(target_meters)
-        ui.onApply(status, "initial")
-
-        if status ~= "ok" then
-            finishTask(); return
-        end
-
-        if not loop_enabled then
-            finishTask(); return
-        end
-
-        memory:save("set_distance_loop", true)
-        finishTask()
-
-        local tickCount = 0
-        local function loopTick()
-            if not memory:load("set_distance_loop") then
-                LOG.info(TAG, "Loop stopped.")
-                ui.onLoopStopped()
-                memory:save("set_distance_ptr", nil)
-                return
-            end
-
-            gg.sleep(loop_interval)
-            tickCount = tickCount + 1
-
-            local s = applyDistance(target_meters)
-            ui.onApply(s, "loop")
-
-            if tickCount % 2 == 0 then
-                ui.onLoopRunning()
-            end
-
-            scheduler:add(function(ft)
-                loopTick()
-                ft()
-            end)
-        end
-
-        scheduler:add(function(ft)
-            loopTick()
-            ft()
-        end)
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/creative.lua'] = function(...)
---[[
-  modules/ops/creative.lua — Creative / custom-track memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  NOTE: auto_verify_all is still unfinished (tracked as task 5). The logic
-  below is the relocated stub; getCustomTrack() is the started-but-unused
-  helper kept here for that future implementation.
-
-  Globals used: scheduler, gg, BaseLib, offsets, LOG.
-]]
-
-local M = {}
-
--- Resolve the custom-track list. Started helper, not yet wired into a feature.
-local function getCustomTrack()
-    gg.clearResults()
-    gg.setRanges(8)
-    gg.searchNumber(BaseLib + offsets.customTracks, 32)
-    local refs = gg.getResults(gg.getResultsCount())
-    if #refs > 0 then
-        for _, v in ipairs(refs) do
-
-        end
-    end
-end
-
-M.getCustomTrack = getCustomTrack
-
--- Auto-verify all custom tracks. UNFINISHED — runs an empty scheduled task.
--- status: "unfinished"
-function M.autoVerifyAll(cb)
-    scheduler:add(function(finishTask)
-        -- TODO (task 5): implement using getCustomTrack().
-        finishTask()
-        cb("unfinished")
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/cups.lua'] = function(...)
---[[
-  modules/ops/cups.lua — Cups feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  Globals used: scheduler, memory, gg, cast, BaseRegion, BaseGameStatus,
-  BaseGameStatusRaw, BaseLib, offsets, LOG.
-]]
-
-local raceinfo = loadModule("modules/lib/raceinfo.lua")
-
-local M = {}
-
--- Quick synchronous read: is the game on the Cups tab? (activeTab == 1)
-local function isCupTab()
-    local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
-    return type(activeTab) == "table" and activeTab[1] ~= nil and activeTab[1].value == 1
-end
-
--- Adjust race countdown. status: "applied"
-function M.adjustCountdown(countdownValue, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "AdjustCountdown"
-        LOG.info(TAG, "Adjusting countdown to: " .. tostring(countdownValue) .. "s")
-        local cache = memory:load("adjust_countdown")
-
-        if cache and #cache > 0 then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(16)
-            gg.searchNumber("h 00 00 40 40 00 00 80 40 00 00 40 41", 1)
-            gg.refineNumber("h 00 00 40 40", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("adjust_countdown", results)
-        end
-
-        gg.editAll(cast.float(countdownValue), 1)
-        LOG.info(TAG, "Done")
-        gg.clearResults()
-        finishTask()
-        cb("applied")
-    end)
-end
-
--- Force cup toggle (freeze/unfreeze list items).
--- status: "enabled" | "not_found" | "disabled"
-function M.forceCup(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "ForceCup"
-        if state then
-            LOG.info(TAG, "Enabling Force Cup...")
-
-            local cache = memory:load("force_cup_cache")
-
-            -- Verify cache is still valid
-            if cache then
-                LOG.dbg(TAG, string.format("Cache found. Verifying base address: 0x%X", cache.base))
-                local verify = gg.getValues({{ address = cache.base, flags = 1 }})
-                if not verify or not verify[1] or verify[1].value ~= 0xB8 then
-                    LOG.warn(TAG, "Base address moved. Invalidating cache and re-searching...")
-                    cache = nil
-                    memory:delete("force_cup_cache")
-                else
-                    LOG.dbg(TAG, "Base address valid. Using cache.")
-                end
-            end
-
-            -- Search if no cache
-            if not cache then
-                LOG.dbg(TAG, "No cache. Executing pattern search...")
-                gg.clearResults()
-                gg.setRanges(BaseRegion)
-                gg.searchNumber("h B8 1E 85 3F CD CC 4C 3F", 1)
-
-                local results = gg.getResults(10)
-                gg.clearResults()
-
-                if #results == 0 then
-                    LOG.error(TAG, "Pattern not found in memory.")
-                    finishTask(); cb("not_found"); return
-                end
-
-                local base = results[1].address
-                LOG.info(TAG, string.format("Pattern found at: 0x%X", base))
-
-                cache = {
-                    base = base,
-                    items = {
-                        { address = base - 0x308, flags = 4, value = 1953063706 },
-                        { address = base - 0x304, flags = 4, value = 1869373305 },
-                        { address = base - 0x300, flags = 4, value = 1667196782 },
-                        { address = base - 0x2FC, flags = 4, value = 28789     },
-                        { address = base - 0x2F8, flags = 4, value = 0         },
-                    }
-                }
-
-                memory:save("force_cup_cache", cache)
-                LOG.info(TAG, "Cache saved.")
-            end
-
-            -- Freeze
-            local freezeItems = {}
-            for _, item in ipairs(cache.items) do
-                table.insert(freezeItems, {
-                    address = item.address,
-                    flags   = item.flags,
-                    value   = item.value,
-                    freeze  = true
-                })
-            end
-
-            gg.addListItems(freezeItems)
-            LOG.info(TAG, "Force Cup enabled. Items frozen.")
-            finishTask(); cb("enabled"); return
-        else
-            LOG.info(TAG, "Disabling Force Cup...")
-
-            local cache = memory:load("force_cup_cache")
-
-            if cache then
-                local unfreezeItems = {}
-                for _, item in ipairs(cache.items) do
-                    table.insert(unfreezeItems, {
-                        address = item.address,
-                        flags   = item.flags,
-                        value   = item.value,
-                        freeze  = false
-                    })
-                end
-
-                gg.removeListItems(unfreezeItems)
-                LOG.info(TAG, "Force Cup disabled. Items unfrozen.")
-            else
-                LOG.warn(TAG, "No cache found on disable. Nothing to unfreeze.")
-            end
-
-            finishTask(); cb("disabled"); return
-        end
-    end)
-end
-
--- Set race time. `timeSeconds` is the pre-parsed numeric time (parsing/validation
--- of the user string is done in the tab).
--- status: "not_in_cup" | "start_race_first" | "applied"
-function M.setTime(timeSeconds, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "SetTime"
-
-        if not isCupTab() then
-            finishTask(); cb("not_in_cup"); return
-        end
-
-        -- Cups set-time has no "in race" precondition beyond a live pointer,
-        -- so no validator is passed.
-        local base = raceinfo.resolve("set_time_ptr")
-        if not base then
-            finishTask(); cb("start_race_first"); return
-        end
-
-        gg.setValues({
-            { address = base + 0x10, flags = 16, value = timeSeconds },
-            { address = base + 0x14, flags = 16, value = timeSeconds },
-        })
-
-        LOG.info(TAG, "Time set: " .. tostring(timeSeconds) .. "s")
-        gg.clearResults()
-        finishTask()
-        cb("applied")
-    end)
-end
-
--- Unlimited tasks toggle. status: "resolve_failed" | "none_found" |
--- "none_to_freeze" | "enabled" | "disabled"
-function M.unlimitedTasks(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "UnlimitedTasks"
-        local ptr1 = gg.getValues({{ address = BaseGameStatus + 0x6F8, flags = 32 }})[1].value
-
-        if not ptr1 or ptr1 == 0 then
-            LOG.fatal(TAG, "Ptr1 is nil or 0.")
-            finishTask(); cb("resolve_failed"); return
-        end
-
-        local totalTasks = gg.getValues({{ address = BaseGameStatus + 0x700, flags = 4 }})[1].value
-
-        if not totalTasks or totalTasks == 0 then
-            LOG.warn(TAG, "totalTasks is 0.")
-            finishTask(); cb("none_found"); return
-        end
-
-        LOG.dbg(TAG, "Total tasks: " .. tostring(totalTasks))
-
-        local freezeItems = {}
-
-        for i = 0, totalTasks - 1 do
-            local ptr2 = gg.getValues({{ address = ptr1 + i * 8, flags = 32 }})[1].value
-
-            if ptr2 and ptr2 ~= 0 then
-                local completeTarget = gg.getValues({{ address = ptr2 + 0x1C, flags = 4 }})[1].value
-
-                if completeTarget and completeTarget > 0 then
-                    table.insert(freezeItems, { address = ptr2 + 0x1C, flags = 4, value = completeTarget, freeze = state })
-                    table.insert(freezeItems, { address = ptr2 + 0x20, flags = 4, value = completeTarget, freeze = state })
-                    table.insert(freezeItems, { address = ptr2 + 0x24, flags = 4, value = 0,             freeze = state })
-                    LOG.dbg(TAG, string.format("Task [%d] queued. completeTarget: %d", i, completeTarget))
-                end
-            end
-        end
-
-        if #freezeItems > 0 then
-            if state then
-                gg.addListItems(freezeItems)
-                LOG.info(TAG, "Enabled. Frozen " .. tostring(#freezeItems / 3) .. " tasks.")
-                finishTask(); cb("enabled"); return
-            else
-                gg.removeListItems(freezeItems)
-                LOG.info(TAG, "Disabled. Unfrozen " .. tostring(#freezeItems / 3) .. " tasks.")
-                finishTask(); cb("disabled"); return
-            end
-        else
-            LOG.warn(TAG, "freezeItems is empty.")
-            finishTask(); cb("none_to_freeze"); return
-        end
-    end)
-end
-
--- Rank points bonus toggle.
--- status (enable):  "none_found" | "boosted" (data=count) | "no_match"
--- status (disable): "nothing_to_restore" | "restored" (data=count)
-function M.rankPointsBonus(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "RankPointsBonus"
-        LOG.info(TAG, "Module activated. state=" .. tostring(state))
-
-        if state then
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("h 1C 4C 65 61 67 75 65 54", 1)
-            gg.refineNumber("h 1C", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-
-            if #results == 0 then
-                LOG.warn(TAG, "Anchor search returned 0 results.")
-                finishTask(); cb("none_found"); return
-            end
-
-            LOG.dbg(TAG, "Anchor results: " .. tostring(#results))
-
-            local saved = {}
-            local successCount = 0
-
-            for idx, result in ipairs(results) do
-                local check = gg.getValues({{ address = result.address + 0x1C, flags = 4 }})
-
-                if not check or not check[1] then
-                    LOG.warn(TAG, string.format("result[%d] check read failed", idx))
-                    goto continueResult
-                end
-
-                if check[1].value ~= 0x3E4CCCCD then
-                    LOG.dbg(TAG, string.format("result[%d] +0x1C = 0x%X, not 0.2, skipping", idx, check[1].value))
-                    goto continueResult
-                end
-
-                local readAddrs = {}
-                table.insert(readAddrs, { address = result.address + 0x1C, flags = 4 })
-
-                local original = gg.getValues(readAddrs)
-
-                local values = {}
-                for i, v in ipairs(original) do
-                    values[i] = v.value
-                end
-                table.insert(saved, { base = result.address, values = values })
-
-                local edits = {
-                    { address = result.address + 0x1C, flags = 16, value = 0.498 }
-                }
-
-                gg.setValues(edits)
-
-                successCount = successCount + 1
-
-                ::continueResult::
-            end
-
-            memory:save("rank_points_bonus", saved)
-            LOG.info(TAG, "Done. Patched: " .. tostring(successCount))
-
-            if successCount > 0 then
-                finishTask(); cb("boosted", successCount); return
-            else
-                finishTask(); cb("no_match"); return
-            end
-        else
-            -- DISABLE: restore original values from saved data
-            local saved = memory:load("rank_points_bonus")
-
-            if not saved or #saved == 0 then
-                LOG.warn(TAG, "No saved data to restore.")
-                finishTask(); cb("nothing_to_restore"); return
-            end
-
-            local restoreCount = 0
-
-            for idx, entry in ipairs(saved) do
-                local edits = {}
-
-                -- FIX: was entry.values[i] (i undefined). The saved read holds a
-                -- single value at index 1.
-                table.insert(edits, { address = entry.base + 0x1C, flags = 4, value = entry.values[1] })
-
-                gg.setValues(edits)
-                restoreCount = restoreCount + 1
-            end
-
-            memory:save("rank_points_bonus", {})
-            LOG.info(TAG, "Restored: " .. tostring(restoreCount))
-            finishTask(); cb("restored", restoreCount); return
-        end
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/event.lua'] = function(...)
---[[
-  modules/ops/event.lua — Event reward patch/restore pipeline (no UI text)
-  Contract: see modules/ops/README.md.
-
-  event is a file/crypto/root pipeline rather than a pure memory op, but the
-  same split applies: core runs the whole pipeline; the tab supplies the two
-  unavoidable interaction points via a `ui` table and renders the result.
-
-    ui = {
-      onProgress(key)              -- core asks the tab to toast t(key)
-      chooseEvents(labels, key, p) -- core asks the tab for a multi-select
-                                   --   (tab shows gg.multiChoice titled t(key, p))
-                                   --   returns the selections table or nil
-    }
-
-  Each op calls cb(result) where:
-    result = {
-      successList = { <eventName>, ... },        -- plain names
-      failedList  = { { key, arg1, ... }, ... },  -- localize as t(key, arg1, ...)
-      earlyExit   = { titleKey, msgKey, arg } | nil,  -- special fatal dialog
-      restart     = <bool>,                       -- true if a restart is warranted
-    }
-
-  Globals used: scheduler, memory, gg, json, loadModule, Shell, Crypto,
-  game_path, LOG.
-]]
-
-local M = {}
-
--- ── File / shell helpers ────────────────────────────────────────────────────
-
-local function fileSize(path)
-    local f = io.open(path, "rb")
-    if not f then return -1 end
-    local size = f:seek("end")
-    f:close()
-    return size or -1
-end
-
-local function checkRoot()
-    local result = Shell.su("id")
-    return result and result:find("uid=0") ~= nil
-end
-
-local function fileExists(path)
-    local f = io.open(path, "rb")
-    if f then f:close(); return true end
-    return Shell.su("[ -f \"" .. path .. "\" ] && echo yes || echo no") == "yes"
-end
-
-local function dirExists(path)
-    return Shell.su("[ -d \"" .. path .. "\" ] && echo yes || echo no") == "yes"
-end
-
--- ── Patch rewards ─────────────────────────────────────────────────────────────
-
-function M.patchRewards(ui, cb)
-    ui.onProgress("checking_permissions")
-    local hasRoot = checkRoot()
-
-    if hasRoot then
-        memory:save("shell_states", {root=true})
-    else
-        memory:save("shell_states", {root=false})
-    end
-
-    ui.onProgress("scanning_files")
-
-    local eventsPath = game_path .. "/files/content_cache/json/events/"
-
-    local successList = {}
-    local failedList = {}
-
-    local custom_rewards = loadModule("configs/rewards.lua")
-    local jsonMod = nil
-    local ok, err = pcall(function()
-        jsonMod = json.decode(custom_rewards)
-    end)
-    if not ok or not jsonMod then
-        table.insert(failedList, {"decode_rewards_failed"})
-        jsonMod = nil
-    end
-
-    -- Workspace for root file operations
-    local safeWorkspace = gg.EXT_FILES_DIR .. "/.void_cache/"
-    if hasRoot then
-        Shell.su("mkdir -p \"" .. safeWorkspace .. "\"")
-        Shell.su("chmod 777 \"" .. safeWorkspace .. "\"")
-        if not dirExists(safeWorkspace) then
-            table.insert(failedList, {"workspace_creation_failed", safeWorkspace})
-            cb({ successList = successList, failedList = failedList,
-                 earlyExit = { "patch_results_title", "workspace_creation_failed_dialog", safeWorkspace } })
-            return
-        end
-        LOG.dbg("EventPatch", "Workspace verified: " .. safeWorkspace)
-    end
-
-    do
-        local path = eventsPath
-        local active = path .. "active_events.json"
-        local active_decrypted = hasRoot and (safeWorkspace .. ".active_events") or (path .. ".active_events")
-        local targetActivePath = active
-        local activeMovedViaRoot = false
-
-        -- Check if file is directly readable (Virtual Space)
-        local testOpen = io.open(active, "r")
-        if testOpen then
-            testOpen:close()
-        elseif hasRoot then
-            local secureActiveCopy = safeWorkspace .. "active_events.json"
-            Shell.su("cp \"" .. active .. "\" \"" .. secureActiveCopy .. "\"")
-            Shell.su("chmod 777 \"" .. secureActiveCopy .. "\"")
-
-            if not fileExists(secureActiveCopy) then
-                LOG.warn("EventPatch", "Root copy verification FAILED for: " .. secureActiveCopy)
-                table.insert(failedList, {"root_copy_failed", active})
-                goto continue_path
-            end
-
-            targetActivePath = secureActiveCopy
-            activeMovedViaRoot = true
-        else
-            table.insert(failedList, {"file_inaccessible", path})
-            goto continue_path
-        end
-
-        if not fileExists(targetActivePath) then
-            table.insert(failedList, {"predecrypt_not_found", targetActivePath})
-            goto continue_path
-        end
-        if fileSize(targetActivePath) <= 0 then
-            table.insert(failedList, {"predecrypt_empty", targetActivePath})
-            goto continue_path
-        end
-
-        local meta = Crypto.decrypt(targetActivePath, active_decrypted)
-        if activeMovedViaRoot then os.remove(targetActivePath) end
-
-        if meta then
-            local activeFile = io.open(active_decrypted, "r")
-            if activeFile then
-                local activeContent = activeFile:read("*a")
-                activeFile:close()
-                os.remove(active_decrypted)
-
-                local jsonActive = nil
-                local ok2, err2 = pcall(function()
-                    jsonActive = json.decode(activeContent)
-                end)
-                if not ok2 or not jsonActive then
-                    table.insert(failedList, {"decode_active_failed", path})
-                    goto continue_path
-                end
-
-                local gameEvents = jsonActive.gameEvents or {}
-                if #gameEvents == 0 then
-                    table.insert(failedList, {"no_active_events", path})
-                    goto continue_path
-                end
-
-                local labels = {}
-                for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
-
-                local selections = ui.chooseEvents(labels, "select_events_patch", path)
-                if not selections then
-                    table.insert(failedList, {"user_cancelled", path})
-                    goto continue_path
-                end
-
-                if not jsonMod then
-                    table.insert(failedList, {"rewards_unavailable", path})
-                    goto continue_path
-                end
-                local eventRewards = jsonMod.eventRewards
-
-                local selectionsExist = false
-                for _, selected in pairs(selections) do
-                    if selected then selectionsExist = true; break end
-                end
-
-                if selectionsExist then
-                    local fileTaskDone = false
-
-                    scheduler:add(function(finishTask)
-                        local loopOk, loopErr = pcall(function()
-                            for idx, selected in pairs(selections) do
-                                if selected then
-                                    local eventName = gameEvents[idx]
-                                    if eventName then
-                                        local eventPath = path .. eventName .. ".json"
-                                        local targetEventPath = eventPath
-                                        local secureEventCopy = safeWorkspace .. eventName .. ".json"
-                                        local decryptedPath = hasRoot and (safeWorkspace .. "." .. eventName) or (path .. "." .. eventName)
-                                        local eventMovedViaRoot = false
-
-                                        local testEventOpen = io.open(eventPath, "r")
-                                        if testEventOpen then
-                                            testEventOpen:close()
-                                        elseif hasRoot then
-                                            Shell.su("cp \"" .. eventPath .. "\" \"" .. secureEventCopy .. "\"")
-                                            Shell.su("chmod 777 \"" .. secureEventCopy .. "\"")
-
-                                            if not fileExists(secureEventCopy) then
-                                                LOG.warn("EventPatch", "Root event copy FAILED for: " .. secureEventCopy)
-                                                table.insert(failedList, {"root_copy_failed", eventPath})
-                                                goto next_event
-                                            end
-
-                                            targetEventPath = secureEventCopy
-                                            eventMovedViaRoot = true
-                                        else
-                                            table.insert(failedList, {"skipped_unreadable", eventName})
-                                            goto next_event
-                                        end
-
-                                        if not fileExists(targetEventPath) then
-                                            table.insert(failedList, {"predecrypt_event_not_found", targetEventPath})
-                                            goto next_event
-                                        end
-                                        if fileSize(targetEventPath) <= 0 then
-                                            table.insert(failedList, {"predecrypt_event_empty", targetEventPath})
-                                            goto next_event
-                                        end
-
-                                        local eventMeta = Crypto.decrypt(targetEventPath, decryptedPath)
-                                        if eventMovedViaRoot then os.remove(targetEventPath) end
-
-                                        if eventMeta then
-                                            local eventFile = io.open(decryptedPath, "r+")
-                                            if eventFile then
-                                                local writeOk, writeErr = pcall(function()
-                                                    local eventContent = eventFile:read("*a")
-                                                    local jsonEvent = json.decode(eventContent)
-
-                                                    jsonEvent.eventRewards = eventRewards
-                                                    jsonEvent.minRankToJoin = 0
-                                                    jsonEvent.rankBrackets = 2
-
-                                                    local function patchText(v)
-                                                        local text = type(v) == "table" and (v.value or "") or (v or "")
-                                                        local localize = type(v) == "table" and (v.localize or "") or ""
-                                                        text = text:gsub("%s*%(Patched%)", "")
-                                                        text = text .. " (Patched)"
-                                                        return { value = text, localize = localize }
-                                                    end
-
-                                                    jsonEvent.name = patchText(jsonEvent.name)
-                                                    jsonEvent.description = patchText(jsonEvent.description)
-
-                                                    local encodedEvent = json.encode(jsonEvent)
-                                                    eventFile:seek("set", 0)
-                                                    eventFile:write(encodedEvent)
-                                                    eventFile:flush()
-                                                    eventFile:close()
-
-                                                    if eventMovedViaRoot and hasRoot then
-                                                        local secureEncryptedOut = safeWorkspace .. eventName .. "_patched.json"
-                                                        Crypto.encrypt(decryptedPath, secureEncryptedOut, eventMeta)
-                                                        Shell.su("cp \"" .. secureEncryptedOut .. "\" \"" .. eventPath .. "\"")
-                                                        Shell.su("chmod 660 \"" .. eventPath .. "\"")
-                                                        os.remove(secureEncryptedOut)
-                                                    else
-                                                        Crypto.encrypt(decryptedPath, eventPath, eventMeta)
-                                                    end
-
-                                                    table.insert(successList, eventName)
-                                                end)
-
-                                                if not writeOk then
-                                                    pcall(function() eventFile:close() end)
-                                                    table.insert(failedList, {"processing_failed", eventName, tostring(writeErr)})
-                                                end
-                                                os.remove(decryptedPath)
-                                            else
-                                                table.insert(failedList, {"cannot_open_decrypted", decryptedPath})
-                                            end
-                                        else
-                                            table.insert(failedList, {"decrypt_event_failed", eventName})
-                                        end
-                                    end
-                                end
-                                ::next_event::
-                            end
-                        end)
-
-                        if not loopOk then
-                            table.insert(failedList, {"loop_crash", tostring(loopErr)})
-                        end
-
-                        finishTask()
-                        fileTaskDone = true
-                    end)
-
-                    while not fileTaskDone do gg.sleep(50) end
-                end
-            else
-                table.insert(failedList, {"cannot_open_active", path})
-            end
-        else
-            table.insert(failedList, {"decrypt_active_failed", path})
-        end
-        ::continue_path::
-    end
-
-    -- Cleanup workspace
-    if hasRoot then
-        Shell.su("rm -rf \"" .. safeWorkspace .. "\"")
-    end
-
-    cb({ successList = successList, failedList = failedList, restart = #successList > 0 })
-end
-
--- ── Restore events ──────────────────────────────────────────────────────────
-
-function M.restoreEvents(ui, cb)
-    ui.onProgress("checking_permissions")
-    local hasRoot = checkRoot()
-
-    if hasRoot then
-        memory:save("shell_states", {root=true})
-    else
-        memory:save("shell_states", {root=false})
-    end
-
-    ui.onProgress("scanning_files")
-
-    local eventsPath = game_path .. "/files/content_cache/json/events/"
-
-    local successList = {}
-    local failedList = {}
-
-    local safeWorkspace = gg.EXT_FILES_DIR .. "/.void_cache/"
-    if hasRoot then
-        Shell.su("mkdir -p \"" .. safeWorkspace .. "\"")
-        Shell.su("chmod 777 \"" .. safeWorkspace .. "\"")
-        if not dirExists(safeWorkspace) then
-            table.insert(failedList, {"workspace_creation_failed", safeWorkspace})
-            cb({ successList = successList, failedList = failedList,
-                 earlyExit = { "restore_results_title", "workspace_creation_failed_dialog", safeWorkspace } })
-            return
-        end
-        LOG.dbg("EventRestore", "Workspace verified: " .. safeWorkspace)
-    end
-
-    do
-        local path = eventsPath
-        local active = path .. "active_events.json"
-        local active_decrypted = hasRoot and (safeWorkspace .. ".active_events") or (path .. ".active_events")
-        local targetActivePath = active
-        local activeMovedViaRoot = false
-
-        local testOpen = io.open(active, "r")
-        if testOpen then
-            testOpen:close()
-        elseif hasRoot then
-            local secureActiveCopy = safeWorkspace .. "active_events.json"
-            Shell.su("cp \"" .. active .. "\" \"" .. secureActiveCopy .. "\"")
-            Shell.su("chmod 777 \"" .. secureActiveCopy .. "\"")
-
-            if not fileExists(secureActiveCopy) then
-                LOG.warn("EventRestore", "Root copy verification FAILED for: " .. secureActiveCopy)
-                table.insert(failedList, {"root_copy_failed", active})
-                goto continue_path
-            end
-
-            targetActivePath = secureActiveCopy
-            activeMovedViaRoot = true
-        else
-            table.insert(failedList, {"file_inaccessible", path})
-            goto continue_path
-        end
-
-        if not fileExists(targetActivePath) then
-            table.insert(failedList, {"predecrypt_not_found", targetActivePath})
-            goto continue_path
-        end
-        if fileSize(targetActivePath) <= 0 then
-            table.insert(failedList, {"predecrypt_empty", targetActivePath})
-            goto continue_path
-        end
-
-        local meta = Crypto.decrypt(targetActivePath, active_decrypted)
-        if activeMovedViaRoot then os.remove(targetActivePath) end
-
-        if meta then
-            local activeFile = io.open(active_decrypted, "r")
-            if activeFile then
-                local activeContent = activeFile:read("*a")
-                activeFile:close()
-                os.remove(active_decrypted)
-
-                local jsonActive = nil
-                local ok, err = pcall(function()
-                    jsonActive = json.decode(activeContent)
-                end)
-
-                if ok and jsonActive then
-                    local gameEvents = jsonActive.gameEvents or {}
-                    if #gameEvents > 0 then
-                        local labels = {}
-                        for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
-
-                        local selections = ui.chooseEvents(labels, "select_events_restore", path)
-
-                        if selections then
-                            local fileTaskDone = false
-
-                            scheduler:add(function(finishTask)
-                                pcall(function()
-                                    for idx, selected in pairs(selections) do
-                                        if selected then
-                                            local eventName = gameEvents[idx]
-                                            if eventName then
-                                                local eventPath = path .. eventName .. ".json"
-
-                                                local removed, remErr = os.remove(eventPath)
-
-                                                if not removed and hasRoot then
-                                                    Shell.su("rm \"" .. eventPath .. "\"")
-                                                    local check = Shell.su("[ -f \"" .. eventPath .. "\" ] && echo yes || echo no")
-                                                    if check == "no" then
-                                                        removed = true
-                                                    else
-                                                        remErr = "Root removal failed or rejected"
-                                                    end
-                                                end
-
-                                                if removed then
-                                                    table.insert(successList, eventName)
-                                                else
-                                                    table.insert(failedList, {"delete_failed", eventName, tostring(remErr)})
-                                                end
-                                            end
-                                        end
-                                    end
-                                end)
-                                finishTask()
-                                fileTaskDone = true
-                            end)
-
-                            while not fileTaskDone do gg.sleep(50) end
-                        end
-                    else
-                        table.insert(failedList, {"no_active_events", path})
-                    end
-                else
-                    table.insert(failedList, {"decode_active_failed", path})
-                end
-            else
-                table.insert(failedList, {"cannot_open_active", path})
-            end
-        else
-            table.insert(failedList, {"decrypt_active_failed", path})
-        end
-        ::continue_path::
-    end
-
-    -- Cleanup workspace
-    if hasRoot then
-        Shell.su("rm -rf \"" .. safeWorkspace .. "\"")
-    end
-
-    cb({ successList = successList, failedList = failedList, restart = #successList > 0 })
-end
-
-return M
-
-end
-
-__vfs['modules/ops/other.lua'] = function(...)
---[[
-  modules/ops/other.lua — Misc feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  Globals used: scheduler, memory, gg, BaseRegion, BaseGameStatusRaw, LOG.
-]]
-
-local M = {}
-
--- Debug mode toggle. status: "enabled" | "disabled"
-function M.debugMode(state, cb)
-    scheduler:add(function(finishTask)
-        gg.setValues({{
-            address = BaseGameStatusRaw + 0x3,
-            flags = 1,
-            value = state and 1 or 0
-        }})
-        finishTask()
-        cb(state and "enabled" or "disabled")
-    end)
-end
-
--- Set render resolution. params = { width, height } (raw strings/numbers).
--- status: "glsurface_not_found" | "none" | "applied"
--- On "applied", data = { width, height } (resolved numbers).
-function M.setResolution(params, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "Resolution"
-        local width  = tonumber(params.width)  or 1280
-        local height = tonumber(params.height) or 720
-        LOG.info(TAG, string.format("Applying resolution: %dx%d", width, height))
-
-        local results = memory:load("resolution")
-
-        if not results then
-            LOG.dbg(TAG, "No cache — searching for GLSurfaceView")
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-
-            gg.searchNumber(":Cocos2dxGLSurfaceView", 1)
-            gg.refineNumber(":C", 1)
-            local cocos = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-
-            if #cocos == 0 then
-                LOG.warn(TAG, "GLSurfaceView not found in memory")
-                finishTask(); cb("glsurface_not_found"); return
-            end
-
-            local addresses = {}
-
-            for i, v in ipairs(cocos) do
-                gg.searchNumber(v.address, 32)
-                local ptrs = gg.getResults(gg.getResultsCount())
-                gg.clearResults()
-
-                for _, p in ipairs(ptrs) do
-                    table.insert(addresses, p.address + 0x38)
-                    table.insert(addresses, p.address + 0x3C)
-                    table.insert(addresses, p.address + 0x40)
-                    table.insert(addresses, p.address + 0x44)
-                end
-            end
-
-            if #addresses > 0 then
-                results = addresses
-                memory:save("resolution", results)
-            else
-                finishTask(); cb("none"); return
-            end
-        end
-
-        if results and #results > 0 then
-            local values = {}
-
-            for i = 1, #results, 4 do
-                if results[i] then
-                    table.insert(values, {address = results[i], flags = 4, value = width})
-                    table.insert(values, {address = results[i+1], flags = 4, value = height})
-                    table.insert(values, {address = results[i+2], flags = 4, value = width})
-                    table.insert(values, {address = results[i+3], flags = 4, value = height})
-                end
-            end
-
-            if #values > 0 then
-                gg.setValues(values)
-                finishTask(); cb("applied", { width = width, height = height }); return
-            end
-        end
-
-        finishTask()
-        cb("none")
-    end)
-end
-
--- Set resolution offset. params = { width, height } (raw strings/numbers).
--- status: "glsurface_not_found" | "none" | "applied"
--- On "applied", data = { width, height } (resolved numbers).
-function M.setResolutionOffset(params, cb)
-    scheduler:add(function(finishTask)
-        local width  = tonumber(params.width)  or 0
-        local height = tonumber(params.height) or 0
-
-        local results = memory:load("resolution_offset")
-
-        if not results then
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-
-            gg.searchNumber(":Cocos2dxGLSurfaceView", 1)
-            gg.refineNumber(":C", 1)
-            local cocos = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-
-            if #cocos == 0 then
-                finishTask(); cb("glsurface_not_found"); return
-            end
-
-            local addresses = {}
-
-            for i, v in ipairs(cocos) do
-                gg.searchNumber(v.address, 32)
-                local ptrs = gg.getResults(gg.getResultsCount())
-                gg.clearResults()
-
-                for _, p in ipairs(ptrs) do
-                    table.insert(addresses, p.address + 0x30)
-                    table.insert(addresses, p.address + 0x34)
-                end
-            end
-
-            if #addresses > 0 then
-                results = addresses
-                memory:save("resolution_offset", results)
-            else
-                finishTask(); cb("none"); return
-            end
-        end
-
-        if results and #results > 0 then
-            local values = {}
-
-            for i = 1, #results, 2 do
-                if results[i] then
-                    table.insert(values, {address = results[i], flags = 4, value = width})
-                    table.insert(values, {address = results[i+1], flags = 4, value = height})
-                end
-            end
-
-            if #values > 0 then
-                gg.setValues(values)
-                finishTask(); cb("applied", { width = width, height = height }); return
-            end
-        end
-
-        finishTask()
-        cb("none")
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/player.lua'] = function(...)
---[[
-  modules/ops/player.lua — Player feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  Globals used: scheduler, memory, gg, BaseRegion, LOG.
-]]
-
-local M = {}
-
--- No-clip toggle. status: "enabled" | "disabled"
-function M.noClip(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "NoClip"
-        local cache = memory:load("no_clip")
-        if cache then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(8)
-            gg.searchNumber("h 0A D7 23 3C 00 00 00 00 00 00 20 C1", 1)
-            gg.refineNumber("h 0A D7 23 3C", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("no_clip", results)
-        end
-        if state then
-            gg.editAll("h CD CC 08 C1", 1)
-            LOG.info(TAG, "Enabled")
-        else
-            gg.editAll("h 0A D7 23 3C", 1)
-            LOG.info(TAG, "Disabled")
-        end
-        gg.clearResults()
-        finishTask()
-        cb(state and "enabled" or "disabled")
-    end)
-end
-
--- Hide name toggle. status: "enabled" | "disabled"
-function M.hideName(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "HideName"
-        local cache = memory:load("hide_name")
-        if cache then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("h BF 7D AD C1 64 CC 73 41 71 3D 0A 3F 71 3D 0A 3F", 1)
-            gg.refineNumber("h 71 3D 0A 3F 71 3D 0A 3F", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("hide_name", results)
-        end
-        if state then
-            gg.editAll("h 00 00 00 00 00 00 00 00", 1)
-            LOG.info(TAG, "Enabled")
-        else
-            gg.editAll("h 71 3D 0A 3F 71 3D 0A 3F", 1)
-            LOG.info(TAG, "Disabled")
-        end
-        gg.clearResults()
-        finishTask()
-        cb(state and "enabled" or "disabled")
-    end)
-end
-
--- Hide flag toggle (two-part scan). status: "enabled" | "disabled"
-function M.hideFlag(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "HideFlag"
-
-        local cache = memory:load("hide_flag")
-        if cache then
-            LOG.dbg(TAG, "Using cached results (part 1)")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory (part 1)")
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("h 2E FF D7 C1 36 CD 73 41 00 00 80 3F 00 00 80 3F 00 00 00 3F 00 00 00 3F FF FF FF FF 00 00 08 42 00 00 C0 41", 1)
-            gg.refineNumber("h 00 00 08 42 00 00 C0 41", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results (part 1): " .. tostring(#results))
-            memory:save("hide_flag", results)
-        end
-        if state then
-            gg.editAll("h 00 00 00 00 00 00 00 00", 1)
-        else
-            gg.editAll("h 00 00 08 42 00 00 C0 41", 1)
-        end
-        gg.clearResults()
-
-        local cache2 = memory:load("hide_flag2")
-        if cache2 then
-            LOG.dbg(TAG, "Using cached results (part 2)")
-            gg.clearResults()
-            gg.loadResults(cache2)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory (part 2)")
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("h 61 32 DB C1 02 9A 70 41 C8 07 5D 3F 63 EE 5A 3F 00 00 00 3F 00 00 00 3F FF FF FF FF 00 00 44 42 00 00 20 42", 1)
-            gg.refineNumber("h FF FF FF FF", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results (part 2): " .. tostring(#results))
-            memory:save("hide_flag2", results)
-        end
-        if state then
-            gg.editAll("h 00 00 00 00", 1)
-            LOG.info(TAG, "Enabled")
-        else
-            gg.editAll("h FF FF FF FF", 1)
-            LOG.info(TAG, "Disabled")
-        end
-        gg.clearResults()
-
-        finishTask()
-        cb(state and "enabled" or "disabled")
-    end)
-end
-
--- Adjust camera zoom (slider min/max). No user-facing message in the original.
--- status: "applied" | "none"
-function M.setZoom(vals, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "Zoom"
-        local results = memory:load("zoom")
-        if not results then
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(16)
-            gg.searchNumber("20;50::5", 16)
-            results = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            if #results > 0 then memory:save("zoom", results) end
-        else
-            LOG.dbg(TAG, "Using cached results")
-        end
-        if results then
-            for i, v in ipairs(results) do
-                v.value = (i % 2 == 1) and vals[1] or vals[2]
-                v.flags = 16
-            end
-            gg.setValues(results)
-            LOG.info(TAG, string.format("Zoom set — min: %s max: %s", tostring(vals[1]), tostring(vals[2])))
-            finishTask(); cb("applied"); return
-        else
-            LOG.warn(TAG, "No results to apply zoom to")
-        end
-        finishTask()
-        cb("none")
-    end)
-end
-
--- Adjust gravity (slider x/y). No user-facing message in the original.
--- status: "applied" | "none"
-function M.setGravity(vals, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "Gravity"
-        local allGravity = memory:load("gravity")
-
-        if not allGravity then
-            LOG.dbg(TAG, "No cache — running pointer walk scan")
-            allGravity = { x = {}, y = {} }
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("00000021h;00000000h;0000001Ah;00000000h;00000031h;00000000h;00000028h;00000000h;00000000h;00000017h;00000000h;756F4316h;7972746Eh;65646973h::81", 4)
-            gg.refineNumber("00000021h", 4)
-
-            local results = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-            LOG.dbg(TAG, "Initial scan hits: " .. tostring(#results))
-
-            if #results > 0 then
-                local toProcess = {}
-                for _, v in ipairs(results) do
-                    gg.searchNumber(v.address, 32)
-                    local ptrResults = gg.getResults(gg.getResultsCount())
-                    gg.clearResults()
-                    for __, ptr in ipairs(ptrResults) do
-                        local getPtr  = gg.getValues({{ address = ptr.address + 0x8, flags = 32 }})[1].value
-                        local checkVal = gg.getValues({{ address = getPtr, flags = 4 }})[1].value
-                        if checkVal == 0x74616E2A then
-                            table.insert(toProcess, ptr.address)
-                        end
-                    end
-                end
-                LOG.dbg(TAG, "Validated base addresses: " .. tostring(#toProcess))
-
-                for _, baseAddr in ipairs(toProcess) do
-                    local currentAddr = baseAddr
-                    while true do
-                        local gravityPtr = gg.getValues({{ address = currentAddr, flags = 32 }})[1].value
-                        if gravityPtr == 0 then break end
-                        local region = gg.getValuesRange({{ address = gravityPtr, flags = 32 }})[1]
-                        if region == "Ca" or region == "O" then
-                            local check = gg.getValues({{ address = gravityPtr + 0x48, flags = 4 }})[1].value
-                            if check ~= 0 then
-                                table.insert(allGravity.x, {address = gravityPtr + 0x120, flags = 16})
-                                table.insert(allGravity.y, {address = gravityPtr + 0x124, flags = 16})
-                            else
-                                break
-                            end
-                        else
-                            break
-                        end
-                        currentAddr = currentAddr + 0x8
-                    end
-                end
-
-                LOG.info(TAG, string.format("Gravity addresses found: %d", #allGravity.x))
-                memory:save("gravity", allGravity)
-            else
-                LOG.warn(TAG, "Initial scan returned 0 results — gravity addresses not found")
-            end
-        else
-            LOG.dbg(TAG, "Using cached gravity addresses: " .. tostring(#allGravity.x))
-        end
-
-        if #allGravity.x > 0 then
-            for i = 1, #allGravity.x do
-                allGravity.x[i].value = vals[1]
-                allGravity.y[i].value = vals[2]
-            end
-            gg.setValues(allGravity.x)
-            gg.setValues(allGravity.y)
-            LOG.info(TAG, string.format("Gravity applied — X: %s Y: %s", tostring(vals[1]), tostring(vals[2])))
-            finishTask(); cb("applied"); return
-        else
-            LOG.warn(TAG, "No gravity addresses to write to")
-        end
-        finishTask()
-        cb("none")
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/shop.lua'] = function(...)
---[[
-  modules/ops/shop.lua — Shop feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  Globals used: scheduler, memory, gg, BaseRegion, LOG.
-]]
-
-local M = {}
-
--- Free chest toggle. status: "enabled" | "disabled"
-function M.freeChest(state, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "FreeChest"
-        local cache = memory:load("free_chest")
-        if cache then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(8)
-            gg.searchNumber("h CE CC 4C 3F AF 47 E1 3E FA 7E AA 3E 5B B1 BF 3C CD CC CC 3D", 1)
-            gg.refineNumber("h CD CC CC 3D", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("free_chest", results)
-        end
-
-        if state then
-            gg.editAll("0", 1)
-        else
-            gg.editAll("h CD CC CC 3D", 1)
-        end
-
-        gg.clearResults()
-        finishTask()
-        cb(state and "enabled" or "disabled")
-    end)
-end
-
--- Free purchases. `onProgress(counter, total)` is an optional UI reporter
--- invoked during the pointer-collection loop.
--- status: "success" | "none"
-function M.freePurchases(onProgress, cb)
-    scheduler:add(function(finishTask)
-        gg.clearResults()
-        gg.setRanges(4)
-        gg.searchNumber("h 04 65 6E 00", 1)
-        gg.refineNumber("h 04", 1)
-
-        local results = gg.getResults(gg.getResultsCount())
-        local totalres = #results
-        local applied = false
-        if totalres > 0 then
-            local counter = 0
-            local edits = {}
-            local tptrs = {}
-
-            for _, r in ipairs(results) do
-                gg.clearResults()
-                gg.searchNumber(tostring(r.address), 32)
-                local ptrs = gg.getResults(gg.getResultsCount())
-                for _, sp in ipairs(ptrs) do
-                    table.insert(tptrs, {address = sp.address + 0x18, flags = 4})
-                end
-                counter = counter + 1
-                if onProgress then onProgress(counter, totalres) end
-            end
-
-            tptrs = gg.getValues(tptrs)
-            for _, p in ipairs(tptrs) do
-                local val = p.value
-                if val > 0 and val < 100 then
-                    for off = 0x18, 0x2C, 4 do
-                        table.insert(edits, {address = p.address + off, flags = 4, value = 0})
-                    end
-                end
-            end
-
-            if #edits > 0 then
-                gg.setValues(edits)
-                applied = true
-            end
-        end
-
-        gg.clearResults()
-        finishTask()
-        cb(applied and "success" or "none")
-    end)
-end
-
--- Change chest type by spinner index (1-based). status: "changed"
-function M.changeChest(index, cb)
-    scheduler:add(function(finishTask)
-        local chestIDs = {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20
-        }
-        local cache = memory:load("change_chest")
-        if cache then
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            gg.clearResults()
-            gg.setRanges(BaseRegion)
-            gg.searchNumber("h 2A 48 75 67 65 20 43 68 65 73 74 20 6F 66 20 47 6F 6F 64 69", 1)
-            gg.refineNumber("h 2A", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            if #results > 0 then
-                gg.loadResults(gg.getValues({{ address = results[1].address + 0x4C, flags = 1 }}))
-                local results2 = gg.getResults(gg.getResultsCount())
-                memory:save("change_chest", results2)
-            end
-        end
-
-        gg.editAll(chestIDs[index], 1)
-
-        gg.clearResults()
-        finishTask()
-        cb("changed")
-    end)
-end
-
-return M
-
-end
-
-__vfs['modules/ops/vehicle.lua'] = function(...)
---[[
-  modules/ops/vehicle.lua — Vehicle feature memory ops (no UI)
-  Contract: see modules/ops/README.md.
-
-  Public ops are ordered to mirror the Vehicle tab: parts_slot, parts_modifier,
-  fuel, unlock_vehicles, max_vehicles, max_mastery, max_parts.
-
-  Several ops loop over every vehicle and report progress; those accept an
-  optional `onProgress(i, total)` UI reporter so core stays UI-free.
-
-  Globals used: scheduler, memory, gg, cast, aobs, json, loadModule,
-  readString, BaseRegion, BaseGameStatus, BaseLib, offsets, LOG.
-]]
-
--- ── Tuning-parts config (decoded once, shared) ───────────────────────────────
-
--- Part max upgrade level is derived from each part's rarity, sourced from
--- configs/tuning_parts.lua — replacing the old hardcoded name→level map.
-local RARITY_CAP = {
-    common    = 15,
-    rare      = 10,
-    epic      = 7,
-    legendary = 4,
-    mythic    = 3,
-}
-
--- Decode configs/tuning_parts.lua once and cache it — the file is ~3k lines,
--- so both getPartGroups (UI) and partCaps (max_parts) share this single parse.
-local _tuningData
-local function tuningData()
-    if _tuningData ~= nil then return _tuningData or nil end
-    local ok, data = pcall(function() return json.decode(loadModule("configs/tuning_parts.lua")) end)
-    if not ok or type(data) ~= "table" then
-        LOG.warn("Vehicle", "tuning_parts.lua failed to decode")
-        _tuningData = false
-        return nil
-    end
-    _tuningData = data
-    return data
-end
-
--- Lazily-built map: tuning-part key → max level (by rarity).
-local _partCaps
-local function partCaps()
-    if _partCaps then return _partCaps end
-    _partCaps = {}
-    local data = tuningData()
-    if not data or type(data.tuningParts) ~= "table" then
-        LOG.warn("MaxParts", "tuning_parts.lua unavailable — part caps fall back to default")
-        return _partCaps
-    end
-    for key, part in pairs(data.tuningParts) do
-        local cap = type(part) == "table" and part.rarity and RARITY_CAP[part.rarity]
-        if cap then _partCaps[key] = cap end
-    end
-    return _partCaps
-end
-
-local M = {}
-
--- ── Internal helpers (vehicle-list resolution, zero-region scan) ─────────────
-
-local function findZeroRegion(size)
-    local ranges = gg.getRangesList()
-    for _, region in ipairs(ranges) do
-        if region.state == "A" then
-            local reads = {}
-            for addr = region.start, region.start + size * 4, 4 do
-                table.insert(reads, { address = addr, flags = 4 })
-            end
-
-            local values = gg.getValues(reads)
-            if values then
-                local allZero = true
-                for _, v in ipairs(values) do
-                    if v.value ~= 0 then
-                        allZero = false
-                        break
-                    end
-                end
-
-                if allZero then
-                    return region.start, region.start + size * 4
-                end
-            end
-        end
-    end
-    return nil, nil
-end
-
-local function resolveVehicleList()
-    local cached = memory:load("vehicle_list_deep")
-    if cached and #cached > 0 then
-        local check = gg.getValues({{ address = cached[1].deepPtrAddr, flags = 32 }})
-        if check and check[1] and check[1].value ~= 0 then
-            LOG.dbg("VehicleList", "Cache hit: " .. tostring(#cached) .. " vehicles")
-            return cached
-        else
-            LOG.warn("VehicleList", "Cache stale — re-resolving")
-            memory:save("vehicle_list_deep", nil)
-        end
-    end
-
-    -- Anchor
-    gg.clearResults()
-    gg.setRanges(BaseRegion)
-    gg.searchNumber("h 18 48 49 4C 4C 20 43 4C 49 4D 42 45", 1)
-    gg.refineNumber("h 18", 1)
-    local anchorResults = gg.getResults(gg.getResultsCount())
-    gg.clearResults()
-
-    if #anchorResults == 0 then
-        LOG.warn("VehicleList", "Anchor search returned 0 results.")
-        return nil
-    end
-
-    local anchor = anchorResults[1]
-
-    -- Pattern check — 1 getValues
-    local pattern = gg.getValues({
-        { address = anchor.address - 0x20, flags = 4 },
-        { address = anchor.address - 0x8,  flags = 4 }
-    })
-
-    if not pattern or not pattern[1] or not pattern[2]
-    or pattern[1].value ~= 0x65656A08
-    or pattern[2].value ~= 0x403147AE then
-        LOG.warn("VehicleList", "Pattern mismatch.")
-        return nil
-    end
-
-    -- Refs search
-    gg.clearResults()
-    gg.searchNumber(pattern[1].address, 32)
-    local refResults = gg.getResults(gg.getResultsCount())
-    gg.clearResults()
-
-    if not refResults or #refResults == 0 then
-        LOG.warn("VehicleList", "No refs found.")
-        return nil
-    end
-
-    -- Collect raw vehiclePtrs — sequential (unavoidable, unknown count per ref)
-    local written = {}
-    local rawPtrs = {}
-
-    for refIdx, ref in ipairs(refResults) do
-        local vehicleIdx = 0
-        while true do
-            local ptrRead = gg.getValues({{
-                address = ref.address + vehicleIdx * 8,
-                flags   = 32
-            }})
-
-            if not ptrRead or not ptrRead[1] or ptrRead[1].value == 0 then
-                LOG.dbg("VehicleList", string.format("ref[%d] vehicleIdx[%d] stop", refIdx, vehicleIdx))
-                break
-            end
-
-            local vehiclePtr = ptrRead[1].value
-            if not written[vehiclePtr] then
-                written[vehiclePtr] = true
-                table.insert(rawPtrs, vehiclePtr)
-            end
-
-            vehicleIdx = vehicleIdx + 1
-        end
-    end
-
-    if #rawPtrs == 0 then
-        LOG.warn("VehicleList", "No raw ptrs collected.")
-        return nil
-    end
-
-    -- Batch read all deepPtrs — 1 getValues
-    local deepReads = {}
-    for _, vehiclePtr in ipairs(rawPtrs) do
-        table.insert(deepReads, { address = vehiclePtr + 0x530, flags = 32 })
-    end
-    local deepPtrs = gg.getValues(deepReads)
-
-    if not deepPtrs then
-        LOG.warn("VehicleList", "deepPtrs batch read failed.")
-        return nil
-    end
-
-    -- Collect valid deepPtr values for batch verify
-    local validPtrs = {}
-    for i, dp in ipairs(deepPtrs) do
-        if dp and dp.value ~= 0 then
-            table.insert(validPtrs, {
-                vehiclePtr  = rawPtrs[i],
-                deepPtrAddr = rawPtrs[i] + 0x530,
-                deepPtr     = dp.value,
-            })
-        end
-    end
-
-    if #validPtrs == 0 then
-        LOG.warn("VehicleList", "No valid deepPtrs.")
-        return nil
-    end
-
-    -- Batch verify all — 1 getValues
-    local verifyReads = {}
-    for _, v in ipairs(validPtrs) do
-        table.insert(verifyReads, { address = v.deepPtr + 0x0, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0x4, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0x8, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0xC, flags = 4 })
-    end
-    local verifyResults = gg.getValues(verifyReads)
-
-    if not verifyResults then
-        LOG.warn("VehicleList", "Verify batch read failed.")
-        return nil
-    end
-
-    -- Filter verified vehicles
-    local vehicles = {}
-    for i, v in ipairs(validPtrs) do
-        local base = (i - 1) * 4 + 1
-        local v0 = verifyResults[base]
-        local v1 = verifyResults[base + 1]
-        local v2 = verifyResults[base + 2]
-        local v3 = verifyResults[base + 3]
-
-        if v0 and v1 and v2 and v3
-        and v0.value == 0
-        and v1.value == 18
-        and v2.value == 53 then
-            table.insert(vehicles, {
-                vehiclePtr  = v.vehiclePtr,
-                deepPtrAddr = v.deepPtrAddr,
-            })
-        else
-            LOG.dbg("VehicleList", string.format("vehiclePtr=0x%X failed verify: %d %d %d %d",
-                v.vehiclePtr,
-                v0 and v0.value or -1,
-                v1 and v1.value or -1,
-                v2 and v2.value or -1,
-                v3 and v3.value or -1))
-        end
-    end
-
-    if #vehicles == 0 then
-        LOG.warn("VehicleList", "No vehicles passed verification.")
-        return nil
-    end
-
-    memory:save("vehicle_list_deep", vehicles)
-    LOG.info("VehicleList", "Resolved + cached: " .. tostring(#vehicles) .. " vehicles")
-    return vehicles
-end
-
-local function forEachVehicle(vehicles, cb)
-    -- Batch read all deepPtrs — 1 getValues
-    local reads = {}
-    for _, v in ipairs(vehicles) do
-        table.insert(reads, { address = v.deepPtrAddr, flags = 32 })
-    end
-    local deepPtrs = gg.getValues(reads)
-    if not deepPtrs then
-        LOG.warn("VehicleList", "forEachVehicle deepPtrs read failed.")
-        return 0
-    end
-
-    local successCount = 0
-    for i, v in ipairs(vehicles) do
-        local dp = deepPtrs[i]
-        if dp and dp.value ~= 0 then
-            cb(v.vehiclePtr, dp.value, v.deepPtrAddr)
-            successCount = successCount + 1
-        else
-            LOG.warn("VehicleList", string.format("vehiclePtr=0x%X deepPtr invalid at forEach", v.vehiclePtr))
-        end
-    end
-    return successCount
-end
-
--- ── Ops ──────────────────────────────────────────────────────────────────────
-
--- Parts slot count (slider). status: "no_vehicles" | "no_zero_region" |
--- "applied" (data = vehicle count)
-function M.partsSlot(slot, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "PartsSlot"
-        LOG.info(TAG, "Slot: " .. tostring(slot))
-
-        local cached = memory:load("parts_slot_deep")
-
-        -- Validate cache
-        if cached and #cached > 0 then
-            local check = gg.getValues({{ address = cached[1], flags = 32 }})
-            if not check or not check[1] or check[1].value == 0 then
-                LOG.warn(TAG, "Cache stale — re-resolving")
-                cached = nil
-                memory:save("parts_slot_deep", nil)
-            end
-        end
-
-        if not cached then
-            local vehiclePtrs = resolveVehicleList()
-            if not vehiclePtrs then
-                finishTask(); cb("no_vehicles"); return
-            end
-            cached = {}
-            for _, vehiclePtr in ipairs(vehiclePtrs) do
-                table.insert(cached, vehiclePtr.deepPtrAddr)
-            end
-            memory:save("parts_slot_deep", cached)
-            LOG.info(TAG, "Cached " .. tostring(#cached) .. " deepPtrAddrs")
-        end
-
-        -- Read all deepPtrs in one call
-        local reads = {}
-        for _, deepPtrAddr in ipairs(cached) do
-            table.insert(reads, { address = deepPtrAddr, flags = 32 })
-        end
-        local deepPtrs = gg.getValues(reads)
-
-        local slotStart, slotEnd = findZeroRegion(slot)
-        if not slotStart then
-            finishTask(); cb("no_zero_region"); return
-        end
-
-        -- Batch ALL edits into one setValues call
-        local edits = {}
-        for _, dp in ipairs(deepPtrs) do
-            if dp and dp.value ~= 0 then
-                local deepPtrAddr = dp.address
-                table.insert(edits, { address = deepPtrAddr + 0x0,  flags = 32, value = slotStart })
-                table.insert(edits, { address = deepPtrAddr + 0x8,  flags = 32, value = slotEnd })
-                table.insert(edits, { address = deepPtrAddr + 0x10, flags = 32, value = slotEnd })
-            end
-        end
-
-        if #edits > 0 then
-            gg.setValues(edits)
-            local count = #edits / 3
-            LOG.info(TAG, "Done. Edits: " .. tostring(#edits) .. " (" .. tostring(count) .. " vehicles)")
-            finishTask(); cb("applied", count); return
-        else
-            finishTask(); cb("no_vehicles"); return
-        end
-    end)
-end
-
--- Build tuning-part groups from configs/tuning_parts.lua (pure data, no UI).
--- Returns groupOrder (sorted labels) and groupMap (label → {variants}).
-function M.getPartGroups()
-    local data = tuningData()
-    local tp = (data and data.tuningParts) or {}
-
-    local skip = { ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true }
-
-    local groupMap = {}
-    local groupOrder = {}
-
-    for key, part in pairs(tp) do
-        local label = part.name and part.name.value or key
-        if not skip[label] then
-            -- Collect ALL editable stats for this part (every effectStat and
-            -- effect that has a from/to range), not just the first.
-            local stats = {}
-            for _, e in ipairs(part.effectStats or {}) do
-                local stat = e.stat
-                if type(stat) == "table" and stat["from"] ~= nil then
-                    stats[#stats + 1] = { from = stat["from"], to = stat["to"] }
-                end
-            end
-            for _, e in ipairs(part.effects or {}) do
-                local amt = e.amount
-                if type(amt) == "table" and amt["from"] ~= nil then
-                    stats[#stats + 1] = { from = amt["from"], to = amt["to"] }
-                end
-            end
-
-            if #stats > 0 then
-                if not groupMap[label] then
-                    groupMap[label] = {}
-                    table.insert(groupOrder, label)
-                end
-                table.insert(groupMap[label], { key = key, stats = stats })
-            end
-        end
-    end
-
-    table.sort(groupOrder)
-    return groupOrder, groupMap
-end
-
--- Apply (or reset) a tuning-part modifier across ALL of the part's stats.
--- params = { variants, cacheKey, editValue, reset }
---   variants[i].stats = { {from=, to=}, ... }  (every editable stat of the part)
--- status: "not_found" | "reset" | "applied"
-function M.applyPartsModifier(params, cb)
-    local variants  = params.variants
-    local cacheKey  = params.cacheKey
-    local editValue = params.editValue
-    local reset     = params.reset
-
-    scheduler:add(function(finishTask)
-        local TAG = "PartsModifier"
-        local cache = memory:load(cacheKey)
-
-        if not cache then
-            LOG.dbg(TAG, "Scanning all stats for: " .. cacheKey)
-            local toEdit = {}
-
-            -- Scan the vnpStats anchor once; match each record against ANY of
-            -- the part's stat ranges so every stat (e.g. BOOST + TOP SPEED) is
-            -- collected, not only the first.
-            gg.setRanges(BaseRegion)
-            gg.clearResults()
-            gg.searchNumber(BaseLib + offsets.vnpStats, 32)
-            local refs = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-
-            for _, v in ipairs(refs) do
-                local vals = gg.getValues({
-                    { address = v.address + 0x8,  flags = 4 },
-                    { address = v.address + 0xC,  flags = 16 },
-                    { address = v.address + 0x10, flags = 16 },
-                })
-                if vals and vals[1].value == 0x40000000 then
-                    local from, to = vals[2].value, vals[3].value
-                    local matched = false
-                    for _, variant in ipairs(variants) do
-                        for _, st in ipairs(variant.stats) do
-                            if st.from == from and st.to == to then matched = true; break end
-                        end
-                        if matched then break end
-                    end
-                    if matched then
-                        table.insert(toEdit, v.address + 0x8)
-                    end
-                end
-            end
-
-            gg.clearResults()
-
-            if #toEdit == 0 then
-                LOG.warn(TAG, "No results for: " .. cacheKey)
-                finishTask(); cb("not_found"); return
-            end
-
-            memory:save(cacheKey, toEdit)
-            cache = toEdit
-            LOG.info(TAG, "Cached " .. #toEdit .. " stat addresses for " .. cacheKey)
-        else
-            LOG.dbg(TAG, "Cache hit for: " .. cacheKey)
-        end
-
-        local edits = {}
-        for _, addr in ipairs(cache) do
-            table.insert(edits, {
-                address = addr,
-                flags   = 16,
-                value   = reset and 0x40000000 or editValue
-            })
-        end
-        gg.setValues(edits)
-
-        if reset then
-            memory:save(cacheKey, nil)
-            LOG.info(TAG, "Reset: " .. cacheKey)
-            gg.clearResults()
-            finishTask(); cb("reset"); return
-        else
-            LOG.info(TAG, cacheKey .. " applied")
-            gg.clearResults()
-            finishTask(); cb("applied"); return
-        end
-    end)
-end
-
--- Set / reset fuel (relocated from player — fuel is a vehicle attribute).
--- params = { amount = <raw string|number>, reset = <bool> }
--- status: "not_applied" | "invalid" | "reset" | "applied" (data = value)
-function M.setFuel(params, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "Fuel"
-
-        -- Reset
-        if params.reset then
-            local cache = memory:load("fuel")
-            if not cache then
-                finishTask(); cb("not_applied"); return
-            end
-            gg.clearResults()
-            gg.loadResults(cache)
-            local base = gg.getResults(1)[1].address
-            gg.setValues({
-                {address = base + 4,  flags = 4, value = cast.arm64(0x1E22C000)},
-                {address = base + 8,  flags = 4, value = cast.arm64(0x1E22C021)},
-                {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
-                {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
-            })
-            memory:save("fuel", nil)
-            LOG.info(TAG, "Fuel reset")
-            gg.clearResults()
-            finishTask(); cb("reset"); return
-        end
-
-        local val = tonumber(params.amount)
-        if not val or val < 0 or val > 100 then
-            finishTask(); cb("invalid"); return
-        end
-
-        local b = string.pack("<f", val)
-        local lo = string.unpack("<H", b:sub(1,2))
-        local hi = string.unpack("<H", b:sub(3,4))
-        local NOP  = 0xD503201F
-        local movz = 0x52800000 | (lo << 5) | 8
-        local movk = 0x72A00000 | (hi << 5) | 8
-        local fmov = 0x1E270100
-
-        local cache = memory:load("fuel")
-        if cache then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning")
-            gg.clearResults()
-            gg.setRanges(8)
-            gg.searchNumber(aobs.fuel[1].scan, 1)
-            gg.refineNumber("h 61", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("fuel", results)
-        end
-
-        local base = gg.getResults(1)[1].address
-        gg.setValues({
-            {address = base + 4,  flags = 4, value = cast.arm64(movz)},
-            {address = base + 8,  flags = 4, value = cast.arm64(movk)},
-            {address = base + 12, flags = 4, value = cast.arm64(fmov)},
-            {address = base + 16, flags = 4, value = cast.arm64(NOP)},
-        })
-
-        LOG.info(TAG, "Fuel set to " .. tostring(val))
-        gg.clearResults()
-        finishTask()
-        cb("applied", val)
-    end)
-end
-
--- Unlock all vehicles. status: "no_vehicles" | "unlocked" (data=count) |
--- "none_to_unlock"
-function M.unlockVehicles(cb)
-    scheduler:add(function(finishTask)
-        local TAG = "UnlockVehicles"
-        LOG.info(TAG, "Module activated.")
-
-        local vehiclePtrs = resolveVehicleList()
-        if not vehiclePtrs then
-            finishTask(); cb("no_vehicles"); return
-        end
-
-        -- Collect all edits first, one setValues at end
-        local edits = {}
-        -- FIX: capture the count (was discarded; the tab referenced an
-        -- undefined `successCount`).
-        local successCount = forEachVehicle(vehiclePtrs, function(vehiclePtr, deepPtr, deepPtrAddr)
-            table.insert(edits, { address = vehiclePtr + 0x110, flags = 4, value = 1 })
-            for off = 0x114, 0x14C, 4 do
-                table.insert(edits, { address = vehiclePtr + off, flags = 4, value = 0 })
-            end
-        end)
-        if #edits > 0 then gg.setValues(edits) end
-
-        LOG.info(TAG, "Done. Success: " .. tostring(successCount))
-        finishTask()
-        cb(successCount > 0 and "unlocked" or "none_to_unlock", successCount)
-    end)
-end
-
--- Max all vehicle upgrades. onProgress(i, total) optional.
--- status: "no_vehicles" | "all_maxed" | "failed"
--- Batched: pointer reads are collapsed into a few gg.getValues calls instead of
--- one per vehicle/slot. Same write set as the original sequential version.
-function M.maxVehicles(onProgress, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "MaxVehicles"
-        LOG.info(TAG, "Module activated.")
-
-        local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
-
-        if not vehicleListPtr or vehicleListPtr == 0 then
-            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
-            finishTask(); cb("no_vehicles"); return
-        end
-        totalVehicles = totalVehicles or 0
-        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
-
-        -- Batch 1: all vehicle pointers in one read.
-        local reads = {}
-        for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
-        end
-        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
-        local vehicles = {}
-        for _, v in ipairs(vPtrs) do
-            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
-        end
-
-        -- Batch 2: namePtr (+0x18) and upgradeListPtr (+0x20) per vehicle.
-        local meta = {}
-        for _, vp in ipairs(vehicles) do
-            meta[#meta + 1] = { address = vp + 0x18, flags = 32 }
-            meta[#meta + 1] = { address = vp + 0x20, flags = 32 }
-        end
-        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
-
-        -- Resolve slot count per vehicle (needs the name) and collect all
-        -- upgrade-slot pointer addresses for a single batched read.
-        local upReads = {}
-        local n = #vehicles
-        local step = math.max(1, math.floor(n / 12))
-        for k, vp in ipairs(vehicles) do
-            local namePtr        = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
-            local upgradeListPtr = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
-            local vehicleName  = (namePtr and namePtr ~= 0) and readString(namePtr + 1) or "unknown"
-            local upgradeSlots = vehicleName:find("lowrider") and 5 or 4
-            if upgradeListPtr and upgradeListPtr ~= 0 then
-                for j = 0, upgradeSlots - 1 do
-                    upReads[#upReads + 1] = { address = upgradeListPtr + j * 8, flags = 32 }
-                end
-            end
-            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
-        end
-
-        -- Batch 3: all upgrade pointers, then build the edit list.
-        local upPtrs = (#upReads > 0 and gg.getValues(upReads)) or {}
-        local upgradeList = {}
-        for _, p in ipairs(upPtrs) do
-            if p.value and p.value ~= 0 then
-                upgradeList[#upgradeList + 1] = { address = p.value + 0x20, flags = 4, value = 19 }
-                upgradeList[#upgradeList + 1] = { address = p.value + 0x24, flags = 4, value = 19 }
-            end
-        end
-
-        if #upgradeList > 0 then
-            gg.setValues(upgradeList)
-            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
-            finishTask(); cb("all_maxed"); return
-        else
-            LOG.warn(TAG, "upgradeList is empty.")
-            finishTask(); cb("failed"); return
-        end
-    end)
-end
-
--- Max mastery for all vehicles. onProgress(i, total) optional.
--- status: "failed" | "all_maxed"
--- Batched: structural pointer reads collapsed into a few gg.getValues calls and
--- all writes flushed in one setValues. The per-vehicle name lookup (debug-log
--- only in the original) is dropped — it has no effect on what gets written.
-function M.maxMastery(onProgress, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "MaxMastery"
-        LOG.info(TAG, "Module activated.")
-
-        local masteryTimestamp = os.time(os.date("!*t"))
-        local vehicleListPtr   = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles    = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
-
-        if not vehicleListPtr or vehicleListPtr == 0 then
-            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
-            finishTask(); cb("failed"); return
-        end
-
-        if not totalVehicles or totalVehicles == 0 then
-            LOG.fatal(TAG, "totalVehicles is nil or 0.")
-            finishTask(); cb("failed"); return
-        end
-
-        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
-
-        -- Batch 1: all vehicle pointers.
-        local reads = {}
-        for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
-        end
-        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
-        local vehicles = {}
-        for _, v in ipairs(vPtrs) do
-            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
-        end
-
-        -- Batch 2: masteryPtr (+0x120) per vehicle.
-        local mReads = {}
-        for _, vp in ipairs(vehicles) do
-            mReads[#mReads + 1] = { address = vp + 0x120, flags = 32 }
-        end
-        local mVals = (#mReads > 0 and gg.getValues(mReads)) or {}
-
-        -- Vehicles that actually have a mastery object, plus a batched read of
-        -- their 4 CA pointers each.
-        local active  = {}
-        local caReads = {}
-        for k, vp in ipairs(vehicles) do
-            local masteryPtr = mVals[k] and mVals[k].value
-            if masteryPtr and masteryPtr ~= 0 then
-                active[#active + 1] = { vehiclePtr = vp, masteryPtr = masteryPtr }
-                for j = 0, 3 do
-                    caReads[#caReads + 1] = { address = masteryPtr + j * 8, flags = 32 }
-                end
-            end
-        end
-        local caVals = (#caReads > 0 and gg.getValues(caReads)) or {}
-
-        -- Build all writes; flush once at the end.
-        local writes       = {}
-        local successCount = 0
-        local skipCount    = #vehicles - #active
-        local n    = #active
-        local step = math.max(1, math.floor((n > 0 and n or 1) / 12))
-        for a = 1, n do
-            local entry = active[a]
-            local base  = (a - 1) * 4
-            local validPtrs = {}
-            for j = 1, 4 do
-                local p = caVals[base + j]
-                if p and p.value and p.value ~= 0 then validPtrs[#validPtrs + 1] = p.value end
-            end
-
-            if #validPtrs == 0 then
-                skipCount = skipCount + 1
-            else
-                for _, p in ipairs(validPtrs) do
-                    writes[#writes + 1] = { address = p + 0x18, flags = 4, value = 65793 }
-                    writes[#writes + 1] = { address = p + 0x1C, flags = 4, value = masteryTimestamp }
-                end
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x120, flags = 32, value = entry.masteryPtr }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x128, flags = 4,  value = 4 }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x12C, flags = 4,  value = 4 }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x130, flags = 4,  value = 4 }
-                successCount = successCount + 1
-            end
-            if onProgress and (a % step == 0 or a == n) then onProgress(a, n) end
-        end
-
-        if #writes > 0 then gg.setValues(writes) end
-
-        LOG.info(TAG, string.format("Complete. Success: %d | Skipped: %d", successCount, skipCount))
-        finishTask()
-        cb(successCount > 0 and "all_maxed" or "failed")
-    end)
-end
-
--- Resolve a part's max level from its name via the rarity-derived caps.
--- Longest matching key wins so a specific variant beats its base name.
-local function partMaxLevel(partName)
-    local maxLevel, bestLen = 3, 0  -- fallback for parts with no rarity match
-    for key, lvl in pairs(partCaps()) do
-        if #key > bestLen and partName:find(key .. "$") then
-            maxLevel = lvl
-            bestLen  = #key
-        end
-    end
-    return maxLevel
-end
-
--- Max all parts for all vehicles. onProgress(i, total) optional.
--- status: "no_vehicles" | "all_maxed" | "failed"
--- Batched: vehicle pointers, each vehicle's parts-list header, and each
--- vehicle's part-pointer array are read in bulk. The (conditional, multi-level)
--- part-name lookup stays sequential — identical to the original.
-function M.maxParts(onProgress, cb)
-    scheduler:add(function(finishTask)
-        local TAG = "MaxParts"
-        LOG.info(TAG, "Module activated.")
-
-        local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
-
-        if not vehicleListPtr or vehicleListPtr == 0 then
-            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
-            finishTask(); cb("no_vehicles"); return
-        end
-        totalVehicles = totalVehicles or 0
-        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
-
-        -- Batch 1: all vehicle pointers.
-        local reads = {}
-        for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
-        end
-        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
-        local vehicles = {}
-        for _, v in ipairs(vPtrs) do
-            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
-        end
-
-        -- Batch 2: partsListPtr (+0x58) and totalParts (+0x60) per vehicle.
-        local meta = {}
-        for _, vp in ipairs(vehicles) do
-            meta[#meta + 1] = { address = vp + 0x58, flags = 32 }
-            meta[#meta + 1] = { address = vp + 0x60, flags = 4 }
-        end
-        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
-
-        local upgradeList = {}
-        local n = #vehicles
-        local step = math.max(1, math.floor((n > 0 and n or 1) / 12))
-        for k, vp in ipairs(vehicles) do
-            local partsListPtr = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
-            local totalParts   = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
-
-            if partsListPtr and partsListPtr ~= 0 and totalParts and totalParts > 0 then
-                -- Batch this vehicle's part pointers in one read.
-                local pReads = {}
-                for j = 0, totalParts - 1 do
-                    pReads[#pReads + 1] = { address = partsListPtr + j * 8, flags = 32 }
-                end
-                local partPtrs = gg.getValues(pReads) or {}
-
-                for _, pp in ipairs(partPtrs) do
-                    local partPtr = pp.value
-                    if partPtr and partPtr ~= 0 then
-                        local namePtr  = gg.getValues({{ address = partPtr + 0x18, flags = 32 }})[1].value
-                        local partName = "unknown"
-
-                        if namePtr and namePtr ~= 0 then
-                            local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
-                            if header == 49 then
-                                local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
-                                partName = namePtr2 ~= 0 and readString(namePtr2 + 1) or "unknown"
-                            else
-                                partName = readString(namePtr + 1)
-                            end
-                        end
-
-                        local maxLevel = partMaxLevel(partName)
-                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x20, flags = 4, value = maxLevel }
-                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x34, flags = 4, value = maxLevel }
-                    end
-                end
-            end
-            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
-        end
-
-        if #upgradeList > 0 then
-            gg.setValues(upgradeList)
-            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
-            finishTask(); cb("all_maxed"); return
-        else
-            LOG.warn(TAG, "upgradeList is empty.")
-            finishTask(); cb("failed"); return
-        end
-    end)
-end
-
-return M
-
-end
-
 __vfs['modules/tabs/about.lua'] = function(...)
 return function(container)
     local function t(key, ...) return T("about." .. key, ...) end
@@ -34830,14 +31152,10 @@ end
 __vfs['modules/tabs/account.lua'] = function(...)
 --[[
   Account Tab - Player profile modifications
-  Features: Change player name, Change GP, Fake unlock/VIP, Fake Rank
-
-  UI wiring only. Memory ops live in modules/ops/account.lua.
-
+  Features: Change player name, Fake VIP, Fake Rank
+  
   @module callback Receives container View to populate with modules
 ]]
-
-local ops = CrashHandler.loadFeature("modules/ops/account.lua")
 
 return function(container)
     local function t(key, ...) return T("account." .. key, ...) end
@@ -34845,63 +31163,124 @@ return function(container)
     addModule(container, "change_name", t("change_name.title"), t("change_name.desc"), "input", {
         { hint = t("change_name.hint"), value = "", type = "text" }
     }, function(done, val)
-        ops.changeName(val, function(status)
-            if status == "empty" then
-                showToast(t("change_name.empty"))
-            elseif status == "too_long" then
-                showDialog(t("change_name.too_long_title"), t("change_name.too_long_msg"), T("common.ok"))
-            elseif status == "resolve_failed" then
-                showToast(t("change_name.resolve_failed"))
-            else
-                showToast(t("change_name.applied", val))
-            end
-        end)
-        done()
-    end)
+        scheduler:add(function(finishTask)
+            local TAG = "ChangeName"
 
+            if val == nil or val == "" then
+                showToast(t("change_name.empty"))
+                LOG.warn(TAG, "Empty input — aborted")
+                finishTask(); done(); return
+            end
+
+            LOG.info(TAG, "Attempting name change to: " .. val)
+
+            local nameBytes = {}
+            local byteCount = 0
+
+            for _, code in utf8.codes(val) do
+                local encoded = utf8.char(code)
+                local bytes   = { encoded:byte(1, -1) }
+                if byteCount + #bytes > 12 then
+                    showDialog(t("change_name.too_long_title"), t("change_name.too_long_msg"), T("common.ok"))
+                    LOG.warn(TAG, "Name exceeds 12 bytes — aborted")
+                    finishTask(); done(); return
+                end
+                for _, b in ipairs(bytes) do
+                    table.insert(nameBytes, b)
+                    byteCount = byteCount + 1
+                end
+            end
+
+            while #nameBytes < 12 do table.insert(nameBytes, 0) end
+
+            local namePtr = gg.getValues({{ address = BaseGameStatus + 0x38, flags = 32 }})[1].value
+            if not namePtr or namePtr == 0 then
+                showToast(t("change_name.resolve_failed"))
+                LOG.fatal(TAG, "namePtr is nil or 0")
+                finishTask(); done(); return
+            end
+
+            local writes  = {{ address = namePtr, flags = 1, value = byteCount * 2 }}
+            for i = 1, #nameBytes do
+                writes[#writes + 1] = { address = namePtr + i, flags = 1, value = nameBytes[i] }
+            end
+
+            gg.setValues(writes)
+            showToast(t("change_name.applied", val))
+            LOG.info(TAG, string.format("Done. byteCount=%d namePtr=0x%X", byteCount, namePtr))
+            finishTask()
+            done()
+        end)
+    end)
+    
     addModule(container, "change_gp", t("change_gp.title"), t("change_gp.desc"), "input", {
         { hint = t("change_gp.hint"), value = "8", type = "number" }
     }, function(done, val)
-        ops.changeGp(val, function(status)
-            if status == "max_int" then
+        scheduler:add(function(finishTask)
+            if tonumber(val) > 2147483647 then
                 showDialog(t("change_gp.max_int_title"), t("change_gp.lower_value"), {T("common.ok")})
-            elseif status == "too_low" then
+                finishTask()
+                done()
+                return
+            elseif tonumber(val) < 8 then
                 showDialog(t("change_gp.too_low_title"), t("change_gp.higher_value"), {T("common.ok")})
-            else
-                showToast(t("change_gp.applied", tostring(val)))
+                finishTask()
+                done()
+                return
             end
+            
+            gg.setValues({
+                { address = BaseGameStatus + 0x4F4, flags = 4, value = val }
+            })
+            
+            showToast(t("change_gp.applied", tostring(val)))
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addArchModule(container, "fake_unlock", t("fake_unlock.title"), t("fake_unlock.desc"), "switch", nil, aobs.fakeUnlock)
-
+    
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)
-
+        
     addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "button", nil, function(done)
-        if not ops.isCupsTab() then
-            LOG.warn("FakeRank", "Not in Cups tab.")
+        local TAG = "FakeRank"
+    
+        local activeTab = gg.getValues({
+            { address = BaseGameStatusRaw - 0xD4, flags = 4 }
+        })
+    
+        local isCupsTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1 )   
+        if not isCupsTab then
+            LOG.warn(TAG, "Not in Cups tab.")
             showToast(t("fake_rank.not_in_cups"))
             done()
             return
         end
-
+    
         local confirm = showDialog(
             t("fake_rank.race_warn_title"),
             t("fake_rank.race_warn_msg"),
             {t("fake_rank.continue_button")},
             {T("common.cancel")}
         )
-
+    
         if confirm ~= 1 then
             done()
             return
         end
-
-        ops.applyFakeRank(function()
+    
+        scheduler:add(function(finishTask)
+            gg.setValues({
+                { address = BaseGameStatus + 0x200, flags = 16, value = 50.0 }
+            })
+    
+            LOG.info(TAG, "Fake rank applied.")
             showToast(t("fake_rank.applied"))
+    
+            finishTask()
+            done()
         end)
-        done()
     end)
 end
 
@@ -34910,41 +31289,59 @@ end
 __vfs['modules/tabs/adventure.lua'] = function(...)
 --[[
   Adventure Tab - Adventure mode features
-  Features: Auto adventure chests, Set distance (+ optional loop)
-
-  UI wiring only. Memory ops live in modules/ops/adventure.lua.
-
+  Status: Set Distance 
+  
   @module callback Receives container View to populate with modules
 ]]
-
-local ops = CrashHandler.loadFeature("modules/ops/adventure.lua")
 
 return function(container)
     local function t(key, ...) return T("adventure." .. key, ...) end
 
     addModule(container, "auto_adventure_chests", t("auto_adventure_chests.title"), t("auto_adventure_chests.desc"), "button", nil,
     function(done)
-        ops.autoAdventureChests(function(status)
-            if status == "none_found" then
-                showToast(t("auto_adventure_chests.none_found"))
-            else
-                showToast(t("auto_adventure_chests.done"))
-            end
-        end)
-        done()
-    end)
+        local TAG = "AutoAdventureChests"
+        LOG.info(TAG, "Module activated.")
 
+        scheduler:add(function(finishTask)
+            gg.clearResults()
+            gg.setRanges(BaseRegion)
+            gg.searchNumber("500;500::5", 4)
+            local res = gg.getResults(gg.getResultsCount())
+
+            if #res == 0 then
+                showToast(t("auto_adventure_chests.none_found"))
+                LOG.warn(TAG, "Search returned 0 results.")
+                finishTask()
+                done()
+                return
+            end
+
+            LOG.dbg(TAG, "Results found: " .. tostring(count))
+
+            gg.editAll("-1", 4)
+            gg.clearResults()
+
+            LOG.info(TAG, "Done.")
+            showToast(t("auto_adventure_chests.done"))
+
+            finishTask()
+            done()
+        end)
+    end)
+    
     addArchModule(container, "set_distance", t("set_distance.title"), t("set_distance.desc"), "button", nil,
     function(done)
-        -- Loop already running? Offer to stop it.
-        if ops.isLoopActive() then
+        local TAG = "SetDistance"
+        LOG.info(TAG, "Module activated.")
+        
+        if memory:load("set_distance_loop") then
             local action = showDialog(
                 t("set_distance.loop_active_title"),
                 t("set_distance.loop_active_msg"),
                 {t("set_distance.stop_loop")}, {t("set_distance.keep_running")}
             )
             if action == 1 then
-                ops.stopLoop()
+                memory:save("set_distance_loop", false)
                 showToast(t("set_distance.loop_will_stop"))
             end
             done()
@@ -34973,12 +31370,13 @@ return function(container)
                 {t("set_distance.continue_button")},
                 {T("common.cancel")}
             )
+        
             if warn ~= 1 then
                 done()
                 return
             end
         end
-
+        
         -- Warn if > 5000m — no stars, but race still counts distance
         if target_meters > 5000 then
             local warn = showDialog(
@@ -34992,220 +31390,229 @@ return function(container)
             end
         end
 
-        ops.setDistance(
-            { target_meters = target_meters, loop_enabled = loop_enabled, loop_interval = loop_interval },
-            {
-                onApply = function(status, phase)
-                    if status == "not_in_adventure" then
-                        showToast(t("set_distance.not_in_adventure"))
-                    elseif status == "start_race_first" then
-                        showToast(t("set_distance.start_race_first"))
-                    elseif phase == "initial" then
-                        showToast(t("set_distance.applied", tostring(target_meters)))
+        local function isValidDistanceBase(addr)
+            local check = gg.getValues({
+                { address = addr + 0x0,  flags = 4  }, -- current distance (DWORD, should be >= 0)
+                { address = addr + 0x10, flags = 16 }, -- float, should be a valid float
+                { address = addr + 0x14, flags = 16 }, -- float, should be a valid float
+            })
+            if not check or #check ~= 3 then return false end
+            
+            local dist  = check[1].value
+            local float1 = check[2].value
+            local float2 = check[3].value
+        
+            -- Distance should be a reasonable value (0 to 999999)
+            if type(dist) ~= "number" or dist < 0 or dist > 999999 then return false end
+            -- Floats should be non-zero valid numbers (in an active race these are set)
+            if type(float1) ~= "number" or float1 == 0 then return false end
+            if type(float2) ~= "number" or float2 == 0 then return false end
+        
+            return true
+        end
+        
+        local function resolveDistanceBase()
+            local cachedPtr = memory:load("set_distance_ptr")
+            if cachedPtr and cachedPtr ~= 0 then
+                local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
+                if verify and verify[1] and verify[1].value ~= 0 then
+                    local distanceBase = verify[1].value
+                    if isValidDistanceBase(distanceBase) then
+                        LOG.dbg(TAG, string.format("Cache hit + valid: ptr=0x%X → distanceBase=0x%X", cachedPtr, distanceBase))
+                        return distanceBase
+                    else
+                        -- Not in race — keep cache, just return nil
+                        LOG.warn(TAG, "Not in race — cache kept for next run.")
+                        return nil
                     end
-                end,
-                onLoopRunning = function() showToast(t("set_distance.loop_running"), true) end,
-                onLoopStopped = function() showToast(t("set_distance.loop_stopped")) end,
-            }
-        )
-        done()
+                else
+                    -- ptr.address itself gone — game restarted, clear cache
+                    LOG.warn(TAG, "ptr.address invalid — clearing cache.")
+                    memory:save("set_distance_ptr", nil)
+                end
+            end
+
+            local anchorTarget = BaseLib + offsets.raceInfo
+            LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
+
+            gg.clearResults()
+            gg.setRanges(BaseRegion)
+            gg.searchNumber(anchorTarget, 32)
+            local level1Results = gg.getResults(gg.getResultsCount())
+            gg.clearResults()
+
+            if #level1Results == 0 then
+                LOG.warn(TAG, "Level 1: no refs found")
+                return nil
+            end
+
+            local distanceBase = nil
+
+            for _, ref1 in ipairs(level1Results) do
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber(ref1.address, 32)
+                local level2Results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+
+                for _, ref2 in ipairs(level2Results) do
+                    local offsetAddr = ref2.address - 0xAC
+
+                    gg.clearResults()
+                    gg.setRanges(gg.REGION_C_ALLOC)
+                    gg.searchNumber(offsetAddr, 32)
+                    local level3Results = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+
+                    if #level3Results > 0 then
+                        local pointerReads = {}
+                        for _, ref3 in ipairs(level3Results) do
+                            table.insert(pointerReads, { address = ref3.address, flags = 32 })
+                        end
+                        local resolvedPointers = gg.getValues(pointerReads)
+                        if resolvedPointers then
+                            for _, ptr in ipairs(resolvedPointers) do
+                                if ptr and ptr.value and ptr.value ~= 0 then
+                                    memory:save("set_distance_ptr", ptr.address)
+                                    distanceBase = ptr.value
+                                    LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → distanceBase=0x%X",
+                                        ptr.address, distanceBase))
+                                    break
+                                end
+                            end
+                        end
+                    end
+
+                    if distanceBase then break end
+                end
+
+                if distanceBase then break end
+            end
+
+            return distanceBase
+        end
+
+        local function apply()
+            local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
+            local isAdventureTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 0)
+
+            if not isAdventureTab then
+                LOG.warn(TAG, "Not in Adventure tab.")
+                showToast(t("set_distance.not_in_adventure"))
+                return false
+            end
+
+            local distanceBase = resolveDistanceBase()
+            if not distanceBase then
+                LOG.fatal(TAG, "Failed to resolve distanceBase.")
+                showToast(t("set_distance.start_race_first"))
+                return false
+            end
+            
+
+            gg.setValues({
+                { address = distanceBase + 0x0,  flags = 4,  value = target_meters },
+                { address = distanceBase + 0x10, flags = 16, value = 2000000000 },
+                { address = distanceBase + 0x14, flags = 16, value = 2000000000 },
+            })
+
+            LOG.info(TAG, "Distance set: " .. tostring(target_meters) .. "m")
+            return true
+        end
+
+        scheduler:add(function(finishTask)
+            local ok = apply()
+
+            if not ok then
+                finishTask()
+                done() -- no deadlock — always exits
+                return
+            end
+
+            showToast(t("set_distance.applied", tostring(target_meters)))
+
+            if not loop_enabled then
+                finishTask()
+                done()
+                return
+            end
+
+            -- Loop mode — call done() immediately so button stays clickable
+            memory:save("set_distance_loop", true)
+            finishTask()
+            done() -- ← released here, no deadlock
+
+            local tickCount = 0
+            local function loopTick()
+                if not memory:load("set_distance_loop") then
+                    LOG.info(TAG, "Loop stopped.")
+                    showToast(t("set_distance.loop_stopped"))
+                    memory:save("set_distance_ptr", nil) -- clear cache on stop
+                    return
+                end
+
+                gg.sleep(loop_interval)
+                tickCount = tickCount + 1
+
+                apply()
+
+                -- Reminder every 2 ticks
+                if tickCount % 2 == 0 then
+                    showToast(t("set_distance.loop_running"), true)
+                end
+
+                scheduler:add(function(ft)
+                    loopTick()
+                    ft()
+                end)
+            end
+
+            scheduler:add(function(ft)
+                loopTick()
+                ft()
+            end)
+        end)
     end)
 end
-
-end
-
-__vfs['modules/tabs/console.lua'] = function(...)
---[[
-  Console Tab - Crash & log viewer (Script section)
-
-  Reads the in-memory ring buffers from the global CrashHandler engine and
-  renders them as a scrollable report list with Copy all / Refresh / Clear.
-  This tab is excluded from ui.lua's view cache, so it re-renders on every open.
-
-  @module callback Receives container View to populate with modules
-]]
-
-return function(container)
-    local function t(key, ...) return T("console." .. key, ...) end
-
-    if not CrashHandler then
-        local tv = TextView(activity)
-        tv.setText(t("unavailable"))
-        tv.setTextColor(UI.SUB)
-        container.addView(tv)
-        return
-    end
-
-    -- ── Action button (shares row width equally) ──────────────────────────────
-    local function makeButton(label, onTap)
-        local btn = TextView(activity)
-        local lp = LinLayoutParams(0, -2, 1.0)
-        lp.rightMargin = dp(6)
-        btn.setLayoutParams(lp)
-        btn.setText(label)
-        btn.setTextColor(UI.LOGO)
-        btn.setGravity(Gravity.CENTER)
-        btn.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
-        btn.setTextSize(1, 12)
-        btn.setPadding(dp(10), dp(9), dp(10), dp(9))
-        btn.setBackground(getSkin(UI.ACCENT, 8))
-        btn.setOnClickListener(View.OnClickListener({ onClick = function() pcall(onTap) end }))
-        return btn
-    end
-
-    -- ── Entry renderers ───────────────────────────────────────────────────────
-    local function crashCard(e)
-        local card = LinearLayout(activity)
-        card.setOrientation(1)
-        local lp = LinLayoutParams(-1, -2)
-        lp.bottomMargin = dp(8)
-        card.setLayoutParams(lp)
-        card.setPadding(dp(12), dp(10), dp(12), dp(10))
-        card.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
-
-        local head = TextView(activity)
-        head.setText(string.format("[%s]  %s", e.ts, e.tag))
-        head.setTextColor(UI.RED)
-        head.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
-        head.setTextSize(1, 12)
-        card.addView(head)
-
-        local msg = TextView(activity)
-        msg.setText(tostring(e.message))
-        msg.setTextColor(UI.TEXT)
-        msg.setTextSize(1, 12)
-        card.addView(msg)
-
-        if e.traceback then
-            local tb = TextView(activity)
-            tb.setText(tostring(e.traceback))
-            tb.setTextColor(UI.SUB)
-            tb.setTextSize(1, 9)
-            tb.setTypeface(Typeface.create("monospace", Typeface.NORMAL))
-            local tlp = LinLayoutParams(-1, -2)
-            tlp.topMargin = dp(4)
-            tb.setLayoutParams(tlp)
-            card.addView(tb)
-        end
-
-        return card
-    end
-
-    local function logLine(e)
-        local tv = TextView(activity)
-        local lp = LinLayoutParams(-1, -2)
-        lp.bottomMargin = dp(4)
-        tv.setLayoutParams(lp)
-        tv.setText(string.format("[%s] %s [%s] %s", e.ts, e.level, e.tag, e.message))
-        -- Color by severity: error/fatal red, warn accent, info default, debug muted.
-        local color = UI.SUB
-        if e.level == "ERROR" or e.level == "FATAL" then color = UI.RED
-        elseif e.level == "WARN" then color = UI.LOGO
-        elseif e.level == "INFO" then color = UI.TEXT end
-        tv.setTextColor(color)
-        tv.setTextSize(1, 10)
-        tv.setPadding(dp(10), dp(6), dp(10), dp(6))
-        tv.setBackground(getSkin(UI.BG, 8))
-        return tv
-    end
-
-    -- ── Dynamic list (rebuilt on render / refresh / clear) ────────────────────
-    local listLayout = LinearLayout(activity)
-    listLayout.setOrientation(1)
-    listLayout.setLayoutParams(LinLayoutParams(-1, -2))
-
-    local function populate()
-        listLayout.removeAllViews()
-
-        if CrashHandler.isEmpty() then
-            local empty = TextView(activity)
-            empty.setText(t("empty"))
-            empty.setTextColor(UI.SUB)
-            empty.setTextSize(1, 12)
-            empty.setPadding(dp(12), dp(14), dp(12), dp(14))
-            empty.setGravity(Gravity.CENTER)
-            empty.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
-            listLayout.addView(empty)
-            return
-        end
-
-        local crashes = CrashHandler.getCrashes()
-        local logs    = CrashHandler.getLogs()
-
-        if #crashes > 0 then
-            addModuleSep(listLayout, t("crashes_header", #crashes))
-            for i = #crashes, 1, -1 do      -- newest first
-                listLayout.addView(crashCard(crashes[i]))
-            end
-        end
-
-        if #logs > 0 then
-            addModuleSep(listLayout, t("logs_header", #logs))
-            for i = #logs, 1, -1 do
-                listLayout.addView(logLine(logs[i]))
-            end
-        end
-    end
-
-    local function copyAll()
-        local okc = pcall(function()
-            local cm = activity.getSystemService("clipboard")
-            cm.setPrimaryClip(ClipData.newPlainText("VOID Console", CrashHandler.formatAll()))
-        end)
-        showToast(okc and t("copied") or T("common.failed"))
-    end
-
-    -- ── Layout ────────────────────────────────────────────────────────────────
-    local intro = TextView(activity)
-    intro.setText(t("desc"))
-    intro.setTextColor(UI.SUB)
-    intro.setTextSize(1, 11)
-    local ilp = LinLayoutParams(-1, -2)
-    ilp.bottomMargin = dp(8)
-    intro.setLayoutParams(ilp)
-    container.addView(intro)
-
-    local row = LinearLayout(activity)
-    row.setOrientation(0)
-    local rlp = LinLayoutParams(-1, -2)
-    rlp.bottomMargin = dp(10)
-    row.setLayoutParams(rlp)
-    row.addView(makeButton(t("copy_all"), copyAll))
-    row.addView(makeButton(t("refresh"),  populate))
-    row.addView(makeButton(t("clear"), function()
-        CrashHandler.clear()
-        populate()
-        showToast(t("cleared"))
-    end))
-    container.addView(row)
-
-    container.addView(listLayout)
-    populate()
-end
-
 end
 
 __vfs['modules/tabs/creative.lua'] = function(...)
 --[[
-  Creative Tab - Creative mode / Custom track features
-  Status: auto_verify_all unfinished (task 5)
-
-  UI wiring only. Memory ops live in modules/ops/creative.lua.
-
+  Creative Tab - Creative mode/Custom track features
+  Status: idk
+  
   @module callback Receives container View to populate with modules
 ]]
 
-local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
+local function getCustomTrack()
+    gg.clearResults()
+    gg.setRanges(8)
+    gg.searchNumber(BaseLib + offsets.customTracks, 32)
+    local refs = gg.getResults(gg.getResultsCount())
+    if #refs > 0 then
+        for _, v in ipairs(refs) do
+            
+        end
+    end
+end
 
 return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
-
+    
     addArchModule(container, "auto_verify_all", t("auto_verify_all.title"), t("auto_verify_all.desc"), "button", nil,
     function(done)
+        local TAG = "AutoVerifyAll"
+        
         showDialog("still in progress", "unfinished", "ok")
-        ops.autoVerifyAll(function() end)
+        schedelur:add(function(finishTask)
+            
+            finishTask()
+            done()
+        end)
+        
         done()
     end)
+    
 end
 
 end
@@ -35213,53 +31620,168 @@ end
 __vfs['modules/tabs/cups.lua'] = function(...)
 --[[
   Cups Tab - Cup racing modes
-  Features: Adjust countdown, Auto-win, Force boss, Force cup, Set time,
-            Unlimited tasks, Rank points bonus
-
-  UI wiring only. Memory ops live in modules/ops/cups.lua.
-
+  Features: Auto-win races
+  
   @module callback Receives container View to populate with modules
 ]]
 
-local ops = CrashHandler.loadFeature("modules/ops/cups.lua")
-
 return function(container)
     local function t(key, ...) return T("cups." .. key, ...) end
-
+    
     addModule(container, "adjust_countdown", t("adjust_countdown.title"), t("adjust_countdown.desc"), "slider",
     {title=t("slider.seconds"), min=0, max=10, current=3},
     function(done, vals)
-        ops.adjustCountdown(vals, function()
-            showToast(t("adjust_countdown.applied", tostring(vals)), true)
+        local countdownValue = vals
+
+        scheduler:add(function(finishTask)
+            local TAG = "AdjustCountdown"
+            LOG.info(TAG, "Adjusting countdown to: " .. tostring(countdownValue) .. "s")
+            local cache = memory:load("adjust_countdown")
+            
+            if cache and #cache > 0 then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory")
+                gg.clearResults()
+                gg.setRanges(16) 
+                gg.searchNumber("h 00 00 40 40 00 00 80 40 00 00 40 41", 1)
+                gg.refineNumber("h 00 00 40 40", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("adjust_countdown", results)
+            end
+            
+            gg.editAll(cast.float(countdownValue), 1)
+            
+            showToast(t("adjust_countdown.applied", tostring(countdownValue)), true)
+            LOG.info(TAG, "Done")
+            gg.clearResults()
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addArchModule(container, "auto_win", t("auto_win.title"), t("auto_win.desc"), "switch", nil, aobs.autoWin)
-
+    
     addArchModule(container, "force_boss", t("force_boss.title"), t("force_boss.desc"), "switch", nil, aobs.forceBoss)
-
+    
     addModule(container, "force_cup", t("force_cup.title"), t("force_cup.desc"), "switch", nil,
     function(done, state)
-        ops.forceCup(state, function(status)
-            if status == "not_found" then
-                showToast(t("force_cup.not_found"))
-            elseif status == "enabled" then
+        local TAG = "ForceCup"
+
+        scheduler:add(function(finishTask)
+            if state then
+                LOG.info(TAG, "Enabling Force Cup...")
+
+                local cache = memory:load("force_cup_cache")
+
+                -- Verify cache is still valid
+                if cache then
+                    LOG.dbg(TAG, string.format("Cache found. Verifying base address: 0x%X", cache.base))
+                    local verify = gg.getValues({{ address = cache.base, flags = 1 }})
+                    if not verify or not verify[1] or verify[1].value ~= 0xB8 then
+                        LOG.warn(TAG, "Base address moved. Invalidating cache and re-searching...")
+                        cache = nil
+                        memory:delete("force_cup_cache")
+                    else
+                        LOG.dbg(TAG, "Base address valid. Using cache.")
+                    end
+                end
+
+                -- Search if no cache
+                if not cache then
+                    LOG.dbg(TAG, "No cache. Executing pattern search...")
+                    gg.clearResults()
+                    gg.setRanges(BaseRegion)
+                    gg.searchNumber("h B8 1E 85 3F CD CC 4C 3F", 1)
+
+                    local results = gg.getResults(10)
+                    gg.clearResults()
+
+                    if #results == 0 then
+                        showToast(t("force_cup.not_found"))
+                        LOG.error(TAG, "Pattern not found in memory.")
+                        finishTask()
+                        done()
+                        return
+                    end
+
+                    local base = results[1].address
+                    LOG.info(TAG, string.format("Pattern found at: 0x%X", base))
+
+                    cache = {
+                        base = base,
+                        items = {
+                            { address = base - 0x308, flags = 4, value = 1953063706 },
+                            { address = base - 0x304, flags = 4, value = 1869373305 },
+                            { address = base - 0x300, flags = 4, value = 1667196782 },
+                            { address = base - 0x2FC, flags = 4, value = 28789     },
+                            { address = base - 0x2F8, flags = 4, value = 0         },
+                        }
+                    }
+
+                    memory:save("force_cup_cache", cache)
+                    LOG.info(TAG, "Cache saved.")
+                end
+
+                -- Freeze
+                local freezeItems = {}
+                for _, item in ipairs(cache.items) do
+                    table.insert(freezeItems, {
+                        address = item.address,
+                        flags   = item.flags,
+                        value   = item.value,
+                        freeze  = true
+                    })
+                end
+
+                gg.addListItems(freezeItems)
                 showToast(t("force_cup.enabled"))
+                LOG.info(TAG, "Force Cup enabled. Items frozen.")
+
             else
+                LOG.info(TAG, "Disabling Force Cup...")
+
+                local cache = memory:load("force_cup_cache")
+
+                if cache then
+                    local unfreezeItems = {}
+                    for _, item in ipairs(cache.items) do
+                        table.insert(unfreezeItems, {
+                            address = item.address,
+                            flags   = item.flags,
+                            value   = item.value,
+                            freeze  = false
+                        })
+                    end
+
+                    gg.removeListItems(unfreezeItems)
+                    LOG.info(TAG, "Force Cup disabled. Items unfrozen.")
+                else
+                    LOG.warn(TAG, "No cache found on disable. Nothing to unfreeze.")
+                end
+
                 showToast(t("force_cup.disabled"))
             end
-        end)
-        done()
-    end)
 
+            finishTask()
+            done()
+        end)
+    end)
+    
     addArchModule(container, "set_time", t("set_time.title"), t("set_time.desc"), "input", {
         {hint = t("set_time.hint"), type = "text"},
     }, function(done, vals)
+        local TAG = "SetTime"
+        LOG.info(TAG, "Module activated.")
+    
         local function parseTime(str)
             str = str:match("^%s*(.-)%s*$")
             if str:find("-") then return nil, "no_negative" end
-
+    
             if str:find(":") then
                 local min, sec, ms = str:match("^(%d+):(%d+)%.(%d+)$")
                 if not min then return nil, "invalid_format" end
@@ -35274,7 +31796,7 @@ return function(container)
                 return sec, nil
             end
         end
-
+    
         local timeSeconds, err = parseTime(vals)
         if err == "no_negative" then
             showToast(t("set_time.no_negative"), true)
@@ -35285,157 +31807,792 @@ return function(container)
             done()
             return
         end
-
-        ops.setTime(timeSeconds, function(status)
-            if status == "not_in_cup" then
+    
+        scheduler:add(function(finishTask)
+            local activeTab = gg.getValues({{ address = BaseGameStatusRaw - 0xD4, flags = 4 }})
+            local isCupTab = (type(activeTab) == "table" and activeTab[1] and activeTab[1].value == 1)
+    
+            if not isCupTab then
                 showToast(t("set_time.not_in_cup"), true)
-            elseif status == "start_race_first" then
-                showToast(t("set_time.start_race_first"), true)
-            else
-                showToast(t("set_time.applied", vals), true)
+                finishTask()
+                done()
+                return
             end
+    
+            local function resolveBase()
+                local cachedPtr = memory:load("set_time_ptr")
+                if cachedPtr and cachedPtr ~= 0 then
+                    local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
+                    if verify and verify[1] and verify[1].value ~= 0 then
+                        local base = verify[1].value
+                        LOG.dbg(TAG, string.format("Cache hit: ptr=0x%X → base=0x%X", cachedPtr, base))
+                        return base
+                    else
+                        LOG.warn(TAG, "ptr invalid — clearing cache")
+                        memory:save("set_time_ptr", nil)
+                    end
+                end
+    
+                local anchorTarget = BaseLib + offsets.raceInfo
+                LOG.dbg(TAG, string.format("Resolving from scratch | anchor=0x%X", anchorTarget))
+    
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber(anchorTarget, 32)
+                local level1Results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+    
+                if #level1Results == 0 then
+                    LOG.warn(TAG, "Level 1: no refs found")
+                    return nil
+                end
+    
+                local resolvedBase = nil
+    
+                for _, ref1 in ipairs(level1Results) do
+                    gg.clearResults()
+                    gg.setRanges(BaseRegion)
+                    gg.searchNumber(ref1.address, 32)
+                    local level2Results = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, ref2 in ipairs(level2Results) do
+                        local offsetAddr = ref2.address - 0xAC
+    
+                        gg.clearResults()
+                        gg.setRanges(gg.REGION_C_ALLOC)
+                        gg.searchNumber(offsetAddr, 32)
+                        local level3Results = gg.getResults(gg.getResultsCount())
+                        gg.clearResults()
+    
+                        if #level3Results > 0 then
+                            local pointerReads = {}
+                            for _, ref3 in ipairs(level3Results) do
+                                table.insert(pointerReads, { address = ref3.address, flags = 32 })
+                            end
+                            local resolvedPointers = gg.getValues(pointerReads)
+                            if resolvedPointers then
+                                for _, ptr in ipairs(resolvedPointers) do
+                                    if ptr and ptr.value and ptr.value ~= 0 then
+                                        memory:save("set_time_ptr", ptr.address)
+                                        resolvedBase = ptr.value
+                                        LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → base=0x%X", ptr.address, resolvedBase))
+                                        break
+                                    end
+                                end
+                            end
+                        end
+    
+                        if resolvedBase then break end
+                    end
+    
+                    if resolvedBase then break end
+                end
+    
+                return resolvedBase
+            end
+    
+            local base = resolveBase()
+            if not base then
+                showToast(t("set_time.start_race_first"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            gg.setValues({
+                { address = base + 0x10, flags = 16, value = timeSeconds },
+                { address = base + 0x14, flags = 16, value = timeSeconds },
+            })
+    
+            LOG.info(TAG, "Time set: " .. tostring(timeSeconds) .. "s (" .. vals .. ")")
+            showToast(t("set_time.applied", vals), true)
+            gg.clearResults()
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addModule(container, "unlimited_tasks", t("unlimited_tasks.title"), t("unlimited_tasks.desc"), "switch", nil,
     function(done, state)
-        ops.unlimitedTasks(state, function(status)
-            if status == "resolve_failed" then
+        local TAG = "UnlimitedTasks"
+
+        scheduler:add(function(finishTask)
+            local ptr1 = gg.getValues({{ address = BaseGameStatus + 0x6F8, flags = 32 }})[1].value
+
+            if not ptr1 or ptr1 == 0 then
                 showToast(t("unlimited_tasks.resolve_failed"))
-            elseif status == "none_found" then
+                LOG.fatal(TAG, "Ptr1 is nil or 0.")
+                finishTask()
+                done()
+                return
+            end
+
+            local totalTasks = gg.getValues({{ address = BaseGameStatus + 0x700, flags = 4 }})[1].value
+
+            if not totalTasks or totalTasks == 0 then
                 showToast(t("unlimited_tasks.none_found"))
-            elseif status == "enabled" then
-                showToast(t("unlimited_tasks.enabled"))
-            elseif status == "disabled" then
-                showToast(t("unlimited_tasks.disabled"))
+                LOG.warn(TAG, "totalTasks is 0.")
+                finishTask()
+                done()
+                return
+            end
+
+            LOG.dbg(TAG, "Total tasks: " .. tostring(totalTasks))
+
+            local freezeItems = {}
+
+            for i = 0, totalTasks - 1 do
+                local ptr2 = gg.getValues({{ address = ptr1 + i * 8, flags = 32 }})[1].value
+
+                if ptr2 and ptr2 ~= 0 then
+                    local completeTarget = gg.getValues({{ address = ptr2 + 0x1C, flags = 4 }})[1].value
+
+                    if completeTarget and completeTarget > 0 then
+                        table.insert(freezeItems, { address = ptr2 + 0x1C, flags = 4, value = completeTarget, freeze = state })
+                        table.insert(freezeItems, { address = ptr2 + 0x20, flags = 4, value = completeTarget, freeze = state })
+                        table.insert(freezeItems, { address = ptr2 + 0x24, flags = 4, value = 0,             freeze = state })
+                        LOG.dbg(TAG, string.format("Task [%d] queued. completeTarget: %d", i, completeTarget))
+                    end
+                end
+            end
+
+            if #freezeItems > 0 then
+                if state then
+                    gg.addListItems(freezeItems)
+                    showToast(t("unlimited_tasks.enabled"))
+                    LOG.info(TAG, "Enabled. Frozen " .. tostring(#freezeItems / 3) .. " tasks.")
+                else
+                    gg.removeListItems(freezeItems)
+                    showToast(t("unlimited_tasks.disabled"))
+                    LOG.info(TAG, "Disabled. Unfrozen " .. tostring(#freezeItems / 3) .. " tasks.")
+                end
             else
                 showToast(t("unlimited_tasks.none_to_freeze"))
+                LOG.warn(TAG, "freezeItems is empty.")
             end
-        end)
-        done()
-    end)
 
+            finishTask()
+            done()
+        end)
+    end)
+    
     addModule(container, "rank_points_bonus", t("rank_points_bonus.title"), t("rank_points_bonus.desc"), "switch", nil,
     function(done, state)
-        ops.rankPointsBonus(state, function(status, count)
-            if status == "none_found" then
-                showToast(t("rank_points_bonus.none_found"))
-            elseif status == "boosted" then
-                showToast(t("rank_points_bonus.boosted", tostring(count)))
-            elseif status == "no_match" then
-                showToast(t("rank_points_bonus.no_match"))
-            elseif status == "nothing_to_restore" then
-                showToast(t("rank_points_bonus.nothing_to_restore"))
+        local TAG = "RankPointsBonus"
+        LOG.info(TAG, "Module activated. state=" .. tostring(state))
+
+        scheduler:add(function(finishTask)
+            if state then
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h 1C 4C 65 61 67 75 65 54", 1)
+                gg.refineNumber("h 1C", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+
+                if #results == 0 then
+                    showToast(t("rank_points_bonus.none_found"))
+                    LOG.warn(TAG, "Anchor search returned 0 results.")
+                    finishTask()
+                    done()
+                    return
+                end
+
+                LOG.dbg(TAG, "Anchor results: " .. tostring(#results))
+
+                local saved = {}
+                local successCount = 0
+
+                for idx, result in ipairs(results) do
+                    local check = gg.getValues({{ address = result.address + 0x1C, flags = 4 }})
+
+                    if not check or not check[1] then
+                        LOG.warn(TAG, string.format("result[%d] check read failed", idx))
+                        goto continueResult
+                    end
+
+                    if check[1].value ~= 0x3E4CCCCD then
+                        LOG.dbg(TAG, string.format("result[%d] +0x1C = 0x%X, not 0.2, skipping", idx, check[1].value))
+                        goto continueResult
+                    end
+                    
+                    local readAddrs = {}
+                    table.insert(readAddrs, { address = result.address + 0x1C, flags = 4 })
+                    
+                    local original = gg.getValues(readAddrs)
+
+                    local values = {}
+                    for i, v in ipairs(original) do
+                        values[i] = v.value
+                    end
+                    table.insert(saved, { base = result.address, values = values })
+                    
+                    local edits = {
+                        { address = result.address + 0x1C, flags = 16, value = 0.498 }
+                    }
+                    
+                    gg.setValues(edits)
+
+                    successCount = successCount + 1
+
+                    ::continueResult::
+                end
+
+                memory:save("rank_points_bonus", saved)
+                LOG.info(TAG, "Done. Patched: " .. tostring(successCount))
+
+                if successCount > 0 then
+                    showToast(t("rank_points_bonus.boosted", tostring(successCount)))
+                else
+                    showToast(t("rank_points_bonus.no_match"))
+                end
             else
-                showToast(t("rank_points_bonus.restored", tostring(count)))
+                -- DISABLE: restore original values from saved data
+                local saved = memory:load("rank_points_bonus")
+
+                if not saved or #saved == 0 then
+                    LOG.warn(TAG, "No saved data to restore.")
+                    showToast(t("rank_points_bonus.nothing_to_restore"))
+                    finishTask()
+                    done()
+                    return
+                end
+
+                local restoreCount = 0
+
+                for idx, entry in ipairs(saved) do
+                    local edits = {}
+                    
+                    table.insert(edits, { address = entry.base + 0x1C, flags = 4, value = entry.values[i] })
+                    
+                    gg.setValues(edits)
+                    restoreCount = restoreCount + 1
+                end
+
+                memory:save("rank_points_bonus", {})
+                LOG.info(TAG, "Restored: " .. tostring(restoreCount))
+                showToast(t("rank_points_bonus.restored", tostring(restoreCount)))
             end
+
+            finishTask()
+            done()
         end)
-        done()
     end)
 end
 
 end
 
 __vfs['modules/tabs/event.lua'] = function(...)
+
 --[[
   Event Tab - Event mode features
-  Features: Patch event rewards, Restore events
-
-  UI wiring only. The file/crypto/root pipeline lives in modules/ops/event.lua.
-  This tab supplies the interaction callbacks and renders the result.
-
+  Features: Event Rewards Patch / Restore
+  
   @module callback Receives container View to populate with modules
 ]]
-
-local ops = CrashHandler.loadFeature("modules/ops/event.lua")
 
 return function(container)
     local function t(key, ...) return T("event." .. key, ...) end
 
-    -- Interaction callbacks handed to core for the unavoidable mid-pipeline UI.
-    local ui = {
-        onProgress = function(key) gg.toast(t(key)) end,
-        chooseEvents = function(labels, titleKey, arg)
-            return gg.multiChoice(labels, nil, t(titleKey, arg))
-        end,
-    }
-
-    -- Localize a failedList entry: { key, arg1, ... } → t(key, arg1, ...)
-    local function localizeFail(e) return t(table.unpack(e)) end
-
-    -- Build the success/failed dialog body from the result lists.
-    local function buildResultMsg(result, successHeaderKey, successItemKey)
-        local resultMsg = ""
-        if #result.successList > 0 then
-            resultMsg = resultMsg .. t(successHeaderKey) .. "\n"
-            for _, name in ipairs(result.successList) do
-                resultMsg = resultMsg .. t(successItemKey, name) .. "\n"
-            end
-            resultMsg = resultMsg .. "\n"
-        end
-        if #result.failedList > 0 then
-            resultMsg = resultMsg .. t("failed_header") .. "\n"
-            for _, e in ipairs(result.failedList) do
-                resultMsg = resultMsg .. t("failed_item", localizeFail(e)) .. "\n"
-            end
-        end
-        return resultMsg
+    -- Helper: get file size in bytes, returns -1 if unreadable
+    local function fileSize(path)
+        local f = io.open(path, "rb")
+        if not f then return -1 end
+        local size = f:seek("end")
+        f:close()
+        return size or -1
     end
 
-    -- Wait for any queued scheduler file tasks to drain, then kill + relaunch.
-    local function restartGame(finishingKey)
-        if scheduler:get_queue_count() > 0 or scheduler:is_processing() then
-            gg.toast(t(finishingKey))
-            while scheduler:get_queue_count() > 0 or scheduler:is_processing() do
-                gg.sleep(100)
-            end
-        end
-        gg.processKill()
-        gg.sleep(1000)
-        exitScript()
+    -- Helper: check if root is available
+    local function checkRoot()
+        local result = Shell.su("id")
+        return result and result:find("uid=0") ~= nil
+    end
+
+    -- Helper: check if file exists (files only, not dirs)
+    local function fileExists(path)
+        local f = io.open(path, "rb")
+        if f then f:close(); return true end
+        return Shell.su("[ -f \"" .. path .. "\" ] && echo yes || echo no") == "yes"
+    end
+
+    -- Helper: check if directory exists
+    local function dirExists(path)
+        return Shell.su("[ -d \"" .. path .. "\" ] && echo yes || echo no") == "yes"
     end
 
     addModule(container, "patch_rewards", t("patch_rewards.title"), t("patch_rewards.desc"), "button", nil, function(done)
-        ops.patchRewards(ui, function(result)
-            if result.earlyExit then
-                showDialog(t(result.earlyExit[1]), t(result.earlyExit[2], result.earlyExit[3]), {T("common.ok")})
+        gg.toast(t("checking_permissions"))
+        local hasRoot = checkRoot()
+
+        if hasRoot then
+            memory:save("shell_states", {root=true})
+        else
+            memory:save("shell_states", {root=false})
+        end
+
+        gg.toast(t("scanning_files"))
+
+        local eventsPath = game_path .. "/files/content_cache/json/events/"
+
+        local successList = {}
+        local failedList = {}
+
+        local custom_rewards = loadModule("configs/rewards.lua")
+        local jsonMod = nil
+        local ok, err = pcall(function()
+            jsonMod = json.decode(custom_rewards)
+        end)
+        if not ok or not jsonMod then
+            table.insert(failedList, t("decode_rewards_failed"))
+            jsonMod = nil
+        end
+
+        -- Workspace for root file operations
+        local safeWorkspace = gg.EXT_FILES_DIR .. "/.void_cache/"
+        if hasRoot then
+            Shell.su("mkdir -p \"" .. safeWorkspace .. "\"")
+            Shell.su("chmod 777 \"" .. safeWorkspace .. "\"")
+            if not dirExists(safeWorkspace) then
+                table.insert(failedList, t("workspace_creation_failed", safeWorkspace))
+                showDialog(t("patch_results_title"), t("workspace_creation_failed_dialog", safeWorkspace), {T("common.ok")})
                 done()
                 return
             end
+            LOG.dbg("EventPatch", "Workspace verified: " .. safeWorkspace)
+        end
 
-            local resultMsg = buildResultMsg(result, "success_header", "success_item")
-            showDialog(t("patch_results_title"), resultMsg, {T("common.ok")})
-            done()
+        do
+            local path = eventsPath
+            local active = path .. "active_events.json"
+            local active_decrypted = hasRoot and (safeWorkspace .. ".active_events") or (path .. ".active_events")
+            local targetActivePath = active
+            local activeMovedViaRoot = false
 
-            if result.restart then
-                print(resultMsg)
-                showDialog(t("restart_required_title"), t("patch_restart_msg"), {T("common.ok")})
-                restartGame("finishing_tasks_patch")
+            -- Check if file is directly readable (Virtual Space)
+            local testOpen = io.open(active, "r")
+            if testOpen then
+                testOpen:close()
+            elseif hasRoot then
+                local secureActiveCopy = safeWorkspace .. "active_events.json"
+                Shell.su("cp \"" .. active .. "\" \"" .. secureActiveCopy .. "\"")
+                Shell.su("chmod 777 \"" .. secureActiveCopy .. "\"")
+
+                if not fileExists(secureActiveCopy) then
+                    LOG.warn("EventPatch", "Root copy verification FAILED for: " .. secureActiveCopy)
+                    table.insert(failedList, t("root_copy_failed", active))
+                    goto continue_path
+                end
+
+                targetActivePath = secureActiveCopy
+                activeMovedViaRoot = true
             else
-                showDialog(T("common.failed"), t("patch_failed_msg"), {T("common.ok")})
+                table.insert(failedList, t("file_inaccessible", path))
+                goto continue_path
             end
-        end)
+
+            if not fileExists(targetActivePath) then
+                table.insert(failedList, t("predecrypt_not_found", targetActivePath))
+                goto continue_path
+            end
+            if fileSize(targetActivePath) <= 0 then
+                table.insert(failedList, t("predecrypt_empty", targetActivePath))
+                goto continue_path
+            end
+
+            local meta = Crypto.decrypt(targetActivePath, active_decrypted)
+            if activeMovedViaRoot then os.remove(targetActivePath) end
+
+            if meta then
+                local activeFile = io.open(active_decrypted, "r")
+                if activeFile then
+                    local activeContent = activeFile:read("*a")
+                    activeFile:close()
+                    os.remove(active_decrypted)
+
+                    local jsonActive = nil
+                    local ok2, err2 = pcall(function()
+                        jsonActive = json.decode(activeContent)
+                    end)
+                    if not ok2 or not jsonActive then
+                        table.insert(failedList, t("decode_active_failed", path))
+                        goto continue_path
+                    end
+
+                    local gameEvents = jsonActive.gameEvents or {}
+                    if #gameEvents == 0 then
+                        table.insert(failedList, t("no_active_events", path))
+                        goto continue_path
+                    end
+
+                    local labels = {}
+                    for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
+
+                    local selections = gg.multiChoice(labels, nil, t("select_events_patch", path))
+                    if not selections then
+                        table.insert(failedList, t("user_cancelled", path))
+                        goto continue_path
+                    end
+
+                    if not jsonMod then
+                        table.insert(failedList, t("rewards_unavailable", path))
+                        goto continue_path
+                    end
+                    local eventRewards = jsonMod.eventRewards
+
+                    local selectionsExist = false
+                    for _, selected in pairs(selections) do
+                        if selected then selectionsExist = true; break end
+                    end
+
+                    if selectionsExist then
+                        local fileTaskDone = false
+
+                        scheduler:add(function(finishTask)
+                            local loopOk, loopErr = pcall(function()
+                                for idx, selected in pairs(selections) do
+                                    if selected then
+                                        local eventName = gameEvents[idx]
+                                        if eventName then
+                                            local eventPath = path .. eventName .. ".json"
+                                            local targetEventPath = eventPath
+                                            local secureEventCopy = safeWorkspace .. eventName .. ".json"
+                                            local decryptedPath = hasRoot and (safeWorkspace .. "." .. eventName) or (path .. "." .. eventName)
+                                            local eventMovedViaRoot = false
+
+                                            local testEventOpen = io.open(eventPath, "r")
+                                            if testEventOpen then
+                                                testEventOpen:close()
+                                            elseif hasRoot then
+                                                Shell.su("cp \"" .. eventPath .. "\" \"" .. secureEventCopy .. "\"")
+                                                Shell.su("chmod 777 \"" .. secureEventCopy .. "\"")
+
+                                                if not fileExists(secureEventCopy) then
+                                                    LOG.warn("EventPatch", "Root event copy FAILED for: " .. secureEventCopy)
+                                                    table.insert(failedList, t("root_copy_failed", eventPath))
+                                                    goto next_event
+                                                end
+
+                                                targetEventPath = secureEventCopy
+                                                eventMovedViaRoot = true
+                                            else
+                                                table.insert(failedList, t("skipped_unreadable", eventName))
+                                                goto next_event
+                                            end
+
+                                            if not fileExists(targetEventPath) then
+                                                table.insert(failedList, t("predecrypt_event_not_found", targetEventPath))
+                                                goto next_event
+                                            end
+                                            if fileSize(targetEventPath) <= 0 then
+                                                table.insert(failedList, t("predecrypt_event_empty", targetEventPath))
+                                                goto next_event
+                                            end
+
+                                            local eventMeta = Crypto.decrypt(targetEventPath, decryptedPath)
+                                            if eventMovedViaRoot then os.remove(targetEventPath) end
+
+                                            if eventMeta then
+                                                local eventFile = io.open(decryptedPath, "r+")
+                                                if eventFile then
+                                                    local writeOk, writeErr = pcall(function()
+                                                        local eventContent = eventFile:read("*a")
+                                                        local jsonEvent = json.decode(eventContent)
+
+                                                        jsonEvent.eventRewards = eventRewards
+                                                        jsonEvent.minRankToJoin = 0
+                                                        jsonEvent.rankBrackets = 2
+
+                                                        local function patchText(v)
+                                                            local text = type(v) == "table" and (v.value or "") or (v or "")
+                                                            local localize = type(v) == "table" and (v.localize or "") or ""
+                                                            text = text:gsub("%s*%(Patched%)", "")
+                                                            text = text .. " (Patched)"
+                                                            return { value = text, localize = localize }
+                                                        end
+
+                                                        jsonEvent.name = patchText(jsonEvent.name)
+                                                        jsonEvent.description = patchText(jsonEvent.description)
+
+                                                        local encodedEvent = json.encode(jsonEvent)
+                                                        eventFile:seek("set", 0)
+                                                        eventFile:write(encodedEvent)
+                                                        eventFile:flush()
+                                                        eventFile:close()
+
+                                                        if eventMovedViaRoot and hasRoot then
+                                                            local secureEncryptedOut = safeWorkspace .. eventName .. "_patched.json"
+                                                            Crypto.encrypt(decryptedPath, secureEncryptedOut, eventMeta)
+                                                            Shell.su("cp \"" .. secureEncryptedOut .. "\" \"" .. eventPath .. "\"")
+                                                            Shell.su("chmod 660 \"" .. eventPath .. "\"")
+                                                            os.remove(secureEncryptedOut)
+                                                        else
+                                                            Crypto.encrypt(decryptedPath, eventPath, eventMeta)
+                                                        end
+
+                                                        table.insert(successList, eventName)
+                                                    end)
+
+                                                    if not writeOk then
+                                                        pcall(function() eventFile:close() end)
+                                                        table.insert(failedList, t("processing_failed", eventName, tostring(writeErr)))
+                                                    end
+                                                    os.remove(decryptedPath)
+                                                else
+                                                    table.insert(failedList, t("cannot_open_decrypted", decryptedPath))
+                                                end
+                                            else
+                                                table.insert(failedList, t("decrypt_event_failed", eventName))
+                                            end
+                                        end
+                                    end
+                                    ::next_event::
+                                end
+                            end)
+
+                            if not loopOk then
+                                table.insert(failedList, t("loop_crash", tostring(loopErr)))
+                            end
+
+                            finishTask()
+                            fileTaskDone = true
+                        end)
+
+                        while not fileTaskDone do gg.sleep(50) end
+                    end
+                else
+                    table.insert(failedList, t("cannot_open_active", path))
+                end
+            else
+                table.insert(failedList, t("decrypt_active_failed", path))
+            end
+            ::continue_path::
+        end
+
+        -- Cleanup workspace
+        if hasRoot then
+            Shell.su("rm -rf \"" .. safeWorkspace .. "\"")
+        end
+
+        local resultMsg = ""
+        if #successList > 0 then
+            resultMsg = resultMsg .. t("success_header") .. "\n"
+            for _, name in ipairs(successList) do
+                resultMsg = resultMsg .. t("success_item", name) .. "\n"
+            end
+            resultMsg = resultMsg .. "\n"
+        end
+        if #failedList > 0 then
+            resultMsg = resultMsg .. t("failed_header") .. "\n"
+            for _, e in ipairs(failedList) do
+                resultMsg = resultMsg .. t("failed_item", e) .. "\n"
+            end
+        end
+
+        showDialog(t("patch_results_title"), resultMsg, {T("common.ok")})
+        done()
+
+        if #successList > 0 then
+            print(resultMsg)
+            showDialog(t("restart_required_title"), t("patch_restart_msg"), {T("common.ok")})
+
+            if scheduler:get_queue_count() > 0 or scheduler:is_processing() then
+                gg.toast(t("finishing_tasks_patch"))
+                while scheduler:get_queue_count() > 0 or scheduler:is_processing() do
+                    gg.sleep(100)
+                end
+            end
+
+            gg.processKill()
+            gg.sleep(1000)
+            exitScript()
+        else
+            showDialog(T("common.failed"), t("patch_failed_msg"), {T("common.ok")})
+        end
     end)
 
     addModule(container, "restore_events", t("restore_events.title"), t("restore_events.desc"), "button", nil, function(done)
-        ops.restoreEvents(ui, function(result)
-            if result.earlyExit then
-                showDialog(t(result.earlyExit[1]), t(result.earlyExit[2], result.earlyExit[3]), {T("common.ok")})
+        gg.toast(t("checking_permissions"))
+        local hasRoot = checkRoot()
+
+        if hasRoot then
+            memory:save("shell_states", {root=true})
+        else
+            memory:save("shell_states", {root=false})
+        end
+
+        gg.toast(t("scanning_files"))
+
+        local eventsPath = game_path .. "/files/content_cache/json/events/"
+
+        local successList = {}
+        local failedList = {}
+
+        local safeWorkspace = gg.EXT_FILES_DIR .. "/.void_cache/"
+        if hasRoot then
+            Shell.su("mkdir -p \"" .. safeWorkspace .. "\"")
+            Shell.su("chmod 777 \"" .. safeWorkspace .. "\"")
+            if not dirExists(safeWorkspace) then
+                table.insert(failedList, t("workspace_creation_failed", safeWorkspace))
+                showDialog(t("restore_results_title"), t("workspace_creation_failed_dialog", safeWorkspace), {T("common.ok")})
                 done()
                 return
             end
+            LOG.dbg("EventRestore", "Workspace verified: " .. safeWorkspace)
+        end
 
-            local resultMsg = buildResultMsg(result, "success_removed_header", "success_item_json")
-            showDialog(t("restore_results_title"), resultMsg, {T("common.ok")})
-            done()
+        do
+            local path = eventsPath
+            local active = path .. "active_events.json"
+            local active_decrypted = hasRoot and (safeWorkspace .. ".active_events") or (path .. ".active_events")
+            local targetActivePath = active
+            local activeMovedViaRoot = false
 
-            if result.restart then
-                print(resultMsg)
-                showDialog(t("restart_required_title"), t("restore_restart_msg"), {T("common.ok")})
-                restartGame("finishing_tasks_restore")
+            local testOpen = io.open(active, "r")
+            if testOpen then
+                testOpen:close()
+            elseif hasRoot then
+                local secureActiveCopy = safeWorkspace .. "active_events.json"
+                Shell.su("cp \"" .. active .. "\" \"" .. secureActiveCopy .. "\"")
+                Shell.su("chmod 777 \"" .. secureActiveCopy .. "\"")
+
+                if not fileExists(secureActiveCopy) then
+                    LOG.warn("EventRestore", "Root copy verification FAILED for: " .. secureActiveCopy)
+                    table.insert(failedList, t("root_copy_failed", active))
+                    goto continue_path
+                end
+
+                targetActivePath = secureActiveCopy
+                activeMovedViaRoot = true
+            else
+                table.insert(failedList, t("file_inaccessible", path))
+                goto continue_path
             end
-        end)
+
+            if not fileExists(targetActivePath) then
+                table.insert(failedList, t("predecrypt_not_found", targetActivePath))
+                goto continue_path
+            end
+            if fileSize(targetActivePath) <= 0 then
+                table.insert(failedList, t("predecrypt_empty", targetActivePath))
+                goto continue_path
+            end
+
+            local meta = Crypto.decrypt(targetActivePath, active_decrypted)
+            if activeMovedViaRoot then os.remove(targetActivePath) end
+
+            if meta then
+                local activeFile = io.open(active_decrypted, "r")
+                if activeFile then
+                    local activeContent = activeFile:read("*a")
+                    activeFile:close()
+                    os.remove(active_decrypted)
+
+                    local jsonActive = nil
+                    local ok, err = pcall(function()
+                        jsonActive = json.decode(activeContent)
+                    end)
+
+                    if ok and jsonActive then
+                        local gameEvents = jsonActive.gameEvents or {}
+                        if #gameEvents > 0 then
+                            local labels = {}
+                            for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
+
+                            local selections = gg.multiChoice(labels, nil, t("select_events_restore", path))
+
+                            if selections then
+                                local fileTaskDone = false
+
+                                scheduler:add(function(finishTask)
+                                    pcall(function()
+                                        for idx, selected in pairs(selections) do
+                                            if selected then
+                                                local eventName = gameEvents[idx]
+                                                if eventName then
+                                                    local eventPath = path .. eventName .. ".json"
+
+                                                    local removed, remErr = os.remove(eventPath)
+
+                                                    if not removed and hasRoot then
+                                                        Shell.su("rm \"" .. eventPath .. "\"")
+                                                        local check = Shell.su("[ -f \"" .. eventPath .. "\" ] && echo yes || echo no")
+                                                        if check == "no" then
+                                                            removed = true
+                                                        else
+                                                            remErr = "Root removal failed or rejected"
+                                                        end
+                                                    end
+
+                                                    if removed then
+                                                        table.insert(successList, eventName)
+                                                    else
+                                                        table.insert(failedList, t("delete_failed", eventName, tostring(remErr)))
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    end)
+                                    finishTask()
+                                    fileTaskDone = true
+                                end)
+
+                                while not fileTaskDone do gg.sleep(50) end
+                            end
+                        else
+                            table.insert(failedList, t("no_active_events", path))
+                        end
+                    else
+                        table.insert(failedList, t("decode_active_failed", path))
+                    end
+                else
+                    table.insert(failedList, t("cannot_open_active", path))
+                end
+            else
+                table.insert(failedList, t("decrypt_active_failed", path))
+            end
+            ::continue_path::
+        end
+
+        -- Cleanup workspace
+        if hasRoot then
+            Shell.su("rm -rf \"" .. safeWorkspace .. "\"")
+        end
+
+        local resultMsg = ""
+        if #successList > 0 then
+            resultMsg = resultMsg .. t("success_removed_header") .. "\n"
+            for _, name in ipairs(successList) do
+                resultMsg = resultMsg .. t("success_item_json", name) .. "\n"
+            end
+            resultMsg = resultMsg .. "\n"
+        end
+        if #failedList > 0 then
+            resultMsg = resultMsg .. t("failed_header") .. "\n"
+            for _, e in ipairs(failedList) do
+                resultMsg = resultMsg .. t("failed_item", e) .. "\n"
+            end
+        end
+
+        showDialog(t("restore_results_title"), resultMsg, {T("common.ok")})
+        done()
+
+        if #successList > 0 then
+            print(resultMsg)
+            showDialog(t("restart_required_title"), t("restore_restart_msg"), {T("common.ok")})
+
+            if scheduler:get_queue_count() > 0 or scheduler:is_processing() then
+                gg.toast(t("finishing_tasks_restore"))
+                while scheduler:get_queue_count() > 0 or scheduler:is_processing() do
+                    gg.sleep(100)
+                end
+            end
+
+            gg.processKill()
+            gg.sleep(1000)
+            exitScript()
+        end
     end)
 end
 
@@ -35443,88 +32600,205 @@ end
 
 __vfs['modules/tabs/other.lua'] = function(...)
 --[[
-  Other Tab - Misc features
-  Features: Debug mode, Change aspect ratio, Set resolution, Set resolution offset
-
-  UI wiring only. Memory ops live in modules/ops/other.lua.
-  done() is called right after dispatch (not inside the result callback) so a
-  crash in the scheduled work can't leave a card stuck.
-
+  Other Tab - Other mode features
+  Status: Resolution adjust, Resolution offset adjust
+  
   @module callback Receives container View to populate with modules
 ]]
-
-local ops = CrashHandler.loadFeature("modules/ops/other.lua")
-
--- Aspect-ratio presets (index matches other.aspect_ratio.options), applied as a
--- matching resolution at 1080p height via the shared resolution op.
-local RATIOS = {
-    { w = 1920, h = 1080 }, -- 16:9
-    { w = 2160, h = 1080 }, -- 18:9
-    { w = 2340, h = 1080 }, -- 19.5:9
-    { w = 2400, h = 1080 }, -- 20:9
-    { w = 2520, h = 1080 }, -- 21:9
-    { w = 1440, h = 1080 }, -- 4:3
-}
 
 return function(container)
     local function t(key, ...) return T("other." .. key, ...) end
 
     addModule(container, "debug_mode", t("debug_mode.title"), t("debug_mode.desc"), "switch", nil, function(done, state)
-        ops.debugMode(state, function(status)
-            showToast(t("debug_mode." .. status), true)
-        end)
-        done()
-    end)
-
-    addModule(container, "aspect_ratio", t("aspect_ratio.title"), t("aspect_ratio.desc"), "spinner", {
-        options = t("aspect_ratio.options"),
-        default = 4
-    }, function(done, item, index)
-        local r = RATIOS[index] or RATIOS[1]
-        ops.setResolution({ width = r.w, height = r.h }, function(status)
-            if status == "glsurface_not_found" then
-                gg.toast(t("glsurface_not_found"))
-            elseif status == "applied" then
-                gg.toast(t("aspect_ratio.applied", item))
+        scheduler:add(function(finishTask)
+            local TAG = "DebugMode"
+            
+            if state then
+                gg.setValues({{
+                    address = BaseGameStatusRaw + 0x3,
+                    flags = 1,
+                    value = 1
+                }})
+                showToast(t("debug_mode.enabled"), true)
+            else
+                gg.setValues({{
+                    address = BaseGameStatusRaw + 0x3,
+                    flags = 1,
+                    value = 0
+                }})
+                showToast(t("debug_mode.disabled"), true)
             end
+            
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addModule(container, "resolution", t("resolution.title"), t("resolution.desc"), "input", {
         {hint = t("hint.width"), type = "number"},
         {hint = t("hint.height"), type = "number"}
     }, function(done, vals)
-        ops.setResolution({ width = vals[1], height = vals[2] }, function(status, data)
-            if status == "glsurface_not_found" then
-                gg.toast(t("glsurface_not_found"))
-            elseif status == "applied" then
-                gg.toast(t("resolution.applied", data.width, data.height))
+        scheduler:add(function(finishTask)
+            local TAG = "Resolution"
+            local width = tonumber(vals[1]) or 1280
+            local height = tonumber(vals[2]) or 720
+            LOG.info(TAG, string.format("Applying resolution: %dx%d", width, height))
+
+            local results = memory:load("resolution")
+
+            if not results then
+                LOG.dbg(TAG, "No cache — searching for GLSurfaceView")
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+
+                gg.searchNumber(":Cocos2dxGLSurfaceView", 1)
+                gg.refineNumber(":C", 1)
+                local cocos = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+
+                if #cocos == 0 then
+                    LOG.warn(TAG, "GLSurfaceView not found in memory")
+                    gg.toast(t("glsurface_not_found"))
+                    finishTask()
+                    done()
+                    return
+                end
+
+                local addresses = {}
+
+                for i, v in ipairs(cocos) do
+                    gg.searchNumber(v.address, 32)
+                    local ptrs = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+
+                    for _, p in ipairs(ptrs) do
+                        table.insert(addresses, p.address + 0x38)
+                        table.insert(addresses, p.address + 0x3C)
+                        table.insert(addresses, p.address + 0x40)
+                        table.insert(addresses, p.address + 0x44)
+                    end
+                end
+
+                if #addresses > 0 then
+                    results = addresses
+                    memory:save("resolution", results)
+                else
+                    finishTask()
+                    done()
+                    return
+                end
             end
+
+            if results and #results > 0 then
+                local values = {}
+
+                for i = 1, #results, 4 do
+                    if results[i] then
+                        table.insert(values, {address = results[i], flags = 4, value = width})
+                        table.insert(values, {address = results[i+1], flags = 4, value = height})
+                        table.insert(values, {address = results[i+2], flags = 4, value = width})
+                        table.insert(values, {address = results[i+3], flags = 4, value = height})
+                    end
+                end
+
+                if #values > 0 then
+                    gg.setValues(values)
+                    gg.toast(t("resolution.applied", width, height))
+                end
+            end
+
+            finishTask()
+            done()
         end)
-        done()
     end)
 
     addModule(container, "resolution_offset", t("resolution_offset.title"), t("resolution_offset.desc"), "input", {
         {hint = t("hint.width"), type = "number"},
         {hint = t("hint.height"), type = "number"}
     }, function(done, vals)
-        ops.setResolutionOffset({ width = vals[1], height = vals[2] }, function(status, data)
-            if status == "glsurface_not_found" then
-                gg.toast(t("glsurface_not_found"))
-            elseif status == "applied" then
-                gg.toast(t("resolution_offset.applied", data.width, data.height))
+        scheduler:add(function(finishTask)
+            local width = tonumber(vals[1]) or 0
+            local height = tonumber(vals[2]) or 0
+
+            local results = memory:load("resolution_offset")
+
+            if not results then
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+
+                gg.searchNumber(":Cocos2dxGLSurfaceView", 1)
+                gg.refineNumber(":C", 1)
+                local cocos = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+
+                if #cocos == 0 then
+                    gg.toast(t("glsurface_not_found"))
+                    finishTask()
+                    done()
+                    return
+                end
+
+                local addresses = {}
+
+                for i, v in ipairs(cocos) do
+                    gg.searchNumber(v.address, 32)
+                    local ptrs = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+
+                    for _, p in ipairs(ptrs) do
+                        table.insert(addresses, p.address + 0x30)
+                        table.insert(addresses, p.address + 0x34)
+                    end
+                end
+
+                if #addresses > 0 then
+                    results = addresses
+                    memory:save("resolution_offset", results) -- Fixed the bug where this overwritten the core resolution cache
+                else
+                    finishTask()
+                    done()
+                    return
+                end
             end
+
+            if results and #results > 0 then
+                local values = {}
+
+                for i = 1, #results, 2 do
+                    if results[i] then
+                        table.insert(values, {address = results[i], flags = 4, value = width})
+                        table.insert(values, {address = results[i+1], flags = 4, value = height})
+                    end
+                end
+
+                if #values > 0 then
+                    gg.setValues(values)
+                    gg.toast(t("resolution_offset.applied", width, height))
+                end
+            end
+
+            finishTask()
+            done()
         end)
-        done()
     end)
 
     --[[
-    -- mods_packs: disabled pending pack-swapping implementation. UI only.
-    addModule(container, "mods_packs", "Mods Packs", "...", "spinner", {
-        options = {"Default", "KAR's Pack"}, default = 1
+    addModule(container, "mods_packs", "Mods Packs", "Customize your game with exclusive community-made assets. Add new vehicle paints, unique textures, and custom designs without replacing existing files. (require game restart).\n\nRead help at https://zevrythel.net/modpack for making your own mods pack.", "spinner", {
+        options = {"Default", "KAR's Pack"},
+        default = 1
     }, function(done, item, index)
-        -- TODO: implement pack swapping logic per path
+        gg.toast("Please Wait!")
+        local cachesPaths = {
+            "/data/user/0/com.fingersoft.hcr2/files/content_cache/packages/",
+            "/data/user/0/com.waxmoon.ma.gp/rootfs/data/user/0/com.fingersoft.hcr2/files/content_cache/packages/"
+        }
+        local successList = {}
+        local failedList = {}
+        for _, path in ipairs(cachesPaths) do
+            -- TODO: implement pack swapping logic per path
+        end
+        showToast("Texture Pack changed to " .. item)
+        gg.clearResults()
         done()
     end)
     ]]--
@@ -35535,60 +32809,359 @@ end
 __vfs['modules/tabs/player.lua'] = function(...)
 --[[
   Player Tab - Vehicle and character modifications
-  Features: Auto-detach, Auto-die, No-clip, Hide name/flag, Zoom, Gravity
-
-  UI wiring only. Memory ops live in modules/ops/player.lua.
-
+  Features: Auto-detach parts, No-clip mode, Hide name/flag, Adjust Zoom, Adjust Gravity
+  
   @module callback Receives container View to populate with modules
 ]]
 
-local ops = CrashHandler.loadFeature("modules/ops/player.lua")
+-- Dependencies: addModule, addArchModule, showToast, memory, BaseGameStatus, BaseRegion, scheduler
 
 return function(container)
     local function t(key, ...) return T("player." .. key, ...) end
-
+    
     addArchModule(container, "auto_detach", t("auto_detach.title"), t("auto_detach.desc"), "switch", nil, aobs.autoDetach)
-
+    
     addArchModule(container, "auto_die", t("auto_die.title"), t("auto_die.desc"), "switch", nil, aobs.autoDie)
-
+    
     addModule(container, "no_clip", t("no_clip.title"), t("no_clip.desc"), "switch", nil,
     function(done, state)
-        ops.noClip(state, function(status)
-            showToast(t("no_clip." .. status), true)
+        scheduler:add(function(finishTask)
+            local TAG = "NoClip"
+            local cache = memory:load("no_clip")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory")
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber("h 0A D7 23 3C 00 00 00 00 00 00 20 C1", 1)
+                gg.refineNumber("h 0A D7 23 3C", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("no_clip", results)
+            end
+            if state then
+                gg.editAll("h CD CC 08 C1", 1)
+                showToast(t("no_clip.enabled"), true)
+                LOG.info(TAG, "Enabled")
+            else
+                gg.editAll("h 0A D7 23 3C", 1)
+                showToast(t("no_clip.disabled"), true)
+                LOG.info(TAG, "Disabled")
+            end
+            gg.clearResults()
+            
+            finishTask()
+            done()
         end)
-        done()
     end)
 
     addModule(container, "hide_name", t("hide_name.title"), t("hide_name.desc"), "switch", nil,
     function(done, state)
-        ops.hideName(state, function(status)
-            showToast(t("hide_name." .. status), true)
+        scheduler:add(function(finishTask)
+            local TAG = "HideName"
+            local cache = memory:load("hide_name")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory")
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h BF 7D AD C1 64 CC 73 41 71 3D 0A 3F 71 3D 0A 3F", 1)
+                gg.refineNumber("h 71 3D 0A 3F 71 3D 0A 3F", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("hide_name", results)
+            end
+            if state then
+                gg.editAll("h 00 00 00 00 00 00 00 00", 1)
+                showToast(t("hide_name.enabled"), true)
+                LOG.info(TAG, "Enabled")
+            else
+                gg.editAll("h 71 3D 0A 3F 71 3D 0A 3F", 1)
+                showToast(t("hide_name.disabled"), true)
+                LOG.info(TAG, "Disabled")
+            end
+            gg.clearResults()
+            
+            finishTask()
+            done()
         end)
-        done()
     end)
 
     addModule(container, "hide_flag", t("hide_flag.title"), t("hide_flag.desc"), "switch", nil,
     function(done, state)
-        ops.hideFlag(state, function(status)
-            showToast(t("hide_flag." .. status), true)
+        scheduler:add(function(finishTask)
+            local TAG = "HideFlag"
+
+            local cache = memory:load("hide_flag")
+            if cache then
+                LOG.dbg(TAG, "Using cached results (part 1)")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory (part 1)")
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h 2E FF D7 C1 36 CD 73 41 00 00 80 3F 00 00 80 3F 00 00 00 3F 00 00 00 3F FF FF FF FF 00 00 08 42 00 00 C0 41", 1)
+                gg.refineNumber("h 00 00 08 42 00 00 C0 41", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results (part 1): " .. tostring(#results))
+                memory:save("hide_flag", results)
+            end
+            if state then
+                gg.editAll("h 00 00 00 00 00 00 00 00", 1)
+            else
+                gg.editAll("h 00 00 08 42 00 00 C0 41", 1)
+            end
+            gg.clearResults()
+
+            local cache2 = memory:load("hide_flag2")
+            if cache2 then
+                LOG.dbg(TAG, "Using cached results (part 2)")
+                gg.clearResults()
+                gg.loadResults(cache2)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory (part 2)")
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h 61 32 DB C1 02 9A 70 41 C8 07 5D 3F 63 EE 5A 3F 00 00 00 3F 00 00 00 3F FF FF FF FF 00 00 44 42 00 00 20 42", 1)
+                gg.refineNumber("h FF FF FF FF", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results (part 2): " .. tostring(#results))
+                memory:save("hide_flag2", results)
+            end
+            if state then
+                gg.editAll("h 00 00 00 00", 1)
+                showToast(t("hide_flag.enabled"), true)
+                LOG.info(TAG, "Enabled")
+            else
+                gg.editAll("h FF FF FF FF", 1)
+                showToast(t("hide_flag.disabled"), true)
+                LOG.info(TAG, "Disabled")
+            end
+            gg.clearResults()
+            
+            finishTask()
+            done()
         end)
-        done()
+    end)
+    
+    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "button", nil, function(done)
+        scheduler:add(function(finishTask)
+            local TAG = "Fuel"
+    
+            local input = showPrompt(t("fuel.title"), {
+                {t("fuel.prompt_amount"), "number", "50"},
+                {t("fuel.prompt_reset"),  "checkbox", "false"},
+            })
+    
+            if not input then
+                finishTask()
+                done()
+                return
+            end
+    
+            -- Reset
+            if input[2] == "true" then
+                local cache = memory:load("fuel")
+                if not cache then
+                    showToast(t("fuel.not_applied"), true)
+                    finishTask()
+                    done()
+                    return
+                end
+                gg.clearResults()
+                gg.loadResults(cache)
+                local base = gg.getResults(1)[1].address
+                gg.setValues({
+                    {address = base + 4,  flags = 4, value = cast.arm64(0x1E22C000)},
+                    {address = base + 8,  flags = 4, value = cast.arm64(0x1E22C021)},
+                    {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
+                    {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
+                })
+                memory:save("fuel", nil)
+                showToast(t("fuel.reset"), true)
+                LOG.info(TAG, "Fuel reset")
+                gg.clearResults()
+                finishTask()
+                done()
+                return
+            end
+    
+            local val = tonumber(input[1])
+            if not val or val < 0 or val > 100 then
+                showToast(t("fuel.invalid"), true)
+                finishTask()
+                done()
+                return
+            end
+    
+            local b = string.pack("<f", val)
+            local lo = string.unpack("<H", b:sub(1,2))
+            local hi = string.unpack("<H", b:sub(3,4))
+            local NOP  = 0xD503201F
+            local movz = 0x52800000 | (lo << 5) | 8
+            local movk = 0x72A00000 | (hi << 5) | 8
+            local fmov = 0x1E270100
+    
+            local cache = memory:load("fuel")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning")
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber(aobs.fuel[1].scan, 1)
+                gg.refineNumber("h 61", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("fuel", results)
+            end
+    
+            local base = gg.getResults(1)[1].address
+            gg.setValues({
+                {address = base + 4,  flags = 4, value = cast.arm64(movz)},
+                {address = base + 8,  flags = 4, value = cast.arm64(movk)},
+                {address = base + 12, flags = 4, value = cast.arm64(fmov)},
+                {address = base + 16, flags = 4, value = cast.arm64(NOP)},
+            })
+    
+            showToast(t("fuel.applied", val), true)
+            LOG.info(TAG, "Fuel set to " .. tostring(val))
+            gg.clearResults()
+            finishTask()
+            done()
+        end)
     end)
 
     addModule(container, "zoom", t("zoom.title"), t("zoom.desc"), "slider", {
         {title=t("slider.min"), min=10, max=100, current=20},
         {title=t("slider.max"), min=10, max=100, current=50}
     }, function(done, vals)
-        ops.setZoom(vals, function() end)
-        done()
+        scheduler:add(function(finishTask)
+            local TAG = "Zoom"
+            local results = memory:load("zoom")
+            if not results then
+                LOG.dbg(TAG, "No cache — scanning memory")
+                gg.clearResults()
+                gg.setRanges(16)
+                gg.searchNumber("20;50::5", 16)
+                results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                if #results > 0 then memory:save("zoom", results) end
+            else
+                LOG.dbg(TAG, "Using cached results")
+            end
+            if results then
+                for i, v in ipairs(results) do
+                    v.value = (i % 2 == 1) and vals[1] or vals[2]
+                    v.flags = 16
+                end
+                gg.setValues(results)
+                LOG.info(TAG, string.format("Zoom set — min: %s max: %s", tostring(vals[1]), tostring(vals[2])))
+            else
+                LOG.warn(TAG, "No results to apply zoom to")
+            end
+            
+            finishTask()
+            done()
+        end)
     end)
 
     addModule(container, "gravity", t("gravity.title"), t("gravity.desc"), "slider", {
         {title=t("slider.x"), min=-100, max=100, current=0},
         {title=t("slider.y"), min=-100, max=100, current=-10}
     }, function(done, vals)
-        ops.setGravity(vals, function() end)
-        done()
+        scheduler:add(function(finishTask)
+            local TAG = "Gravity"
+            local allGravity = memory:load("gravity")
+
+            if not allGravity then
+                LOG.dbg(TAG, "No cache — running pointer walk scan")
+                allGravity = { x = {}, y = {} }
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("00000021h;00000000h;0000001Ah;00000000h;00000031h;00000000h;00000028h;00000000h;00000000h;00000017h;00000000h;756F4316h;7972746Eh;65646973h::81", 4)
+                gg.refineNumber("00000021h", 4)
+
+                local results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+                LOG.dbg(TAG, "Initial scan hits: " .. tostring(#results))
+
+                if #results > 0 then
+                    local toProcess = {}
+                    for _, v in ipairs(results) do
+                        gg.searchNumber(v.address, 32)
+                        local ptrResults = gg.getResults(gg.getResultsCount())
+                        gg.clearResults()
+                        for __, ptr in ipairs(ptrResults) do
+                            local getPtr  = gg.getValues({{ address = ptr.address + 0x8, flags = 32 }})[1].value
+                            local checkVal = gg.getValues({{ address = getPtr, flags = 4 }})[1].value
+                            if checkVal == 0x74616E2A then
+                                table.insert(toProcess, ptr.address)
+                            end
+                        end
+                    end
+                    LOG.dbg(TAG, "Validated base addresses: " .. tostring(#toProcess))
+
+                    for _, baseAddr in ipairs(toProcess) do
+                        local currentAddr = baseAddr
+                        while true do
+                            local gravityPtr = gg.getValues({{ address = currentAddr, flags = 32 }})[1].value
+                            if gravityPtr == 0 then break end
+                            local region = gg.getValuesRange({{ address = gravityPtr, flags = 32 }})[1]
+                            if region == "Ca" or region == "O" then
+                                local check = gg.getValues({{ address = gravityPtr + 0x48, flags = 4 }})[1].value
+                                if check ~= 0 then
+                                    table.insert(allGravity.x, {address = gravityPtr + 0x120, flags = 16})
+                                    table.insert(allGravity.y, {address = gravityPtr + 0x124, flags = 16})
+                                else
+                                    break
+                                end
+                            else
+                                break
+                            end
+                            currentAddr = currentAddr + 0x8
+                        end
+                    end
+
+                    LOG.info(TAG, string.format("Gravity addresses found: %d", #allGravity.x))
+                    memory:save("gravity", allGravity)
+                else
+                    LOG.warn(TAG, "Initial scan returned 0 results — gravity addresses not found")
+                end
+            else
+                LOG.dbg(TAG, "Using cached gravity addresses: " .. tostring(#allGravity.x))
+            end
+
+            if #allGravity.x > 0 then
+                for i = 1, #allGravity.x do
+                    allGravity.x[i].value = vals[1]
+                    allGravity.y[i].value = vals[2]
+                end
+                gg.setValues(allGravity.x)
+                gg.setValues(allGravity.y)
+                LOG.info(TAG, string.format("Gravity applied — X: %s Y: %s", tostring(vals[1]), tostring(vals[2])))
+            else
+                LOG.warn(TAG, "No gravity addresses to write to")
+            end
+            
+            finishTask()
+            done()
+        end)
     end)
 end
 
@@ -36329,45 +33902,131 @@ end
 __vfs['modules/tabs/shop.lua'] = function(...)
 --[[
   Shop Tab - Shop mode features
-  Features: Free chest, Free purchases, Change chest type
-
-  UI wiring only. Memory ops live in modules/ops/shop.lua.
-
+  Status: Free chest, Change chest type, Free purchases (also works for special offers as popup/badges).
+  
   @module callback Receives container View to populate with modules
 ]]
-
-local ops = CrashHandler.loadFeature("modules/ops/shop.lua")
 
 return function(container)
     local function t(key, ...) return T("shop." .. key, ...) end
 
     addModule(container, "free_chest", t("free_chest.title"), t("free_chest.desc"), "switch", nil, function(done, state)
-        ops.freeChest(state, function(status)
-            showToast(t("free_chest." .. status), true)
+        scheduler:add(function(finishTask)
+            local TAG = "FreeChest"
+            local cache = memory:load("free_chest")
+            if cache then
+                LOG.dbg(TAG, "Using cached results")
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                LOG.dbg(TAG, "No cache — scanning memory")
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber("h CE CC 4C 3F AF 47 E1 3E FA 7E AA 3E 5B B1 BF 3C CD CC CC 3D", 1)
+                gg.refineNumber("h CD CC CC 3D", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                LOG.info(TAG, "Scan results: " .. tostring(#results))
+                memory:save("free_chest", results)
+            end
+            
+            if state then
+                gg.editAll("0", 1)
+                showToast(t("free_chest.enabled"), true)
+            else
+                gg.editAll("h CD CC CC 3D", 1)
+                showToast(t("free_chest.disabled"), true)
+            end
+            
+            gg.clearResults()
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addModule(container, "free_purchases", t("free_purchases.title"), t("free_purchases.desc"), "button", nil, function(done)
-        ops.freePurchases(
-            function(counter, total) showToast(t("free_purchases.progress", counter, total), true) end,
-            function(status)
-                if status == "success" then gg.toast(t("free_purchases.success")) end
-            end)
-        done()
-    end)
+        scheduler:add(function(finishTask)
+            gg.clearResults()
+            gg.setRanges(4)
+            gg.searchNumber("h 04 65 6E 00", 1)
+            gg.refineNumber("h 04", 1)
+            
+            local results = gg.getResults(gg.getResultsCount())
+            local totalres = #results
+            if totalres > 0 then
+                local counter = 0 
+                local edits = {}
+                local tptrs = {}
+                
+                for _, r in ipairs(results) do
+                    gg.clearResults()
+                    gg.searchNumber(tostring(r.address), 32)
+                    local ptrs = gg.getResults(gg.getResultsCount())
+                    for _, sp in ipairs(ptrs) do
+                        table.insert(tptrs, {address = sp.address + 0x18, flags = 4})
+                    end
+                    counter = counter + 1
+                    showToast(t("free_purchases.progress", counter, totalres), true)
+                end
+                
+                tptrs = gg.getValues(tptrs)
+                for _, p in ipairs(tptrs) do
+                    local val = p.value
+                    if val > 0 and val < 100 then
+                        for off = 0x18, 0x2C, 4 do
+                            table.insert(edits, {address = p.address + off, flags = 4, value = 0})
+                        end
+                    end
+                end
+                
+                if #edits > 0 then
+                    gg.setValues(edits)
+                    gg.toast(t("free_purchases.success"))
+                end
+            end
 
+            gg.clearResults()
+            finishTask()
+            done()
+        end)
+    end)
+    
     addModule(container, "change_chest", t("change_chest.title"), t("change_chest.desc"), "spinner", {
         options = t("change_chest.options"),
         default = 8
     }, function(done, item, index)
-        ops.changeChest(index, function()
+        scheduler:add(function(finishTask)
+            local chestIDs = {
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20
+            }
+            local cache = memory:load("change_chest")
+            if cache then
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            else
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h 2A 48 75 67 65 20 43 68 65 73 74 20 6F 66 20 47 6F 6F 64 69", 1)
+                gg.refineNumber("h 2A", 1)
+                local results = gg.getResults(gg.getResultsCount())
+                if #results > 0 then
+                    gg.loadResults(gg.getValues({{ address = results[1].address + 0x4C, flags = 1 }}))
+                    local results2 = gg.getResults(gg.getResultsCount())
+                    memory:save("change_chest", results2)
+                end
+            end
+            
+            gg.editAll(chestIDs[index], 1)
             showToast(t("change_chest.changed", item))
+            
+            gg.clearResults()
+            finishTask()
+            done()
         end)
-        done()
     end)
+    
 end
-
 end
 
 __vfs['modules/tabs/team.lua'] = function(...)
@@ -36387,181 +34046,742 @@ end
 __vfs['modules/tabs/vehicle.lua'] = function(...)
 --[[
   Vehicle Tab - Vehicle modifications
-  Features: Parts slot, Parts modifier, Fuel, Unlock vehicles, Max vehicles,
-            Max mastery, Max parts
-
-  UI wiring only. Memory ops live in modules/ops/vehicle.lua.
-
-  Note: done() is called right after dispatching each op (not inside the result
-  callback) so a crash inside the scheduled work can never leave a card stuck
-  in its "processing" state. The result callback only renders the outcome.
-
+  Features: Max Vehicles, Max Mastery, Max Parts
+  
   @module callback Receives container View to populate with modules
 ]]
 
-local ops = CrashHandler.loadFeature("modules/ops/vehicle.lua")
-
--- "START BOOST" -> "Start Boost" for display only (internal keys stay as-is).
-local function titleCase(s)
-    return (tostring(s):lower():gsub("(%a)([%w']*)", function(a, b) return a:upper() .. b end))
-end
+-- Part name → max upgrade level. Defined at module scope so it is
+-- built once on first tab load, not rebuilt on every render call.
+local PART_MAX_LEVEL = {
+    start_boost           = 10,
+    perfect_landing_boost = 7,
+    jump                  = 10,
+    wheelie_boost         = 10,
+    afterburner           = 7,
+    fume_boost            = 10,
+    thrusters             = 4,
+    glide                 = 15,
+    fuel_boost            = 4,
+    coin_boost            = 4,
+    winter_tyres          = 15,
+    magnet                = 15,
+    spoiler               = 7,
+    turbo_boost           = 7,
+    flip_speed_boost      = 10,
+    nitro                 = 4,
+    air_control           = 15,
+    heavyweight           = 15,
+    rollcage              = 15,
+    echo                  = 3,
+    amplifier             = 3,
+}
 
 return function(container)
     local function t(key, ...) return T("vehicle." .. key, ...) end
 
+    local function findZeroRegion(size)
+        local ranges = gg.getRangesList()
+        for _, region in ipairs(ranges) do
+            if region.state == "A" then
+                local reads = {}
+                for addr = region.start, region.start + size * 4, 4 do
+                    table.insert(reads, { address = addr, flags = 4 })
+                end
+    
+                local values = gg.getValues(reads)
+                if values then
+                    local allZero = true
+                    for _, v in ipairs(values) do
+                        if v.value ~= 0 then
+                            allZero = false
+                            break
+                        end
+                    end
+    
+                    if allZero then
+                        return region.start, region.start + size * 4
+                    end
+                end
+            end
+        end
+        return nil, nil
+    end
+    
+    local function resolveVehicleList()
+        local cached = memory:load("vehicle_list_deep")
+        if cached and #cached > 0 then
+            local check = gg.getValues({{ address = cached[1].deepPtrAddr, flags = 32 }})
+            if check and check[1] and check[1].value ~= 0 then
+                LOG.dbg("VehicleList", "Cache hit: " .. tostring(#cached) .. " vehicles")
+                return cached
+            else
+                LOG.warn("VehicleList", "Cache stale — re-resolving")
+                memory:save("vehicle_list_deep", nil)
+            end
+        end
+    
+        -- Anchor
+        gg.clearResults()
+        gg.setRanges(BaseRegion)
+        gg.searchNumber("h 18 48 49 4C 4C 20 43 4C 49 4D 42 45", 1)
+        gg.refineNumber("h 18", 1)
+        local anchorResults = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+    
+        if #anchorResults == 0 then
+            LOG.warn("VehicleList", "Anchor search returned 0 results.")
+            return nil
+        end
+    
+        local anchor = anchorResults[1]
+    
+        -- Pattern check — 1 getValues
+        local pattern = gg.getValues({
+            { address = anchor.address - 0x20, flags = 4 },
+            { address = anchor.address - 0x8,  flags = 4 }
+        })
+    
+        if not pattern or not pattern[1] or not pattern[2]
+        or pattern[1].value ~= 0x65656A08
+        or pattern[2].value ~= 0x403147AE then
+            LOG.warn("VehicleList", "Pattern mismatch.")
+            return nil
+        end
+    
+        -- Refs search
+        gg.clearResults()
+        gg.searchNumber(pattern[1].address, 32)
+        local refResults = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+    
+        if not refResults or #refResults == 0 then
+            LOG.warn("VehicleList", "No refs found.")
+            return nil
+        end
+    
+        -- Collect raw vehiclePtrs — sequential (unavoidable, unknown count per ref)
+        local written = {}
+        local rawPtrs = {}
+    
+        for refIdx, ref in ipairs(refResults) do
+            local vehicleIdx = 0
+            while true do
+                local ptrRead = gg.getValues({{
+                    address = ref.address + vehicleIdx * 8,
+                    flags   = 32
+                }})
+    
+                if not ptrRead or not ptrRead[1] or ptrRead[1].value == 0 then
+                    LOG.dbg("VehicleList", string.format("ref[%d] vehicleIdx[%d] stop", refIdx, vehicleIdx))
+                    break
+                end
+    
+                local vehiclePtr = ptrRead[1].value
+                if not written[vehiclePtr] then
+                    written[vehiclePtr] = true
+                    table.insert(rawPtrs, vehiclePtr)
+                end
+    
+                vehicleIdx = vehicleIdx + 1
+            end
+        end
+    
+        if #rawPtrs == 0 then
+            LOG.warn("VehicleList", "No raw ptrs collected.")
+            return nil
+        end
+    
+        -- Batch read all deepPtrs — 1 getValues
+        local deepReads = {}
+        for _, vehiclePtr in ipairs(rawPtrs) do
+            table.insert(deepReads, { address = vehiclePtr + 0x530, flags = 32 })
+        end
+        local deepPtrs = gg.getValues(deepReads)
+    
+        if not deepPtrs then
+            LOG.warn("VehicleList", "deepPtrs batch read failed.")
+            return nil
+        end
+    
+        -- Collect valid deepPtr values for batch verify
+        local validPtrs = {}
+        for i, dp in ipairs(deepPtrs) do
+            if dp and dp.value ~= 0 then
+                table.insert(validPtrs, {
+                    vehiclePtr  = rawPtrs[i],
+                    deepPtrAddr = rawPtrs[i] + 0x530,
+                    deepPtr     = dp.value,
+                })
+            end
+        end
+    
+        if #validPtrs == 0 then
+            LOG.warn("VehicleList", "No valid deepPtrs.")
+            return nil
+        end
+    
+        -- Batch verify all — 1 getValues
+        local verifyReads = {}
+        for _, v in ipairs(validPtrs) do
+            table.insert(verifyReads, { address = v.deepPtr + 0x0, flags = 4 })
+            table.insert(verifyReads, { address = v.deepPtr + 0x4, flags = 4 })
+            table.insert(verifyReads, { address = v.deepPtr + 0x8, flags = 4 })
+            table.insert(verifyReads, { address = v.deepPtr + 0xC, flags = 4 })
+        end
+        local verifyResults = gg.getValues(verifyReads)
+    
+        if not verifyResults then
+            LOG.warn("VehicleList", "Verify batch read failed.")
+            return nil
+        end
+    
+        -- Filter verified vehicles
+        local vehicles = {}
+        for i, v in ipairs(validPtrs) do
+            local base = (i - 1) * 4 + 1
+            local v0 = verifyResults[base]
+            local v1 = verifyResults[base + 1]
+            local v2 = verifyResults[base + 2]
+            local v3 = verifyResults[base + 3]
+    
+            if v0 and v1 and v2 and v3
+            and v0.value == 0
+            and v1.value == 18
+            and v2.value == 53 then
+                table.insert(vehicles, {
+                    vehiclePtr  = v.vehiclePtr,
+                    deepPtrAddr = v.deepPtrAddr,
+                })
+            else
+                LOG.dbg("VehicleList", string.format("vehiclePtr=0x%X failed verify: %d %d %d %d",
+                    v.vehiclePtr,
+                    v0 and v0.value or -1,
+                    v1 and v1.value or -1,
+                    v2 and v2.value or -1,
+                    v3 and v3.value or -1))
+            end
+        end
+    
+        if #vehicles == 0 then
+            LOG.warn("VehicleList", "No vehicles passed verification.")
+            return nil
+        end
+    
+        memory:save("vehicle_list_deep", vehicles)
+        LOG.info("VehicleList", "Resolved + cached: " .. tostring(#vehicles) .. " vehicles")
+        return vehicles
+    end
+    
+    local function forEachVehicle(vehicles, cb)
+        -- Batch read all deepPtrs — 1 getValues
+        local reads = {}
+        for _, v in ipairs(vehicles) do
+            table.insert(reads, { address = v.deepPtrAddr, flags = 32 })
+        end
+        local deepPtrs = gg.getValues(reads)
+        if not deepPtrs then
+            LOG.warn("VehicleList", "forEachVehicle deepPtrs read failed.")
+            return 0
+        end
+    
+        local successCount = 0
+        for i, v in ipairs(vehicles) do
+            local dp = deepPtrs[i]
+            if dp and dp.value ~= 0 then
+                cb(v.vehiclePtr, dp.value, v.deepPtrAddr)
+                successCount = successCount + 1
+            else
+                LOG.warn("VehicleList", string.format("vehiclePtr=0x%X deepPtr invalid at forEach", v.vehiclePtr))
+            end
+        end
+        return successCount
+    end
+    
     addModule(container, "parts_slot", t("parts_slot.title"), t("parts_slot.desc"), "slider",
     {title=t("parts_slot.slider_title"), min=1, max=15, current=3},
     function(done, vals)
-        ops.partsSlot(vals, function(status, count)
-            if status == "no_vehicles" then
-                showToast(t("common.no_vehicles"))
-            elseif status == "no_zero_region" then
-                showToast(t("common.no_zero_region"))
-            else
-                showToast(t("parts_slot.applied", count))
-            end
-        end)
-        done()
-    end)
+        local slot = vals
+        local TAG = "PartsSlot"
+        LOG.info(TAG, "Slot: " .. tostring(slot))
 
+        scheduler:add(function(finishTask)
+            local cached = memory:load("parts_slot_deep")
+
+            -- Validate cache
+            if cached and #cached > 0 then
+                local check = gg.getValues({{ address = cached[1], flags = 32 }})
+                if not check or not check[1] or check[1].value == 0 then
+                    LOG.warn(TAG, "Cache stale — re-resolving")
+                    cached = nil
+                    memory:save("parts_slot_deep", nil)
+                end
+            end
+
+            if not cached then
+                local vehiclePtrs = resolveVehicleList()
+                if not vehiclePtrs then
+                    showToast(t("common.no_vehicles"))
+                    finishTask()
+                    done()
+                    return
+                end
+                cached = {}
+                for _, vehiclePtr in ipairs(vehiclePtrs) do
+                    table.insert(cached, vehiclePtr.deepPtrAddr)
+                end
+                memory:save("parts_slot_deep", cached)
+                LOG.info(TAG, "Cached " .. tostring(#cached) .. " deepPtrAddrs")
+            end
+
+            -- Read all deepPtrs in one call
+            local reads = {}
+            for _, deepPtrAddr in ipairs(cached) do
+                table.insert(reads, { address = deepPtrAddr, flags = 32 })
+            end
+            local deepPtrs = gg.getValues(reads)
+
+            local slotStart, slotEnd = findZeroRegion(slot)
+            if not slotStart then
+                showToast(t("common.no_zero_region"))
+                finishTask()
+                done()
+                return
+            end
+
+            -- Batch ALL edits into one setValues call
+            local edits = {}
+            for _, dp in ipairs(deepPtrs) do
+                if dp and dp.value ~= 0 then
+                    local deepPtrAddr = dp.address
+                    table.insert(edits, { address = deepPtrAddr + 0x0,  flags = 32, value = slotStart })
+                    table.insert(edits, { address = deepPtrAddr + 0x8,  flags = 32, value = slotEnd })
+                    table.insert(edits, { address = deepPtrAddr + 0x10, flags = 32, value = slotEnd })
+                end
+            end
+
+            if #edits > 0 then
+                gg.setValues(edits)
+                local count = #edits / 3
+                showToast(t("parts_slot.applied", count))
+                LOG.info(TAG, "Done. Edits: " .. tostring(#edits) .. " (" .. tostring(count) .. " vehicles)")
+            else
+                showToast(t("common.no_vehicles"))
+            end
+
+            finishTask()
+            done()
+        end)
+    end)
+    
     addArchModule(container, "parts_modifier", t("parts_modifier.title"), t("parts_modifier.desc"), "button", nil,
     function(done)
-        local groupOrder, groupMap = ops.getPartGroups()
-
-        -- Show Title Case names; map the choice back to the raw label.
-        local display = {}
-        for i, lbl in ipairs(groupOrder) do display[i] = titleCase(lbl) end
-
-        local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), display)
+        local TAG = "PartsModifier"
+    
+        -- Build groups from tuning_parts JSON
+        local tuningData = json.decode(loadModule("configs/tuning_parts.lua"))
+        local tp = tuningData.tuningParts
+    
+        local skip = { ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true }
+    
+        local groupMap = {}
+        local groupOrder = {}
+    
+        for key, part in pairs(tp) do
+            local label = part.name and part.name.value or key
+            if not skip[label] then
+                local fromVal, toVal = nil, nil
+    
+                for _, e in ipairs(part.effectStats or {}) do
+                    local stat = e.stat
+                    if type(stat) == "table" and stat["from"] ~= nil then
+                        fromVal, toVal = stat["from"], stat["to"]
+                        break
+                    end
+                end
+                if fromVal == nil then
+                    for _, e in ipairs(part.effects or {}) do
+                        local amt = e.amount
+                        if type(amt) == "table" and amt["from"] ~= nil then
+                            fromVal, toVal = amt["from"], amt["to"]
+                            break
+                        end
+                    end
+                end
+    
+                if fromVal ~= nil then
+                    if not groupMap[label] then
+                        groupMap[label] = {}
+                        table.insert(groupOrder, label)
+                    end
+                    table.insert(groupMap[label], { key = key, fromVal = fromVal, toVal = toVal })
+                end
+            end
+        end
+    
+        table.sort(groupOrder)
+    
+        local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), groupOrder)
         if not choice or choice == 0 then done() return end
-
+    
         local label    = groupOrder[choice]
-        local pretty   = titleCase(label)
         local variants = groupMap[label]
         local cacheKey = "parts_mod_" .. label:lower():gsub(" ", "_")
-
-        local result = showPrompt(pretty, {
+    
+        local result = showPrompt(label, {
             {t("parts_modifier.prompt_level"),  "slider:1:9",},
             {t("parts_modifier.prompt_digit0"), "slider:0:9",},
             {t("parts_modifier.prompt_digit1"), "slider:1:9",},
             {t("parts_modifier.prompt_reset"),  "checkbox", "false"},
         })
-
+    
         if not result then done() return end
-
+    
         local reset    = result[4] == "true"
         local lvl      = tonumber(result[1]) or 2
         local digit0   = result[2] or "0"
         local digit1   = result[3] or "3"
-
+    
         -- Build level string e.g. lvl=2, d0=0, d1=3 → "1.03"
         local power = ""
         for i = 0, lvl - 2 do power = power .. tostring(digit0) end
         local userEdits = "1." .. power .. tostring(digit1)
         local editValue = tonumber(userEdits)
-
+    
         if not reset and not editValue then
             showToast(t("parts_modifier.invalid"), true)
             done()
             return
         end
-
-        ops.applyPartsModifier(
-            { variants = variants, cacheKey = cacheKey, editValue = editValue, reset = reset },
-            function(status)
-                if status == "not_found" then
-                    showToast(t("parts_modifier.not_found"), true)
-                elseif status == "reset" then
-                    showToast(t("parts_modifier.reset", pretty), true)
-                else
-                    showToast(t("parts_modifier.applied", pretty, userEdits), true)
+    
+        scheduler:add(function(finishTask)
+            local cache = memory:load(cacheKey)
+    
+            if not cache then
+                LOG.dbg(TAG, "Scanning variants for: " .. label)
+                local toEdit = {}
+    
+                gg.setRanges(BaseRegion)
+    
+                for _, variant in ipairs(variants) do
+                    local search1 = variant.fromVal
+                    local search2 = variant.toVal
+                    
+                    gg.clearResults()
+                    gg.searchNumber(BaseLib + offsets.vnpStats, 32)
+                    local refs = gg.getResults(gg.getResultsCount())
+                    gg.clearResults()
+    
+                    for _, v in ipairs(refs) do
+                        local vals = gg.getValues({
+                            { address = v.address + 0x8,  flags = 4 },
+                            { address = v.address + 0xC,  flags = 16 },
+                            { address = v.address + 0x10, flags = 16 },
+                        })
+                        if vals
+                            and vals[1].value == 0x40000000
+                            and vals[2].value == search1
+                            and vals[3].value == search2
+                        then
+                            table.insert(toEdit, v.address + 0x8)
+                            LOG.dbg(TAG, string.format("Found %s @ 0x%X", variant.key, v.address + 0x8))
+                        end
+                    end
                 end
-            end)
-        done()
-    end)
-
-    addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "button", nil, function(done)
-        local input = showPrompt(t("fuel.title"), {
-            {t("fuel.prompt_amount"), "number", "50"},
-            {t("fuel.prompt_reset"),  "checkbox", "false"},
-        })
-
-        if not input then
-            done()
-            return
-        end
-
-        ops.setFuel({ amount = input[1], reset = input[2] == "true" }, function(status, val)
-            if status == "not_applied" then
-                showToast(t("fuel.not_applied"), true)
-            elseif status == "invalid" then
-                showToast(t("fuel.invalid"), true)
-            elseif status == "reset" then
-                showToast(t("fuel.reset"), true)
+    
+                gg.clearResults()
+                
+                if #toEdit == 0 then
+                    showToast(t("parts_modifier.not_found"), true)
+                    LOG.warn(TAG, "No results for: " .. label)
+                    finishTask()
+                    done()
+                    return
+                end
+    
+                memory:save(cacheKey, toEdit)
+                cache = toEdit
+                LOG.info(TAG, "Cached " .. #toEdit .. " addresses for " .. label)
             else
-                showToast(t("fuel.applied", val), true)
+                LOG.dbg(TAG, "Cache hit for: " .. label)
             end
+    
+            local edits = {}
+            for _, addr in ipairs(cache) do
+                table.insert(edits, {
+                    address = addr,
+                    flags   = 16,
+                    value   = reset and 0x40000000 or editValue
+                })
+            end
+            gg.setValues(edits)
+    
+            if reset then
+                memory:save(cacheKey, nil)
+                showToast(t("parts_modifier.reset", label), true)
+                LOG.info(TAG, "Reset: " .. label)
+            else
+                showToast(t("parts_modifier.applied", label, userEdits), true)
+                LOG.info(TAG, label .. " = " .. userEdits)
+            end
+    
+            gg.clearResults()
+            finishTask()
+            done()
         end)
-        done()
     end)
-
+    
     addModule(container, "unlock_vehicles", t("unlock_vehicles.title"), t("unlock_vehicles.desc"), "button", nil,
     function(done)
-        ops.unlockVehicles(function(status, count)
-            if status == "no_vehicles" then
+        local TAG = "UnlockVehicles"
+        LOG.info(TAG, "Module activated.")
+        scheduler:add(function(finishTask)
+            local vehiclePtrs = resolveVehicleList()
+            if not vehiclePtrs then
                 showToast(t("common.no_vehicles"))
-            elseif status == "unlocked" then
-                showToast(t("unlock_vehicles.unlocked", count))
-            else
-                showToast(t("unlock_vehicles.none_to_unlock"))
+                finishTask()
+                done()
+                return
             end
+
+            -- Collect all edits first, one setValues at end
+            local edits = {}
+            forEachVehicle(vehiclePtrs, function(vehiclePtr, deepPtr, deepPtrAddr)
+                table.insert(edits, { address = vehiclePtr + 0x110, flags = 4, value = 1 })
+                for off = 0x114, 0x14C, 4 do
+                    table.insert(edits, { address = vehiclePtr + off, flags = 4, value = 0 })
+                end
+            end)
+            if #edits > 0 then gg.setValues(edits) end
+
+            showToast(successCount > 0 and t("unlock_vehicles.unlocked", successCount) or t("unlock_vehicles.none_to_unlock"))
+            LOG.info(TAG, "Done. Success: " .. tostring(successCount))
+            finishTask()
+            done()
         end)
-        done()
     end)
 
     addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
     function(done)
-        ops.maxVehicles(
-            function(i, total) showToast(t("common.progress", i, total), true) end,
-            function(status)
-                if status == "no_vehicles" then
-                    showToast(t("max_vehicles.no_vehicles"))
-                elseif status == "all_maxed" then
-                    showToast(t("max_vehicles.all_maxed"))
-                else
-                    showToast(t("max_vehicles.failed"))
+        local TAG = "MaxVehicles"
+        LOG.info(TAG, "Module activated.")
+
+        scheduler:add(function(finishTask)
+            local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
+            local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+
+            if not vehicleListPtr or vehicleListPtr == 0 then
+                showToast(t("max_vehicles.no_vehicles"))
+                LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+                finishTask(); done(); return
+            end
+
+            LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+
+            local upgradeList = {}
+
+            for i = 0, totalVehicles - 1 do
+                local vehiclePtr = gg.getValues({{ address = vehicleListPtr + i * 8, flags = 32 }})[1].value
+                if vehiclePtr and vehiclePtr ~= 0 then
+                    local namePtr     = gg.getValues({{ address = vehiclePtr + 0x18, flags = 32 }})[1].value
+                    local vehicleName = (namePtr and namePtr ~= 0) and readString(namePtr + 1) or "unknown"
+                    local upgradeSlots = vehicleName:find("lowrider") and 5 or 4
+
+                    local upgradeListPtr = gg.getValues({{ address = vehiclePtr + 0x20, flags = 32 }})[1].value
+                    if upgradeListPtr and upgradeListPtr ~= 0 then
+                        for j = 0, upgradeSlots - 1 do
+                            local upgradePtr = gg.getValues({{ address = upgradeListPtr + j * 8, flags = 32 }})[1].value
+                            if upgradePtr and upgradePtr ~= 0 then
+                                table.insert(upgradeList, { address = upgradePtr + 0x20, flags = 4, value = 19 })
+                                table.insert(upgradeList, { address = upgradePtr + 0x24, flags = 4, value = 19 })
+                            end
+                        end
+                        LOG.dbg(TAG, "[" .. vehicleName .. "] queued " .. tostring(upgradeSlots) .. " upgrade slots.")
+                    end
                 end
-            end)
-        done()
+                showToast(t("common.progress", i+1, totalVehicles), true)
+            end
+
+            if #upgradeList > 0 then
+                gg.setValues(upgradeList)
+                showToast(t("max_vehicles.all_maxed"))
+                LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
+            else
+                showToast(t("max_vehicles.failed"))
+                LOG.warn(TAG, "upgradeList is empty.")
+            end
+
+            finishTask()
+            done()
+        end)
     end)
 
     addModule(container, "max_mastery", t("max_mastery.title"), t("max_mastery.desc"), "button", nil,
     function(done)
-        ops.maxMastery(
-            function(i, total) showToast(t("common.progress", i, total), true) end,
-            function(status)
-                showToast(status == "all_maxed" and t("max_mastery.all_maxed") or t("max_mastery.failed"))
-            end)
-        done()
+        local TAG = "MaxMastery"
+        LOG.info(TAG, "Module activated.")
+
+        scheduler:add(function(finishTask)
+            local masteryTimestamp = os.time(os.date("!*t"))
+            local vehicleListPtr   = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
+            local totalVehicles    = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+
+            if not vehicleListPtr or vehicleListPtr == 0 then
+                showToast(t("max_mastery.failed"))
+                LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+                finishTask(); done(); return
+            end
+
+            if not totalVehicles or totalVehicles == 0 then
+                showToast(t("max_mastery.failed"))
+                LOG.fatal(TAG, "totalVehicles is nil or 0.")
+                finishTask(); done(); return
+            end
+
+            LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+
+            local successCount = 0
+            local skipCount    = 0
+
+            for i = 1, totalVehicles do
+                local vehiclePtr = gg.getValues({{ address = vehicleListPtr + (i - 1) * 8, flags = 32 }})[1].value
+                if not vehiclePtr or vehiclePtr == 0 then
+                    skipCount = skipCount + 1; goto continue
+                end
+
+                local namePtr     = gg.getValues({{ address = vehiclePtr + 0x18, flags = 32 }})[1].value
+                local vehicleName = (namePtr and namePtr ~= 0) and readString(namePtr + 1) or "Unknown"
+
+                local masteryPtr = gg.getValues({{ address = vehiclePtr + 0x120, flags = 32 }})[1].value
+                if not masteryPtr or masteryPtr == 0 then
+                    LOG.dbg(TAG, "[" .. vehicleName .. "] masteryPtr is 0. Skipping (not maxed).")
+                    skipCount = skipCount + 1; goto continue
+                end
+
+                -- Read up to 4 CA pointers
+                local ptrReads  = {}
+                for j = 0, 3 do
+                    table.insert(ptrReads, { address = masteryPtr + j * 8, flags = 32 })
+                end
+                local rawPtrs   = gg.getValues(ptrReads)
+                local validPtrs = {}
+                if rawPtrs then
+                    for _, p in ipairs(rawPtrs) do
+                        if p and p.value and p.value ~= 0 then
+                            table.insert(validPtrs, p.value)
+                        end
+                    end
+                end
+
+                if #validPtrs == 0 then
+                    LOG.dbg(TAG, "[" .. vehicleName .. "] No valid CA pointers. Skipping.")
+                    skipCount = skipCount + 1; goto continue
+                end
+
+                local writes = {}
+                for _, p in ipairs(validPtrs) do
+                    table.insert(writes, { address = p + 0x18, flags = 4, value = 65793 })
+                    table.insert(writes, { address = p + 0x1C, flags = 4, value = masteryTimestamp })
+                end
+
+                gg.setValues({
+                    { address = vehiclePtr + 0x120, flags = 32, value = masteryPtr },
+                    { address = vehiclePtr + 0x128, flags = 4,  value = 4 },
+                    { address = vehiclePtr + 0x12C, flags = 4,  value = 4 },
+                    { address = vehiclePtr + 0x130, flags = 4,  value = 4 },
+                })
+                gg.setValues(writes)
+
+                LOG.info(TAG, "[" .. vehicleName .. "] Mastery maxed.")
+                successCount = successCount + 1
+                
+                showToast(t("common.progress", i, totalVehicles), true)
+                ::continue::
+            end
+
+            LOG.info(TAG, string.format("Complete. Success: %d | Skipped: %d", successCount, skipCount))
+            showToast(successCount > 0 and t("max_mastery.all_maxed") or t("max_mastery.failed"))
+            finishTask()
+            done()
+        end)
     end)
 
     addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
     function(done)
-        ops.maxParts(
-            function(i, total) showToast(t("common.progress", i, total), true) end,
-            function(status)
-                if status == "no_vehicles" then
-                    showToast(t("max_parts.no_vehicles"))
-                elseif status == "all_maxed" then
-                    showToast(t("max_parts.all_maxed"))
-                else
-                    showToast(t("max_parts.failed"))
+        local TAG = "MaxParts"
+        LOG.info(TAG, "Module activated.")
+
+        scheduler:add(function(finishTask)
+            local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
+            local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+
+            if not vehicleListPtr or vehicleListPtr == 0 then
+                showToast(t("max_parts.no_vehicles"))
+                LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+                finishTask(); done(); return
+            end
+
+            LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+
+            local upgradeList = {}
+
+            for i = 0, totalVehicles - 1 do
+                local vehiclePtr = gg.getValues({{ address = vehicleListPtr + i * 8, flags = 32 }})[1].value
+                if vehiclePtr and vehiclePtr ~= 0 then
+                    local partsListPtr = gg.getValues({{ address = vehiclePtr + 0x58, flags = 32 }})[1].value
+                    local totalParts   = gg.getValues({{ address = vehiclePtr + 0x60, flags = 4  }})[1].value
+
+                    if partsListPtr and partsListPtr ~= 0 and totalParts and totalParts > 0 then
+                        for j = 0, totalParts - 1 do
+                            local partPtr = gg.getValues({{ address = partsListPtr + j * 8, flags = 32 }})[1].value
+                            if partPtr and partPtr ~= 0 then
+                                local namePtr  = gg.getValues({{ address = partPtr + 0x18, flags = 32 }})[1].value
+                                local partName = "unknown"
+
+                                if namePtr and namePtr ~= 0 then
+                                    local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
+                                    if header == 49 then
+                                        local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
+                                        partName = namePtr2 ~= 0 and readString(namePtr2 + 1) or "unknown"
+                                    else
+                                        partName = readString(namePtr + 1)
+                                    end
+                                end
+
+                                local maxLevel = 3 -- fallback for unrecognised parts
+                                
+                                for key, lvl in pairs(PART_MAX_LEVEL) do
+                                    -- '$' anchors the search strictly to the end of the string
+                                    if partName:find(key .. "$") then 
+                                        maxLevel = lvl
+                                        break 
+                                    end
+                                end
+                                
+                                LOG.dbg(TAG, "[" .. partName .. "] max level: " .. tostring(maxLevel))
+                                table.insert(upgradeList, { address = partPtr + 0x20, flags = 4, value = maxLevel })
+                                table.insert(upgradeList, { address = partPtr + 0x34, flags = 4, value = maxLevel })
+                            end
+                        end
+                    end
                 end
-            end)
-        done()
+                showToast(t("common.progress", i+1, totalVehicles), true)
+            end
+
+            if #upgradeList > 0 then
+                gg.setValues(upgradeList)
+                showToast(t("max_parts.all_maxed"))
+                LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
+            else
+                showToast(t("max_parts.failed"))
+                LOG.warn(TAG, "upgradeList is empty.")
+            end
+
+            finishTask()
+            done()
+        end)
     end)
 end
-
 end
 
 __vfs['ui/ui.lua'] = function(...)
@@ -36719,8 +34939,7 @@ function loadCategory(id, tabView)
     moduleContainer.removeAllViews()
 
     -- Already built — instant swap, no Java view recreation at all.
-    -- The Console tab is never cached so it always reflects the latest reports.
-    if _tabContentCache[id] and id ~= "console" then
+    if _tabContentCache[id] then
         moduleContainer.addView(_tabContentCache[id])
         return
     end
@@ -36744,8 +34963,7 @@ function loadCategory(id, tabView)
             local ok, err = pcall(function() setCategory(tabContent) end)
             if ok then
                 -- Only cache on success — a failed render should retry next time.
-                -- Console is intentionally left uncached (always re-rendered).
-                if id ~= "console" then _tabContentCache[id] = tabContent end
+                _tabContentCache[id] = tabContent
             else
                 local errTxt = TextView(activity)
                 errTxt.setText(T("ui.category_error", tostring(err)))
@@ -36787,7 +35005,6 @@ local _TAB_ICONS = {
     other     = "\xe2\x8b\xaf",  -- ⋯  ellipsis/other
     settings  = "\xe2\x9a\x99",  -- ⚙  gear/settings
     about     = "\xe2\x84\xb9",  -- ℹ  info/about
-    console   = "\xe2\x9a\xa0",  -- ⚠  warning/console
 }
 
 -- Creates a sidebar tab row (icon + label) that loads a category when tapped.
@@ -36876,30 +35093,6 @@ end
 --@param extra any  Mode-specific data
 --@param callback? fun(done:fun(), ...)  Called on action; must call done() when finished
 --@return nil
-
--- Renders text into a TextView, turning markdown links [label](url) into
--- tappable links that open in the browser. If the text has no links (or the
--- rich-text path errors on this device) it falls back to plain setText.
-local function setRichText(tv, text, linkColor)
-    text = tostring(text or "")
-    if not text:find("%[.-%]%(.-%)") then
-        tv.setText(text)
-        return
-    end
-    local ok = pcall(function()
-        local function esc(s) return (s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")) end
-        local html = esc(text):gsub("%[(.-)%]%((.-)%)", function(label, url)
-            return '<a href="' .. url:gsub("&amp;", "&") .. '">' .. label .. '</a>'
-        end)
-        html = html:gsub("\n", "<br>")
-        local spanned = (Build.VERSION.SDK_INT >= 24) and Html.fromHtml(html, 0) or Html.fromHtml(html)
-        tv.setText(spanned)
-        tv.setMovementMethod(LinkMovementMethod.getInstance())
-        if linkColor then tv.setLinkTextColor(linkColor) end
-    end)
-    if not ok then tv.setText(text) end
-end
-
 currentInputs = {}
 function addModule(parent, id, title, desc, mode, extra, callback)
     if processingStates[id] == nil then processingStates[id] = false end
@@ -36938,26 +35131,13 @@ function addModule(parent, id, title, desc, mode, extra, callback)
 
         Thread(Runnable({ run = function()
             if callback then
-                local tb
-                local ok, err = xpcall(
-                    function() callback(done, table.unpack(args)) end,
-                    function(e)
-                        tb = (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e)
-                        return e
-                    end)
+                local ok, err = pcall(function() callback(done, table.unpack(args)) end)
                 memory:save("toggle_states",  toggleStates)
                 memory:save("input_states",   inputStates)
                 memory:save("spinner_states", spinnerStates)
                 memory:save("slider_states",  sliderStates)
                 if not ok then
-                    -- Capture so the failure surfaces in the Console tab; the
-                    -- scheduler only sees crashes inside scheduler:add, not the
-                    -- synchronous part of a module callback.
-                    if CrashHandler then
-                        CrashHandler.capture("Module:" .. tostring(id), err, tb)
-                    else
-                        print("Error in callback: " .. tostring(err))
-                    end
+                    print("Error in callback: " .. tostring(err))
                     done()
                 end
             else
@@ -36985,7 +35165,7 @@ function addModule(parent, id, title, desc, mode, extra, callback)
     if isRTL() then t1.setGravity(Gravity.RIGHT) end
 
     local t2 = TextView(activity)
-    setRichText(t2, desc, UI.LOGO)
+    t2.setText(desc)
     t2.setTextColor(UI.SUB)
     t2.setTextSize(1, 10)
     if isRTL() then t2.setGravity(Gravity.RIGHT) end
@@ -37965,31 +36145,16 @@ end
 local scriptDir = gg.getFile():match("(.*/)" ) or ""
 script_dir = scriptDir  -- bridge for lang.lua and other modules
 
-function loadModule(name, soft)
+function loadModule(name)
     local key = name:gsub("^%./", "")
     if not key:match("%.lua$") then key = key .. ".lua" end
     local vchunk = __vfs[key]
-    if vchunk then
-        -- Soft mode: run the module body guarded so a feature crash returns
-        -- nil, err instead of propagating (mirrors main.lua's loadModule).
-        if soft then
-            local results = table.pack(pcall(vchunk))
-            if not results[1] then return nil, results[2] end
-            return table.unpack(results, 2, results.n)
-        end
-        return vchunk()
-    end
+    if vchunk then return vchunk() end
     local path = scriptDir .. name
     local chunk, err = loadfile(path)
     if not chunk then
-        if soft then return nil, err end
         gg.alert("VFS miss: " .. name .. "\n" .. tostring(err))
         os.exit()
-    end
-    if soft then
-        local results = table.pack(pcall(chunk))
-        if not results[1] then return nil, results[2] end
-        return table.unpack(results, 2, results.n)
     end
     return chunk()
 end
@@ -38031,9 +36196,6 @@ do
         if LOG_TO_TOAST then
             pcall(gg.toast, line)
         end
-
-        -- Forward WARN+ lines to the crash handler's Console sink (if installed).
-        if __log_sink then pcall(__log_sink, level, tag, msg) end
 
         if LOG_TO_FILE and (#_log_buf >= 20 or level == "FATAL") then
             pcall(function()
@@ -38108,13 +36270,6 @@ script_dir = gg.getFile():match("(.*)/")
 
 LOG.info("MAIN", "script_dir resolved: " .. tostring(script_dir))
 
--- loadModule(name [, soft])
---   Hard mode (default): a load/runtime failure is fatal (alert + os.exit) —
---     correct for core framework files that the script cannot run without.
---   Soft mode (soft == true): a failure logs + returns nil, err instead of
---     exiting. Used by CrashHandler.loadFeature for feature modules so a crash in
---     one feature doesn't take down the whole UI.
-
 loadModule("core/env.lua")
 
 -- ── Java imports (global; available to all subsequently loaded modules) ──────
@@ -38152,8 +36307,6 @@ LinLayoutParams             = import("android.widget.LinearLayout$LayoutParams")
 Looper                      = import("android.os.Looper")
 MotionEvent                 = import("android.view.MotionEvent")
 PasswordTransformationMethod = import("android.text.method.PasswordTransformationMethod")
-Html                        = import("android.text.Html")
-LinkMovementMethod          = import("android.text.method.LinkMovementMethod")
 Runnable                    = import("java.lang.Runnable")
 ScrollView                  = import("android.widget.ScrollView")
 SeekBar                     = import("android.widget.SeekBar")
@@ -38216,10 +36369,6 @@ RO_Fields        = {}
 
 cast      = loadModule("core/utils/cast.lua")
 json      = loadModule("core/utils/json.lua")
-
--- Crash capture layer — loaded early so it can sink WARN+ logs from the start
--- and so feature modules can be loaded non-fatally via CrashHandler.loadFeature.
-CrashHandler = loadModule("core/engines/crash_handler.lua")
 
 -- ── UI utilities (global; needed by modules before ui.lua loads) ──────────────
 

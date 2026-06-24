@@ -9,11 +9,10 @@
 
 ---
 
-## ⚠️ Critical Account Safety Notice
-> **Important Note on Discretion:**
-> The modification capabilities of this script are exceptionally powerful, allowing local variables to change instantly. Because the game's server-side logging actively monitors rapid or unnatural account progression, you must use this tool with extreme discretion.
-> 
-> * **Avoid Aggressive Abuse:** Attempting to max an account instantly or changing too many values at once **will** trigger automated server-side flags and result in an immediate ban.
-> * **Use Responsibly:** Replicate human progression limits and test on alternative accounts to maintain environment stability.
+## ⚠️ Caution
+> Void provides powerful modification capabilities that may affect account integrity, progression, or game behavior.
+> By using Void, you acknowledge all associated risks. The developers are not responsible for account bans, suspensions, data loss, or other consequences resulting from its use.
+>
+> Use at your own risk.
 
 ---
