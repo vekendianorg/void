@@ -1,37 +1,21 @@
 --[[
-  Creative Tab - Creative mode/Custom track features
-  Status: idk
-  
+  Creative Tab - Creative mode / Custom track features
+  Status: auto_verify_all unfinished (task 5)
+
+  UI wiring only. Memory ops live in modules/ops/creative.lua.
+
   @module callback Receives container View to populate with modules
 ]]
 
-local function getCustomTrack()
-    gg.clearResults()
-    gg.setRanges(8)
-    gg.searchNumber(BaseLib + offsets.customTracks, 32)
-    local refs = gg.getResults(gg.getResultsCount())
-    if #refs > 0 then
-        for _, v in ipairs(refs) do
-            
-        end
-    end
-end
+local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
 
 return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
-    
+
     addArchModule(container, "auto_verify_all", t("auto_verify_all.title"), t("auto_verify_all.desc"), "button", nil,
     function(done)
-        local TAG = "AutoVerifyAll"
-        
         showDialog("still in progress", "unfinished", "ok")
-        schedelur:add(function(finishTask)
-            
-            finishTask()
-            done()
-        end)
-        
+        ops.autoVerifyAll(function() end)
         done()
     end)
-    
 end

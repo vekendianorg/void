@@ -39,14 +39,24 @@ function scheduler:_next()
     local current_task = table.remove(queue, 1)
     LOG.dbg(TAG, "Starting task. Remaining in queue: " .. tostring(#queue))
 
-    local ok, err = pcall(function()
+    local tb
+    local ok, err = xpcall(function()
         current_task(function()
             scheduler:_next()
         end)
+    end, function(e)
+        tb = (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e)
+        return e
     end)
 
     if not ok then
-        LOG.error(TAG, "Task crashed: " .. tostring(err))
+        -- Capture with traceback for the Console tab; fall back to a plain log
+        -- if the crash handler hasn't loaded yet.
+        if CrashHandler then
+            CrashHandler.capture(TAG, err, tb)
+        else
+            LOG.error(TAG, "Task crashed: " .. tostring(err))
+        end
         gg.alert(T("scheduler.task_crashed", tostring(err)))
         self:_next()
     end

@@ -25,6 +25,7 @@ local TAB_DEFS = {
     { "other", "tabs.other" },
     { "separator", "tabs.sep_script" },
     { "settings", "tabs.settings" },
+    { "console", "tabs.console" },
     { "about", "tabs.about" },
 }
 
@@ -56,14 +57,17 @@ for _, def in ipairs(TAB_DEFS) do
         end
 
         -- First access: attempt to load.
+        -- Soft load: a broken tab returns nil instead of os.exit()'ing the whole
+        -- script, so the error card below can actually be shown (a plain
+        -- pcall(loadModule, ...) can't catch the hard loader's os.exit).
         if not loadCache[id] then
-            local ok, result = pcall(loadModule, path)
+            local result, err = loadModule(path, true)
 
-            if ok and type(result) == "function" then
+            if type(result) == "function" then
                 loadCache[id] = result
                 LOG.info("Registry", "Module loaded OK: " .. id)
             else
-                LOG.error("Registry", "Failed to load module [" .. id .. "]: " .. tostring(result))
+                LOG.error("Registry", "Failed to load module [" .. id .. "]: " .. tostring(err))
                 loadCache[id] = false
                 addModule(container, id .. "_err", id,
                     T("registry.module_load_failed"), "ro", T("registry.error"), nil)

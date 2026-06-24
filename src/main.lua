@@ -32,6 +32,9 @@ do
             pcall(gg.toast, line)
         end
 
+        -- Forward WARN+ lines to the crash handler's Console sink (if installed).
+        if __log_sink then pcall(__log_sink, level, tag, msg) end
+
         if LOG_TO_FILE and (#_log_buf >= 20 or level == "FATAL") then
             pcall(function()
                 local f = io.open(_log_path, "a")
@@ -105,11 +108,21 @@ script_dir = gg.getFile():match("(.*)/")
 
 LOG.info("MAIN", "script_dir resolved: " .. tostring(script_dir))
 
-function loadModule(name)
+-- loadModule(name [, soft])
+--   Hard mode (default): a load/runtime failure is fatal (alert + os.exit) —
+--     correct for core framework files that the script cannot run without.
+--   Soft mode (soft == true): a failure logs + returns nil, err instead of
+--     exiting. Used by CrashHandler.loadFeature for feature modules so a crash in
+--     one feature doesn't take down the whole UI.
+function loadModule(name, soft)
     local path = script_dir .. "/" .. name
     LOG.info("loadModule", "-> loading: " .. name)
     local chunk, err = loadfile(path)
     if not chunk then
+        if soft then
+            LOG.error("loadModule", "soft load FAILED: " .. name .. " | " .. tostring(err))
+            return nil, err
+        end
         LOG.fatal("loadModule", "FAILED: " .. name .. " | " .. tostring(err))
         LOG.flush()
         gg.alert("Load failed: " .. name .. "\n" .. tostring(err)); os.exit()
@@ -118,6 +131,10 @@ function loadModule(name)
     local ok = results[1]
     if not ok then
         local load_err = results[2]
+        if soft then
+            LOG.error("loadModule", "soft RUNTIME ERROR in: " .. name .. " | " .. tostring(load_err))
+            return nil, load_err
+        end
         LOG.fatal("loadModule", "RUNTIME ERROR in: " .. name .. " | " .. tostring(load_err))
         LOG.flush()
         gg.alert("Runtime error in: " .. name .. "\n" .. tostring(load_err)); os.exit()
@@ -163,6 +180,8 @@ LinLayoutParams             = import("android.widget.LinearLayout$LayoutParams")
 Looper                      = import("android.os.Looper")
 MotionEvent                 = import("android.view.MotionEvent")
 PasswordTransformationMethod = import("android.text.method.PasswordTransformationMethod")
+Html                        = import("android.text.Html")
+LinkMovementMethod          = import("android.text.method.LinkMovementMethod")
 Runnable                    = import("java.lang.Runnable")
 ScrollView                  = import("android.widget.ScrollView")
 SeekBar                     = import("android.widget.SeekBar")
@@ -225,6 +244,10 @@ RO_Fields        = {}
 
 cast      = loadModule("core/utils/cast.lua")
 json      = loadModule("core/utils/json.lua")
+
+-- Crash capture layer — loaded early so it can sink WARN+ logs from the start
+-- and so feature modules can be loaded non-fatally via CrashHandler.loadFeature.
+CrashHandler = loadModule("core/engines/crash_handler.lua")
 
 -- ── UI utilities (global; needed by modules before ui.lua loads) ──────────────
 

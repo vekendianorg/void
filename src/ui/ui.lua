@@ -152,7 +152,8 @@ function loadCategory(id, tabView)
     moduleContainer.removeAllViews()
 
     -- Already built — instant swap, no Java view recreation at all.
-    if _tabContentCache[id] then
+    -- The Console tab is never cached so it always reflects the latest reports.
+    if _tabContentCache[id] and id ~= "console" then
         moduleContainer.addView(_tabContentCache[id])
         return
     end
@@ -176,7 +177,8 @@ function loadCategory(id, tabView)
             local ok, err = pcall(function() setCategory(tabContent) end)
             if ok then
                 -- Only cache on success — a failed render should retry next time.
-                _tabContentCache[id] = tabContent
+                -- Console is intentionally left uncached (always re-rendered).
+                if id ~= "console" then _tabContentCache[id] = tabContent end
             else
                 local errTxt = TextView(activity)
                 errTxt.setText(T("ui.category_error", tostring(err)))
@@ -218,6 +220,7 @@ local _TAB_ICONS = {
     other     = "\xe2\x8b\xaf",  -- ⋯  ellipsis/other
     settings  = "\xe2\x9a\x99",  -- ⚙  gear/settings
     about     = "\xe2\x84\xb9",  -- ℹ  info/about
+    console   = "\xe2\x9a\xa0",  -- ⚠  warning/console
 }
 
 -- Creates a sidebar tab row (icon + label) that loads a category when tapped.
@@ -306,6 +309,30 @@ end
 --@param extra any  Mode-specific data
 --@param callback? fun(done:fun(), ...)  Called on action; must call done() when finished
 --@return nil
+
+-- Renders text into a TextView, turning markdown links [label](url) into
+-- tappable links that open in the browser. If the text has no links (or the
+-- rich-text path errors on this device) it falls back to plain setText.
+local function setRichText(tv, text, linkColor)
+    text = tostring(text or "")
+    if not text:find("%[.-%]%(.-%)") then
+        tv.setText(text)
+        return
+    end
+    local ok = pcall(function()
+        local function esc(s) return (s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")) end
+        local html = esc(text):gsub("%[(.-)%]%((.-)%)", function(label, url)
+            return '<a href="' .. url:gsub("&amp;", "&") .. '">' .. label .. '</a>'
+        end)
+        html = html:gsub("\n", "<br>")
+        local spanned = (Build.VERSION.SDK_INT >= 24) and Html.fromHtml(html, 0) or Html.fromHtml(html)
+        tv.setText(spanned)
+        tv.setMovementMethod(LinkMovementMethod.getInstance())
+        if linkColor then tv.setLinkTextColor(linkColor) end
+    end)
+    if not ok then tv.setText(text) end
+end
+
 currentInputs = {}
 function addModule(parent, id, title, desc, mode, extra, callback)
     if processingStates[id] == nil then processingStates[id] = false end
@@ -344,13 +371,26 @@ function addModule(parent, id, title, desc, mode, extra, callback)
 
         Thread(Runnable({ run = function()
             if callback then
-                local ok, err = pcall(function() callback(done, table.unpack(args)) end)
+                local tb
+                local ok, err = xpcall(
+                    function() callback(done, table.unpack(args)) end,
+                    function(e)
+                        tb = (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e)
+                        return e
+                    end)
                 memory:save("toggle_states",  toggleStates)
                 memory:save("input_states",   inputStates)
                 memory:save("spinner_states", spinnerStates)
                 memory:save("slider_states",  sliderStates)
                 if not ok then
-                    print("Error in callback: " .. tostring(err))
+                    -- Capture so the failure surfaces in the Console tab; the
+                    -- scheduler only sees crashes inside scheduler:add, not the
+                    -- synchronous part of a module callback.
+                    if CrashHandler then
+                        CrashHandler.capture("Module:" .. tostring(id), err, tb)
+                    else
+                        print("Error in callback: " .. tostring(err))
+                    end
                     done()
                 end
             else
@@ -378,7 +418,7 @@ function addModule(parent, id, title, desc, mode, extra, callback)
     if isRTL() then t1.setGravity(Gravity.RIGHT) end
 
     local t2 = TextView(activity)
-    t2.setText(desc)
+    setRichText(t2, desc, UI.LOGO)
     t2.setTextColor(UI.SUB)
     t2.setTextSize(1, 10)
     if isRTL() then t2.setGravity(Gravity.RIGHT) end

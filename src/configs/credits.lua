@@ -13,38 +13,35 @@ return {
 
 -- ── Script developers ─────────────────────────────────────────────────────
 ["about.script_dev.desc"] = [[
-- Lazor (discord: vekendian)
-- AMR (discord: amrgg)
-- Erik (discord: eomthix)
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
 ]],
 
 -- ── Translators ───────────────────────────────────────────────────────────
 -- One entry per language. Names and handles are not translated.
 ["about.script_translator.desc"] = [[
-- English: Lazor (discord: vekendian)
-- Bahasa Indonesia: Lazor (discord: vekendian)
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
 - Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (discord: eomthix)
-- Русский: Winter Lotus (discord:nikolaypg67)
-           profinoobru (discord: profinoobru)
-- Thai: NaiArt777 (discord: 4r77y_888)
-- বাংলা: AMR (discord: amrgg)
-- العربية: AMR (discord: amrgg)
-- اردو: AMR (discord: amrgg)
-- Français: AMR (discord: amrgg)
-- Українська: AMR (discord: amrgg)
-- Türkçe: AMR (discord: amrgg)
-- Português (Brasil): AMR (discord: amrgg)
-- हिन्दी: AMR (discord: amrgg)
-- Italiano: AMR (discord: amrgg)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
 ]],
 
 -- ── Credits ───────────────────────────────────────────────────────────────
 ["about.credits.desc"] = [[
-- Lazor (discord: vekendian)
+- Lazor (github: lazor-git)
 - Lan9118 (discord: lan9118)
-- AMR (discord: amrgg)
-- Erik (discord: eomthix)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
 - Sr Romero
 - Profinoobru
 ]],
