@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 03:57:08
+-- Packed by bundle.py  •  2026-06-24 01:37:06
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -29,67 +29,6 @@ UI = {
 }
 
 return UI
-end
-
-__vfs['configs/credits.lua'] = function(...)
--- configs/credits.lua — Single source of truth for all arch-universal about/credits content.
---
--- These keys are language-independent (names, handles, URLs) and are shared
--- across every lang file. They are injected into T() as a base layer BEFORE
--- the English fallback, so lang files never need to define them.
---
--- To update a credit: edit here only. All languages update automatically.
-
-return {
-
--- ── Script owner ──────────────────────────────────────────────────────────
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
-
--- ── Script developers ─────────────────────────────────────────────────────
-["about.script_dev.desc"] = [[
-- Lazor (discord: vekendian)
-- AMR (discord: amrgg)
-- Erik (discord: eomthix)
-]],
-
--- ── Translators ───────────────────────────────────────────────────────────
--- One entry per language. Names and handles are not translated.
-["about.script_translator.desc"] = [[
-- English: Lazor (discord: vekendian)
-- Bahasa Indonesia: Lazor (discord: vekendian)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (discord: eomthix)
-- Русский: Winter Lotus (discord:nikolaypg67)
-           profinoobru (discord: profinoobru)
-- Thai: NaiArt777 (discord: 4r77y_888)
-- বাংলা: AMR (discord: amrgg)
-- العربية: AMR (discord: amrgg)
-- اردو: AMR (discord: amrgg)
-- Français: AMR (discord: amrgg)
-- Українська: AMR (discord: amrgg)
-- Türkçe: AMR (discord: amrgg)
-- Português (Brasil): AMR (discord: amrgg)
-- हिन्दी: AMR (discord: amrgg)
-- Italiano: AMR (discord: amrgg)
-]],
-
--- ── Credits ───────────────────────────────────────────────────────────────
-["about.credits.desc"] = [[
-- Lazor (discord: vekendian)
-- Lan9118 (discord: lan9118)
-- AMR (discord: amrgg)
-- Erik (discord: eomthix)
-- Sr Romero
-- Profinoobru
-]],
-
--- ── Special thanks ────────────────────────────────────────────────────────
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
-
-}
-
 end
 
 __vfs['configs/rewards.lua'] = function(...)
@@ -22638,10 +22577,42 @@ return {
 ["about.about_script.title"] = "حول السكريبت",
 ["about.about_script.desc"] = "سكريبت قوي ومحسّن للغاية لمعالجة الذاكرة مبني لـ Hill Climb Racing 2 على بيئة Pivot المخصصة.\n\nتنزيل Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "مالك السكريبت",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "مطور السكريبت",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "مترجم السكريبت",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "الشكر والتقدير",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "شكر خاص",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "وضع التصحيح",
@@ -23165,10 +23136,42 @@ return {
 ["about.about_script.title"] = "স্ক্রিপ্ট সম্পর্কে",
 ["about.about_script.desc"] = "Hill Climb Racing 2-এর জন্য কাস্টম Pivot পরিবেশে নির্মিত একটি শক্তিশালী ও অত্যন্ত অপটিমাইজড মেমরি ম্যানিপুলেশন স্ক্রিপ্ট।\n\nPivot ডাউনলোড:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "স্ক্রিপ্ট মালিক",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "স্ক্রিপ্ট ডেভেলপার",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "স্ক্রিপ্ট অনুবাদক",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "ক্রেডিট",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "বিশেষ ধন্যবাদ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ডিবাগ মোড",
@@ -23690,10 +23693,41 @@ return {
 ["about.about_script.title"] = "Über das Skript",
 ["about.about_script.desc"] = "Ein mächtiges und hochgradig optimiertes Skript zur Speichermanipulation, entwickelt für Hill Climb Racing 2 auf der maßgeschneiderten Pivot-Umgebung.\n\nPivot herunterladen:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Skript-Eigentümer",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Skript-Entwickler",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Übersetzer",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Credits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (Discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Besonderer Dank an",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug-Modus",
@@ -24018,7 +24052,7 @@ return {
 ["ui.loading"] = "Loading",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.no_data_this_version"] = "Not available for your game version.",
+["patches.requires_arch"] = "Requires %s device (your device: %s)",
 ["patches.suffix_enabled"] = " Enabled",
 ["patches.suffix_disabled"] = " Disabled",
 ["patches.pattern_not_found"] = "Failed: %d pattern(s) not found",
@@ -24029,7 +24063,6 @@ return {
 ["arch.non_primary_arch_msg"] = "Detected: %s\nSome or all lib-patches may not work.",
 ["arch.unknown_version_msg"] = "Game version unknown. Try again after the game loads.",
 ["arch.no_base_data_msg"] = "Internal error: no base data available for this architecture.",
-["arch.newer_version_msg"] = "Your game version (%s) is newer than the latest known data (%s).\nVOID will use the closest available data — some features may not work correctly.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Scheduler Warning: Task crashed -> %s",
@@ -24183,10 +24216,42 @@ return {
 ["about.about_script.title"] = "About Script",
 ["about.about_script.desc"] = "A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom Pivot environment.\n\nDownload Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Script Owner",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Script Developer",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Script Translator",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Credits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Special Thanks",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Debug Mode",
@@ -24709,10 +24774,41 @@ return {
 ["about.about_script.title"] = "Acerca del Script",
 ["about.about_script.desc"] = "Un script de manipulación de memoria potente y altamente optimizado para Hill Climb Racing 2 en el entorno Pivot personalizado.\n\nDescarga Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propietario del Script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desarrolladores del Script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Traductor del Script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Créditos",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Agradecimientos Especiales",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo Depuración",
@@ -25199,10 +25295,42 @@ return {
 ["about.about_script.title"] = "À propos du script",
 ["about.about_script.desc"] = "Un script de manipulation de mémoire puissant et hautement optimisé construit pour Hill Climb Racing 2 sur l'environnement Pivot personnalisé.\n\nTélécharger Pivot :\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Propriétaire du script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Développeur du script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Traducteur du script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Crédits",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Remerciements spéciaux",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode débogage",
@@ -25730,10 +25858,41 @@ return {
 ["about.about_script.title"] = "Tentang Skrip",
 ["about.about_script.desc"] = "Skrip manipulasi memori yang kuat dan sangat dioptimalkan yang dibuat untuk Hill Climb Racing 2 di lingkungan kustom Pivot.\n\nUnduh Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Pemilik Skrip",
+["about.script_owner.desc"] = "- Organisasi Vekendian (github: vekendianorg)",
 ["about.script_dev.title"] = "Pengembang Skrip",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Penerjemah Skrip",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Kredit",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Terima Kasih Khusus",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Mode Debug",
@@ -26225,10 +26384,42 @@ return {
 ["about.about_script.title"] = "Sobre o Script",
 ["about.about_script.desc"] = "Um poderoso e altamente otimizado script de manipulação de memória construído para Hill Climb Racing 2 no ambiente Pivot personalizado.\n\nBaixar Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Proprietário do Script",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Desenvolvedor do Script",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Tradutor do Script",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Créditos",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Agradecimentos Especiais",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modo de Depuração",
@@ -26751,10 +26942,41 @@ return {
 ["about.about_script.title"] = "О скрипте",
 ["about.about_script.desc"] = "Мощный и оптимизированный скрипт для манипуляции памятью, созданный для Hill Climb Racing 2 в кастомном окружении Pivot.\n\nСкачать Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Владелец скрипта",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Разработчики скрипта",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Переводчики скрипта",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Авторы",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "Особая благодарность",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим отладки",
@@ -27241,10 +27463,41 @@ return {
 ["about.about_script.title"] = "เกี่ยวกับสคริปต์",
 ["about.about_script.desc"] = "สคริปต์ปรับแต่งและจัดการหน่วยความจำที่ทรงพลังและลื่นไหลสุดๆ ทำมาเพื่อเกม Hill Climb Racing 2 บนแอปจำลอง Pivot โดยเฉพาะ\n\nดาวน์โหลด Pivot ได้ที่นี่เลย:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "เจ้าของสคริปต์",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "ทีมพัฒนาร่วม",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "คนแปลภาษา",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "เครดิตผู้มีส่วนร่วม",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+]],
 ["about.special_thanks.title"] = "ขอบคุณเป็นพิเศษ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "โหมดดีบักในเกม",
@@ -27733,10 +27986,42 @@ return {
 ["about.about_script.title"] = "Betik Hakkında",
 ["about.about_script.desc"] = "Hill Climb Racing 2 için özel Pivot ortamında oluşturulmuş güçlü ve son derece optimize edilmiş bir bellek manipülasyon betiği.\n\nPivot'u İndir:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Betik Sahibi",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Betik Geliştiricisi",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Betik Çevirmeni",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Katkıda Bulunanlar",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Özel Teşekkürler",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Hata Ayıklama Modu",
@@ -28260,10 +28545,42 @@ return {
 ["about.about_script.title"] = "Про скрипт",
 ["about.about_script.desc"] = "Потужний та високооптимізований скрипт для маніпуляції пам'яттю, створений для Hill Climb Racing 2 у спеціальному середовищі Pivot.\n\nЗавантажити Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Власник скрипту",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Розробник скрипту",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "Перекладач скрипту",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "Подяки",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "Особлива подяка",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Режим налагодження",
@@ -28787,10 +29104,42 @@ return {
 ["about.about_script.title"] = "اسکرپٹ کے بارے میں",
 ["about.about_script.desc"] = "Hill Climb Racing 2 کے لیے کسٹم Pivot ماحول پر بنایا گیا ایک طاقتور اور انتہائی بہتر میموری ہیرا پھیری اسکرپٹ۔\n\nPivot ڈاؤن لوڈ کریں:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "اسکرپٹ کا مالک",
+["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "اسکرپٹ ڈویلپر",
+["about.script_dev.desc"] = [[
+- Lazor (github: lazor-git)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+]],
 ["about.script_translator.title"] = "اسکرپٹ مترجم",
+["about.script_translator.desc"] = [[
+- English: Lazor (github: lazor-git)
+- Bahasa Indonesia: Lazor (github: lazor-git)
+- Español: Jayy2k (github: Jayy2k)
+- Deutsch: Erik (github: eomthix)
+- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
+- Thai: NaiArt777 (github: artphakkapol-hub)
+- বাংলা: AMR (github: amr-gt)
+- العربية: AMR (github: amr-gt)
+- اردو: AMR (github: amr-gt)
+- Français: AMR (github: amr-gt)
+- Українська: AMR (github: amr-gt)
+- Türkçe: AMR (github: amr-gt)
+- Português (Brasil): AMR (github: amr-gt)
+]],
 ["about.credits.title"] = "اعترافات",
+["about.credits.desc"] = [[
+- Lazor (github: lazor-git)
+- Lan9118 (discord: lan9118)
+- AMR (github: amr-gt)
+- Erik (github: eomthix)
+- Sr Romero
+- Profinoobru
+]],
 ["about.special_thanks.title"] = "خصوصی شکریہ",
+["about.special_thanks.desc"] = [[
+- Aryan/KokushiboModz
+]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "ڈیبگ موڈ",
@@ -29102,7 +29451,7 @@ if #missing > 0 then fail("Missing classes:\n" .. table.concat(missing, "\n")) e
 end
 
 __vfs['core/engines/arch.lua'] = function(...)
--- core/engines/arch.lua — Architecture detection + chain-based version resolution
+-- core/engines/arch.lua — Architecture detection + manifest-driven data loading
 -- Sets globals: DEVICE_ARCH, BaseLib, aobs, offsets
 -- Depends on: loadModule, memory (already loaded), gg, showDialog, LOG,
 --             DEFAULT_ARCH (set in main.lua)
@@ -29143,110 +29492,12 @@ if DEVICE_ARCH ~= "arm64-v8a" then
 end
 
 
--- ── Version comparison ────────────────────────────────────────────────────────
-
--- Splits "1.73.5" into { 1, 73, 5 }.
-local function parse_version(v)
-    local ma, mi, pa = v:match("(%d+)%.(%d+)%.(%d+)")
-    if not ma then return nil end
-    return { tonumber(ma), tonumber(mi), tonumber(pa) }
-end
-
--- Returns -1, 0, or 1 — same contract as C's strcmp.
-local function cmp_version(a, b)
-    for i = 1, 3 do
-        if     a[i] < b[i] then return -1
-        elseif a[i] > b[i] then return  1
-        end
-    end
-    return 0
-end
-
-
--- ── Chain resolution ──────────────────────────────────────────────────────────
+-- ── Manifest-driven data resolution ──────────────────────────────────────────
 --
--- The manifest supplies an ordered `chain` array per arch.  Each entry is:
---
---   { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true }
---
--- `full = true`  → the file is a complete baseline (aobs + offsets).
---                  The engine resets its accumulated state before applying it.
---
--- `full = false` (or absent) → the file is a diff.  Only the keys present
---                  inside `aobs` / `offsets` replace the matching keys in the
---                  accumulated state; everything else is kept as-is.
---
--- The engine walks the chain from the beginning up to (and including) the
--- closest entry whose version is ≤ the device's game version, accumulating
--- changes as it goes.  This means:
---
---   • Users on 1.73.3 see exactly the 1.73.3 data.
---   • Users on 1.73.5 see 1.73.3 base + whatever 1.73.5 changed.
---   • Users on 1.74.0 (a new era) see only the fresh 1.74.0 baseline because
---     that entry is marked `full = true`, resetting the accumulated state.
---   • Users on an unknown future version (e.g. 1.75.0) see the last known
---     entry and get a "running on newer version" warning — same behaviour as
---     the old default_base fallback, but now it's the most recent data rather
---     than the oldest.
-
-local function resolve_chain(chain, device_ver_t)
-    -- `state` is what we accumulate across the chain walk.
-    local state = { aobs = {}, offsets = {} }
-    -- `last_applied` tracks the highest version we successfully merged into
-    -- state, for the "running on newer game" warning message.
-    local last_applied = nil
-
-    for _, entry in ipairs(chain) do
-        local entry_ver_t = parse_version(entry.version)
-        if not entry_ver_t then
-            LOG.warn("Arch", "Chain entry has unparseable version: " .. tostring(entry.version) .. " — skipped")
-            goto continue
-        end
-
-        -- Stop walking once the chain passes the device version.
-        if cmp_version(entry_ver_t, device_ver_t) > 0 then
-            LOG.info("Arch", "Chain walk stopped before " .. entry.version .. " (device is older)")
-            break
-        end
-
-        -- Load the file.
-        local ok, data = pcall(loadModule, entry.file)
-        if not ok or type(data) ~= "table" then
-            LOG.error("Arch", "Failed to load chain entry " .. entry.version .. " (" .. tostring(entry.file) .. "): " .. tostring(data))
-            goto continue
-        end
-
-        -- A full baseline resets accumulated state before merging.
-        if entry.full then
-            LOG.info("Arch", "Chain: full baseline reset at " .. entry.version)
-            state = { aobs = {}, offsets = {} }
-        end
-
-        -- Merge aobs: per-group keys replace existing ones.
-        if type(data.aobs) == "table" then
-            for k, v in pairs(data.aobs) do
-                state.aobs[k] = v
-            end
-        end
-
-        -- Merge offsets: per-key replacement.
-        if type(data.offsets) == "table" then
-            for k, v in pairs(data.offsets) do
-                state.offsets[k] = v
-            end
-        end
-
-        last_applied = entry.version
-        LOG.info("Arch", "Chain: applied " .. entry.version .. (entry.full and " [full]" or " [diff]"))
-
-        ::continue::
-    end
-
-    return state, last_applied
-end
-
-
--- ── Manifest loading ──────────────────────────────────────────────────────────
+-- See data/manifest.lua for the full structure/resolution writeup. Short
+-- version: arch_t[major][minor].base (or arch_t.default_base) is the full
+-- baseline; arch_t[major][minor][patch] is an optional diff-only override,
+-- shallow-merged on top per `aobs` group key / `offsets` key.
 
 local manifest    = loadModule("data/manifest.lua")
 local pkg_version = gg.getTargetInfo().versionName
@@ -29258,40 +29509,11 @@ if type(pkg_version) ~= "string" then
     os.exit(0)
 end
 
-local device_ver_t = parse_version(pkg_version)
-if not device_ver_t then
-    LOG.fatal("Arch", "Could not parse game version: " .. pkg_version)
-    showDialog(T("common.warning"), T("arch.unknown_version_msg"), T("common.ok"))
-    os.exit(0)
-end
-
--- Resolve which arch's tree to use.
-local arch_t = manifest[DEVICE_ARCH]
-if not arch_t then
-    LOG.warn("Arch", string.format(
-        "No manifest entry for '%s' — falling back to '%s' (lib patches likely won't match)",
-        DEVICE_ARCH, DEFAULT_ARCH))
-    arch_t = manifest[DEFAULT_ARCH]
-end
-
-if not arch_t or not arch_t.chain or #arch_t.chain == 0 then
-    LOG.fatal("Arch", "Manifest missing or empty chain for resolved arch — cannot continue")
-    showDialog(T("common.warning"), T("arch.no_base_data_msg"), T("common.ok"))
-    os.exit(0)
-end
-
--- Walk the chain.
-local resolved, last_applied = resolve_chain(arch_t.chain, device_ver_t)
-
--- Warn if the game version is newer than anything in the chain.
-local last_chain_ver_t = parse_version(arch_t.chain[#arch_t.chain].version)
-if last_chain_ver_t and cmp_version(device_ver_t, last_chain_ver_t) > 0 then
-    LOG.warn("Arch", string.format(
-        "Game v%s is newer than the latest chain entry (%s) — using best available data",
-        pkg_version, arch_t.chain[#arch_t.chain].version))
-    showDialog(T("arch.warning_title"),
-        T("arch.newer_version_msg", pkg_version, arch_t.chain[#arch_t.chain].version),
-        T("common.proceed_anyway"))
+local function shallow_merge(base_t, override_t)
+    local merged = {}
+    for k, v in pairs(base_t or {}) do merged[k] = v end
+    for k, v in pairs(override_t or {}) do merged[k] = v end
+    return merged
 end
 
 local function count(t)
@@ -29300,12 +29522,44 @@ local function count(t)
     return n
 end
 
-aobs    = resolved.aobs
-offsets = resolved.offsets
+-- Resolve which arch's tree to use. Unsupported arches fall back to
+-- DEFAULT_ARCH's tree so the script still runs (with a warning) instead of
+-- hard-exiting.
+local arch_t = manifest[DEVICE_ARCH]
+if not arch_t then
+    LOG.warn("Arch", string.format(
+        "No manifest entry for '%s' — falling back to '%s' (lib patches likely won't match)",
+        DEVICE_ARCH, DEFAULT_ARCH))
+    arch_t = manifest[DEFAULT_ARCH]
+end
 
-LOG.info("Arch", string.format(
-    "Data resolved | chain_applied=%s | aobs=%d groups | offsets=%d entries",
-    tostring(last_applied), count(aobs), count(offsets)))
+if not arch_t or not arch_t.default_base then
+    LOG.fatal("Arch", "Manifest missing default_base for resolved arch — cannot continue")
+    showDialog(T("common.warning"), T("arch.no_base_data_msg"), T("common.ok"))
+    
+end
+
+local major, minor, patch = pkg_version:match("(%d+)%.(%d+)%.(%d+)")
+local minor_t = ((arch_t[major] or {})[minor]) or {}
+
+local base_path = minor_t.base or arch_t.default_base
+local base = loadModule(base_path)
+LOG.info("Arch", string.format("Base loaded: %s", base_path))
+
+local override_path = minor_t[patch]
+local override = nil
+if override_path then
+    override = loadModule(override_path)
+    LOG.info("Arch", string.format("Override matched: v%s.%s.%s -> %s", major, minor, patch, override_path))
+else
+    LOG.info("Arch", string.format("No override for v%s.%s.%s — using base as-is", major, minor, patch))
+end
+
+aobs    = shallow_merge(base.aobs, override and override.aobs)
+offsets = shallow_merge(base.offsets, override and override.offsets)
+
+LOG.info("Arch", string.format("Data resolved | aobs=%d groups | offsets=%d entries",
+    count(aobs), count(offsets)))
 
 end
 
@@ -29596,11 +29850,51 @@ local function verify_pattern(base, patterns)
     return true
 end
 
+---Returns a human-readable list of supported architectures from a patch table.
+---@param arch_map table { [arch_name] = data }
+---@return string Comma-separated architecture names, e.g. "arm64-v8a or x86_64"
+local function arch_list_string(arch_map)
+    local names = {}
+    for arch in pairs(arch_map) do
+        table.insert(names, arch)
+    end
+    return table.concat(names, " or ")
+end
+
 ---Returns true if `t` is a flat array of patch entries (each entry has a `scan` key).
+---Used to distinguish { {scan=…}, {scan=…} } from { ["arm64-v8a"] = {…} }.
 ---@param t table
 ---@return boolean
 local function is_patch_list(t)
     return type(t) == "table" and type(t[1]) == "table" and t[1].scan ~= nil
+end
+
+---Normalises the `patch_or_callback` argument of addArchModule into an arch map.
+---
+--- Accepted forms:
+---   • Flat patch list  { {scan, offset, patch, unpatch}, … }  → wrapped under DEFAULT_ARCH
+---   • Arch map         { ["arm64-v8a"] = { {…}, … }, … }
+---   • Callback         function(done, ...)                     → wrapped under DEFAULT_ARCH
+---   • Arch-keyed cbs   { ["arm64-v8a"] = function, … }
+---
+---@param patch_or_callback any
+---@return table arch_map  { [arch] = resolvedValue }
+---@return any   resolved  Value for DEVICE_ARCH, or nil if unsupported
+local function resolve_arch(patch_or_callback)
+    local arch_map
+
+    if is_patch_list(patch_or_callback) then
+        -- Bare patch list — belongs to the default arch only.
+        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
+    elseif type(patch_or_callback) == "table" then
+        -- Must be an arch-keyed map (values are either patch lists or callbacks).
+        arch_map = patch_or_callback
+    else
+        -- Bare callback function — belongs to the default arch only.
+        arch_map = { [DEFAULT_ARCH] = patch_or_callback }
+    end
+
+    return arch_map, arch_map[DEVICE_ARCH]
 end
 
 
@@ -29700,7 +29994,7 @@ end
 ---Creates a UI module card with automatic architecture validation.
 ---
 ---For "switch" mode with a patch table the engine handles enable/disable via
----apply_patch. For all other modes (button, slider, input, …) the value must
+---apply_patch. For all other modes (button, slider, input, …) the resolved
 ---value must be a callback: function(done, ...).
 ---
 ---Read-only ("ro") modules bypass arch resolution entirely.
@@ -29711,7 +30005,7 @@ end
 ---@param desc             string Description shown in the card
 ---@param mode             string "switch" | "button" | "slider" | "input" | "ro" | …
 ---@param extra            any    Mode-specific config (options table, slider config, etc.)
----@param patch_or_callback any   Patch list or callback (from aobs table or inline fn)
+---@param patch_or_callback any   Patch list, arch-map, or callback (see resolve_arch)
 function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
     -- Read-only cards need no arch check.
     if mode == "ro" then
@@ -29719,23 +30013,23 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         return
     end
 
-    -- nil means the data key doesn't exist in aobs/offsets for this version.
-    -- Show a "not available for this version" placeholder rather than an arch error.
-    if patch_or_callback == nil then
+    local arch_map, resolved = resolve_arch(patch_or_callback)
+
+    -- No data for this arch → show a disabled placeholder card.
+    if not resolved then
         addModule(parent, id .. "_na", title,
-            T("patches.no_data_this_version"),
+            T("patches.requires_arch", arch_list_string(arch_map), DEVICE_ARCH),
             "ro", T("common.not_available"), nil)
         return
     end
 
-    -- patch_or_callback is either a patch list or a callback at this point.
     local callback
 
-    if mode == "switch" and is_patch_list(patch_or_callback) then
+    if mode == "switch" and is_patch_list(resolved) then
         -- Patch-backed toggle: delegate to apply_patch inside the scheduler.
         callback = function(done, state)
             scheduler:add(function(finish_task)
-                local fail_count = apply_patch(id, patch_or_callback, state)
+                local fail_count = apply_patch(id, resolved, state)
                 if fail_count == 0 then
                     showToast(title .. (state and T("patches.suffix_enabled") or T("patches.suffix_disabled")))
                 else
@@ -29753,7 +30047,7 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         -- because the outer task would never call finish_task() while waiting on the
         -- inner task, which can't run until the outer task finishes.
         callback = function(done, ...)
-            patch_or_callback(done, ...)
+            resolved(done, ...)
         end
     end
 
@@ -30332,8 +30626,6 @@ local AVAILABLE = {
     { code = "ur", name = "اردو" },
     { code = "fr", name = "Français" },
     { code = "uk", name = "Українська" },
-    { code = "tr", name = "Türkçe" },
-    { code = "pt-BR", name = "Português (Brasil)" },
     -- more languages soon
 }
 
@@ -30346,16 +30638,6 @@ local function tryLoadLangFile(code)
     local ok, result = pcall(loadModule, "configs/lang/" .. code .. ".lua")
     if not ok or type(result) ~= "table" then return nil end
     return result
-end
-
--- ── Credits base layer ───────────────────────────────────────────────────────
--- Loaded before EN so that arch-universal content (names, handles, URLs) lives
--- in one place. T() checks CREDITS last, after ACTIVE and EN, so a lang file
--- can still override any key here if truly needed (shouldn't be necessary).
-local ok_credits, CREDITS = pcall(loadModule, "configs/credits.lua")
-if not ok_credits or type(CREDITS) ~= "table" then
-    LOG.warn("Lang", "configs/credits.lua failed to load — credits will fall through to EN")
-    CREDITS = {}
 end
 
 local EN = tryLoadLangFile("en")
@@ -30394,7 +30676,6 @@ LANG_AVAILABLE = AVAILABLE
 function T(key, ...)
     local entry = ACTIVE[key]
     if entry == nil then entry = EN[key] end
-    if entry == nil then entry = CREDITS[key] end
     if entry == nil then
         LOG.warn("Lang", "Missing translation key: " .. tostring(key))
         return key
@@ -30624,85 +30905,88 @@ end
 __vfs['data/manifest.lua'] = function(...)
 -- data/manifest.lua — Version × Architecture data tree
 --
--- ── Chain structure ────────────────────────────────────────────────────────────
+-- ── Structure ─────────────────────────────────────────────────────────────
 --
 --   [arch] = {
---       chain = {
---           -- Each entry is applied in order, oldest → newest.
---           -- The engine walks up to (and including) the user's game version.
+--       default_base = "data/<arch>/base.lua",  -- REQUIRED. Also marks this
+--                                                 -- arch as supported (its
+--                                                 -- presence = arch_t exists).
 --
---           { version = "1.73.3", file = "data/<arch>/1.73.3.lua", full = true },
---           --   └─ full = true  → complete baseline; resets accumulated state
---           --                     before merging. Use for the first entry in a
---           --                     chain, and whenever a game update rewrites so
---           --                     many AOBs that a diff would be larger than a
---           --                     fresh file.
+--       [major] = {
+--           [minor] = {
+--               base = "data/<arch>/base_X.Y.lua",  -- OPTIONAL. New full
+--                                                     -- baseline for this
+--                                                     -- X.Y era. Omit to
+--                                                     -- inherit default_base.
 --
---           { version = "1.73.5", file = "data/<arch>/1.73.5.lua" },
---           --   └─ full absent  → diff only. Only the aobs/offsets keys present
---           --                     in this file overwrite the accumulated state;
---           --                     everything else is kept as-is from earlier
---           --                     entries.
---
---           { version = "1.74.0", file = "data/<arch>/1.74.0.lua", full = true },
---           --   └─ New era, full reset. Users on 1.73.x never reach this entry.
+--               [patch] = "data/<arch>/vX.Y.Z.lua",  -- OPTIONAL. Diff-only
+--                                                      -- override, merged on
+--                                                      -- top of `base` above.
+--           },
 --       },
 --   }
 --
--- ── Resolution rules ──────────────────────────────────────────────────────────
+--   major/minor/patch are STRING keys ("1", "73", "3"), taken verbatim from
+--   the game's versionName "1.73.3".
 --
---   Walk the chain from index 1 forward.  Stop the moment an entry's version
---   exceeds the device's game version.  Accumulate changes from every entry
---   visited:
+-- ── Resolution (see core/engines/arch.lua) ───────────────────────────────────
 --
---     • full = true  → clear accumulated aobs/offsets, then merge this file.
---     • diff         → merge this file on top of what we already have.
+--   1. arch_t = manifest[DEVICE_ARCH], or manifest[DEFAULT_ARCH] if the
+--      current arch has no entry (with a warning — lib patches likely
+--      won't match on the wrong arch's base).
 --
---   Result: users on any version in the chain get the exact data built up to
---   their version.  Users on an OLDER version than the first entry get only
---   that first entry's data (the baseline).  Users on a NEWER version than the
---   last entry get the most recent known data + a "newer version" warning —
---   much better than silently running on stale 1.73.3 offsets forever.
+--   2. minor_t = arch_t[major][minor], or {} if that major/minor combo
+--      isn't mapped yet (brand new version — falls through to step 3/4
+--      with no override, using default_base as-is).
 --
--- ── When to add what ──────────────────────────────────────────────────────────
+--   3. base_path = minor_t.base or arch_t.default_base
+--      → loaded as the full baseline.
 --
---   • Game update changes NOTHING for you → add no entry; existing users are
---     unaffected, newer-version users get the last known data + warning.
+--   4. override_path = minor_t[patch] (may be nil)
+--      → if present, shallow-merged on top of base per `aobs` group key
+--        and per `offsets` key.
 --
---   • A patch bump shifts ONE offset → append a tiny diff entry containing
---     only that changed key, e.g.:
---       { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" }
---     where 1.73.5.lua returns { offsets = { raceInfo = 0x200DEAD } }
+-- ── When to add what ─────────────────────────────────────────────────────────
 --
---   • A minor/major bump rewrites most AOBs → append a full baseline entry:
---       { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }
---     Users still on 1.73.x never walk past their version, so the old data
---     stays alive for them automatically — no deletion needed.
+--   • Most patch bumps change NOTHING → no entry needed at all. They fall
+--     through to default_base (or the era's `base`) untouched.
 --
--- ── Adding a new arch ─────────────────────────────────────────────────────────
+--   • A patch bump shifts ONE offset → add a tiny diff file under
+--     [major][minor][patch], e.g. v1.73.3.lua containing just that key.
+--
+--   • A minor/major bump rewrites everything (new lib, new AOB bytes
+--     everywhere) → write a fresh full base_X.Y.lua ONCE, point
+--     [major][minor].base at it. Subsequent patches in that era go back
+--     to being tiny diffs against THIS new base.
+--
+-- ── Adding a new arch ───────────────────────────────────────────────────────
 --   1. Create data/<arch>/base.lua (full aobs + offsets).
---   2. Add manifest[<arch>] = { chain = { { version = "...", file = "...", full = true } } }.
---   3. Append diff entries as versions release.  No changes to core/ required.
+--   2. Add manifest[<arch>] = { default_base = "data/<arch>/base.lua" }.
+--   3. Add version entries as needed — no changes to core/ required.
 
 return {
 
     ["arm64-v8a"] = {
-        chain = {
-            { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
-            -- Example future entries (add when a new game update releases):
-            -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
-            -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era
+        default_base = "data/arm64-v8a/1.73.3.lua",
+
+        ["1"] = {
+            ["73"] = {
+                ["3"] = "data/arm64-v8a/1.73.3.lua",
+            },
+            
         },
     },
-
+    
     ["x86_64"] = {
-        chain = {
-            { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
-            -- Example future entries:
-            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
+        default_base = "data/x86_64/1.73.3.lua",
+
+        ["1"] = {
+            ["73"] = {
+                ["3"] = "data/x86_64/1.73.3.lua",
+            },
+            
         },
     },
-
 }
 
 end
@@ -30752,42 +31036,11 @@ return {
 end
 
 __vfs['data/x86_64/1.73.3.lua'] = function(...)
--- data/x86_64/1.73.3.lua — x86_64 baseline for 1.73.3
---
--- AOB patterns are identical to arm64-v8a for this version; only offsets differ.
--- If AOBs ever diverge between arches, add them here explicitly.
+-- data/x86_64/1.73.3.lua — Override for 1.73.3 (x86_64)
 
 return {
-    aobs = {
-        fakeVip = {
-            {scan = "h 12 C0 00 55 48 89 E5 41 56 53", offset = 3, patch = "h B0 01 C3", unpatch = "h 55 48 89"},
-        },
-
-        fakeUnlock = {
-            {scan = "h 92 C0 00 55 48 89 E5 41 57 41 56 41 55 41 54", offset = 3, patch = "h B8 01 00 00 00 C3", unpatch = "h 55 48 89 E5 41 57"},
-        },
-
-        autoDetach = {
-            {scan = "h C0 41 0F 2E 46 30 76 0B 48 89 DF", offset = 4, patch = "h 46 30 90 90", unpatch = "h 46 30 76 0B"},
-        },
-
-        autoWin = {                                                                                                                                                        -- setFirstPos, instantDie
-            {scan = "h 60 F3 0F 10 40 4C F3 0F 11 44 24 0C 48", offset = 1, patch = "h C7 44 24 0C 00 00 A0 C0 90 90 90", unpatch = "h F3 0F 10 40 4C F3 0F 11 44 24 0C"}, -- setFirstPos
-            {scan = "h 8B 40 60 89 44 24 04", offset = 0, patch = "h 6A 02 8F 44 24 04 90", unpatch = "h 8B 40 60 89 44 24 04"},                                           -- instantDie
-        },
-
-        autoDie = {                                                                                               -- freeze, noFuel
-            {scan = "h 49 89 47 50 48 8B 43 30", offset = 0, patch = "h 90 90 90 90", unpatch = "h 49 89 47 50"}, -- freeze
-            {scan = "h C9 0F 2E C8 76 0A C7 83", offset = 4, patch = "h 90 90", unpatch = "h 76 0A"},             -- noFuel
-        },
-
-        forceBoss = {                                                                                                -- Trophy, Legendary
-            {scan = "h F8 F3 0F 10 80 28 04 00 00", offset = 5, patch = "h FC FF FF FF", unpatch = "h 28 04 00 00"}, -- Trophy
-            {scan = "h F8 F3 0F 10 80 CC 01 00 00", offset = 5, patch = "h FC FF FF FF", unpatch = "h CC 01 00 00"}, -- Legendary
-        },
-    },
     offsets = {
-        raceInfo = 0x2066508,     -- race info like distance, cd
+        raceInfo = 0x2066508,
     },
 }
 

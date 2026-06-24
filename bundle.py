@@ -157,16 +157,31 @@ def build_vfs_loader():
 local scriptDir = gg.getFile():match("(.*/)" ) or ""
 script_dir = scriptDir  -- bridge for lang.lua and other modules
 
-function loadModule(name)
+function loadModule(name, soft)
     local key = name:gsub("^%./", "")
     if not key:match("%.lua$") then key = key .. ".lua" end
     local vchunk = __vfs[key]
-    if vchunk then return vchunk() end
+    if vchunk then
+        -- Soft mode: run the module body guarded so a feature crash returns
+        -- nil, err instead of propagating (mirrors main.lua's loadModule).
+        if soft then
+            local results = table.pack(pcall(vchunk))
+            if not results[1] then return nil, results[2] end
+            return table.unpack(results, 2, results.n)
+        end
+        return vchunk()
+    end
     local path = scriptDir .. name
     local chunk, err = loadfile(path)
     if not chunk then
+        if soft then return nil, err end
         gg.alert("VFS miss: " .. name .. "\\n" .. tostring(err))
         os.exit()
+    end
+    if soft then
+        local results = table.pack(pcall(chunk))
+        if not results[1] then return nil, results[2] end
+        return table.unpack(results, 2, results.n)
     end
     return chunk()
 end

@@ -1,0 +1,23 @@
+UI = {
+    BG = 0x800D001A,
+    BG_IMAGE = {
+        PATH  = "no_media",
+        ALPHA = 255
+    },
+    HEADER = 0x80110022,
+    CARD = 0x331A0028,
+    ACCENT = 0x608F3BE8,
+    MUTED = 0x4D3D1060,
+    TEXT = 0xFFFFFFFF,
+    SUB = 0xDDBB99FF,
+    RED = 0xFFFF3366,
+    GREEN = 0xFF39FF14,
+    STROKE = 0x4D4400AA,
+    LOGO = 0xFFE040FB,
+    GLOW = 0xFFFFFFFF,
+    GLASS = 0x18FFFFFF,
+    OVERLAY = 0xAA000000,
+    TABS_ICON = ">"
+}
+
+return UI
