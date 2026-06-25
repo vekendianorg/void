@@ -125,6 +125,49 @@ return {
 ["tabs.team"] = "TEAM MENU",
 ["tabs.event"] = "EVENT MENU",
 ["tabs.creative"] = "CREATIVE MENU",
+
+-- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- copy_any
+["creative.copy_any.title"]        = "Copy Any Track",
+["creative.copy_any.desc"]         = "Lets you copy any downloaded track, not just ones you created.",
+["creative.copy_any.applied"]      = "Patched %s downloaded tracks.",
+-- track_editor
+["creative.track_editor.title"]    = "Track Editor",
+["creative.track_editor.desc"]     = "Select a custom track to verify, set its length, or rename it.",
+["creative.track_editor.loading"]  = "Loading track list…",
+["creative.track_editor.select"]   = "Choose a track",
+["creative.track_editor.no_tracks"] = "No custom tracks found in memory.",
+-- error keys (returned from ops)
+["creative.tracks_not_found"]      = "Could not find the custom track list in memory.",
+["creative.invalid_track"]         = "Invalid track reference.",
+["creative.copy_any_not_found"]    = "Downloaded track list not found in memory.",
+["creative.copy_any_no_id"]        = "Could not resolve player ID.",
+["creative.rename_empty"]          = "Name cannot be empty.",
+["creative.rename_resolve_failed"] = "Could not resolve track name pointer.",
+-- track status
+["creative.track_status.verified"]     = "Verified",
+["creative.track_status.not_verified"] = "Not verified",
+["creative.track_length"]              = "Length: %sm",
+-- actions
+["creative.action.select"]     = "What do you want to do?",
+["creative.action.verify"]     = "Verify track",
+["creative.action.set_length"] = "Set length",
+["creative.action.rename"]     = "Rename",
+-- verify
+["creative.verify.applied"]          = "%s is now verified.",
+["creative.verify.already_verified"] = "This track is already verified.",
+-- set_length
+["creative.set_length.title"]   = "Set Track Length",
+["creative.set_length.prompt"]  = "Length in metres (current: %s)",
+["creative.set_length.applied"] = "%s length set to %sm.",
+["creative.set_length.invalid"] = "Enter a valid number greater than 0.",
+-- rename
+["creative.rename.title"]   = "Rename Track",
+["creative.rename.prompt"]  = "New name",
+["creative.rename.applied"] = "Track renamed to \"%s\".",
+["creative.rename.empty"]   = "Name cannot be empty.",
+
+
 ["tabs.shop"] = "SHOP MENU",
 ["tabs.other"] = "OTHER MENU",
 ["tabs.sep_script"] = "SCRIPT MENU",

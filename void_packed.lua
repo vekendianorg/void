@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 16:51:40
+-- Packed by bundle.py  •  2026-06-25 18:12:08
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -24051,6 +24051,49 @@ return {
 ["tabs.team"] = "TEAM MENU",
 ["tabs.event"] = "EVENT MENU",
 ["tabs.creative"] = "CREATIVE MENU",
+
+-- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- copy_any
+["creative.copy_any.title"]        = "Copy Any Track",
+["creative.copy_any.desc"]         = "Lets you copy any downloaded track, not just ones you created.",
+["creative.copy_any.applied"]      = "Patched %s downloaded tracks.",
+-- track_editor
+["creative.track_editor.title"]    = "Track Editor",
+["creative.track_editor.desc"]     = "Select a custom track to verify, set its length, or rename it.",
+["creative.track_editor.loading"]  = "Loading track list…",
+["creative.track_editor.select"]   = "Choose a track",
+["creative.track_editor.no_tracks"] = "No custom tracks found in memory.",
+-- error keys (returned from ops)
+["creative.tracks_not_found"]      = "Could not find the custom track list in memory.",
+["creative.invalid_track"]         = "Invalid track reference.",
+["creative.copy_any_not_found"]    = "Downloaded track list not found in memory.",
+["creative.copy_any_no_id"]        = "Could not resolve player ID.",
+["creative.rename_empty"]          = "Name cannot be empty.",
+["creative.rename_resolve_failed"] = "Could not resolve track name pointer.",
+-- track status
+["creative.track_status.verified"]     = "Verified",
+["creative.track_status.not_verified"] = "Not verified",
+["creative.track_length"]              = "Length: %sm",
+-- actions
+["creative.action.select"]     = "What do you want to do?",
+["creative.action.verify"]     = "Verify track",
+["creative.action.set_length"] = "Set length",
+["creative.action.rename"]     = "Rename",
+-- verify
+["creative.verify.applied"]          = "%s is now verified.",
+["creative.verify.already_verified"] = "This track is already verified.",
+-- set_length
+["creative.set_length.title"]   = "Set Track Length",
+["creative.set_length.prompt"]  = "Length in metres (current: %s)",
+["creative.set_length.applied"] = "%s length set to %sm.",
+["creative.set_length.invalid"] = "Enter a valid number greater than 0.",
+-- rename
+["creative.rename.title"]   = "Rename Track",
+["creative.rename.prompt"]  = "New name",
+["creative.rename.applied"] = "Track renamed to \"%s\".",
+["creative.rename.empty"]   = "Name cannot be empty.",
+
+
 ["tabs.shop"] = "SHOP MENU",
 ["tabs.other"] = "OTHER MENU",
 ["tabs.sep_script"] = "SCRIPT MENU",
@@ -30468,8 +30511,22 @@ __vfs['core/engines/crash_handler.lua'] = function(...)
   Globals used: loadModule, LOG, os.
 ]]
 
+-- Caps are loaded lazily on first getCaps()/setCaps() call because
+-- memory is not yet initialized when this module loads (crash_handler
+-- loads at line ~250 in main.lua; memory loads at line ~461).
 local MAX_CRASHES = 50
-local MAX_LOGS    = 250  -- all levels are captured now, so allow a deeper tail
+local MAX_LOGS    = 250
+local _capsLoaded = false
+
+local function ensureCapsLoaded()
+    if _capsLoaded then return end
+    _capsLoaded = true
+    if memory then
+        local saved = memory:load_global("console_caps") or {}
+        MAX_CRASHES = saved.crashes or MAX_CRASHES
+        MAX_LOGS    = saved.logs    or MAX_LOGS
+    end
+end
 
 local crashes = {}   -- ring buffer (oldest first)
 local logs    = {}   -- ring buffer (oldest first)
@@ -30570,18 +30627,22 @@ function CrashHandler.counts()     return #crashes, #logs end
 function CrashHandler.isEmpty()    return #crashes == 0 and #logs == 0 end
 
 function CrashHandler.getCaps()
+    ensureCapsLoaded()
     return MAX_CRASHES, MAX_LOGS
 end
 
 -- Update caps at runtime (called from Settings). Immediately trims existing
 -- buffers so they don't exceed the new cap.
 function CrashHandler.setCaps(crashCap, logCap)
+    ensureCapsLoaded()
+    -- nil means "keep the current value" — lets callers update only one cap.
     crashCap = math.max(5, math.min(500,  tonumber(crashCap) or MAX_CRASHES))
     logCap   = math.max(5, math.min(2000, tonumber(logCap)   or MAX_LOGS))
     MAX_CRASHES = crashCap
     MAX_LOGS    = logCap
     trimTo(crashes, MAX_CRASHES)
     trimTo(logs,    MAX_LOGS)
+    memory:save_global("console_caps", { crashes = MAX_CRASHES, logs = MAX_LOGS })
     LOG.info("CrashHandler", string.format("Caps updated: crashes=%d  logs=%d", MAX_CRASHES, MAX_LOGS))
 end
 
@@ -32610,40 +32671,293 @@ end
 
 __vfs['modules/ops/creative.lua'] = function(...)
 --[[
-  modules/ops/creative.lua — Creative / custom-track memory ops (no UI)
+  modules/ops/creative.lua — Creative mode / custom-track memory ops
   Contract: see modules/ops/README.md.
 
-  NOTE: auto_verify_all is still unfinished (tracked as task 5). The logic
-  below is the relocated stub; getCustomTrack() is the started-but-unused
-  helper kept here for that future implementation.
+  Features:
+    getCustomTracks()  — resolve the full list of custom tracks in memory
+    verifyTrack(idx)   — mark a single track as verified (isVerified = 1)
+    setTrackLength(idx, len) — override the track's length (no 30–1000 cap)
+    renameTrack(idx, name)   — rename a track (edits the in-memory string)
+    copyAny()          — let the player copy any downloaded track (not just their own)
 
-  Globals used: scheduler, gg, BaseLib, offsets, LOG.
+  String layout (as noted in the instructions):
+    offset 0x30 → pointer to the string object
+    The string object at that pointer:
+      byte 0        = total byte length × 2  (e.g. "abc" = 3 chars → byte = 6)
+      bytes 1..N    = raw UTF-8 characters
+    Additionally the first byte of the object acts as the length sentinel;
+    a second copy of the pointer follows at the end of the fixed header,
+    matching the vehicle-name pattern used in vehicle.lua.
+
+  Globals used: scheduler, gg, memory, BaseLib, BaseGameStatus, offsets, LOG.
 ]]
 
 local M = {}
 
--- Resolve the custom-track list. Started helper, not yet wired into a feature.
-local function getCustomTrack()
-    gg.clearResults()
-    gg.setRanges(8)
-    gg.searchNumber(BaseLib + offsets.customTracks, 32)
-    local refs = gg.getResults(gg.getResultsCount())
-    if #refs > 0 then
-        for _, v in ipairs(refs) do
+-- ── Internal helpers ──────────────────────────────────────────────────────────
 
+-- The anchor address (where listPtr and count live) is derived from a static
+-- BaseLib offset and never moves within a session — safe to cache.
+-- The count and element pointers at that anchor ARE dynamic (tracks created/
+-- deleted by the game update them), so they are always read live.
+local cachedAnchor = nil
+
+---Resolve (or return the cached) anchor address for the custom-track list.
+---The anchor holds: +0x30 = listPtr, +0x38 = live element count.
+---Returns the anchor address, or nil if the AOB search fails.
+local function resolveAnchor(TAG)
+    if cachedAnchor then
+        -- Verify the anchor still looks valid (listPtr should be non-zero).
+        local check = gg.getValues({{ address = cachedAnchor + 0x30, flags = 32 }})
+        if check and check[1] and check[1].value ~= 0 then
+            LOG.dbg(TAG, string.format("Anchor cache hit: 0x%X", cachedAnchor))
+            return cachedAnchor
         end
+        LOG.warn(TAG, "Cached anchor stale — re-scanning")
+        cachedAnchor = nil
     end
+
+    local searchTarget = BaseLib + offsets.customTracks
+    LOG.info(TAG, string.format(
+        "Searching for customTracks anchor | BaseLib=0x%X  offset=0x%X  target=0x%X  range=8",
+        BaseLib, offsets.customTracks, searchTarget))
+
+    gg.clearResults()
+    gg.setRanges(BaseRegion)
+    gg.searchNumber(searchTarget, 32)
+    local refs = gg.getResults(gg.getResultsCount())
+    gg.clearResults()
+
+    LOG.info(TAG, string.format("Search returned %d result(s)  range=BaseRegion(0x%X)",
+        #refs, BaseRegion))
+
+    if #refs == 0 then
+        LOG.warn(TAG, string.format(
+            "customTracks anchor not found | target=0x%X  BaseRegion=0x%X",
+            searchTarget, BaseRegion))
+        return nil
+    end
+
+    for i, ref in ipairs(refs) do
+        LOG.dbg(TAG, string.format("  hit[%d] = 0x%X", i, ref.address))
+    end
+
+    cachedAnchor = refs[1].address
+    LOG.info(TAG, string.format("Anchor resolved and cached: 0x%X", cachedAnchor))
+    return cachedAnchor
 end
 
-M.getCustomTrack = getCustomTrack
+---Read the live track list from the anchor.
+---count is re-read every call so additions/deletions are always reflected.
+---Each descriptor: { index, elemPtr, namePtr, nameStr, length, isVerified }
+local function resolveTrackList(TAG)
+    local anchor = resolveAnchor(TAG)
+    if not anchor then return nil end
 
--- Auto-verify all custom tracks. UNFINISHED — runs an empty scheduled task.
--- status: "unfinished"
-function M.autoVerifyAll(cb)
+    -- Read listPtr and the LIVE count together in one call.
+    local meta = gg.getValues({
+        { address = anchor + 0x30, flags = 32 },   -- listPtr
+        { address = anchor + 0x38, flags = 4  },   -- live element count
+    })
+
+    local listPtr   = meta[1] and meta[1].value or 0
+    local listCount = meta[2] and meta[2].value or 0
+
+    LOG.info(TAG, string.format(
+        "Anchor read | listPtr=0x%X  listCount=%d",
+        listPtr, listCount))
+
+    if listPtr == 0 or listCount == 0 then
+        -- Log the raw bytes at the anchor so we can spot misaligned offsets
+        local raw = gg.getValues({
+            { address = anchor + 0x28, flags = 32 },
+            { address = anchor + 0x30, flags = 32 },
+            { address = anchor + 0x38, flags = 4  },
+            { address = anchor + 0x3C, flags = 4  },
+        })
+        LOG.warn(TAG, string.format(
+            "List empty or nil — anchor neighbourhood dump:" ..
+            "  [+0x28]=0x%X  [+0x30]=0x%X  [+0x38]=%d  [+0x3C]=%d",
+            raw[1] and raw[1].value or 0,
+            raw[2] and raw[2].value or 0,
+            raw[3] and raw[3].value or 0,
+            raw[4] and raw[4].value or 0))
+        return {}
+    end
+
+    LOG.info(TAG, string.format("Reading %d tracks (live count) from listPtr=0x%X", listCount, listPtr))
+
+    local tracks = {}
+    for i = 0, listCount - 1 do
+        local elemPtrResult = gg.getValues({{ address = listPtr + i * 8, flags = 32 }})
+        local elemPtr = elemPtrResult and elemPtrResult[1] and elemPtrResult[1].value or 0
+        if elemPtr ~= 0 then
+            local fields = gg.getValues({
+                { address = elemPtr + 0x30, flags = 32 },  -- namePtr
+                { address = elemPtr + 0x50, flags = 4  },  -- length (DWORD)
+                { address = elemPtr + 0x64, flags = 4  },  -- isVerified
+            })
+
+            local namePtr    = fields[1] and fields[1].value or 0
+            local trackLen   = fields[2] and fields[2].value or 0
+            local isVerified = fields[3] and fields[3].value or 0
+
+            local nameStr = "?"
+            if namePtr ~= 0 then
+                local lenByte = gg.getValues({{ address = namePtr, flags = 1 }})
+                local byteLen = lenByte and lenByte[1] and math.floor(lenByte[1].value / 2) or 0
+                if byteLen > 0 then
+                    local charReads = {}
+                    for b = 1, byteLen do
+                        charReads[b] = { address = namePtr + b, flags = 1 }
+                    end
+                    local chars = gg.getValues(charReads)
+                    local bytes = {}
+                    for _, c in ipairs(chars or {}) do
+                        bytes[#bytes + 1] = string.char(math.max(0, math.min(255, tonumber(c.value) or 0)))
+                    end
+                    nameStr = table.concat(bytes)
+                end
+            end
+
+            tracks[#tracks + 1] = {
+                index      = i,
+                elemPtr    = elemPtr,
+                namePtr    = namePtr,
+                nameStr    = nameStr,
+                length     = trackLen,
+                isVerified = isVerified,
+            }
+        end
+    end
+
+    return tracks
+end
+
+-- ── Public API ────────────────────────────────────────────────────────────────
+
+---Resolve the full track list. Results passed to cb as (ok, tracks|errKey).
+function M.getCustomTracks(cb)
     scheduler:add(function(finishTask)
-        -- TODO (task 5): implement using getCustomTrack().
+        local tracks = resolveTrackList("GetCustomTracks")
         finishTask()
-        cb("unfinished")
+        if not tracks then
+            cb(false, "creative.tracks_not_found")
+        else
+            cb(true, tracks)
+        end
+    end)
+end
+
+---Mark a single track as verified.
+---@param elemPtr number  Base address of the track element (from getCustomTracks)
+---@param cb fun(ok, errKey|nil)
+function M.verifyTrack(elemPtr, cb)
+    scheduler:add(function(finishTask)
+        if not elemPtr or elemPtr == 0 then
+            finishTask(); cb(false, "creative.invalid_track"); return
+        end
+        gg.setValues({{ address = elemPtr + 0x64, flags = 4, value = 1 }})
+        LOG.info("VerifyTrack", string.format("Verified track at 0x%X", elemPtr))
+        finishTask(); cb(true)
+    end)
+end
+
+---Override the track length (bypasses the game's 30–1000 cap).
+---@param elemPtr number
+---@param length  number  Desired length (any positive integer)
+---@param cb fun(ok, errKey|nil)
+function M.setTrackLength(elemPtr, length, cb)
+    scheduler:add(function(finishTask)
+        if not elemPtr or elemPtr == 0 then
+            finishTask(); cb(false, "creative.invalid_track"); return
+        end
+        length = math.max(1, math.floor(tonumber(length) or 100))
+        gg.setValues({{ address = elemPtr + 0x50, flags = 4,  value = length }})
+        LOG.info("SetTrackLength", string.format("0x%X → %d", elemPtr, length))
+        finishTask(); cb(true, nil, length)
+    end)
+end
+
+---Rename a track by rewriting its in-memory string object.
+---The string object header:  byte 0 = strlen × 2,  bytes 1..N = UTF-8.
+---@param elemPtr number
+---@param newName string
+---@param cb fun(ok, errKey|nil)
+function M.renameTrack(elemPtr, newName, cb)
+    scheduler:add(function(finishTask)
+        if not elemPtr or elemPtr == 0 then
+            finishTask(); cb(false, "creative.invalid_track"); return
+        end
+        if not newName or newName == "" then
+            finishTask(); cb(false, "creative.rename_empty"); return
+        end
+
+        -- Resolve the name pointer from the element base.
+        local namePtrResult = gg.getValues({{ address = elemPtr + 0x30, flags = 32 }})
+        local namePtr = namePtrResult and namePtrResult[1] and namePtrResult[1].value or 0
+        if namePtr == 0 then
+            LOG.error("RenameTrack", "namePtr is 0")
+            finishTask(); cb(false, "creative.rename_resolve_failed"); return
+        end
+
+        -- Build the byte sequence.
+        local nameBytes = {}
+        for p, code in utf8.codes(newName) do
+            local ch    = utf8.char(code)
+            local bytes = { ch:byte(1, -1) }
+            for _, b in ipairs(bytes) do nameBytes[#nameBytes + 1] = b end
+        end
+
+        local byteLen = #nameBytes
+        -- Write length sentinel (byteLen × 2) then the character bytes.
+        local writes = {{ address = namePtr, flags = 1, value = byteLen * 2 }}
+        for i, b in ipairs(nameBytes) do
+            writes[#writes + 1] = { address = namePtr + i, flags = 1, value = b }
+        end
+        -- Zero-terminate any remaining bytes from a longer previous name.
+        writes[#writes + 1] = { address = namePtr + byteLen + 1, flags = 1, value = 0 }
+
+        gg.setValues(writes)
+        LOG.info("RenameTrack", string.format("0x%X → %q  (%d bytes)", elemPtr, newName, byteLen))
+        finishTask(); cb(true, nil, newName)
+    end)
+end
+
+---Allow copying any downloaded track (not just tracks owned by the player).
+---Overwrites the creator-ID pointer of every downloaded track with the
+---current player's ID pointer, making them all appear as "yours".
+---@param cb fun(ok, errKey|nil, count|nil)
+function M.copyAny(cb)
+    scheduler:add(function(finishTask)
+        local TAG = "CopyAny"
+        gg.clearResults()
+        gg.setRanges(BaseRegion)
+        gg.searchNumber(BaseLib + offsets.downloadedCustomTracks, 32)
+        local refs = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+
+        if #refs == 0 then
+            LOG.warn(TAG, "downloadedCustomTracks anchor not found")
+            finishTask(); cb(false, "creative.copy_any_not_found"); return
+        end
+
+        local idPtrResult = gg.getValues({{ address = BaseGameStatus + 0x30, flags = 32 }})
+        local idPtr = idPtrResult and idPtrResult[1] and idPtrResult[1].value or 0
+        if idPtr == 0 then
+            LOG.error(TAG, "player ID pointer is 0")
+            finishTask(); cb(false, "creative.copy_any_no_id"); return
+        end
+
+        local edits = {}
+        for _, v in ipairs(refs) do
+            edits[#edits + 1] = { address = v.address + 0x18, flags = 32, value = idPtr }
+        end
+        gg.setValues(edits)
+
+        LOG.info(TAG, string.format("Patched %d entries with idPtr=0x%X", #edits, idPtr))
+        finishTask(); cb(true, nil, #edits)
     end)
 end
 
@@ -35262,12 +35576,13 @@ end
 
 __vfs['modules/tabs/creative.lua'] = function(...)
 --[[
-  Creative Tab - Creative mode / Custom track features
-  Status: auto_verify_all unfinished (task 5)
-
+  Creative Tab — Custom-track features
   UI wiring only. Memory ops live in modules/ops/creative.lua.
 
-  @module callback Receives container View to populate with modules
+  Flow for track features (verify, set length, rename):
+    depth 1 → track list   (cancel = exit)
+    depth 2 → action pick  (cancel = back to track list)
+    depth 3 → action input (cancel = back to action pick)
 ]]
 
 local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
@@ -35275,12 +35590,177 @@ local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
 return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
 
-    addArchModule(container, "auto_verify_all", t("auto_verify_all.title"), t("auto_verify_all.desc"), "button", nil,
+    -- ── Copy Any ─────────────────────────────────────────────────────────────
+    addArchModule(container, "copy_any", t("copy_any.title"), t("copy_any.desc"), "button", nil,
     function(done)
-        showDialog("still in progress", "unfinished", "ok")
-        ops.autoVerifyAll(function() end)
+        ops.copyAny(function(ok, errKey, count)
+            if ok then
+                showToast(t("copy_any.applied", tostring(count)))
+            else
+                showToast(T(errKey or "common.failed"), true)
+            end
+        end)
         done()
     end)
+
+    -- ── Track Editor (verify / set length / rename) ───────────────────────────
+    addModule(container, "track_editor", t("track_editor.title"), t("track_editor.desc"), "button", nil,
+    function(done)
+        -- Loading the track list is a scheduled op; we need it before showing any UI.
+        -- Show a loading toast, then enter the depth loop once results arrive.
+        showToast(t("track_editor.loading"))
+
+        ops.getCustomTracks(function(ok, tracksOrErr)
+            if not ok then
+                showToast(T(tracksOrErr or "creative.tracks_not_found"), true)
+                done(); return
+            end
+
+            local tracks = tracksOrErr
+            if #tracks == 0 then
+                showToast(t("track_editor.no_tracks"), true)
+                done(); return
+            end
+
+            -- Build display list: "Track Name  [✓]  (500m)" or "Track Name  [?]  (500m)"
+            local display = {}
+            for _, tr in ipairs(tracks) do
+                local verified = tr.isVerified == 1 and " [✓]" or ""
+                display[#display + 1] = string.format("%s%s  (%dm)", tr.nameStr, verified, tr.length)
+            end
+
+            local actions = {
+                t("action.verify"),
+                t("action.set_length"),
+                t("action.rename"),
+            }
+
+            -- ── Depth loop ────────────────────────────────────────────────────
+            -- depth 1 = pick a track
+            -- depth 2 = pick an action
+            -- depth 3 = action-specific input prompt
+            local depth    = 1
+            local track    = nil   -- chosen tracks[i] descriptor
+            local actionIdx = nil
+
+            while true do
+
+                -- ── Depth 1: pick track ───────────────────────────────────────
+                if depth == 1 then
+                    local choice = showList(t("track_editor.title"), t("track_editor.select"), display)
+                    if not choice or choice == 0 then
+                        done(); return
+                    end
+                    track = tracks[choice]
+                    depth = 2
+
+                -- ── Depth 2: pick action ──────────────────────────────────────
+                elseif depth == 2 then
+                    local statusLine = (track.isVerified == 1)
+                        and t("track_status.verified")
+                        or  t("track_status.not_verified")
+                    local subtitle = string.format("%s — %s  |  %s",
+                        track.nameStr, statusLine, t("track_length", tostring(track.length)))
+
+                    local choice = showList(subtitle, t("action.select"), actions)
+                    if not choice or choice == 0 then
+                        depth = 1   -- back to track list
+                    else
+                        actionIdx = choice
+                        depth = 3
+                    end
+
+                -- ── Depth 3: action input ─────────────────────────────────────
+                elseif depth == 3 then
+
+                    -- ── Verify ───────────────────────────────────────────────
+                    if actionIdx == 1 then
+                        if track.isVerified == 1 then
+                            showToast(t("verify.already_verified"))
+                            depth = 2
+                        else
+                            ops.verifyTrack(track.elemPtr, function(ok2, errKey)
+                                if ok2 then
+                                    track.isVerified = 1
+                                    -- Update display entry in-place so going back shows ✓
+                                    local idx = track.index + 1
+                                    local verified = " [✓]"
+                                    display[idx] = string.format("%s%s  (%dm)",
+                                        track.nameStr, verified, track.length)
+                                    showToast(t("verify.applied", track.nameStr))
+                                else
+                                    showToast(T(errKey or "common.failed"), true)
+                                end
+                            end)
+                            done(); return
+                        end
+
+                    -- ── Set Length ────────────────────────────────────────────
+                    elseif actionIdx == 2 then
+                        local result = showPrompt(
+                            t("set_length.title") .. " — " .. track.nameStr,
+                            {{ t("set_length.prompt", tostring(track.length)), "number", tostring(track.length) }}
+                        )
+                        if not result then
+                            depth = 2
+                        else
+                            local newLen = tonumber(result[1])
+                            if not newLen or newLen < 1 then
+                                showToast(t("set_length.invalid"), true)
+                                -- stay at depth 3
+                            else
+                                ops.setTrackLength(track.elemPtr, newLen, function(ok2, errKey, applied)
+                                    if ok2 then
+                                        track.length = applied
+                                        local idx = track.index + 1
+                                        local verified = track.isVerified == 1 and " [✓]" or ""
+                                        display[idx] = string.format("%s%s  (%dm)",
+                                            track.nameStr, verified, track.length)
+                                        showToast(t("set_length.applied", track.nameStr, tostring(applied)))
+                                    else
+                                        showToast(T(errKey or "common.failed"), true)
+                                    end
+                                end)
+                                done(); return
+                            end
+                        end
+
+                    -- ── Rename ────────────────────────────────────────────────
+                    elseif actionIdx == 3 then
+                        local result = showPrompt(
+                            t("rename.title") .. " — " .. track.nameStr,
+                            {{ t("rename.prompt"), "text", track.nameStr }}
+                        )
+                        if not result then
+                            depth = 2
+                        else
+                            local newName = result[1]
+                            if not newName or newName == "" then
+                                showToast(t("rename.empty"), true)
+                                -- stay at depth 3
+                            else
+                                ops.renameTrack(track.elemPtr, newName, function(ok2, errKey, applied)
+                                    if ok2 then
+                                        local idx = track.index + 1
+                                        local verified = track.isVerified == 1 and " [✓]" or ""
+                                        display[idx] = string.format("%s%s  (%dm)",
+                                            applied, verified, track.length)
+                                        track.nameStr = applied
+                                        showToast(t("rename.applied", applied))
+                                    else
+                                        showToast(T(errKey or "common.failed"), true)
+                                    end
+                                end)
+                                done(); return
+                            end
+                        end
+                    end
+
+                end -- depth 3
+            end -- while true
+        end) -- getCustomTracks callback
+    end) -- addModule track_editor
+
 end
 
 end

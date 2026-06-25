@@ -17,8 +17,22 @@
   Globals used: loadModule, LOG, os.
 ]]
 
+-- Caps are loaded lazily on first getCaps()/setCaps() call because
+-- memory is not yet initialized when this module loads (crash_handler
+-- loads at line ~250 in main.lua; memory loads at line ~461).
 local MAX_CRASHES = 50
-local MAX_LOGS    = 250  -- all levels are captured now, so allow a deeper tail
+local MAX_LOGS    = 250
+local _capsLoaded = false
+
+local function ensureCapsLoaded()
+    if _capsLoaded then return end
+    _capsLoaded = true
+    if memory then
+        local saved = memory:load_global("console_caps") or {}
+        MAX_CRASHES = saved.crashes or MAX_CRASHES
+        MAX_LOGS    = saved.logs    or MAX_LOGS
+    end
+end
 
 local crashes = {}   -- ring buffer (oldest first)
 local logs    = {}   -- ring buffer (oldest first)
@@ -119,18 +133,22 @@ function CrashHandler.counts()     return #crashes, #logs end
 function CrashHandler.isEmpty()    return #crashes == 0 and #logs == 0 end
 
 function CrashHandler.getCaps()
+    ensureCapsLoaded()
     return MAX_CRASHES, MAX_LOGS
 end
 
 -- Update caps at runtime (called from Settings). Immediately trims existing
 -- buffers so they don't exceed the new cap.
 function CrashHandler.setCaps(crashCap, logCap)
+    ensureCapsLoaded()
+    -- nil means "keep the current value" — lets callers update only one cap.
     crashCap = math.max(5, math.min(500,  tonumber(crashCap) or MAX_CRASHES))
     logCap   = math.max(5, math.min(2000, tonumber(logCap)   or MAX_LOGS))
     MAX_CRASHES = crashCap
     MAX_LOGS    = logCap
     trimTo(crashes, MAX_CRASHES)
     trimTo(logs,    MAX_LOGS)
+    memory:save_global("console_caps", { crashes = MAX_CRASHES, logs = MAX_LOGS })
     LOG.info("CrashHandler", string.format("Caps updated: crashes=%d  logs=%d", MAX_CRASHES, MAX_LOGS))
 end
 
