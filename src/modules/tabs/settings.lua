@@ -308,6 +308,31 @@ return function(container)
         done()
     end)
     
+    -- ── Console ───────────────────────────────────────────────────────────────
+    addModuleSep(container, t("section_console"))
+
+    do
+        local crashCap, logCap = CrashHandler.getCaps()
+
+        addModule(container, "console_crash_cap", t("console_crash_cap.title"), t("console_crash_cap.desc"),
+        "slider", { min = 5, max = 500, current = crashCap, title = t("console_crash_cap.slider") },
+        function(done, val)
+            local n = tonumber(val) or crashCap
+            CrashHandler.setCaps(n, nil)   -- nil = keep existing log cap
+            showToast(t("console_cap_applied", tostring(n)))
+            done()
+        end)
+
+        addModule(container, "console_log_cap", t("console_log_cap.title"), t("console_log_cap.desc"),
+        "slider", { min = 5, max = 2000, current = logCap, title = t("console_log_cap.slider") },
+        function(done, val)
+            local n = tonumber(val) or logCap
+            CrashHandler.setCaps(nil, n)   -- nil = keep existing crash cap
+            showToast(t("console_cap_applied", tostring(n)))
+            done()
+        end)
+    end
+
     -- ── Custom Colors Info ────────────────────────────────────────────────────
     -- Allow user to change colors of this script.
     addModuleSep(container, t("section_ui_customizations"))

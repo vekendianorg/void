@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 09:14:30
+-- Packed by bundle.py  •  2026-06-25 12:21:17
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -24116,6 +24116,14 @@ return {
 ["settings.clear_memory.desc"] = "Clear all VOID saved memory without needed to restart the whole game.",
 
 ["settings.section_ui_customizations"] = "UI Customizations",
+["settings.section_console"] = "Console",
+["settings.console_crash_cap.title"] = "Crash Buffer Size",
+["settings.console_crash_cap.desc"]  = "Maximum number of crash entries kept in the console. Oldest are dropped first when the buffer is full.",
+["settings.console_crash_cap.slider"] = "Max crashes",
+["settings.console_log_cap.title"] = "Log Buffer Size",
+["settings.console_log_cap.desc"]  = "Maximum number of log lines kept in the console. Higher values use more memory.",
+["settings.console_log_cap.slider"] = "Max log lines",
+["settings.console_cap_applied"] = "Buffer cap set to %s",
 ["settings.theme_store.title"] = "Theme Store",
 ["settings.theme_store.desc"] = "Browse and install community Void themes",
 ["settings.theme_store.unreachable_msg"] = "Could not reach theme store:\n%s",
@@ -24427,11 +24435,14 @@ return {
 ["vehicle.parts_modifier.title"] = "Parts Modifier",
 ["vehicle.parts_modifier.desc"] = "Modify tuning part level values in active race",
 ["vehicle.parts_modifier.select"] = "Select a part",
-["vehicle.parts_modifier.prompt_level"] = "Level: ",
-["vehicle.parts_modifier.prompt_digit0"] = "Digit: ",
-["vehicle.parts_modifier.prompt_digit1"] = "Tail: ",
-["vehicle.parts_modifier.prompt_reset"] = "Reset",
+["vehicle.parts_modifier.select_stat"] = "Select stat to modify",
+["vehicle.parts_modifier.prompt_level"] = "Level (how many middle digits, 1–9)",
+["vehicle.parts_modifier.prompt_digit0"] = "Middle digit, repeated Level times (0–9)",
+["vehicle.parts_modifier.prompt_digit1"] = "Last digit (1–9)  →  builds: 1.<middle…><last>",
+["vehicle.parts_modifier.prompt_reset"] = "Reset to original",
 ["vehicle.parts_modifier.invalid"] = "Invalid level value",
+["vehicle.parts_modifier.status_cached"] = "active: %d addresses cached",
+["vehicle.parts_modifier.status_none"]   = "not applied",
 ["vehicle.parts_modifier.not_found"] = "Part not found in memory",
 ["vehicle.parts_modifier.applied"] = "%s set to level %s",
 ["vehicle.parts_modifier.reset"] = "%s reset",
@@ -30466,6 +30477,11 @@ local function push(ring, max, entry)
     if #ring > max then table.remove(ring, 1) end
 end
 
+-- Trim an existing ring buffer to a new (smaller) cap immediately.
+local function trimTo(ring, max)
+    while #ring > max do table.remove(ring, 1) end
+end
+
 -- Wall-clock stamp. os.date is available in this environment.
 local function stamp()
     local ok, s = pcall(os.date, "%H:%M:%S")
@@ -30550,6 +30566,22 @@ function CrashHandler.getCrashes() return crashes end
 function CrashHandler.getLogs()    return logs end
 function CrashHandler.counts()     return #crashes, #logs end
 function CrashHandler.isEmpty()    return #crashes == 0 and #logs == 0 end
+
+function CrashHandler.getCaps()
+    return MAX_CRASHES, MAX_LOGS
+end
+
+-- Update caps at runtime (called from Settings). Immediately trims existing
+-- buffers so they don't exceed the new cap.
+function CrashHandler.setCaps(crashCap, logCap)
+    crashCap = math.max(5, math.min(500,  tonumber(crashCap) or MAX_CRASHES))
+    logCap   = math.max(5, math.min(2000, tonumber(logCap)   or MAX_LOGS))
+    MAX_CRASHES = crashCap
+    MAX_LOGS    = logCap
+    trimTo(crashes, MAX_CRASHES)
+    trimTo(logs,    MAX_LOGS)
+    LOG.info("CrashHandler", string.format("Caps updated: crashes=%d  logs=%d", MAX_CRASHES, MAX_LOGS))
+end
 
 function CrashHandler.clear()
     for i = #crashes, 1, -1 do crashes[i] = nil end
@@ -34307,6 +34339,13 @@ end
 
 -- Build tuning-part groups from configs/tuning_parts.lua (pure data, no UI).
 -- Returns groupOrder (sorted labels) and groupMap (label → {variants}).
+--
+-- Each variant now carries a `statList` array — one entry per editable stat:
+--   { label = "BOOST", from = 700.0, to = 800.0 }
+--
+-- The tab uses `statList` to let the user choose WHICH stat to modify before
+-- showing the level prompt. `applyPartsModifier` then receives only the chosen
+-- stat's from/to range, so unrelated stats on the same part are untouched.
 function M.getPartGroups()
     local data = tuningData()
     local tp = (data and data.tuningParts) or {}
@@ -34319,28 +34358,46 @@ function M.getPartGroups()
     for key, part in pairs(tp) do
         local label = part.name and part.name.value or key
         if not skip[label] then
-            -- Collect ALL editable stats for this part (every effectStat and
-            -- effect that has a from/to range), not just the first.
-            local stats = {}
+            local statList = {}
+
+            -- effectStats: named stats (BOOST, DURATION, TOP SPEED, …)
             for _, e in ipairs(part.effectStats or {}) do
                 local stat = e.stat
                 if type(stat) == "table" and stat["from"] ~= nil then
-                    stats[#stats + 1] = { from = stat["from"], to = stat["to"] }
-                end
-            end
-            for _, e in ipairs(part.effects or {}) do
-                local amt = e.amount
-                if type(amt) == "table" and amt["from"] ~= nil then
-                    stats[#stats + 1] = { from = amt["from"], to = amt["to"] }
+                    local statLabel = (type(e.name) == "table" and e.name.value) or "STAT"
+                    statList[#statList + 1] = { label = statLabel, from = stat["from"], to = stat["to"] }
                 end
             end
 
-            if #stats > 0 then
+            -- effectDuration: top-level duration range (e.g. START BOOST)
+            local ed = part.effectDuration
+            if type(ed) == "table" and ed["from"] ~= nil then
+                -- Only add if not already covered by a named DURATION effectStat
+                local already = false
+                for _, s in ipairs(statList) do
+                    if s.label == "DURATION" then already = true; break end
+                end
+                if not already then
+                    statList[#statList + 1] = { label = "DURATION", from = ed["from"], to = ed["to"] }
+                end
+            end
+
+            -- effects: unnamed numeric ranges (fallback for parts with no effectStats)
+            if #statList == 0 then
+                for _, e in ipairs(part.effects or {}) do
+                    local amt = e.amount
+                    if type(amt) == "table" and amt["from"] ~= nil then
+                        statList[#statList + 1] = { label = e.type or "STAT", from = amt["from"], to = amt["to"] }
+                    end
+                end
+            end
+
+            if #statList > 0 then
                 if not groupMap[label] then
                     groupMap[label] = {}
                     table.insert(groupOrder, label)
                 end
-                table.insert(groupMap[label], { key = key, stats = stats })
+                table.insert(groupMap[label], { key = key, statList = statList })
             end
         end
     end
@@ -34349,27 +34406,31 @@ function M.getPartGroups()
     return groupOrder, groupMap
 end
 
--- Apply (or reset) a tuning-part modifier across ALL of the part's stats.
--- params = { variants, cacheKey, editValue, reset }
---   variants[i].stats = { {from=, to=}, ... }  (every editable stat of the part)
+-- Apply (or reset) a tuning-part modifier for ONE chosen stat.
+-- params:
+--   variants  — variant list for the chosen part (from getPartGroups)
+--   chosenStat — { label, from, to } — the single stat the user picked
+--   cacheKey  — persistent key (includes stat label so per-stat caches don't collide)
+--   editValue — float value to write (ignored when reset = true)
+--   reset     — if true, restore the original level flag and clear cache
 -- status: "not_found" | "reset" | "applied"
 function M.applyPartsModifier(params, cb)
-    local variants  = params.variants
-    local cacheKey  = params.cacheKey
-    local editValue = params.editValue
-    local reset     = params.reset
+    local variants   = params.variants
+    local chosenStat = params.chosenStat   -- { label, from, to }
+    local cacheKey   = params.cacheKey
+    local editValue  = params.editValue
+    local reset      = params.reset
 
     scheduler:add(function(finishTask)
         local TAG = "PartsModifier"
         local cache = memory:load(cacheKey)
 
         if not cache then
-            LOG.dbg(TAG, "Scanning all stats for: " .. cacheKey)
+            LOG.dbg(TAG, string.format("Scanning for %s [%.4g–%.4g]",
+                chosenStat.label, chosenStat.from, chosenStat.to))
+
             local toEdit = {}
 
-            -- Scan the vnpStats anchor once; match each record against ANY of
-            -- the part's stat ranges so every stat (e.g. BOOST + TOP SPEED) is
-            -- collected, not only the first.
             gg.setRanges(BaseRegion)
             gg.clearResults()
             gg.searchNumber(BaseLib + offsets.vnpStats, 32)
@@ -34378,20 +34439,15 @@ function M.applyPartsModifier(params, cb)
 
             for _, v in ipairs(refs) do
                 local vals = gg.getValues({
-                    { address = v.address + 0x8,  flags = 4 },
+                    { address = v.address + 0x8,  flags = 4  },
                     { address = v.address + 0xC,  flags = 16 },
                     { address = v.address + 0x10, flags = 16 },
                 })
                 if vals and vals[1].value == 0x40000000 then
                     local from, to = vals[2].value, vals[3].value
-                    local matched = false
-                    for _, variant in ipairs(variants) do
-                        for _, st in ipairs(variant.stats) do
-                            if st.from == from and st.to == to then matched = true; break end
-                        end
-                        if matched then break end
-                    end
-                    if matched then
+                    -- Match only the chosen stat's range, not all stats on the part.
+                    -- This keeps BOOST and DURATION editable independently.
+                    if from == chosenStat.from and to == chosenStat.to then
                         table.insert(toEdit, v.address + 0x8)
                     end
                 end
@@ -34406,31 +34462,27 @@ function M.applyPartsModifier(params, cb)
 
             memory:save(cacheKey, toEdit)
             cache = toEdit
-            LOG.info(TAG, "Cached " .. #toEdit .. " stat addresses for " .. cacheKey)
+            LOG.info(TAG, string.format("Cached %d addresses for %s", #toEdit, cacheKey))
         else
-            LOG.dbg(TAG, "Cache hit for: " .. cacheKey)
+            LOG.dbg(TAG, "Cache hit: " .. cacheKey)
         end
 
         local edits = {}
         for _, addr in ipairs(cache) do
-            table.insert(edits, {
-                address = addr,
-                flags   = 16,
-                value   = reset and 0x40000000 or editValue
-            })
+            table.insert(edits, { address = addr, flags = 16,
+                value = reset and 0x40000000 or editValue })
         end
         gg.setValues(edits)
+        gg.clearResults()
 
         if reset then
             memory:save(cacheKey, nil)
             LOG.info(TAG, "Reset: " .. cacheKey)
-            gg.clearResults()
             finishTask(); cb("reset"); return
-        else
-            LOG.info(TAG, cacheKey .. " applied")
-            gg.clearResults()
-            finishTask(); cb("applied"); return
         end
+
+        LOG.info(TAG, cacheKey .. " applied: " .. tostring(editValue))
+        finishTask(); cb("applied"); return
     end)
 end
 
@@ -35912,6 +35964,31 @@ return function(container)
         done()
     end)
     
+    -- ── Console ───────────────────────────────────────────────────────────────
+    addModuleSep(container, t("section_console"))
+
+    do
+        local crashCap, logCap = CrashHandler.getCaps()
+
+        addModule(container, "console_crash_cap", t("console_crash_cap.title"), t("console_crash_cap.desc"),
+        "slider", { min = 5, max = 500, current = crashCap, title = t("console_crash_cap.slider") },
+        function(done, val)
+            local n = tonumber(val) or crashCap
+            CrashHandler.setCaps(n, nil)   -- nil = keep existing log cap
+            showToast(t("console_cap_applied", tostring(n)))
+            done()
+        end)
+
+        addModule(container, "console_log_cap", t("console_log_cap.title"), t("console_log_cap.desc"),
+        "slider", { min = 5, max = 2000, current = logCap, title = t("console_log_cap.slider") },
+        function(done, val)
+            local n = tonumber(val) or logCap
+            CrashHandler.setCaps(nil, n)   -- nil = keep existing crash cap
+            showToast(t("console_cap_applied", tostring(n)))
+            done()
+        end)
+    end
+
     -- ── Custom Colors Info ────────────────────────────────────────────────────
     -- Allow user to change colors of this script.
     addModuleSep(container, t("section_ui_customizations"))
@@ -36435,56 +36512,127 @@ return function(container)
     function(done)
         local groupOrder, groupMap = ops.getPartGroups()
 
-        -- Show Title Case names; map the choice back to the raw label.
+        -- Display list (Title Case); maps index back to raw label.
         local display = {}
         for i, lbl in ipairs(groupOrder) do display[i] = titleCase(lbl) end
 
-        local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), display)
-        if not choice or choice == 0 then done() return end
-
-        local label    = groupOrder[choice]
-        local pretty   = titleCase(label)
-        local variants = groupMap[label]
-        local cacheKey = "parts_mod_" .. label:lower():gsub(" ", "_")
-
-        local result = showPrompt(pretty, {
-            {t("parts_modifier.prompt_level"),  "slider:1:9",},
-            {t("parts_modifier.prompt_digit0"), "slider:0:9",},
-            {t("parts_modifier.prompt_digit1"), "slider:1:9",},
-            {t("parts_modifier.prompt_reset"),  "checkbox", "false"},
-        })
-
-        if not result then done() return end
-
-        local reset    = result[4] == "true"
-        local lvl      = tonumber(result[1]) or 2
-        local digit0   = result[2] or "0"
-        local digit1   = result[3] or "3"
-
-        -- Build level string e.g. lvl=2, d0=0, d1=3 → "1.03"
-        local power = ""
-        for i = 0, lvl - 2 do power = power .. tostring(digit0) end
-        local userEdits = "1." .. power .. tostring(digit1)
-        local editValue = tonumber(userEdits)
-
-        if not reset and not editValue then
-            showToast(t("parts_modifier.invalid"), true)
-            done()
-            return
+        -- Builds the level float string from components.
+        --   lvl=1, d0="0", d1="3" → "1.3"
+        --   lvl=2, d0="0", d1="3" → "1.03"
+        --   lvl=3, d0="0", d1="3" → "1.003"
+        local function buildValue(lvl, d0, d1)
+            local p = ""
+            if lvl > 1 then for _ = 1, lvl - 1 do p = p .. d0 end end
+            return "1." .. p .. d1
         end
 
-        ops.applyPartsModifier(
-            { variants = variants, cacheKey = cacheKey, editValue = editValue, reset = reset },
-            function(status)
-                if status == "not_found" then
-                    showToast(t("parts_modifier.not_found"), true)
-                elseif status == "reset" then
-                    showToast(t("parts_modifier.reset", pretty), true)
-                else
-                    showToast(t("parts_modifier.applied", pretty, userEdits), true)
+        -- ── Depth-based navigation loop ───────────────────────────────────────
+        -- depth 1 = part selection  (cancel → exit)
+        -- depth 2 = stat selection  (cancel → back to depth 1; skipped if 1 stat)
+        -- depth 3 = level prompt    (cancel → back to depth 2 or 1)
+        --
+        -- State preserved across depth transitions so going back restores the
+        -- previous selection rather than resetting it.
+        local depth     = 1
+        local label, pretty, variants, statList, chosenStat, cacheKey
+
+        while true do
+
+            -- ── Depth 1: pick a part ─────────────────────────────────────────
+            if depth == 1 then
+                local choice = showList(t("parts_modifier.title"), t("parts_modifier.select"), display)
+                if not choice or choice == 0 then
+                    done(); return   -- top-level cancel → exit
                 end
-            end)
-        done()
+                label    = groupOrder[choice]
+                pretty   = titleCase(label)
+                variants = groupMap[label]
+                statList = variants[1].statList
+
+                -- If the part has only one stat there's nothing to pick —
+                -- skip depth 2 and go straight to the level prompt.
+                if #statList == 1 then
+                    chosenStat = statList[1]
+                    cacheKey   = "parts_mod_" .. label:lower():gsub(" ", "_")
+                               .. "_" .. chosenStat.label:lower():gsub(" ", "_")
+                    depth = 3
+                else
+                    depth = 2
+                end
+
+            -- ── Depth 2: pick a stat ─────────────────────────────────────────
+            elseif depth == 2 then
+                local statLabels = {}
+                for _, s in ipairs(statList) do
+                    statLabels[#statLabels + 1] = titleCase(s.label)
+                end
+
+                local statChoice = showList(pretty, t("parts_modifier.select_stat"), statLabels)
+                if not statChoice or statChoice == 0 then
+                    depth = 1   -- back to part selection
+                else
+                    chosenStat = statList[statChoice]
+                    cacheKey   = "parts_mod_" .. label:lower():gsub(" ", "_")
+                               .. "_" .. chosenStat.label:lower():gsub(" ", "_")
+                    depth = 3
+                end
+
+            -- ── Depth 3: level prompt ─────────────────────────────────────────
+            elseif depth == 3 then
+                -- Show what was previously applied for this stat (if anything).
+                local cached     = memory:load(cacheKey)
+                local statusLine = cached
+                    and t("parts_modifier.status_cached", #cached)
+                    or  t("parts_modifier.status_none")
+
+                local promptTitle = pretty .. " — " .. titleCase(chosenStat.label)
+                                  .. "  (" .. statusLine .. ")"
+
+                local result = showPrompt(promptTitle, {
+                    {t("parts_modifier.prompt_level"),  "slider:1:9", "2"},
+                    {t("parts_modifier.prompt_digit0"), "slider:0:9", "0"},
+                    {t("parts_modifier.prompt_digit1"), "slider:1:9", "3"},
+                    {t("parts_modifier.prompt_reset"),  "checkbox",   "false"},
+                })
+
+                if not result then
+                    -- Back: if we skipped depth 2 (single-stat part) go to 1,
+                    -- otherwise go to 2.
+                    depth = (#statList == 1) and 1 or 2
+                else
+                    local reset  = result[4] == "true"
+                    local lvl    = tonumber(result[1]) or 2
+                    local digit0 = tostring(result[2] or "0")
+                    local digit1 = tostring(result[3] or "3")
+                    local userEdits = buildValue(lvl, digit0, digit1)
+                    local editValue = tonumber(userEdits)
+
+                    if not reset and not editValue then
+                        showToast(t("parts_modifier.invalid"), true)
+                        -- Stay at depth 3 — let user try again without losing context
+                    else
+                        ops.applyPartsModifier({
+                            variants   = variants,
+                            chosenStat = chosenStat,
+                            cacheKey   = cacheKey,
+                            editValue  = editValue,
+                            reset      = reset,
+                        }, function(status)
+                            if status == "not_found" then
+                                showToast(t("parts_modifier.not_found"), true)
+                            elseif status == "reset" then
+                                showToast(t("parts_modifier.reset", pretty), true)
+                            else
+                                showToast(t("parts_modifier.applied",
+                                    pretty .. " " .. titleCase(chosenStat.label), userEdits), true)
+                            end
+                        end)
+                        done(); return
+                    end
+                end
+            end
+
+        end -- while true
     end)
 
     addArchModule(container, "fuel", t("fuel.title"), t("fuel.desc"), "button", nil, function(done)

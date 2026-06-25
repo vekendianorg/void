@@ -28,6 +28,11 @@ local function push(ring, max, entry)
     if #ring > max then table.remove(ring, 1) end
 end
 
+-- Trim an existing ring buffer to a new (smaller) cap immediately.
+local function trimTo(ring, max)
+    while #ring > max do table.remove(ring, 1) end
+end
+
 -- Wall-clock stamp. os.date is available in this environment.
 local function stamp()
     local ok, s = pcall(os.date, "%H:%M:%S")
@@ -112,6 +117,22 @@ function CrashHandler.getCrashes() return crashes end
 function CrashHandler.getLogs()    return logs end
 function CrashHandler.counts()     return #crashes, #logs end
 function CrashHandler.isEmpty()    return #crashes == 0 and #logs == 0 end
+
+function CrashHandler.getCaps()
+    return MAX_CRASHES, MAX_LOGS
+end
+
+-- Update caps at runtime (called from Settings). Immediately trims existing
+-- buffers so they don't exceed the new cap.
+function CrashHandler.setCaps(crashCap, logCap)
+    crashCap = math.max(5, math.min(500,  tonumber(crashCap) or MAX_CRASHES))
+    logCap   = math.max(5, math.min(2000, tonumber(logCap)   or MAX_LOGS))
+    MAX_CRASHES = crashCap
+    MAX_LOGS    = logCap
+    trimTo(crashes, MAX_CRASHES)
+    trimTo(logs,    MAX_LOGS)
+    LOG.info("CrashHandler", string.format("Caps updated: crashes=%d  logs=%d", MAX_CRASHES, MAX_LOGS))
+end
 
 function CrashHandler.clear()
     for i = #crashes, 1, -1 do crashes[i] = nil end

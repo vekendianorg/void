@@ -348,6 +348,13 @@ end
 
 -- Build tuning-part groups from configs/tuning_parts.lua (pure data, no UI).
 -- Returns groupOrder (sorted labels) and groupMap (label → {variants}).
+--
+-- Each variant now carries a `statList` array — one entry per editable stat:
+--   { label = "BOOST", from = 700.0, to = 800.0 }
+--
+-- The tab uses `statList` to let the user choose WHICH stat to modify before
+-- showing the level prompt. `applyPartsModifier` then receives only the chosen
+-- stat's from/to range, so unrelated stats on the same part are untouched.
 function M.getPartGroups()
     local data = tuningData()
     local tp = (data and data.tuningParts) or {}
@@ -360,28 +367,46 @@ function M.getPartGroups()
     for key, part in pairs(tp) do
         local label = part.name and part.name.value or key
         if not skip[label] then
-            -- Collect ALL editable stats for this part (every effectStat and
-            -- effect that has a from/to range), not just the first.
-            local stats = {}
+            local statList = {}
+
+            -- effectStats: named stats (BOOST, DURATION, TOP SPEED, …)
             for _, e in ipairs(part.effectStats or {}) do
                 local stat = e.stat
                 if type(stat) == "table" and stat["from"] ~= nil then
-                    stats[#stats + 1] = { from = stat["from"], to = stat["to"] }
-                end
-            end
-            for _, e in ipairs(part.effects or {}) do
-                local amt = e.amount
-                if type(amt) == "table" and amt["from"] ~= nil then
-                    stats[#stats + 1] = { from = amt["from"], to = amt["to"] }
+                    local statLabel = (type(e.name) == "table" and e.name.value) or "STAT"
+                    statList[#statList + 1] = { label = statLabel, from = stat["from"], to = stat["to"] }
                 end
             end
 
-            if #stats > 0 then
+            -- effectDuration: top-level duration range (e.g. START BOOST)
+            local ed = part.effectDuration
+            if type(ed) == "table" and ed["from"] ~= nil then
+                -- Only add if not already covered by a named DURATION effectStat
+                local already = false
+                for _, s in ipairs(statList) do
+                    if s.label == "DURATION" then already = true; break end
+                end
+                if not already then
+                    statList[#statList + 1] = { label = "DURATION", from = ed["from"], to = ed["to"] }
+                end
+            end
+
+            -- effects: unnamed numeric ranges (fallback for parts with no effectStats)
+            if #statList == 0 then
+                for _, e in ipairs(part.effects or {}) do
+                    local amt = e.amount
+                    if type(amt) == "table" and amt["from"] ~= nil then
+                        statList[#statList + 1] = { label = e.type or "STAT", from = amt["from"], to = amt["to"] }
+                    end
+                end
+            end
+
+            if #statList > 0 then
                 if not groupMap[label] then
                     groupMap[label] = {}
                     table.insert(groupOrder, label)
                 end
-                table.insert(groupMap[label], { key = key, stats = stats })
+                table.insert(groupMap[label], { key = key, statList = statList })
             end
         end
     end
@@ -390,27 +415,31 @@ function M.getPartGroups()
     return groupOrder, groupMap
 end
 
--- Apply (or reset) a tuning-part modifier across ALL of the part's stats.
--- params = { variants, cacheKey, editValue, reset }
---   variants[i].stats = { {from=, to=}, ... }  (every editable stat of the part)
+-- Apply (or reset) a tuning-part modifier for ONE chosen stat.
+-- params:
+--   variants  — variant list for the chosen part (from getPartGroups)
+--   chosenStat — { label, from, to } — the single stat the user picked
+--   cacheKey  — persistent key (includes stat label so per-stat caches don't collide)
+--   editValue — float value to write (ignored when reset = true)
+--   reset     — if true, restore the original level flag and clear cache
 -- status: "not_found" | "reset" | "applied"
 function M.applyPartsModifier(params, cb)
-    local variants  = params.variants
-    local cacheKey  = params.cacheKey
-    local editValue = params.editValue
-    local reset     = params.reset
+    local variants   = params.variants
+    local chosenStat = params.chosenStat   -- { label, from, to }
+    local cacheKey   = params.cacheKey
+    local editValue  = params.editValue
+    local reset      = params.reset
 
     scheduler:add(function(finishTask)
         local TAG = "PartsModifier"
         local cache = memory:load(cacheKey)
 
         if not cache then
-            LOG.dbg(TAG, "Scanning all stats for: " .. cacheKey)
+            LOG.dbg(TAG, string.format("Scanning for %s [%.4g–%.4g]",
+                chosenStat.label, chosenStat.from, chosenStat.to))
+
             local toEdit = {}
 
-            -- Scan the vnpStats anchor once; match each record against ANY of
-            -- the part's stat ranges so every stat (e.g. BOOST + TOP SPEED) is
-            -- collected, not only the first.
             gg.setRanges(BaseRegion)
             gg.clearResults()
             gg.searchNumber(BaseLib + offsets.vnpStats, 32)
@@ -419,20 +448,15 @@ function M.applyPartsModifier(params, cb)
 
             for _, v in ipairs(refs) do
                 local vals = gg.getValues({
-                    { address = v.address + 0x8,  flags = 4 },
+                    { address = v.address + 0x8,  flags = 4  },
                     { address = v.address + 0xC,  flags = 16 },
                     { address = v.address + 0x10, flags = 16 },
                 })
                 if vals and vals[1].value == 0x40000000 then
                     local from, to = vals[2].value, vals[3].value
-                    local matched = false
-                    for _, variant in ipairs(variants) do
-                        for _, st in ipairs(variant.stats) do
-                            if st.from == from and st.to == to then matched = true; break end
-                        end
-                        if matched then break end
-                    end
-                    if matched then
+                    -- Match only the chosen stat's range, not all stats on the part.
+                    -- This keeps BOOST and DURATION editable independently.
+                    if from == chosenStat.from and to == chosenStat.to then
                         table.insert(toEdit, v.address + 0x8)
                     end
                 end
@@ -447,31 +471,27 @@ function M.applyPartsModifier(params, cb)
 
             memory:save(cacheKey, toEdit)
             cache = toEdit
-            LOG.info(TAG, "Cached " .. #toEdit .. " stat addresses for " .. cacheKey)
+            LOG.info(TAG, string.format("Cached %d addresses for %s", #toEdit, cacheKey))
         else
-            LOG.dbg(TAG, "Cache hit for: " .. cacheKey)
+            LOG.dbg(TAG, "Cache hit: " .. cacheKey)
         end
 
         local edits = {}
         for _, addr in ipairs(cache) do
-            table.insert(edits, {
-                address = addr,
-                flags   = 16,
-                value   = reset and 0x40000000 or editValue
-            })
+            table.insert(edits, { address = addr, flags = 16,
+                value = reset and 0x40000000 or editValue })
         end
         gg.setValues(edits)
+        gg.clearResults()
 
         if reset then
             memory:save(cacheKey, nil)
             LOG.info(TAG, "Reset: " .. cacheKey)
-            gg.clearResults()
             finishTask(); cb("reset"); return
-        else
-            LOG.info(TAG, cacheKey .. " applied")
-            gg.clearResults()
-            finishTask(); cb("applied"); return
         end
+
+        LOG.info(TAG, cacheKey .. " applied: " .. tostring(editValue))
+        finishTask(); cb("applied"); return
     end)
 end
 
