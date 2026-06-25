@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 18:12:08
+-- Packed by bundle.py  •  2026-06-25 18:16:36
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -35591,8 +35591,9 @@ return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
 
     -- ── Copy Any ─────────────────────────────────────────────────────────────
+    -- Requires downloadedCustomTracks offset — only verified on arm64-v8a.
     addArchModule(container, "copy_any", t("copy_any.title"), t("copy_any.desc"), "button", nil,
-    function(done)
+    offsets.downloadedCustomTracks and function(done)
         ops.copyAny(function(ok, errKey, count)
             if ok then
                 showToast(t("copy_any.applied", tostring(count)))
@@ -35604,8 +35605,9 @@ return function(container)
     end)
 
     -- ── Track Editor (verify / set length / rename) ───────────────────────────
-    addModule(container, "track_editor", t("track_editor.title"), t("track_editor.desc"), "button", nil,
-    function(done)
+    -- Requires customTracks offset — only verified on arm64-v8a.
+    addArchModule(container, "track_editor", t("track_editor.title"), t("track_editor.desc"), "button", nil,
+    offsets.customTracks and function(done)
         -- Loading the track list is a scheduled op; we need it before showing any UI.
         -- Show a loading toast, then enter the depth loop once results arrive.
         showToast(t("track_editor.loading"))
@@ -35759,7 +35761,7 @@ return function(container)
                 end -- depth 3
             end -- while true
         end) -- getCustomTracks callback
-    end) -- addModule track_editor
+    end) -- addArchModule track_editor
 
 end
 
