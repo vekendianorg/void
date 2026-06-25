@@ -5,8 +5,8 @@
 -- Create a new file in src/data/x86_64/
 -- Name it after the version (e.g. 1.73.5.lua, 1.74.0.lua)
 
--- All AOBs are for x86_64 except Fuel.
--- Only raceInfo is currently verified for x86_64; the others are copied from arm64-v8a.
+-- All AOBs are for x86_64 except fuel, which is currently a placeholder copied from arm64-v8a.
+-- Only raceInfo is x86_64-specific; the remaining offsets are temporary placeholders copied from arm64-v8a.
 -- We'll update the remaining ones as soon as we get them.
 
 
