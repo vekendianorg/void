@@ -40,7 +40,8 @@ local AVAILABLE = {
     { code = "uk", name = "Українська" },
     { code = "tr", name = "Türkçe" },
     { code = "pt-BR", name = "Português (Brasil)" },
-    -- more languages soon
+    { code = "hi", name = "हिन्दी" },
+    { code = "it", name = "Italiano" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
