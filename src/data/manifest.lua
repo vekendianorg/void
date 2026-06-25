@@ -65,6 +65,7 @@ return {
     ["arm64-v8a"] = {
         chain = {
             { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
+            { version = "1.73.5", file = "data/arm64-v8a/1.73.3.lua", full = true }, -- useless update lol, same lib.
             -- Example future entries (add when a new game update releases):
             -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
             -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era

@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 16:31:32
+-- Packed by bundle.py  •  2026-06-25 16:51:40
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -32020,6 +32020,7 @@ return {
     ["arm64-v8a"] = {
         chain = {
             { version = "1.73.3", file = "data/arm64-v8a/1.73.3.lua", full = true },
+            { version = "1.73.5", file = "data/arm64-v8a/1.73.3.lua", full = true }, -- useless update lol, same lib.
             -- Example future entries (add when a new game update releases):
             -- { version = "1.73.5", file = "data/arm64-v8a/1.73.5.lua" },           -- diff
             -- { version = "1.74.0", file = "data/arm64-v8a/1.74.0.lua", full = true }, -- new era
@@ -32077,6 +32078,7 @@ return {
         raceInfo = 0x200BC58, -- race info like distance, cd
         vnpStats = 0x2060CA0, -- vehicles and parts, cd
         customTracks = 0x1FE27F0, -- custom tracks list, cd
+        downloadedCustomTracks = 0x2008E38, -- downloaded custom tracks
     },
 }
 

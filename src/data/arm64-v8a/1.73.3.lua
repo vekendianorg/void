@@ -36,5 +36,6 @@ return {
         raceInfo = 0x200BC58, -- race info like distance, cd
         vnpStats = 0x2060CA0, -- vehicles and parts, cd
         customTracks = 0x1FE27F0, -- custom tracks list, cd
+        downloadedCustomTracks = 0x2008E38, -- downloaded custom tracks
     },
 }
