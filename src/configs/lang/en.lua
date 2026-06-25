@@ -282,10 +282,10 @@ return {
 ["other.hint.width"] = "Width",
 ["other.hint.height"] = "Height",
 ["other.resolution.title"] = "Set Resolution",
-["other.resolution.desc"] = "Adjust the game width and height (default is 1280x720)",
+["other.resolution.desc"] = "Set the game width and height (default is 1280x720)",
 ["other.resolution.applied"] = "Resolution set to %dx%d",
 ["other.resolution_offset.title"] = "Set Resolution Offset",
-["other.resolution_offset.desc"] = "Adjust the game width offset and height offset (default is 0x0), best for small resolution in a large screen.",
+["other.resolution_offset.desc"] = "Set the game width offset and height offset (default is 0x0), best for small resolution in a large screen.",
 ["other.resolution_offset.applied"] = "Resolution offset set to %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView not found",
 ["other.aspect_ratio.title"] = "Change Aspect Ratio",
@@ -376,7 +376,7 @@ return {
     
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Adjust Countdown",
-["cups.adjust_countdown.desc"] = "Adjust the countdown before starting race",
+["cups.adjust_countdown.desc"] = "Set the countdown before starting race",
 ["cups.slider.seconds"] = "Seconds",
 ["cups.adjust_countdown.applied"] = "Countdown adjusted to %ss",
 ["cups.auto_win.title"] = "Auto Win",
