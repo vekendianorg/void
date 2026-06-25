@@ -24,6 +24,21 @@ return {
         },
         
         forceBoss = {
+            {
+                scan    = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6",
+                offset  = 0,
+                patch   = "h 40 00 00 1C C0 03 5F D6 00 CA C2 47",
+                unpatch = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6",
+            },
+            {
+                scan    = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6",
+                offset  = 0,
+                patch   = "h 40 00 00 1C C0 03 5F D6 00 CA C2 47",
+                unpatch = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6",
+            },
+        },
+        
+        forceBossBak = {
             {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
             {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
         },

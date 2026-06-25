@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 12:25:13
+-- Packed by bundle.py  •  2026-06-25 16:28:57
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -39,50 +39,52 @@ __vfs['configs/credits.lua'] = function(...)
 -- the English fallback, so lang files never need to define them.
 --
 -- To update a credit: edit here only. All languages update automatically.
+-- Use contactable handles/links (Discord, Telegram, etc.) rather than GitHub profiles.
 
 return {
 
 -- ── Script owner ──────────────────────────────────────────────────────────
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
+["about.script_owner.desc"] = "- Vekendian Organization (Github: vekendianorg)",
 
 -- ── Script developers ─────────────────────────────────────────────────────
 ["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
+- Lazor (Discord: vekendian)
+- AMR (Discord: amrgg)
+- Erik (Discord: eomthix)
 ]],
 
 -- ── Translators ───────────────────────────────────────────────────────────
 -- One entry per language. Names and handles are not translated.
 ["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67), profinoobru (github: profinoobru)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
+- English: Lazor (Discord: vekendian)
+- Bahasa Indonesia: Lazor (Discord: vekendian)
+- Español: Jayy2k (Discord: j4yc5b)
+- Deutsch: Erik (Discord: eomthix)
+- Русский: Winter Lotus (Discord: nikolaypg67)
+           profinoobru (Discord: profinoobru)
+- Thai: NaiArt777 (Discord: 4r77y_888)
+- বাংলা: AMR (Discord: amrgg)
+- العربية: AMR (Discord: amrgg)
+- اردو: AMR (Discord: amrgg)
+- Français: AMR (Discord: amrgg)
+- Українська: AMR (Discord: amrgg)
+- Türkçe: AMR (Discord: amrgg)
+- Português (Brasil): AMR (Discord: amrgg)
 ]],
 
 -- ── Credits ───────────────────────────────────────────────────────────────
 ["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
+- Lazor (Discord: vekendian)
+- Lan9118 (Discord: lan9118)
+- AMR (Discord: amrgg)
+- Erik (Discord: eomthix)
 - Sr Romero
 - Profinoobru
 ]],
 
 -- ── Special thanks ────────────────────────────────────────────────────────
 ["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
+- Aryan/KokushiboModz: (Discord: kokushibomodz)
 ]],
 
 }
@@ -30848,37 +30850,42 @@ __vfs['core/engines/patches.lua'] = function(...)
 -- Depends on: memory, scheduler, gg (all loaded before this file)
 
 -- ── Internal helpers ──────────────────────────────────────────────────────────
---- Reads bytes and compares against allowed values.
----@param base number
+
+---Parses a hex byte string into a flat array of TYPE_BYTE write entries.
+---@param addr   number  Base address to write to
+---@param hex_str string  e.g. "h 00 94 99 52 C0 03 5F D6"
+---@return table writes
+local function hex_to_writes(addr, hex_str)
+    local writes = {}
+    local clean  = hex_str:gsub("^h%s*", ""):gsub("%s+", "")
+    local offset = 0
+    for i = 1, #clean, 2 do
+        writes[#writes + 1] = {
+            address = addr + offset,
+            flags   = gg.TYPE_BYTE,
+            value   = tonumber(clean:sub(i, i + 1), 16),
+        }
+        offset = offset + 1
+    end
+    return writes
+end
+
+---Reads bytes at (base + check.offset) and compares against allowed values.
+---@param base     number
 ---@param patterns table
 ---@return boolean
 local function verify_pattern(base, patterns)
     for _, check in ipairs(patterns) do
         local addr = base + check.offset
+        local len  = #check.valid[1]:gsub("^h%s*", ""):gsub("%s+", "") / 2
 
-        local bytes = gg.getValues({
-            {
-                address = addr,
-                flags = gg.TYPE_BYTE,
-            }
-        })
-
-        if not bytes or not bytes[1] then
-            return false
-        end
-
-        -- Read enough bytes for comparison
-        local len = #check.valid[1]:gsub("^h%s*", ""):gsub("%s+", "") / 2
-
-        local values = {}
+        local query = {}
         for i = 0, len - 1 do
-            values[#values + 1] = {
-                address = addr + i,
-                flags = gg.TYPE_BYTE
-            }
+            query[#query + 1] = { address = addr + i, flags = gg.TYPE_BYTE }
         end
 
-        local read = gg.getValues(values)
+        local read = gg.getValues(query)
+        if not read then return false end
 
         local hex = {}
         for _, v in ipairs(read) do
@@ -30895,9 +30902,7 @@ local function verify_pattern(base, patterns)
             end
         end
 
-        if not ok then
-            return false
-        end
+        if not ok then return false end
     end
 
     return true
@@ -30919,83 +30924,92 @@ end
 ---
 ---Patch entry format:
 ---  scan    = hex byte string for gg.TYPE_BYTE search
----  offset  = byte delta from scan hit to the target DWORD
----  patch   = value to write when enabling
----  unpatch = original value to restore when disabling
+---  offset  = byte delta from scan hit to the write target
+---  patch   = hex byte string to write when enabling
+---  unpatch = hex byte string to restore when disabling
+---  pattern = optional array of {offset, valid} proximity checks
+---
+---All entries must resolve successfully before any write is committed.
+---On partial scan failure nothing is written and nothing is cached.
 ---
 ---@param id      string  Unique patch identifier (used as the cache key)
 ---@param entries table   Array of patch entries
----@param enable  boolean true → apply patch values, false → revert to unpatch values
----@return number fail_count Number of entries that could not be applied
+---@param enable  boolean true → apply patch bytes, false → revert to unpatch bytes
+---@return number fail_count Number of entries that could not be resolved
 local function apply_patch(id, entries, enable)
-    local fail_count = 0
-    local cached     = memory:load(id)
+    local cached = memory:load(id)
 
     if cached then
         -- Fast path: addresses already known, skip scanning.
+        -- Validate cache length matches entries before writing anything.
         local writes = {}
         for i, entry in ipairs(entries) do
-            if cached[i] then
-                table.insert(writes, {
-                    address = cached[i],
-                    flags   = gg.TYPE_DWORD,
-                    value   = enable and entry.patch or entry.unpatch,
-                })
-            else
-                fail_count = fail_count + 1
+            if not cached[i] then
+                -- Cache is stale/incomplete — bail out entirely, do not partial-write.
+                return #entries
+            end
+            for _, w in ipairs(hex_to_writes(cached[i], enable and entry.patch or entry.unpatch)) do
+                writes[#writes + 1] = w
             end
         end
-        if #writes > 0 then gg.setValues(writes) end
-    else
-        -- Slow path: scan for each entry and cache found addresses.
-        local new_cache = {}
-        local writes    = {}
+        gg.setValues(writes)
+        return 0
+    end
 
-        gg.setRanges(8 | 16)
-        for i, entry in ipairs(entries) do
-            gg.clearResults()
-            gg.searchNumber(entry.scan, gg.TYPE_BYTE)
-            
-            local result_count = gg.getResultsCount()
-            
-            if result_count > 0 then
-                local results = gg.getResults(result_count)
-                
-                local target_addr
-            
-                if entry.pattern and #entry.pattern > 0 then
-                    gg.refineNumber(results[1].value, 1)
-                    local _results = gg.getResults(result_count)
-                    for _, result in ipairs(_results) do
-                        if verify_pattern(result.address, entry.pattern) then
-                            target_addr = result.address + entry.offset
-                            break
-                        end
-                    end
-                else
-                    -- Legacy behavior
-                    target_addr = results[1].address + entry.offset
-                end
-            
-                if target_addr then
-                    new_cache[i] = target_addr
-            
-                    table.insert(writes, {
-                        address = target_addr,
-                        flags = gg.TYPE_DWORD,
-                        value = enable and entry.patch or entry.unpatch
-                    })
-                else
-                    fail_count = fail_count + 1
-                end
-            else
-                fail_count = fail_count + 1
-            end
-        end
+    -- Slow path: scan for each entry.
+    -- Collect ALL addresses first; only write if every entry resolves.
+    local new_cache = {}
+    local fail_count = 0
 
+    gg.setRanges(8 | 16)
+
+    for i, entry in ipairs(entries) do
         gg.clearResults()
-        if #writes     > 0 then gg.setValues(writes) end
-        if fail_count == 0 then memory:save(id, new_cache) end
+        gg.searchNumber(entry.scan, gg.TYPE_BYTE)
+
+        local result_count = gg.getResultsCount()
+
+        if result_count > 0 then
+            local target_addr
+
+            if entry.pattern and #entry.pattern > 0 then
+                local results        = gg.getResults(result_count)
+                gg.refineNumber(results[1].value, 1)
+                local refined_count  = gg.getResultsCount()
+                local refined        = gg.getResults(refined_count)
+                for _, result in ipairs(refined) do
+                    if verify_pattern(result.address, entry.pattern) then
+                        target_addr = result.address + entry.offset
+                        break
+                    end
+                end
+            else
+                local results = gg.getResults(1)
+                target_addr   = results[1].address + entry.offset
+            end
+
+            if target_addr then
+                new_cache[i] = target_addr
+            else
+                fail_count = fail_count + 1
+            end
+        else
+            fail_count = fail_count + 1
+        end
+    end
+
+    gg.clearResults()
+
+    -- Only write and cache if every entry resolved — no partial writes.
+    if fail_count == 0 then
+        local writes = {}
+        for i, entry in ipairs(entries) do
+            for _, w in ipairs(hex_to_writes(new_cache[i], enable and entry.patch or entry.unpatch)) do
+                writes[#writes + 1] = w
+            end
+        end
+        gg.setValues(writes)
+        memory:save(id, new_cache)
     end
 
     return fail_count
@@ -31008,7 +31022,7 @@ end
 ---
 ---For "switch" mode with a patch table the engine handles enable/disable via
 ---apply_patch. For all other modes (button, slider, input, …) the value must
----value must be a callback: function(done, ...).
+---be a callback: function(done, ...).
 ---
 ---Read-only ("ro") modules bypass arch resolution entirely.
 ---
@@ -32051,6 +32065,21 @@ return {
         },
         
         forceBoss = {
+            {
+                scan    = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6",
+                offset  = 0,
+                patch   = "h 40 00 00 1C C0 03 5F D6 00 CA C2 47",
+                unpatch = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6",
+            },
+            {
+                scan    = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6",
+                offset  = 0,
+                patch   = "h 40 00 00 1C C0 03 5F D6 00 CA C2 47",
+                unpatch = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6",
+            },
+        },
+        
+        forceBossBak = {
             {scan = "h 00 CD 41 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 CD 41 BD"},
             {scan = "h 00 29 44 BD FD 7B C1 A8 C0 03 5F D6", offset = 0, patch = "h 00 C1 5F BC", unpatch = "h 00 29 44 BD"},
         },
