@@ -42,6 +42,7 @@ local AVAILABLE = {
     { code = "pt-BR", name = "Português (Brasil)" },
     { code = "hi", name = "हिन्दी" },
     { code = "it", name = "Italiano" },
+    { code = "zh-CN", name = "简体中文" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
