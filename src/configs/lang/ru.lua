@@ -23,7 +23,7 @@
 return {
 
 -- ── Common / shared (buttons, generic dialog text) ───────────────────────────
-["common.ok"] = "OK",
+["common.ok"] = "спасибо,хорошо",
 ["common.cancel"] = "Отмена",
 ["common.yes"] = "Да",
 ["common.no"] = "Нет",
