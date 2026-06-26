@@ -79,7 +79,8 @@ return {
 ["main.waiting_for_lib"] = "Waiting for %s...",
 ["main.initialized"] = "Initialized",
 ["main.gamestatus_not_found"] = "GameStatus Not Found",
-["main.gamestatus_not_found_arch"] = "GameStatus not supported on %s yet — check void_debug.log",
+["main.gamestatus_not_found_tip_arm64"] = "The game may still be loading, or GameStatus could not be located in memory.\n\nIf you are on an emulator, try Multi App Ultra to run HCR2 instead.",
+["main.gamestatus_not_found_tip_x86"]   = "The game may still be loading, or GameStatus could not be located in memory.\n\nIf you are on an emulator, try BlueStacks or LDPlayer for better compatibility.",
 ["main.dont_interrupt"] = "Don't interrupt this script",
 
 -- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────

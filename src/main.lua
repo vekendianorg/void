@@ -789,10 +789,7 @@ if not exit then
     
     -- ── GameStatus resolution ─────────────────────────────────────────────────────
     
-    -- REGION_ANONYMOUS (1) covers emulators like Nox Player where the game's
-    -- heap doesn't appear in C_ALLOC or OTHER — it's mapped as anonymous memory.
-    -- Scanning it on real devices is fast (few or zero hits) so no harm adding it.
-    local SEARCH_REGIONS = { gg.REGION_C_ALLOC, gg.REGION_OTHER, gg.REGION_ANONYMOUS }
+    local SEARCH_REGIONS = { gg.REGION_C_ALLOC, gg.REGION_OTHER }
     local saved_status   = memory:load("gamestatus")
     
     shellStates   = memory:load("shell_states")   or { root = false }
@@ -813,17 +810,15 @@ if not exit then
             (function()
                 local names = {}
                 for _, r in ipairs(SEARCH_REGIONS) do
-                    names[#names+1] = (r == gg.REGION_C_ALLOC  and "C_ALLOC"   or
-                                       r == gg.REGION_OTHER      and "OTHER"     or
-                                       r == gg.REGION_ANONYMOUS  and "ANONYMOUS" or tostring(r))
+                    names[#names+1] = (r == gg.REGION_C_ALLOC and "C_ALLOC" or
+                                       r == gg.REGION_OTHER    and "OTHER"   or tostring(r))
                 end
                 return table.concat(names, ", ")
             end)()))
 
         for _, region in ipairs(SEARCH_REGIONS) do
-            local regionName = (region == gg.REGION_C_ALLOC    and "C_ALLOC"   or
-                                region == gg.REGION_OTHER       and "OTHER"     or
-                                region == gg.REGION_ANONYMOUS   and "ANONYMOUS" or tostring(region))
+            local regionName = (region == gg.REGION_C_ALLOC and "C_ALLOC" or
+                                region == gg.REGION_OTHER    and "OTHER"   or tostring(region))
             LOG.info("INIT", "Scanning region: " .. regionName)
 
             gg.clearResults(); gg.setRanges(region)
@@ -890,15 +885,7 @@ if not exit then
         end
 
         if BaseGameStatus == nil then
-            if DEVICE_ARCH == DEFAULT_ARCH then
-                LOG.fatal("INIT", "GameStatus not found in any region — is the game running and past the loading screen?")
-            else
-                LOG.fatal("INIT", string.format(
-                    "GameStatus not found on %s — the pointer-walk offsets (+0x1F, +0x10, +0x80) are arm64-v8a specific " ..
-                    "and have not been verified for %s. A contributor with a %s device needs to locate " ..
-                    "the GameStatus object manually in GG and update the search logic in main.lua.",
-                    DEVICE_ARCH, DEVICE_ARCH, DEVICE_ARCH))
-            end
+            LOG.fatal("INIT", "GameStatus not found in any region — is the game running and past the loading screen?")
         end
     end
     
@@ -908,10 +895,11 @@ if not exit then
     if BaseGameStatus == nil or BaseRegion == nil then
         LOG.fatal("INIT", "BaseGameStatus or BaseRegion is NIL — floating menu will NOT appear!")
         LOG.flush()
-        local msg = (DEVICE_ARCH ~= DEFAULT_ARCH)
-            and T("main.gamestatus_not_found_arch", DEVICE_ARCH)
-            or  T("main.gamestatus_not_found")
-        showToast(msg); exit = true
+        local tip = (DEVICE_ARCH == DEFAULT_ARCH)
+            and T("main.gamestatus_not_found_tip_arm64")
+            or  T("main.gamestatus_not_found_tip_x86")
+        showDialog(T("main.gamestatus_not_found"), tip, T("common.ok"))
+        exit = true
     else
         LOG.info("INIT", "BaseGameStatus OK=" .. tostring(BaseGameStatus) .. " | scheduling initUI() via MainHandler")
         
