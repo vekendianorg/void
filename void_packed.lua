@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-26 11:16:26
+-- Packed by bundle.py  •  2026-06-26 11:51:11
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -30272,6 +30272,7 @@ local required = {
     "android.ext.Tools", "android.ext.rx", "android.ext.Script",
     "android.ext.Config", "android.ext.MainService",
     "org.vekendian.Crypto", "org.vekendian.Ui", "org.vekendian.Zip",
+    "org.vekendian.Shell"
 }
 local missing = {}
 for _, cls in ipairs(required) do

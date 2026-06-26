@@ -24,6 +24,7 @@ local required = {
     "android.ext.Tools", "android.ext.rx", "android.ext.Script",
     "android.ext.Config", "android.ext.MainService",
     "org.vekendian.Crypto", "org.vekendian.Ui", "org.vekendian.Zip",
+    "org.vekendian.Shell"
 }
 local missing = {}
 for _, cls in ipairs(required) do
