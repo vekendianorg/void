@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-25 18:16:36
+-- Packed by bundle.py  •  2026-06-26 11:16:26
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -31726,7 +31726,8 @@ local AVAILABLE = {
     { code = "uk", name = "Українська" },
     { code = "tr", name = "Türkçe" },
     { code = "pt-BR", name = "Português (Brasil)" },
-    -- more languages soon
+    { code = "hi", name = "हिन्दी" },
+    { code = "it", name = "Italiano" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
