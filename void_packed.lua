@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-26 14:06:42
+-- Packed by bundle.py  •  2026-06-26 14:15:55
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -30399,11 +30399,14 @@ local function resolve_chain(chain, device_ver_t)
             goto continue
         end
 
+        local function countKeys(t)
+            local n = 0; for _ in pairs(t) do n = n + 1 end; return n
+        end
         LOG.info("Arch", string.format(
             "Chain entry %s loaded | aobs=%s  offsets=%s  full=%s",
             entry.version,
-            type(data.aobs)    == "table" and tostring(#(function() local n=0; for _ in pairs(data.aobs)    do n=n+1 end; return n end)()) .. " groups" or "nil",
-            type(data.offsets) == "table" and tostring(#(function() local n=0; for _ in pairs(data.offsets) do n=n+1 end; return n end)()) .. " keys"   or "nil",
+            type(data.aobs)    == "table" and (countKeys(data.aobs)    .. " groups") or "nil",
+            type(data.offsets) == "table" and (countKeys(data.offsets) .. " keys")   or "nil",
             tostring(entry.full)))
 
         -- A full baseline resets accumulated state before merging.
