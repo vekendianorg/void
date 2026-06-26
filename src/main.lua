@@ -789,7 +789,10 @@ if not exit then
     
     -- ── GameStatus resolution ─────────────────────────────────────────────────────
     
-    local SEARCH_REGIONS = { gg.REGION_C_ALLOC, gg.REGION_OTHER }
+    -- REGION_ANONYMOUS (1) covers emulators like Nox Player where the game's
+    -- heap doesn't appear in C_ALLOC or OTHER — it's mapped as anonymous memory.
+    -- Scanning it on real devices is fast (few or zero hits) so no harm adding it.
+    local SEARCH_REGIONS = { gg.REGION_C_ALLOC, gg.REGION_OTHER, gg.REGION_ANONYMOUS }
     local saved_status   = memory:load("gamestatus")
     
     shellStates   = memory:load("shell_states")   or { root = false }
@@ -810,15 +813,17 @@ if not exit then
             (function()
                 local names = {}
                 for _, r in ipairs(SEARCH_REGIONS) do
-                    names[#names+1] = (r == gg.REGION_C_ALLOC and "C_ALLOC" or
-                                       r == gg.REGION_OTHER    and "OTHER"   or tostring(r))
+                    names[#names+1] = (r == gg.REGION_C_ALLOC  and "C_ALLOC"   or
+                                       r == gg.REGION_OTHER      and "OTHER"     or
+                                       r == gg.REGION_ANONYMOUS  and "ANONYMOUS" or tostring(r))
                 end
                 return table.concat(names, ", ")
             end)()))
 
         for _, region in ipairs(SEARCH_REGIONS) do
-            local regionName = (region == gg.REGION_C_ALLOC and "C_ALLOC" or
-                                region == gg.REGION_OTHER    and "OTHER"   or tostring(region))
+            local regionName = (region == gg.REGION_C_ALLOC    and "C_ALLOC"   or
+                                region == gg.REGION_OTHER       and "OTHER"     or
+                                region == gg.REGION_ANONYMOUS   and "ANONYMOUS" or tostring(region))
             LOG.info("INIT", "Scanning region: " .. regionName)
 
             gg.clearResults(); gg.setRanges(region)
@@ -837,21 +842,31 @@ if not exit then
             for _, d in ipairs(scan_results) do
                 local ptr = gg.getValues({ { address = d.address + 0x1F, flags = gg.TYPE_QWORD } })[1]
                 if ptr and ptr.value ~= 0 then
-                    local ver = gg.getValues({ { address = ptr.value + 0x10, flags = gg.TYPE_DWORD } })[1]
-                    local v   = ver and tonumber(ver.value)
-                    if v == 65792 or v == 65793 or v == 16843008 or v == 16843009 then
-                        table.insert(status_raw_hits, ver.address)
-                        local tp = gg.getValues({ { address = ptr.value + 0x80, flags = gg.TYPE_QWORD } })[1]
-                        if tp and tp.value ~= 0 then
-                            local td = gg.getValues({ { address = tp.value, flags = gg.TYPE_DWORD } })[1]
-                            if td then table.insert(status_hits, td.address) end
-                        end
-                    else
-                        ver_mismatch = ver_mismatch + 1
+                    -- Sanity-check: a real pointer should be in a plausible
+                    -- memory range (above 0x10000). Values that look like ASCII
+                    -- text are false-positive AOB matches inside string literals.
+                    local pv = ptr.value
+                    if pv < 0x10000 or pv > 0x7FFFFFFFFFFF then
+                        ptr_zero = ptr_zero + 1
                         LOG.dbg("INIT", string.format(
-                            "  ver mismatch at 0x%X → ptr=0x%X  ver=0x%X (%s)",
-                            d.address, ptr.value,
-                            v or 0, tostring(v)))
+                            "  implausible ptr at 0x%X → 0x%X (likely AOB false-positive in string literal)",
+                            d.address, pv))
+                    else
+                        local ver = gg.getValues({ { address = pv + 0x10, flags = gg.TYPE_DWORD } })[1]
+                        local v   = ver and tonumber(ver.value)
+                        if v == 65792 or v == 65793 or v == 16843008 or v == 16843009 then
+                            table.insert(status_raw_hits, ver.address)
+                            local tp = gg.getValues({ { address = pv + 0x80, flags = gg.TYPE_QWORD } })[1]
+                            if tp and tp.value ~= 0 then
+                                local td = gg.getValues({ { address = tp.value, flags = gg.TYPE_DWORD } })[1]
+                                if td then table.insert(status_hits, td.address) end
+                            end
+                        else
+                            ver_mismatch = ver_mismatch + 1
+                            LOG.dbg("INIT", string.format(
+                                "  ver mismatch at 0x%X → ptr=0x%X  ver=0x%X (%s)",
+                                d.address, pv, v or 0, tostring(v)))
+                        end
                     end
                 else
                     ptr_zero = ptr_zero + 1
@@ -875,7 +890,15 @@ if not exit then
         end
 
         if BaseGameStatus == nil then
-            LOG.fatal("INIT", "GameStatus not found in any region — is the game running and past the loading screen?")
+            if DEVICE_ARCH == DEFAULT_ARCH then
+                LOG.fatal("INIT", "GameStatus not found in any region — is the game running and past the loading screen?")
+            else
+                LOG.fatal("INIT", string.format(
+                    "GameStatus not found on %s — the pointer-walk offsets (+0x1F, +0x10, +0x80) are arm64-v8a specific " ..
+                    "and have not been verified for %s. A contributor with a %s device needs to locate " ..
+                    "the GameStatus object manually in GG and update the search logic in main.lua.",
+                    DEVICE_ARCH, DEVICE_ARCH, DEVICE_ARCH))
+            end
         end
     end
     
@@ -885,7 +908,10 @@ if not exit then
     if BaseGameStatus == nil or BaseRegion == nil then
         LOG.fatal("INIT", "BaseGameStatus or BaseRegion is NIL — floating menu will NOT appear!")
         LOG.flush()
-        showToast(T("main.gamestatus_not_found")); exit = true
+        local msg = (DEVICE_ARCH ~= DEFAULT_ARCH)
+            and T("main.gamestatus_not_found_arch", DEVICE_ARCH)
+            or  T("main.gamestatus_not_found")
+        showToast(msg); exit = true
     else
         LOG.info("INIT", "BaseGameStatus OK=" .. tostring(BaseGameStatus) .. " | scheduling initUI() via MainHandler")
         
