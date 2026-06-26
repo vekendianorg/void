@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-26 11:51:11
+-- Packed by bundle.py  •  2026-06-26 14:06:42
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -27704,7 +27704,7 @@ __vfs['configs/lang/ru.lua'] = function(...)
 return {
 
 -- ── Common / shared (buttons, generic dialog text) ───────────────────────────
-["common.ok"] = "OK",
+["common.ok"] = "спасибо,хорошо",
 ["common.cancel"] = "Отмена",
 ["common.yes"] = "Да",
 ["common.no"] = "Нет",
@@ -30399,6 +30399,13 @@ local function resolve_chain(chain, device_ver_t)
             goto continue
         end
 
+        LOG.info("Arch", string.format(
+            "Chain entry %s loaded | aobs=%s  offsets=%s  full=%s",
+            entry.version,
+            type(data.aobs)    == "table" and tostring(#(function() local n=0; for _ in pairs(data.aobs)    do n=n+1 end; return n end)()) .. " groups" or "nil",
+            type(data.offsets) == "table" and tostring(#(function() local n=0; for _ in pairs(data.offsets) do n=n+1 end; return n end)()) .. " keys"   or "nil",
+            tostring(entry.full)))
+
         -- A full baseline resets accumulated state before merging.
         if entry.full then
             LOG.info("Arch", "Chain: full baseline reset at " .. entry.version)
@@ -30409,14 +30416,20 @@ local function resolve_chain(chain, device_ver_t)
         if type(data.aobs) == "table" then
             for k, v in pairs(data.aobs) do
                 state.aobs[k] = v
+                LOG.dbg("Arch", "  aobs[" .. k .. "] merged")
             end
+        else
+            LOG.warn("Arch", "  No aobs table in " .. entry.version .. " — patch features will be unavailable")
         end
 
         -- Merge offsets: per-key replacement.
         if type(data.offsets) == "table" then
             for k, v in pairs(data.offsets) do
                 state.offsets[k] = v
+                LOG.dbg("Arch", "  offsets[" .. k .. "] = 0x" .. string.format("%X", v))
             end
+        else
+            LOG.warn("Arch", "  No offsets table in " .. entry.version)
         end
 
         last_applied = entry.version
@@ -39427,15 +39440,40 @@ if not exit then
     
     if saved_status then
         BaseRegion, BaseGameStatus, BaseGameStatusRaw = saved_status[1], saved_status[2], saved_status[3]
+        LOG.info("INIT", string.format(
+            "GameStatus restored from cache | BaseRegion=0x%X  BaseGameStatus=0x%X  BaseGameStatusRaw=0x%X",
+            BaseRegion, BaseGameStatus, BaseGameStatusRaw))
     else
+        LOG.info("INIT", string.format(
+            "GameStatus not cached — scanning %d region(s): %s",
+            #SEARCH_REGIONS,
+            (function()
+                local names = {}
+                for _, r in ipairs(SEARCH_REGIONS) do
+                    names[#names+1] = (r == gg.REGION_C_ALLOC and "C_ALLOC" or
+                                       r == gg.REGION_OTHER    and "OTHER"   or tostring(r))
+                end
+                return table.concat(names, ", ")
+            end)()))
+
         for _, region in ipairs(SEARCH_REGIONS) do
+            local regionName = (region == gg.REGION_C_ALLOC and "C_ALLOC" or
+                                region == gg.REGION_OTHER    and "OTHER"   or tostring(region))
+            LOG.info("INIT", "Scanning region: " .. regionName)
+
             gg.clearResults(); gg.setRanges(region)
             gg.searchNumber("h 73 74 61 72 74 75 70 5F 63 6F 75 6E 74", gg.TYPE_BYTE)
             gg.refineNumber("h 73", gg.TYPE_BYTE)
             local scan_results = gg.getResults(gg.getResultsCount())
             gg.clearResults()
+
+            LOG.info("INIT", string.format("  AOB scan hits: %d", #scan_results))
+
             local status_hits     = {}
             local status_raw_hits = {}
+            local ptr_zero        = 0
+            local ver_mismatch    = 0
+
             for _, d in ipairs(scan_results) do
                 local ptr = gg.getValues({ { address = d.address + 0x1F, flags = gg.TYPE_QWORD } })[1]
                 if ptr and ptr.value ~= 0 then
@@ -39448,14 +39486,36 @@ if not exit then
                             local td = gg.getValues({ { address = tp.value, flags = gg.TYPE_DWORD } })[1]
                             if td then table.insert(status_hits, td.address) end
                         end
+                    else
+                        ver_mismatch = ver_mismatch + 1
+                        LOG.dbg("INIT", string.format(
+                            "  ver mismatch at 0x%X → ptr=0x%X  ver=0x%X (%s)",
+                            d.address, ptr.value,
+                            v or 0, tostring(v)))
                     end
+                else
+                    ptr_zero = ptr_zero + 1
                 end
             end
+
+            LOG.info("INIT", string.format(
+                "  Region %s — ptr_zero=%d  ver_mismatch=%d  status_hits=%d",
+                regionName, ptr_zero, ver_mismatch, #status_hits))
+
             if #status_hits > 0 then
                 BaseRegion, BaseGameStatus, BaseGameStatusRaw = region, status_hits[1], status_raw_hits[1]
                 memory:save("gamestatus", { region, status_hits[1], status_raw_hits[1] })
+                LOG.info("INIT", string.format(
+                    "  ✓ Found in %s | BaseGameStatus=0x%X  BaseGameStatusRaw=0x%X",
+                    regionName, BaseGameStatus, BaseGameStatusRaw))
                 break
+            else
+                LOG.warn("INIT", "  ✗ Not found in " .. regionName)
             end
+        end
+
+        if BaseGameStatus == nil then
+            LOG.fatal("INIT", "GameStatus not found in any region — is the game running and past the loading screen?")
         end
     end
     

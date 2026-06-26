@@ -112,6 +112,13 @@ local function resolve_chain(chain, device_ver_t)
             goto continue
         end
 
+        LOG.info("Arch", string.format(
+            "Chain entry %s loaded | aobs=%s  offsets=%s  full=%s",
+            entry.version,
+            type(data.aobs)    == "table" and tostring(#(function() local n=0; for _ in pairs(data.aobs)    do n=n+1 end; return n end)()) .. " groups" or "nil",
+            type(data.offsets) == "table" and tostring(#(function() local n=0; for _ in pairs(data.offsets) do n=n+1 end; return n end)()) .. " keys"   or "nil",
+            tostring(entry.full)))
+
         -- A full baseline resets accumulated state before merging.
         if entry.full then
             LOG.info("Arch", "Chain: full baseline reset at " .. entry.version)
@@ -122,14 +129,20 @@ local function resolve_chain(chain, device_ver_t)
         if type(data.aobs) == "table" then
             for k, v in pairs(data.aobs) do
                 state.aobs[k] = v
+                LOG.dbg("Arch", "  aobs[" .. k .. "] merged")
             end
+        else
+            LOG.warn("Arch", "  No aobs table in " .. entry.version .. " — patch features will be unavailable")
         end
 
         -- Merge offsets: per-key replacement.
         if type(data.offsets) == "table" then
             for k, v in pairs(data.offsets) do
                 state.offsets[k] = v
+                LOG.dbg("Arch", "  offsets[" .. k .. "] = 0x" .. string.format("%X", v))
             end
+        else
+            LOG.warn("Arch", "  No offsets table in " .. entry.version)
         end
 
         last_applied = entry.version
