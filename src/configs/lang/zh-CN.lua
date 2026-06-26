@@ -49,8 +49,8 @@ return {
 ["main.exit_active_ops_msg"] = "当前有 %d 个后台任务正在运行\n强制退出可能损坏游戏状态",
 ["main.initializing"] = "正在初始化...",
 ["main.no_app_found"] = "未找到应用",
-["main.arch_64bit_required_title"] = "需要64位",
-["main.arch_64bit_required_msg"] = "必须使用 ARMv8ax86_64 仅部分支持",
+["main.arch_64bit_required_title"] = "需要 64 位",
+["main.arch_64bit_required_msg"] = "必须使用 ARMv8a，x86_64 仅部分支持",
 
 ["main.update_available_title"] = "发现更新",
 ["main.update_available_msg"] = "v%s 版本可用（当前：v%s）\n\n%s\n\n是否立即更新？",
@@ -68,7 +68,7 @@ return {
 ["main.select_space_toast"] = "请选择一个空间以继续",
 ["main.user_space_item"] = "用户 %s  —  %s",
 ["main.permission_error_title"] = "权限错误",
-["main.permission_error_msg"] = "Shell 访问被拒绝\n\nVoid 需要此权限来定位您虚拟空间中的 HCR2如果您想验证运行的命令，请查看 Void 源代码",
+["main.permission_error_msg"] = "Shell 访问被拒绝\n\nVoid 需要此权限来定位您虚拟空间中的 HCR2如果您想验证运行的命令，请查看 VOID 源代码",
 ["main.hcr2_not_found_title"] = "未找到 HCR2 数据",
 ["main.hcr2_not_found_msg"] = "Void 无法在您的虚拟空间中定位 HCR2 数据如果 HCR2 尚未启动，或您的虚拟空间应用使用了不寻常的路径结构，则可能发生这种情况\n\n依赖游戏文件的功能（活动奖励等）在没有有效路径的情况下将无法工作",
 ["main.manual_data_path_title"] = "手动数据路径",
@@ -98,7 +98,7 @@ return {
 
 -- ── core/engines/arch.lua ───────────────────────────────────────────────────
 ["arch.warning_title"] = "架构警告",
-["arch.unknown_arch_msg"] = "您的架构未知lib 是否已加载？您使用的是什么系统？",
+["arch.unknown_arch_msg"] = "您的架构未知 lib 是否已加载？您使用的是什么系统？",
 ["arch.non_primary_arch_msg"] = "检测到：%s\n部分或全部 lib 补丁可能无法工作",
 ["arch.unknown_version_msg"] = "游戏版本未知请在游戏加载后重试",
 ["arch.no_base_data_msg"] = "内部错误：此架构没有可用的基础数据",
