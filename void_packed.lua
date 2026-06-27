@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-26 14:37:45
+-- Packed by bundle.py  •  2026-06-27 07:13:19
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -27706,7 +27706,7 @@ __vfs['configs/lang/ru.lua'] = function(...)
 return {
 
 -- ── Common / shared (buttons, generic dialog text) ───────────────────────────
-["common.ok"] = "спасибо,хорошо",
+["common.ok"] = "Ок",
 ["common.cancel"] = "Отмена",
 ["common.yes"] = "Да",
 ["common.no"] = "Нет",
@@ -30242,8 +30242,595 @@ return {
 
 end
 
-__vfs['configs/lang/zh.lua'] = function(...)
+__vfs['configs/lang/zh-CN.lua'] = function(...)
+--[[
+  configs/lang/zh-CN.lua — 简体中文 (Simplified Chinese)
 
+  Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
+  Looked up at runtime via the global T(key, ...) function, e.g.:
+      T("common.ok")                          -> "OK"
+      T("settings.window_width_desc", 400, 650) -> "Width of the floating menu (400 - 650 dp)"
+
+  Conventions:
+    - Keys are namespaced by file: "settings.*", "account.*", "cups.*", etc.
+    - %s / %d / %X etc. are string.format placeholders — keep them in the
+      same order when translating, but they don't need to keep the same
+      letter (e.g. %s can become %d if the translated grammar needs it).
+    - Entries that are Lua arrays (e.g. spinner option lists) are returned
+      as-is, untouched by string.format.
+    - LOG.*() calls, debug tags, and internal cache/state keys are NOT
+      translated — only user-visible text (dialogs, toasts, buttons,
+      module titles/descriptions) lives here.
+
+  This file handles the Simplified Chinese localization for the VOID script.
+]]
+
+return {
+
+-- ── Common / shared (buttons, generic dialog text) ───────────────────────────
+["common.ok"] = "确定",
+["common.cancel"] = "取消",
+["common.yes"] = "是",
+["common.no"] = "否",
+["common.failed"] = "失败",
+["common.success"] = "成功",
+["common.later"] = "稍后",
+["common.got_it"] = "知道了",
+["common.retry"] = "重试",
+["common.wait_safe"] = "等待（安全）",
+["common.waiting"] = "等待中...",
+["common.force_exit"] = "强制退出",
+["common.proceed_anyway"] = "仍要继续",
+["common.manual_mode"] = "手动模式",
+["common.update_button"] = "更新",
+["common.launch_failed"] = "启动失败",
+["common.confirm_exit_title"] = "确认退出",
+["common.confirm_exit_msg"] = "是否退出脚本？",
+["common.not_available"] = "不可用",
+["common.warning"] = "警告",
+
+-- ── main.lua ───────────────────────────────────────────────────────────────
+["main.exit_active_ops_title"] = "警告：有正在进行的操作",
+["main.exit_active_ops_msg"] = "当前有 %d 个后台任务正在运行\n强制退出可能损坏游戏状态",
+["main.initializing"] = "正在初始化...",
+["main.no_app_found"] = "未找到应用",
+["main.arch_64bit_required_title"] = "需要 64 位",
+["main.arch_64bit_required_msg"] = "必须使用 ARMv8a，x86_64 仅部分支持",
+
+["main.update_available_title"] = "发现更新",
+["main.update_available_msg"] = "v%s 版本可用（当前：v%s）\n\n%s\n\n是否立即更新？",
+["main.no_changelog"] = "无更新日志",
+["main.downloading_version"] = "正在下载 v%s...",
+["main.update_download_failed_msg"] = "无法下载更新：\n%s",
+["main.update_write_failed_msg"] = "无法写入：\n%s",
+["main.update_done_title"] = "VOID 已更新至 v%s",
+["main.update_done_msg"] = "VOID 已成功更新\n\n新脚本已保存为：\nvoid_v%s.lua\n\n请在 GameGuardian 中运行它以应用更新",
+["main.launching_version"] = "正在启动 v%s...",
+["main.launch_failed_msg"] = "已下载但无法运行：\n%s",
+
+["main.multiple_spaces_title"] = "检测到多个空间",
+["main.multiple_spaces_desc"] = "在 %d 个虚拟空间中找到 HCR2\n请选择您当前正在游玩的空间",
+["main.select_space_toast"] = "请选择一个空间以继续",
+["main.user_space_item"] = "用户 %s  —  %s",
+["main.permission_error_title"] = "权限错误",
+["main.permission_error_msg"] = "Shell 访问被拒绝\n\nVoid 需要此权限来定位您虚拟空间中的 HCR2如果您想验证运行的命令，请查看 VOID 源代码",
+["main.hcr2_not_found_title"] = "未找到 HCR2 数据",
+["main.hcr2_not_found_msg"] = "Void 无法在您的虚拟空间中定位 HCR2 数据如果 HCR2 尚未启动，或您的虚拟空间应用使用了不寻常的路径结构，则可能发生这种情况\n\n依赖游戏文件的功能（活动奖励等）在没有有效路径的情况下将无法工作",
+["main.manual_data_path_title"] = "手动数据路径",
+["main.manual_data_path_hint"] = "输入 HCR2 数据路径",
+["main.manual_path_cancelled"] = "已取消 — 没有路径继续运行",
+["main.waiting_for_lib"] = "正在等待 %s...",
+["main.initialized"] = "初始化完成",
+["main.gamestatus_not_found"] = "未找到 GameStatus",
+["main.gamestatus_not_found_tip_arm64"] = "游戏可能仍在加载中，或无法在内存中找到 GameStatus\n\n如果您使用的是模拟器，请尝试 Multi App Ultra 来运行 HCR2",
+["main.gamestatus_not_found_tip_x86"]   = "游戏可能仍在加载中，或无法在内存中找到 GameStatus\n\n如果您使用的是模拟器，请尝试 BlueStacks 或 LDPlayer 以获得更好的兼容性",
+["main.dont_interrupt"] = "请勿在运行过程中打开修改器界面",
+
+-- ── ui/ui.lua ───────────────────────────────────────────────────────────────
+["ui.size_saved_restart"] = "大小已保存！请重启脚本",
+["ui.category_error"] = "错误：%s",
+["ui.category_not_found"] = "未找到分类",
+["ui.na"] = "N/A",
+["ui.spinner_select"] = "选择",
+["ui.slider_default_title"] = "数值",
+["ui.loading"] = "加载中",
+
+-- ── core/engines/patches.lua ────────────────────────────────────────────────
+["patches.no_data_this_version"] = "您的游戏版本不支持此功能",
+["patches.suffix_enabled"] = " 已启用",
+["patches.suffix_disabled"] = " 已禁用",
+["patches.pattern_not_found"] = "失败：%d 个模式未找到",
+
+-- ── core/engines/arch.lua ───────────────────────────────────────────────────
+["arch.warning_title"] = "架构警告",
+["arch.unknown_arch_msg"] = "您的架构未知 lib 是否已加载？您使用的是什么系统？",
+["arch.non_primary_arch_msg"] = "检测到：%s\n部分或全部 lib 补丁可能无法工作",
+["arch.unknown_version_msg"] = "游戏版本未知请在游戏加载后重试",
+["arch.no_base_data_msg"] = "内部错误：此架构没有可用的基础数据",
+["arch.newer_version_msg"] = "您的游戏版本（%s）比已知最新数据（%s）更新\nVOID 将使用最接近的可用数据 — 部分功能可能无法正常工作",
+
+-- ── core/engines/scheduler.lua ──────────────────────────────────────────────
+["scheduler.task_crashed"] = "调度器警告：任务崩溃 -> %s",
+
+-- ── core/utils/paste.lua + catbox.lua ───────────────────────────────────────
+["errors.http_error_code"] = "HTTP 错误代码：%s",
+["errors.crashed"] = "崩溃：%s",
+["errors.url_missing"] = "URL 参数缺失或为空",
+["errors.file_path_missing"] = "文件路径缺失",
+["errors.download_url_missing"] = "URL 缺失",
+["errors.dest_path_missing"] = "目标路径缺失",
+
+-- ── modules/registry.lua ────────────────────────────────────────────────────
+["tabs.sep_game"] = "游戏菜单",
+["tabs.account"] = "账号菜单",
+["tabs.vehicle"] = "车辆菜单",
+["tabs.player"] = "玩家菜单",
+["tabs.adventure"] = "冒险菜单",
+["tabs.cups"] = "杯赛菜单",
+["tabs.team"] = "团队菜单",
+["tabs.event"] = "活动菜单",
+["tabs.creative"] = "创意菜单",
+
+-- ── modules/tabs/creative.lua ───────────────────────────────────────────────
+["creative.copy_any.title"]        = "复制任意赛道",
+["creative.copy_any.desc"]         = "允许您复制任何已下载的赛道，而不仅仅是您创建的",
+["creative.copy_any.applied"]      = "已修补 %s 个已下载的赛道",
+["creative.track_editor.title"]    = "赛道编辑器",
+["creative.track_editor.desc"]     = "选择一个自定义赛道来验证、设置长度或重命名",
+["creative.track_editor.loading"]  = "正在加载赛道列表…",
+["creative.track_editor.select"]   = "选择赛道",
+["creative.track_editor.no_tracks"] = "内存中未找到自定义赛道",
+["creative.tracks_not_found"]      = "无法在内存中找到自定义赛道列表",
+["creative.invalid_track"]         = "无效的赛道引用",
+["creative.copy_any_not_found"]    = "已下载的赛道列表未在内存中找到",
+["creative.copy_any_no_id"]        = "无法解析玩家 ID",
+["creative.rename_empty"]          = "名称不能为空",
+["creative.rename_resolve_failed"] = "无法解析赛道名称指针",
+["creative.track_status.verified"]     = "已验证",
+["creative.track_status.not_verified"] = "未验证",
+["creative.track_length"]              = "长度：%sm",
+["creative.action.select"]     = "您想做什么？",
+["creative.action.verify"]     = "验证赛道",
+["creative.action.set_length"] = "设置长度",
+["creative.action.rename"]     = "重命名",
+["creative.verify.applied"]          = "%s 现在已验证",
+["creative.verify.already_verified"] = "此赛道已验证",
+["creative.set_length.title"]   = "设置赛道长度",
+["creative.set_length.prompt"]  = "长度（米）（当前：%s）",
+["creative.set_length.applied"] = "%s 的长度已设置为 %sm",
+["creative.set_length.invalid"] = "请输入大于 0 的有效数字",
+["creative.rename.title"]   = "重命名赛道",
+["creative.rename.prompt"]  = "新名称",
+["creative.rename.applied"] = "赛道已重命名为“%s”",
+["creative.rename.empty"]   = "名称不能为空",
+
+["tabs.shop"] = "商店菜单",
+["tabs.other"] = "其他菜单",
+["tabs.sep_script"] = "脚本菜单",
+["tabs.settings"] = "设置",
+["tabs.about"] = "关于",
+["tabs.console"] = "控制台",
+
+-- ── modules/tabs/console.lua ────────────────────────────────────────────────
+["console.desc"] = "崩溃报告、调度器失败和所有日志条目点击“复制全部”分享",
+["console.copy_all"] = "复制全部",
+["console.refresh"] = "刷新",
+["console.clear"] = "清除",
+["console.copied"] = "日志已复制到剪贴板",
+["console.cleared"] = "控制台已清除",
+["console.empty"] = "没有记录崩溃或警告",
+["console.crashes_header"] = "崩溃 & 错误 (%d)",
+["console.logs_header"] = "日志 (%d)",
+["console.unavailable"] = "崩溃处理器不可用",
+
+["registry.module_load_failed"] = "模块加载失败请查看日志获取详情",
+["registry.module_runtime_error"] = "运行时错误：%s",
+["registry.error"] = "错误",
+
+-- ── modules/tabs/settings.lua ───────────────────────────────────────────────
+["settings.section_updates"] = "更新",
+["settings.auto_update.title"] = "自动更新",
+["settings.auto_update.desc"] = "启动时自动更新 VOID",
+["settings.dev_mode_title"] = "开发者模式",
+["settings.auto_update.dev_mode_msg"] = "主 lua（开发版本）已禁用自动更新",
+["settings.check_updates.title"] = "检查更新",
+["settings.check_updates.desc"] = "在 GitHub 上检查最新的 VOID 版本",
+["settings.check_updates.dev_mode_msg"] = "主 lua（开发版本）已禁用更新检查\n\n请手动从仓库拉取",
+["settings.check_updates.checking"] = "正在检查更新...",
+["settings.check_updates.failed_title"] = "更新检查失败",
+["settings.check_updates.failed_msg"] = "无法连接到 GitHub：\n%s",
+["settings.check_updates.up_to_date_title"] = "已是最新版本",
+["settings.check_updates.up_to_date_msg"] = "您已在最新版本（v%s）",
+["settings.check_updates.no_changelog"] = "没有可用的更新日志",
+["settings.check_updates.available_msg"] = "v%s（当前：v%s）\n\n%s\n\n是否下载并替换此脚本？",
+["settings.check_updates.no_asset_msg"] = "发布版本中未找到 .lua 资源",
+["settings.check_updates.download_failed_title"] = "下载失败",
+["settings.check_updates.write_failed_title"] = "写入失败",
+["settings.check_updates.done_title"] = "完成",
+["settings.check_updates.done_msg"] = "已更新至 v%s请重启脚本以应用",
+["settings.check_updates.restart_button"] = "重启",
+
+["settings.section_language"] = "语言",
+["settings.language.title"] = "语言",
+["settings.language.desc"] = "选择菜单首选语言",
+["settings.language.changed"] = "语言已设置为 %s",
+["settings.language.failed"] = "无法加载该语言",
+["settings.language.restart_msg"] = "重启脚本以完全应用语言",
+
+["settings.region.other"] = "O: 其他",
+["settings.region.cpp_alloc"] = "Ca: C++ alloc",
+["settings.region.unknown"] = "U: 未知",
+["settings.section_memory"] = "内存",
+["settings.memory_range.title"] = "内存范围",
+["settings.memory_range.desc"] = "当前选定的内存范围\n（由脚本自动选择）",
+["settings.gamestatus.title"] = "游戏状态",
+["settings.gamestatus.desc"] = "当前加载的游戏状态地址\n（由脚本自动选择）",
+["settings.gamestatus_raw.title"] = "游戏状态（原始）",
+["settings.gamestatus_raw.desc"] = "当前的游戏状态（原始）地址\n（由脚本自动选择）",
+["settings.clear_memory.title"] = "清除已保存的内存",
+["settings.clear_memory.desc"] = "清除所有 VOID 保存的内存，无需重启整个游戏",
+
+["settings.section_ui_customizations"] = "界面自定义",
+["settings.section_console"] = "控制台",
+["settings.console_crash_cap.title"] = "崩溃缓冲区大小",
+["settings.console_crash_cap.desc"]  = "控制台中保留的最大崩溃条目数缓冲区满时先丢弃最早的",
+["settings.console_crash_cap.slider"] = "最大崩溃数",
+["settings.console_log_cap.title"] = "日志缓冲区大小",
+["settings.console_log_cap.desc"]  = "控制台中保留的最大日志行数数值越高占用内存越多",
+["settings.console_log_cap.slider"] = "最大日志行数",
+["settings.console_cap_applied"] = "缓冲区上限设置为 %s",
+["settings.theme_store.title"] = "主题商店",
+["settings.theme_store.desc"] = "浏览并安装社区 VOID 主题",
+["settings.theme_store.unreachable_msg"] = "无法连接主题商店：\n%s",
+["settings.theme_store.parse_failed_msg"] = "无法解析主题商店数据",
+["settings.theme_store.list_title"] = "VOID 主题商店",
+["settings.theme_store.search_results_desc"] = "搜索结果：找到 %s 个",
+["settings.theme_store.available_desc"] = "有 %s 个可用主题",
+["settings.theme_store.by_author"] = "作者 %s",
+["settings.theme_store.search_item"] = "🔍 搜索...",
+["settings.theme_store.clear_search_item"] = "✕ 清除搜索",
+["settings.theme_store.search_title"] = "搜索主题",
+["settings.theme_store.search_hint"] = "主题名称、作者或描述",
+["settings.theme_store.no_results"] = "未找到“%s”的主题",
+["settings.theme_store.detail_msg"] = "作者 %s\n\n%s\n\nID：%s",
+["settings.theme_store.install_button"] = "安装主题",
+["settings.theme_downloading_bg"] = "正在下载背景图片...",
+["settings.theme_imported"] = "主题已导入！",
+["settings.theme_invalid_bundle"] = "无效的捆绑包格式",
+["settings.theme_cloud_error"] = "云端错误：%s",
+["settings.reset_theme.title"] = "重置主题",
+["settings.reset_theme.desc"] = "将自定义主题和背景图片重置为默认",
+["settings.import_theme.title"] = "导入主题",
+["settings.import_theme.desc"] = "从云端导入自定义主题",
+["settings.import_theme.hint"] = "输入分享 ID",
+["settings.export_theme.title"] = "导出主题",
+["settings.export_theme.desc"] = "将自定义主题和背景图片导出到云端",
+["settings.export_theme.share_id_msg"] = "分享 ID：%s\n\n已复制到剪贴板",
+["settings.export_theme.upload_failed_msg"] = "上传失败：%s",
+["settings.export_theme.size_warning_title"] = "上传大小警告",
+["settings.export_theme.size_warning_msg"] = "是否包含自定义背景图片？它会根据图片大小增加上传体积",
+["settings.export_theme.uploading_bg"] = "正在上传背景图片到 Catbox...",
+["settings.export_theme.image_upload_failed_title"] = "错误",
+["settings.export_theme.image_upload_failed_msg"] = "图片上传失败：%s",
+["settings.tabs_icon.title"] = "标签图标",
+["settings.tabs_icon.desc"] = "更改标签图标",
+["settings.tabs_icon.hint"] = "输入图标",
+["settings.tabs_icon.empty_error"] = "不能为空",
+
+["settings.bg_opacity.title"] = "背景不透明度",
+["settings.bg_opacity.desc"] = "面板、卡片和标题的透明度",
+["settings.slider.alpha"] = "透明度",
+["settings.bg_image_opacity.title"] = "背景图片不透明度",
+["settings.bg_image_opacity.desc"] = "直接使用整数值调整 Alpha（透明度）参数",
+["settings.bg_image_picker.title"] = "背景图片",
+["settings.bg_image_picker.desc"] = "点击修改自定义布局背景图片的绝对文件路径目标",
+["settings.bg_image_picker.path_label"] = "绝对图片文件路径（.jpg 或 .png）：",
+["settings.bg_image_picker.remove_label"] = "移除背景图片",
+["settings.bg_image_picker.success_title"] = "成功",
+["settings.bg_image_picker.removed_msg"] = "背景图片已移除",
+["settings.bg_image_picker.added_msg"] = "背景图片已添加",
+["settings.bg_image_picker.not_found_msg"] = "文件未找到或读取操作被拒绝：\n%s",
+
+["settings.bg_rgb.title"] = "背景 RGB",
+["settings.bg_rgb.desc"] = "面板背景的色调（标题和卡片自动缩放）",
+["settings.slider.r"] = "R",
+["settings.slider.g"] = "G",
+["settings.slider.b"] = "B",
+["settings.accent_rgb.title"] = "强调色 RGB",
+["settings.accent_rgb.desc"] = "按钮、切换开关和活动卡片的色调（自动派生柔和颜色）",
+["settings.logo_rgb.title"] = "高亮 RGB",
+["settings.logo_rgb.desc"] = "标签、图标和交互文本的颜色（始终完全不透明）",
+["settings.sub_rgb.title"] = "副文本 RGB",
+["settings.sub_rgb.desc"] = "描述和非活动标签的颜色",
+["settings.text_rgb.title"] = "文本 RGB",
+["settings.text_rgb.desc"] = "主菜单文本的颜色",
+
+["settings.win_width.title"] = "菜单宽度",
+["settings.win_width.desc"] = "浮动菜单的宽度（%d – %d dp）",
+["settings.slider.width"] = "宽度",
+["settings.win_height.title"] = "菜单高度",
+["settings.win_height.desc"] = "可滚动内容区域的高度（%d – %d dp）",
+["settings.slider.height"] = "高度",
+
+-- ── modules/tabs/about.lua ──────────────────────────────────────────────────
+["about.about_script.title"] = "关于脚本",
+["about.about_script.desc"] = "为 Hill Climb Racing 2 在自定义 Pivot 环境中构建的强大且高度优化的内存操作脚本\n\n下载 Pivot：\nhttps://github.com/vekendianorg/pivot/releases/",
+["about.script_owner.title"] = "脚本所有者",
+["about.script_dev.title"] = "脚本开发者",
+["about.script_translator.title"] = "脚本翻译者",
+["about.credits.title"] = "鸣谢",
+["about.special_thanks.title"] = "特别感谢",
+
+-- ── modules/tabs/other.lua ──────────────────────────────────────────────────
+["other.debug_mode.title"] = "调试模式",
+["other.debug_mode.desc"] = "切换游戏内调试模式的状态",
+["other.debug_mode.enabled"] = "调试模式已启用",
+["other.debug_mode.disabled"] = "调试模式已禁用",
+["other.hint.width"] = "宽度",
+["other.hint.height"] = "高度",
+["other.resolution.title"] = "设置分辨率",
+["other.resolution.desc"] = "设置游戏宽度和高度（默认 1280x720）",
+["other.resolution.applied"] = "分辨率设置为 %dx%d",
+["other.resolution_offset.title"] = "设置分辨率偏移",
+["other.resolution_offset.desc"] = "设置游戏宽度偏移和高度偏移（默认 0x0），适合大屏幕小分辨率",
+["other.resolution_offset.applied"] = "分辨率偏移设置为 %dx%d",
+["other.glsurface_not_found"] = "未找到 GLSurfaceView",
+["other.aspect_ratio.title"] = "更改宽高比",
+["other.aspect_ratio.desc"] = "强制更改屏幕宽高比（自动按 1080P 高度匹配相应分辨率",
+["other.aspect_ratio.options"] = {"16:9", "18:9", "19.5:9", "20:9", "21:9", "4:3"},
+["other.aspect_ratio.applied"] = "宽高比设置为 %s",
+
+-- ── modules/tabs/shop.lua ───────────────────────────────────────────────────
+["shop.free_chest.title"] = "免费宝箱",
+["shop.free_chest.desc"] = "使商店中的宝箱可免费购买",
+["shop.free_chest.enabled"] = "免费宝箱已启用",
+["shop.free_chest.disabled"] = "免费宝箱已禁用",
+["shop.free_purchases.title"] = "免费购买",
+["shop.free_purchases.desc"] = "让商店页中的部分每日特惠商品可以免费购买（同样适用于以弹窗或徽章形式显示的特殊优惠）",
+["shop.free_purchases.progress"] = "%d/%d",
+["shop.free_purchases.success"] = "免费购买成功",
+["shop.change_chest.title"] = "更改宝箱",
+["shop.change_chest.desc"] = "将传奇宝箱更改为选定的宝箱",
+["shop.change_chest.changed"] = "宝箱已更改为 %s",
+["shop.change_chest.options"] = {
+    "普通宝箱", "优质宝箱", "稀有宝箱", "史诗宝箱",
+    "冠军宝箱", "特殊宝箱 1", "圣诞宝箱", "传奇宝箱",
+    "免费宝箱", "VIP 宝箱 1", "VIP 宝箱 2", "视频宝箱",
+    "新手宝箱", "特殊宝箱 2", "Fingersoft 宝箱", "超级箱子",
+    "团队士气宝箱", "风格宝箱", "神话宝箱"
+},
+
+-- ── modules/tabs/player.lua ─────────────────────────────────────────────────
+["player.auto_detach.title"] = "自动分离",
+["player.auto_detach.desc"] = "自动分离零件（例如拉力车车顶）",
+["player.auto_die.title"] = "自动死亡",
+["player.auto_die.desc"] = "自动死亡（耗尽燃料）",
+["player.no_clip.title"] = "穿墙模式",
+["player.no_clip.desc"] = "让您的玩家穿透物体而不死亡（可以在杯赛中越过终点线）",
+["player.no_clip.enabled"] = "穿墙模式已启用",
+["player.no_clip.disabled"] = "穿墙模式已禁用",
+["player.hide_name.title"] = "隐藏名称",
+["player.hide_name.desc"] = "在比赛中隐藏您的玩家名称",
+["player.hide_name.enabled"] = "隐藏名称已启用",
+["player.hide_name.disabled"] = "隐藏名称已禁用",
+["player.hide_flag.title"] = "隐藏旗帜",
+["player.hide_flag.desc"] = "在比赛中隐藏您的玩家旗帜",
+["player.hide_flag.enabled"] = "隐藏旗帜已启用",
+["player.hide_flag.disabled"] = "隐藏旗帜已禁用",
+["vehicle.fuel.title"] = "设置燃料",
+["vehicle.fuel.desc"] = "在比赛中将燃料锁定为固定值（0.0 – 100.0）",
+["vehicle.fuel.prompt_amount"] = "燃料量（0 – 100）",
+["vehicle.fuel.prompt_reset"] = "重置",
+["vehicle.fuel.invalid"] = "无效值，必须是 0 – 100",
+["vehicle.fuel.applied"] = "燃料已锁定为 %s",
+["vehicle.fuel.reset"] = "燃料已恢复",
+["vehicle.fuel.not_applied"] = "燃料未激活",
+["player.zoom.title"] = "调整缩放",
+["player.zoom.desc"] = "调整游戏视角的远近",
+["player.slider.min"] = "最小",
+["player.slider.max"] = "最大",
+["player.gravity.title"] = "调整重力",
+["player.gravity.desc"] = "调整重力强度",
+["player.slider.x"] = "X",
+["player.slider.y"] = "Y",
+
+-- ── modules/tabs/adventure.lua ──────────────────────────────────────────────
+["adventure.auto_adventure_chests.title"] = "自动冒险宝箱（不稳定）",
+["adventure.auto_adventure_chests.desc"] = "自动升级您的冒险宝箱",
+["adventure.auto_adventure_chests.none_found"] = "未找到冒险宝箱",
+["adventure.auto_adventure_chests.done"] = "完成",
+
+["adventure.set_distance.title"] = "设置距离",
+["adventure.set_distance.desc"] = "将您的冒险比赛距离设置为自定义值（必须在进行的比赛中）更高的距离可以获得更多星星，5000 米时获得最多星星（不是传送功能）",
+["adventure.set_distance.loop_active_title"] = "设置距离 — 循环已激活",
+["adventure.set_distance.loop_active_msg"] = "距离循环当前正在运行\n您想做什么？",
+["adventure.set_distance.stop_loop"] = "停止循环",
+["adventure.set_distance.keep_running"] = "继续运行",
+["adventure.set_distance.loop_will_stop"] = "循环将在当前 tick 后停止",
+["adventure.set_distance.prompt_target"] = "目标距离（米）",
+["adventure.set_distance.prompt_loop"] = "循环（自动重新应用）",
+["adventure.set_distance.prompt_interval"] = "循环间隔（毫秒，最小 250）",
+["adventure.set_distance.over_max_title"] = "距离警告",
+["adventure.set_distance.over_max_msg"] = "超过 5000 米的距离不会获得星星\n\n比赛仍会记录距离，但不会给予星星奖励是否继续？",
+["adventure.set_distance.continue_button"] = "继续",
+["adventure.set_distance.not_in_adventure"] = "请先进入冒险标签并开始比赛",
+["adventure.set_distance.start_race_first"] = "请先开始比赛",
+["adventure.set_distance.applied"] = "距离已设置为：%sm",
+["adventure.set_distance.loop_stopped"] = "设置距离循环已停止",
+["adventure.set_distance.loop_running"] = "距离循环正在运行 — 点击设置距离以停止",
+["adventure.set_distance.loop_warn_title"] = "距离循环警告",
+["adventure.set_distance.loop_warn_msg"] = "循环模式每 %s 毫秒重复写入内存\n\n使用较短间隔可能会增加不稳定性、视觉故障或游戏崩溃\n\n是否仍要继续？",
+
+-- ── modules/tabs/cups.lua ───────────────────────────────────────────────────
+["cups.adjust_countdown.title"] = "调整倒计时",
+["cups.adjust_countdown.desc"] = "设置开始比赛前的倒计时",
+["cups.slider.seconds"] = "秒",
+["cups.adjust_countdown.applied"] = "倒计时已调整为 %ss",
+["cups.auto_win.title"] = "自动胜利",
+["cups.auto_win.desc"] = "无论比赛结果如何自动获胜",
+["cups.force_boss.title"] = "强制 Boss",
+["cups.force_boss.desc"] = "强制 Boss 总是出现",
+["cups.force_cup.title"] = "强制杯赛",
+["cups.force_cup.desc"] = "强制锁定单个杯赛",
+["cups.force_cup.not_found"] = "未找到强制杯赛请稍后重试",
+["cups.force_cup.enabled"] = "强制杯赛已启用",
+["cups.force_cup.disabled"] = "强制杯赛已禁用",
+["cups.set_time.title"] = "设置时间",
+["cups.set_time.desc"] = "设置您的比赛时间（不会为安全起见冻结时间），必须在进行中的杯赛中（例如 1:09.069、7.284）",
+["cups.set_time.hint"] = "时间（1:09.069 或 7.284）",
+["cups.set_time.invalid_format"] = "格式无效请使用 1:09.069 或 7.284",
+["cups.set_time.no_negative"] = "不允许负值",
+["cups.set_time.not_in_cup"] = "请先进入杯赛标签并开始比赛",
+["cups.set_time.start_race_first"] = "请先开始比赛",
+["cups.set_time.applied"] = "时间已设置为 %s",
+["cups.unlimited_tasks.title"] = "无限任务",
+["cups.unlimited_tasks.desc"] = "冻结所有任务为已完成并始终可领取，也可重复领取奖励",
+["cups.unlimited_tasks.resolve_failed"] = "无法解析任务列表",
+["cups.unlimited_tasks.none_found"] = "未找到任务",
+["cups.unlimited_tasks.enabled"] = "无限任务已启用",
+["cups.unlimited_tasks.disabled"] = "无限任务已禁用",
+["cups.unlimited_tasks.none_to_freeze"] = "没有可冻结的任务",
+["cups.rank_points_bonus.title"] = "+498 排名积分",
+["cups.rank_points_bonus.desc"] = "使所有联赛任务给予 498 积分而不是 200 积分，同时移除其他奖励",
+["cups.rank_points_bonus.none_found"] = "未找到联赛任务",
+["cups.rank_points_bonus.boosted"] = "排名积分已提升：%s",
+["cups.rank_points_bonus.no_match"] = "未找到匹配的联赛任务",
+["cups.rank_points_bonus.nothing_to_restore"] = "没有可恢复的内容",
+["cups.rank_points_bonus.restored"] = "已恢复：%s",
+
+-- ── modules/tabs/event.lua ──────────────────────────────────────────────────
+["event.patch_rewards.title"] = "活动奖励补丁",
+["event.patch_rewards.desc"] = "将当前公开活动奖励修改为 VOID 提供的自定义奖励（需要重启游戏）",
+["event.restore_events.title"] = "活动奖励恢复",
+["event.restore_events.desc"] = "删除修改后的活动 JSON 以强制游戏服务器恢复（需要重启游戏）",
+
+["event.checking_permissions"] = "正在检查环境权限...",
+["event.scanning_files"] = "正在扫描活动文件...",
+["event.decode_rewards_failed"] = "无法解码奖励 JSON",
+["event.workspace_creation_failed"] = "致命错误：工作区创建失败：%s",
+["event.workspace_creation_failed_dialog"] = "致命错误：无法创建工作区目录\n%s",
+["event.file_inaccessible"] = "路径下的文件无法访问：%s",
+["event.predecrypt_not_found"] = "预解密：源未找到：%s",
+["event.predecrypt_empty"] = "预解密：源为空（0 字节）：%s",
+["event.decode_active_failed"] = "无法解码路径下的 active_events.json：%s",
+["event.no_active_events"] = "路径下未找到活动事件：%s",
+["event.cannot_open_active"] = "无法打开路径下的 active_events.json：%s",
+["event.decrypt_active_failed"] = "无法解密路径下的 active_events.json：%s",
+["event.root_copy_failed"] = "Root 复制失败：%s",
+
+["event.select_events_patch"] = "选择要补丁的事件：\n路径：%s",
+["event.user_cancelled"] = "用户取消了路径的选择：%s",
+["event.rewards_unavailable"] = "嵌入式奖励不可用，跳过路径的补丁：%s",
+["event.skipped_unreadable"] = "跳过无法读取的事件：%s",
+["event.predecrypt_event_not_found"] = "预解密：事件未找到：%s",
+["event.predecrypt_event_empty"] = "预解密：事件为空（0 字节）：%s",
+["event.processing_failed"] = "处理 %s 失败：%s",
+["event.cannot_open_decrypted"] = "无法打开已解密的文件：%s",
+["event.decrypt_event_failed"] = "解密事件失败：%s",
+["event.loop_crash"] = "关键文件处理循环崩溃：%s",
+
+["event.success_header"] = "成功：",
+["event.success_removed_header"] = "成功移除（重启后恢复）：",
+["event.success_item"] = "- %s",
+["event.success_item_json"] = "- %s.json",
+["event.failed_header"] = "失败：",
+["event.failed_item"] = "- %s",
+
+["event.patch_results_title"] = "补丁结果",
+["event.restore_results_title"] = "恢复结果",
+["event.restart_required_title"] = "需要重启",
+["event.patch_restart_msg"] = "游戏已关闭，脚本即将退出，请重新启动脚本查看补丁效果",
+["event.restore_restart_msg"] = "游戏即将关闭以允许服务器文件同步",
+["event.finishing_tasks_patch"] = "正在完成待处理的后台任务... 请稍候",
+["event.finishing_tasks_restore"] = "正在完成待处理的后台任务...",
+["event.patch_failed_msg"] = "补丁失败，请重试",
+
+["event.select_events_restore"] = "选择要恢复（删除）的文件：\n路径：%s",
+["event.delete_failed"] = "删除 %s 失败：%s",
+
+-- ── modules/tabs/account.lua ────────────────────────────────────────────────
+["account.change_name.title"] = "修改名称",
+["account.change_name.desc"] = "修改您的玩家名称",
+["account.change_name.hint"] = "输入名称",
+["account.change_name.empty"] = "请先输入名称",
+["account.change_name.too_long_title"] = "名称过长",
+["account.change_name.too_long_msg"] = "您的名称过长，请缩短一些",
+["account.change_name.resolve_failed"] = "无法解析名称指针",
+["account.change_name.applied"] = "名称已修改为 %s",
+
+["account.change_gp.title"] = "修改车库等级",
+["account.change_gp.desc"] = "修改个人资料车库等级（设置的过高将会永久保存）如果超过上限，设置为 8 重置，但前提是您的实际车库等级已在此限制之下",
+["account.change_gp.hint"] = "输入车库等级",
+["account.change_gp.max_int_title"] = "达到 32 位整数最大值",
+["account.change_gp.lower_value"] = "请降低您的值",
+["account.change_gp.too_low_title"] = "值过低",
+["account.change_gp.higher_value"] = "请提高您的值",
+["account.change_gp.applied"] = "车库等级已修改为 %s",
+
+["account.fake_unlock.title"] = "假解锁",
+["account.fake_unlock.desc"] = "临时解锁所有装扮内容",
+["account.fake_vip.title"] = "假 VIP",
+["account.fake_vip.desc"] = "本地切换 VIP 订阅状态",
+
+["account.fake_rank.title"] = "假排名",
+["account.fake_rank.desc"] = "立即将（假）排名设置为传奇",
+["account.fake_rank.race_warn_title"] = "需要比赛",
+["account.fake_rank.race_warn_msg"] = "假排名应仅在杯赛进行中时应用\n\n在比赛外应用可能导致您的账号被服务器暗中封禁\n\n请确保您已在杯赛中再继续\n\n是否仍要继续？",
+["account.fake_rank.continue_button"] = "继续",
+["account.fake_rank.applied"] = "已注入假排名",
+["account.fake_rank.not_in_cups"] = "请先开始比赛",
+
+-- ── modules/tabs/vehicle.lua ────────────────────────────────────────────────
+["vehicle.parts_slot.title"] = "调整零件槽位",
+["vehicle.parts_slot.desc"] = "调整所有车辆的零件槽位",
+["vehicle.parts_slot.slider_title"] = "槽位",
+["vehicle.parts_slot.no_vehicles"] = "未找到车辆",
+["vehicle.parts_slot.applied"] = "零件槽位已调整：%d 辆车辆",
+
+["vehicle.parts_modifier.title"] = "零件修改器",
+["vehicle.parts_modifier.desc"] = "在进行中的比赛中修改调校零件等级值",
+["vehicle.parts_modifier.select"] = "选择零件",
+["vehicle.parts_modifier.select_stat"] = "选择要修改的属性",
+["vehicle.parts_modifier.prompt_level"] = "等级（中间数字重复次数，1–9）",
+["vehicle.parts_modifier.prompt_digit0"] = "中间数字，重复等级次数（0–9）",
+["vehicle.parts_modifier.prompt_digit1"] = "最后一位数字（1–9） → 格式：1.<中间…><最后>",
+["vehicle.parts_modifier.prompt_reset"] = "重置为原始值",
+["vehicle.parts_modifier.invalid"] = "无效的等级值",
+["vehicle.parts_modifier.status_cached"] = "活动：%d 个地址已缓存",
+["vehicle.parts_modifier.status_none"]   = "未应用",
+["vehicle.parts_modifier.not_found"] = "内存中未找到该零件",
+["vehicle.parts_modifier.applied"] = "%s 已设置为等级 %s",
+["vehicle.parts_modifier.reset"] = "%s 已重置",
+
+["vehicle.unlock_vehicles.title"] = "解锁车辆",
+["vehicle.unlock_vehicles.desc"] = "解锁所有车辆使其可用金币购买",
+["vehicle.unlock_vehicles.no_vehicles"] = "未找到车辆",
+["vehicle.unlock_vehicles.unlocked"] = "已解锁车辆：%d",
+["vehicle.unlock_vehicles.none_to_unlock"] = "没有可解锁的车辆",
+
+["vehicle.max_vehicles.title"] = "所有车辆满级",
+["vehicle.max_vehicles.desc"] = "立即将所有已解锁车辆的等级升至最大",
+["vehicle.max_vehicles.no_vehicles"] = "无法解析车辆列表",
+["vehicle.max_vehicles.all_maxed"] = "所有车辆已满级",
+["vehicle.max_vehicles.failed"] = "最大化车辆失败",
+
+["vehicle.max_mastery.title"] = "所有精通解锁",
+["vehicle.max_mastery.desc"] = "立即将所有已解锁且满级的车辆精通解锁",
+["vehicle.max_mastery.all_maxed"] = "所有精通已满级",
+["vehicle.max_mastery.failed"] = "最大化精通失败",
+
+["vehicle.max_parts.title"] = "所有零件满级",
+["vehicle.max_parts.desc"] = "立即将所有已解锁车辆的所有零件等级最大化",
+["vehicle.max_parts.no_vehicles"] = "无法解析车辆列表",
+["vehicle.max_parts.all_maxed"] = "所有零件已满级",
+["vehicle.max_parts.failed"] = "满级零件失败",
+
+["vehicle.common.no_vehicles"] = "未找到车辆",
+["vehicle.common.progress"] = "%d/%d",
+["vehicle.common.resolve_list_failed"] = "无法解析车辆列表",
+["vehicle.common.no_zero_region"] = "未找到零区域",
+
+}
 
 end
 
@@ -30284,6 +30871,233 @@ for _, cls in ipairs(required) do
 end
 if #missing > 0 then fail("Missing classes:\n" .. table.concat(missing, "\n")) end
 
+end
+
+__vfs['core/engines/alloc.lua'] = function(...)
+--[[
+  core/engines/alloc.lua — Memory allocation management
+  Finds and claims zero regions in game memory for structured data (pointer arrays, etc.)
+]]
+
+local alloc = {}
+
+local _claimed = {}
+
+local TAG = "alloc"
+
+local DEFAULTS = {
+  state  = "Ca",
+  size   = { min = nil, max = nil },
+  flags  = 4,
+  step   = 4,
+  align  = 4,
+}
+
+-- ─── helpers ──────────────────────────────────────────────────────────────────
+
+local function mergeOpts(opts)
+  local o = {}
+  for k, v in pairs(DEFAULTS) do
+    o[k] = (type(v) == "table") and { min = v.min, max = v.max } or v
+  end
+  if opts then
+    for k, v in pairs(opts) do
+      if k == "size" and type(v) == "table" then
+        o.size = { min = v.min, max = v.max }
+      else
+        o[k] = v
+      end
+    end
+  end
+  return o
+end
+
+local function alignUp(addr, align)
+  if align <= 1 then return addr end
+  local rem = addr % align
+  return rem == 0 and addr or (addr + align - rem)
+end
+
+local function isClaimed(base, size)
+  for claimedBase, info in pairs(_claimed) do
+    local claimedEnd = claimedBase + info.size
+    local reqEnd     = base + size
+    if base < claimedEnd and reqEnd > claimedBase then
+      return true
+    end
+  end
+  return false
+end
+
+local function readSlots(base, size, step, flags)
+  local reads = {}
+  local addr  = base
+  while addr < base + size do
+    table.insert(reads, { address = addr, flags = flags })
+    addr = addr + step
+  end
+  return gg.getValues(reads)
+end
+
+local function allZero(values)
+  if not values then return false end
+  for _, v in ipairs(values) do
+    if v.value ~= 0 then return false end
+  end
+  return true
+end
+
+-- ─── alloc.findEmpty ──────────────────────────────────────────────────────────
+
+function alloc.findEmpty(size, opts)
+  local o       = mergeOpts(opts)
+  local minSize = (o.size.min ~= nil) and o.size.min or size
+  local maxSize = o.size.max
+  local regions = gg.getRangesList()
+
+  LOG.dbg(TAG, string.format("findEmpty: scanning for %d bytes (state=%s, align=%d, flags=%d)", size, o.state, o.align, o.flags))
+
+  local scanned, skippedState, skippedSize, skippedClaimed, skippedDirty = 0, 0, 0, 0, 0
+
+  for _, region in ipairs(regions) do
+    scanned = scanned + 1
+    local regionSize = region["end"] - region.start
+
+    if region.state ~= o.state then
+      skippedState = skippedState + 1
+    elseif regionSize < minSize or (maxSize ~= nil and regionSize > maxSize) then
+      skippedSize = skippedSize + 1
+    else
+      local base = alignUp(region.start, o.align)
+      if base + size > region["end"] then
+        skippedSize = skippedSize + 1
+      elseif isClaimed(base, size) then
+        skippedClaimed = skippedClaimed + 1
+        LOG.dbg(TAG, string.format("findEmpty: 0x%X already claimed, skipping", base))
+      else
+        local values = readSlots(base, size, o.step, o.flags)
+        if allZero(values) then
+          LOG.info(TAG, string.format("findEmpty: found empty region @ 0x%X (regionSize=%d)", base, regionSize))
+          LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
+          return base
+        else
+          skippedDirty = skippedDirty + 1
+        end
+      end
+    end
+  end
+
+  LOG.warn(TAG, string.format("findEmpty: no empty region found for %d bytes", size))
+  LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
+  return nil
+end
+
+-- ─── alloc.new ────────────────────────────────────────────────────────────────
+
+function alloc.new(size, opts)
+  local o    = mergeOpts(opts)
+  LOG.info(TAG, string.format("new: requesting %d bytes (flags=%d, step=%d, align=%d)", size, o.flags, o.step, o.align))
+
+  local base = alloc.findEmpty(size, o)
+  if not base then
+    LOG.error(TAG, string.format("new: failed to allocate %d bytes", size))
+    return nil
+  end
+
+  _claimed[base] = { size = size, step = o.step, flags = o.flags }
+  LOG.info(TAG, string.format("new: claimed 0x%X (%d bytes)", base, size))
+
+  return alloc.at(base, size, o)
+end
+
+-- ─── alloc.at ─────────────────────────────────────────────────────────────────
+
+function alloc.at(base, size, opts)
+  local o = mergeOpts(opts)
+  LOG.info(TAG, string.format("at: wrapping 0x%X (%d bytes, flags=%d, step=%d)", base, size, o.flags, o.step))
+
+  local handle = {
+    base  = base,
+    size  = size,
+    step  = o.step,
+    flags = o.flags,
+  }
+
+  function handle:read()
+    LOG.dbg(TAG, string.format("read: 0x%X (%d bytes)", self.base, self.size))
+    local values = readSlots(self.base, self.size, self.step, self.flags)
+    if not values then
+      LOG.warn(TAG, string.format("read: gg.getValues returned nil @ 0x%X", self.base))
+    else
+      LOG.dbg(TAG, string.format("read: got %d slots @ 0x%X", #values, self.base))
+    end
+    return values
+  end
+
+  function handle:write(values)
+    LOG.info(TAG, string.format("write: %d values → 0x%X", #values, self.base))
+    local writes = {}
+    local addr   = self.base
+    for i, v in ipairs(values) do
+      table.insert(writes, { address = addr, flags = self.flags, value = v })
+      LOG.dbg(TAG, string.format("write: [%d] 0x%X = %s", i, addr, tostring(v)))
+      addr = addr + self.step
+    end
+    local result = gg.setValues(writes)
+    if not result then
+      LOG.error(TAG, string.format("write: gg.setValues failed @ 0x%X", self.base))
+    else
+      LOG.info(TAG, string.format("write: ok (%d slots written)", #writes))
+    end
+  end
+
+  function handle:zero()
+    LOG.info(TAG, string.format("zero: clearing 0x%X (%d bytes)", self.base, self.size))
+    local slots = {}
+    local addr  = self.base
+    while addr < self.base + self.size do
+      table.insert(slots, { address = addr, flags = self.flags, value = 0 })
+      addr = addr + self.step
+    end
+    local result = gg.setValues(slots)
+    if not result then
+      LOG.error(TAG, string.format("zero: gg.setValues failed @ 0x%X", self.base))
+    else
+      LOG.dbg(TAG, string.format("zero: ok (%d slots cleared)", #slots))
+    end
+  end
+
+  function handle:free()
+    LOG.info(TAG, string.format("free: releasing 0x%X (%d bytes)", self.base, self.size))
+    self:zero()
+    _claimed[self.base] = nil
+    LOG.info(TAG, string.format("free: 0x%X unclaimed", self.base))
+  end
+
+  function handle:dump()
+    LOG.dbg(TAG, string.format("dump: 0x%X (%d bytes)", self.base, self.size))
+    local values = self:read()
+    if values then
+      for i, v in ipairs(values) do
+        LOG.dbg(TAG, string.format("dump: [%d] 0x%X = %s", i, v.address, tostring(v.value)))
+      end
+    else
+      LOG.warn(TAG, string.format("dump: no values @ 0x%X", self.base))
+    end
+  end
+
+  return handle
+end
+
+-- ─── alloc.claimed ────────────────────────────────────────────────────────────
+
+function alloc.claimed()
+  local out = {}
+  for k, v in pairs(_claimed) do out[k] = v end
+  return out
+end
+
+return alloc
 end
 
 __vfs['core/engines/arch.lua'] = function(...)
@@ -31747,6 +32561,7 @@ local AVAILABLE = {
     { code = "pt-BR", name = "Português (Brasil)" },
     { code = "hi", name = "हिन्दी" },
     { code = "it", name = "Italiano" },
+    { code = "zh-CN", name = "简体中文" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
