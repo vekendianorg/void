@@ -897,7 +897,11 @@ function createIconView()
     titleLayout.setLayoutParams(LinLayoutParams(0, -2, 1.0))
 
     local title = TextView(activity)
-    title.setText("VOID")
+    if IS_DEV then
+        title.setText("VOID [FOR DEV]")
+    else
+        title.setText("VOID")
+    end
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
@@ -1004,7 +1008,11 @@ local function _buildMenuHeader(root)
     titleLayout.setLayoutParams(LinLayoutParams(0, -2, 1.0))
 
     local title = TextView(activity)
-    title.setText("VOID")
+    if IS_DEV then
+        title.setText("VOID [FOR DEV]")
+    else
+        title.setText("VOID")
+    end
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
