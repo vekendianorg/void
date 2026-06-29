@@ -160,6 +160,7 @@ Zip         = import("org.vekendian.Zip")
 
 Array                       = luajava.bindClass("java.lang.reflect.Array")
 Byte                        = luajava.bindClass("java.lang.Byte")
+Double                      = luajava.bindClass("java.lang.Double")
 Integer                     = luajava.bindClass("java.lang.Integer")
 String                      = luajava.bindClass("java.lang.String")
 ClipData                    = import("android.content.ClipData")

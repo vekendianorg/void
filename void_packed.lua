@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-29 09:52:00
+-- Packed by bundle.py  •  2026-06-29 10:38:29
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -33057,22 +33057,22 @@ __vfs['core/utils/lang.lua'] = function(...)
 -- without needing to read English first.
 
 local AVAILABLE = {
-    { code = "en", name = "English" },
-    { code = "id", name = "Bahasa Indonesia" },
-    { code = "es", name = "Español" },
-    { code = "de", name = "Deutsch" },
-    { code = "ru", name = "Русский" },
-    { code = "th", name = "Thai" },
-    { code = "bn", name = "বাংলা" },
-    { code = "ar", name = "العربية" },
-    { code = "ur", name = "اردو" },
-    { code = "fr", name = "Français" },
-    { code = "uk", name = "Українська" },
-    { code = "tr", name = "Türkçe" },
-    { code = "pt-BR", name = "Português (Brasil)" },
-    { code = "hi", name = "हिन्दी" },
-    { code = "it", name = "Italiano" },
+    { code = "en",    name = "English" },
     { code = "zh-CN", name = "简体中文" },
+    { code = "hi",    name = "हिन्दी" },
+    { code = "it",    name = "Italiano" },
+    { code = "tr",    name = "Türkçe" },
+    { code = "ar",    name = "العربية" },
+    { code = "bn",    name = "বাংলা" },
+    { code = "fr",    name = "Français" },
+    { code = "pt-BR", name = "Português (Brasil)" },
+    { code = "uk",    name = "Українська" },
+    { code = "ur",    name = "اردو" },
+    { code = "de",    name = "Deutsch" },
+    { code = "es",    name = "Español" },
+    { code = "id",    name = "Bahasa Indonesia" },
+    { code = "ru",    name = "Русский" },
+    { code = "th",    name = "Thai" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
@@ -33103,6 +33103,34 @@ if not EN then
     -- crash the whole script over missing translations.
     LOG.error("Lang", "configs/lang/en.lua failed to load — falling back to raw keys")
     EN = {}
+end
+
+-- ── Runtime translation completeness ─────────────────────────────────────────
+-- Count EN keys once as the baseline, then load each language file to compute
+-- what fraction of those keys it covers. Result is appended to the display
+-- name so the Settings spinner always reflects the actual current state
+-- without any manual maintenance.
+do
+    local en_total = 0
+    for _ in pairs(EN) do en_total = en_total + 1 end
+
+    for _, lang in ipairs(AVAILABLE) do
+        if lang.code == "en" then
+            lang.name = lang.name .. " (100%)"
+        else
+            local t = tryLoadLangFile(lang.code)
+            if t and en_total > 0 then
+                local count = 0
+                for k in pairs(EN) do
+                    if t[k] ~= nil then count = count + 1 end
+                end
+                local pct = string.format("%.2f", Double.valueOf(count) / Double.valueOf(en_total) * 100)
+                lang.name = lang.name .. " (" .. pct .. "%)"
+            else
+                lang.name = lang.name .. " (0%)"
+            end
+        end
+    end
 end
 
 local ACTIVE      = EN
@@ -40738,6 +40766,7 @@ Zip         = import("org.vekendian.Zip")
 
 Array                       = luajava.bindClass("java.lang.reflect.Array")
 Byte                        = luajava.bindClass("java.lang.Byte")
+Double                      = luajava.bindClass("java.lang.Double")
 Integer                     = luajava.bindClass("java.lang.Integer")
 String                      = luajava.bindClass("java.lang.String")
 ClipData                    = import("android.content.ClipData")
