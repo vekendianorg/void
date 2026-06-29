@@ -1,7 +1,7 @@
 -- VOID v1 — HCR2 Modding Framework
 -- Load order: env → imports → constants → core → patches → arch+data → modules → ui → init → loop
 
-scriptSubHeader = " v1.0.23 • By Vekendian"
+scriptSubHeader = " v1.0.24 • By Vekendian"
 
 do
     local LOG_TO_FILE  = true
@@ -94,6 +94,7 @@ do
         return ok, err
     end
 
+    LOG.path = _log_path
     LOG.info("LOGGER", "══════ VOID Logger started ══════")
     LOG.info("LOGGER", "Log date: " .. os.date())
     LOG.info("LOGGER", "Log file: " .. _log_path)
@@ -465,6 +466,7 @@ scheduler = loadModule("core/engines/scheduler.lua")
 loader    = loadModule("core/utils/loader.lua")
 catbox    = loadModule("core/utils/catbox.lua")
 paste     = loadModule("core/utils/paste.lua")
+webhook   = loadModule("core/utils/webhook.lua")
 
 local saved_prefs = memory:load_global("ui_prefs")
 if saved_prefs then

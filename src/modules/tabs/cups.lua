@@ -39,6 +39,20 @@ return function(container)
         end)
         done()
     end)
+    
+    addModule(container, "force_frenzy_mode", t("force_frenzy_mode.title"), t("force_frenzy_mode.desc"), "switch", nil,
+    function(done, state)
+        ops.forceFrenzyMode(state, function(status)
+            if status == "not_found" then
+                showToast(t("force_frenzy_mode.not_found"))
+            elseif status == "enabled" then
+                showToast(t("force_frenzy_mode.enabled"))
+            else
+                showToast(t("force_frenzy_mode.disabled"))
+            end
+        end)
+        done()
+    end)
 
     addArchModule(container, "set_time", t("set_time.title"), t("set_time.desc"), "input", {
         {hint = t("set_time.hint"), type = "text"},

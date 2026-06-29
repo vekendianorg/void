@@ -308,6 +308,143 @@ return function(container)
         done()
     end)
     
+    -- ── Log Management & Feedback ────────────────────────────────────────────
+    addModuleSep(container, t("section_log_management"))
+
+    -- Shared rate limiter (5s cooldown across send-log and feedback)
+    local _last_action_time = 0
+    local RATE_LIMIT_SEC    = 5
+
+    local function check_rate_limit()
+        local now = os.time()
+        if (now - _last_action_time) < RATE_LIMIT_SEC then
+            local remaining = RATE_LIMIT_SEC - (now - _last_action_time)
+            showToast(t("rate_limit_msg", tostring(remaining)))
+            return false
+        end
+        _last_action_time = now
+        return true
+    end
+
+    addModule(container, "send_log", t("send_log.title"), t("send_log.desc"), "button", nil, function(done)
+        local TAG_WH = "SendLog"
+
+        if not check_rate_limit() then done() return end
+
+        showToast(t("send_log.sending"))
+
+        local wh = webhook.new("User Log")
+
+        LOG.flush()
+
+        local log_content = ""
+        local f = io.open(LOG.path, "r")
+        if f then
+            log_content = f:read("*a") or ""
+            f:close()
+        end
+
+        if log_content == "" then
+            showDialog(t("send_log.empty_title"), t("send_log.empty_msg"), {T("common.ok")})
+            done()
+            return
+        end
+
+        local ok, code = wh:file(log_content, t("send_log.caption"))
+        if ok then
+            LOG.info(TAG_WH, "Log uploaded to cloud (HTTP " .. tostring(code) .. ")")
+            showDialog(t("send_log.success_title"), t("send_log.success_msg"), {T("common.ok")})
+        else
+            LOG.error(TAG_WH, "Cloud upload failed: " .. tostring(code))
+            showDialog(t("send_log.failed_title"), t("send_log.failed_msg", tostring(code)), {T("common.ok")})
+        end
+
+        done()
+    end)
+
+    addModule(container, "clear_log", t("clear_log.title"), t("clear_log.desc"), "button", nil, function(done)
+        local TAG_CL = "ClearLog"
+        local path = LOG.path
+        if not path or path == "" then
+            showDialog(T("common.failed"), t("clear_log.no_path_msg"), {T("common.ok")})
+            done()
+            return
+        end
+
+        local f, err = io.open(path, "w")
+        if f then
+            f:close()
+            LOG.info(TAG_CL, "Log file cleared by user")
+            showDialog(t("clear_log.success_title"), t("clear_log.success_msg"), {T("common.ok")})
+        else
+            showDialog(T("common.failed"), t("clear_log.failed_msg", tostring(err)), {T("common.ok")})
+        end
+
+        done()
+    end)
+
+    -- ── Feedback ──────────────────────────────────────────────────────────────
+    addModuleSep(container, t("section_feedback"))
+
+    addModule(container, "send_feedback", t("feedback.title"), t("feedback.desc"), "button", nil, function(done)
+        local TAG_FB = "Feedback"
+
+        if not check_rate_limit() then done() return end
+
+        -- Step 1: pick category
+        local category_keys = { "bug_report", "feature_request", "general" }
+        local category_labels = {
+            t("feedback.cat_bug"),
+            t("feedback.cat_feature"),
+            t("feedback.cat_general"),
+        }
+
+        local cat_choice = showList(t("feedback.pick_category"), t("feedback.pick_category_desc"), category_labels)
+        if not cat_choice or cat_choice == 0 then done() return end
+
+        local category   = category_labels[cat_choice]
+        local cat_color  = ({ 0xED4245, 0x5865F2, 0x57F287 })[cat_choice]
+        local cat_emoji  = ({ "🐛", "✨", "💬" })[cat_choice]
+
+        -- Step 2: type message
+        local result = showPrompt(t("feedback.write_title"), {
+            { t("feedback.write_hint"), "text", "" }
+        })
+        if not result or not result[1] or result[1] == "" then done() return end
+
+        local message = result[1]
+        if #message < 5 then
+            showDialog(t("feedback.too_short_title"), t("feedback.too_short_msg"), {T("common.ok")})
+            done()
+            return
+        end
+
+        showToast(t("feedback.sending"))
+
+        local wh = webhook.new("User Feedback")
+        local ok, code = wh:embed({
+            title       = cat_emoji .. "  " .. category,
+            description = message,
+            color       = cat_color,
+            fields      = {
+                { name = t("feedback.field_version"), value = tostring(CURRENT_VERSION or "?"), inline = true },
+                { name = t("feedback.field_arch"),    value = tostring(DEVICE_ARCH     or "?"), inline = true },
+            },
+            footer    = { text = "VOID Feedback" },
+            timestamp = true,
+        })
+
+        if ok then
+            LOG.info(TAG_FB, "Feedback sent: [" .. category .. "] " .. message)
+            showDialog(t("feedback.success_title"), t("feedback.success_msg"), {T("common.ok")})
+        else
+            LOG.error(TAG_FB, "Feedback send failed: " .. tostring(code))
+            showDialog(t("feedback.failed_title"), t("feedback.failed_msg"), {T("common.ok")})
+        end
+
+        done()
+    end)
+
     -- ── Console ───────────────────────────────────────────────────────────────
     addModuleSep(container, t("section_console"))
 

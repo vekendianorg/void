@@ -144,6 +144,111 @@ function M.forceCup(state, cb)
     end)
 end
 
+-- Force the frenzy mode toggle
+-- status: "enabled" | "not_found" | "disabled"
+function M.forceFrenzyMode(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "ForceFrenzyMode"
+        if state then
+            LOG.info(TAG, "Enabling Force Frenzy Mode...")
+            
+            -- it use the same cache as force cup
+            local cache = memory:load("force_cup_cache")
+
+            -- Verify cache is still valid
+            if cache then
+                LOG.dbg(TAG, string.format("Cache found. Verifying base address: 0x%X", cache.base))
+                local verify = gg.getValues({{ address = cache.base, flags = 1 }})
+                if not verify or not verify[1] or verify[1].value ~= 0xB8 then
+                    LOG.warn(TAG, "Base address moved. Invalidating cache and re-searching...")
+                    cache = nil
+                    memory:delete("force_cup_cache")
+                else
+                    LOG.dbg(TAG, "Base address valid. Using cache.")
+                end
+            end
+
+            -- Search if no cache
+            if not cache then
+                LOG.dbg(TAG, "No cache. Executing pattern search...")
+                gg.clearResults()
+                gg.setRanges(BaseRegion)
+                gg.searchNumber("h B8 1E 85 3F CD CC 4C 3F", 1)
+
+                local results = gg.getResults(10)
+                gg.clearResults()
+                
+                gg.searchNumber(":&default_bonus_level", 1)
+
+                local frenzyAddr = gg.getResults(10)
+                gg.clearResults()
+
+                if #results == 0 then
+                    LOG.error(TAG, "Pattern not found in memory.")
+                    finishTask(); cb("not_found"); return
+                end
+                
+                if #frenzyAddr == 0 then
+                    LOG.error(TAG, "Frenzy address not found in memory.")
+                    finishTask(); cb("not_found"); return
+                end
+
+                local base = results[1].address
+                local frenzyPtr = frenzyAddr[1].address
+                LOG.info(TAG, string.format("Pattern found at: 0x%X", base))
+
+                cache = {
+                    base = base,
+                    items = {
+                        { address = base - 0x2B8, flags = 32, value = frenzyPtr }
+                    }
+                }
+
+                memory:save("force_cup_cache", cache)
+                LOG.info(TAG, "Cache saved.")
+            end
+
+            -- Freeze
+            local freezeItems = {}
+            for _, item in ipairs(cache.items) do
+                table.insert(freezeItems, {
+                    address = item.address,
+                    flags   = item.flags,
+                    value   = item.value,
+                    freeze  = true
+                })
+            end
+
+            gg.addListItems(freezeItems)
+            LOG.info(TAG, "Force Frenzy Mode enabled. Items frozen.")
+            finishTask(); cb("enabled"); return
+        else
+            LOG.info(TAG, "Disabling Frenzy Mode...")
+
+            local cache = memory:load("force_cup_cache")
+
+            if cache then
+                local unfreezeItems = {}
+                for _, item in ipairs(cache.items) do
+                    table.insert(unfreezeItems, {
+                        address = item.address,
+                        flags   = item.flags,
+                        value   = 0,
+                        freeze  = false
+                    })
+                end
+
+                gg.removeListItems(unfreezeItems)
+                LOG.info(TAG, "Force Frozen Mode disabled. Items unfrozen.")
+            else
+                LOG.warn(TAG, "No cache found on disable. Nothing to unfreeze.")
+            end
+
+            finishTask(); cb("disabled"); return
+        end
+    end)
+end
+
 -- Set race time. `timeSeconds` is the pre-parsed numeric time (parsing/validation
 -- of the user string is done in the tab).
 -- status: "not_in_cup" | "start_race_first" | "applied"
