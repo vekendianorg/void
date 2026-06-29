@@ -97,4 +97,26 @@ function M.applyFakeRank(cb)
     end)
 end
 
+
+-- ── Unlock achievements ─────────────────────────────────────────────────────────────────
+-- unfinished, don't touch
+
+local _achievementsData = {}
+local function achievementsData()
+    if _achievementsData ~= nil then return _achievementsData or nil end
+    local ok, data = pcall(function() return json.decode(loadModule("configs/achievements.json")) end)
+    if not ok or type(data) ~= "table" then
+        LOG.warn("Vehicle", "achievements.json failed to decode")
+        _achievementsData = false
+        return nil
+    end
+    _achievementsData = data
+    return data
+end
+
+-- TODO: in progress
+function M.unlockAchievements()
+    LOG.warn(TAG, "unlockAchievements: not yet implemented")
+end
+
 return M

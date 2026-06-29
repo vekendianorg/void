@@ -129,6 +129,22 @@ return {
 ["tabs.creative"] = "CREATIVE MENU",
 
 -- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- any_theme_objects
+["creative.any_theme_objects.title"]   = "Any Theme Objects",
+["creative.any_theme_objects.desc"]    = "Show all objects in the editor regardless of the selected theme.",
+["creative.any_theme_objects.applied"]  = "Theme filter removed from %s object group(s).",
+["creative.any_theme_objects.reverted"] = "Theme filter restored on %s object group(s).",
+-- show_hidden_objects
+["creative.show_hidden_objects.title"]   = "Show Hidden Objects",
+["creative.show_hidden_objects.desc"]    = "Show all hidden (test-only) objects in the editor.",
+["creative.show_hidden_objects.applied"]  = "Unlocked %s hidden object(s).",
+["creative.show_hidden_objects.reverted"] = "Restored %s hidden object(s).",
+-- shared errors
+["creative.obj_anchor_not_found"] = "Could not find object group anchor in memory.",
+["creative.obj_no_cache"]         = "Nothing to revert — toggle it on first.",
+["creative.obj_no_slots"]         = "No object group slots found to process.",
+["creative.obj_alloc_failed"]     = "Failed to allocate memory for merged objects.",
+["creative.obj_already_applied"]  = "Already active — revert first.",
 -- copy_any
 ["creative.copy_any.title"]        = "Copy Any Track",
 ["creative.copy_any.desc"]         = "Lets you copy any downloaded track, not just ones you created.",
@@ -391,6 +407,10 @@ return {
 ["vehicle.fuel.applied"] = "Fuel locked to %s",
 ["vehicle.fuel.reset"] = "Fuel restored",
 ["vehicle.fuel.not_applied"] = "Fuel not active",
+["player.speed_hack.title"]     = "Speed Hack",
+["player.speed_hack.desc"]      = "Modifies internal speed multiplier for a faster game feel.",
+["player.speed_hack.not_found"] = "Speed value not found — start a race first.",
+["player.speed_hack.no_cache"]  = "Nothing to revert — enable it first.",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",

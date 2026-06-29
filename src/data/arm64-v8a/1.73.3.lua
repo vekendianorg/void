@@ -2,7 +2,7 @@
 return {
     aobs = {
         fakeVip = {
-            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 4, patch = "h 28 00 80 52", unpatch = "h 68 B2 40 39"},
+            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 9, patch = "h 05", unpatch = "h 01"},
         },
         
         fakeUnlock = {

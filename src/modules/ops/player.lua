@@ -131,6 +131,54 @@ function M.hideFlag(state, cb)
     end)
 end
 
+---Toggle speed hack — searches REGION_CD for -1.13333332539 float,
+---freezes it to -1.0 on enable, restores on disable.
+---@param state boolean
+---@param cb fun(ok, errKey|nil)
+function M.setSpeedHack(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "SpeedHack"
+        local cache = memory:load("speed_hack")
+
+        if state then
+            if not cache then
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber("-1.13333332539", gg.TYPE_FLOAT)
+                local results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+                LOG.info(TAG, string.format("Scan returned %d result(s)", #results))
+                if #results == 0 then
+                    finishTask(); cb(false, "player.speed_hack.not_found"); return
+                end
+                memory:save("speed_hack", results)
+                cache = results
+            else
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            end
+            gg.editAll("-1.0", gg.TYPE_FLOAT)
+            gg.clearResults()
+            LOG.info(TAG, string.format("Enabled on %d address(es)", #cache))
+            finishTask(); cb(true)
+        else
+            if not cache then
+                LOG.warn(TAG, "no cache to revert")
+                finishTask(); cb(false, "player.speed_hack.no_cache"); return
+            end
+            gg.clearResults()
+            gg.loadResults(cache)
+            gg.getResults(gg.getResultsCount())
+            gg.editAll("-1.13333332539", gg.TYPE_FLOAT)
+            gg.clearResults()
+            memory:save("speed_hack", nil)
+            LOG.info(TAG, "Disabled — original value restored")
+            finishTask(); cb(true)
+        end
+    end)
+end
+
 -- Adjust camera zoom (slider min/max). No user-facing message in the original.
 -- status: "applied" | "none"
 function M.setZoom(vals, cb)

@@ -85,38 +85,10 @@ local function _createLoadingSpinner()
     return spinner, function() state.running = false end
 end
 
--- Set once, the first time the menu is ever built in this script run. Gates
--- the background preload below so it only fires at true cold start, not on
--- every rebuildMenu() (e.g. a Settings change tearing down and rebuilding
--- the menu mid-session).
-local _earlySessionPreloadDone = false
-
--- Renders one tab id per MainHandler frame straight into _tabContentCache,
--- without ever touching moduleContainer — so it can run quietly in the
--- background without disturbing whatever tab the user is actually looking
--- at. Used only for the early-session warm-up; normal tab switches still
--- render lazily on first visit via loadCategory().
---@param ids string[]  Remaining tab ids to preload (consumed front-to-back)
-local function _preloadTabsInBackground(ids)
-    if #ids == 0 then return end
-    local id = table.remove(ids, 1)
-    MainHandler.post(Runnable({ run = function()
-        if not _tabContentCache[id] then
-            local setCategory = categoryHandlers[id]
-            if setCategory then
-                local tabContent = LinearLayout(activity)
-                tabContent.setOrientation(1)
-                tabContent.setLayoutParams(LinLayoutParams(-1, -2))
-                local ok = pcall(function() setCategory(tabContent) end)
-                if ok then
-                    _tabContentCache[id] = tabContent
-                end
-            end
-        end
-        _preloadTabsInBackground(ids)
-    end }))
-end
-
+-- Loads and displays a category (tab content) by ID.
+-- Updates active tab styling and populates moduleContainer with category modules.
+-- Cached tabs swap in instantly; uncached tabs show an animated loading
+-- indicator and render on the next MainHandler frame so the UI thread stays
 -- Loads and displays a category (tab content) by ID.
 -- Updates active tab styling and populates moduleContainer with category modules.
 -- Cached tabs swap in instantly; uncached tabs show an animated loading
@@ -1167,20 +1139,7 @@ local function _buildMenuTabs(root, _lastTab)
         loadCategory(targetId, targetTab)
     end
 
-    -- Early-session only: warm every other tab's cache in the background,
-    -- one per frame, so by the time the user actually taps around the
-    -- tabs they're instant instead of showing the loading spinner on
-    -- first visit. Skipped on later rebuilds within the same session.
-    if not _earlySessionPreloadDone then
-        _earlySessionPreloadDone = true
-        local idsToPreload = {}
-        for _, m in ipairs(menuList) do
-            if m[1] ~= "separator" and m[1] ~= targetId then
-                table.insert(idsToPreload, m[1])
-            end
-        end
-        _preloadTabsInBackground(idsToPreload)
-    end
+
 end
 
 -- Builds the content ScrollView and moduleContainer, adds them to root.

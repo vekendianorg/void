@@ -40,6 +40,14 @@ return function(container)
         done()
     end)
 
+    addModule(container, "speed_hack", t("speed_hack.title"), t("speed_hack.desc"), "switch", nil,
+    function(done, state)
+        ops.setSpeedHack(state, function(ok, errKey)
+            if not ok then showToast(T(errKey or "common.failed"), true) end
+        end)
+        done()
+    end)
+
     addModule(container, "zoom", t("zoom.title"), t("zoom.desc"), "slider", {
         {title=t("slider.min"), min=10, max=100, current=20},
         {title=t("slider.max"), min=10, max=100, current=50}

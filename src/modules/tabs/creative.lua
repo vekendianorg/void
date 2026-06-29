@@ -13,8 +13,33 @@ local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
 return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
 
+    -- ── Any Theme Objects ─────────────────────────────────────────────────────
+    addModule(container, "any_theme_objects", t("any_theme_objects.title"), t("any_theme_objects.desc"), "switch", nil,
+    function(done, state)
+        ops.anyThemeObjects(state, function(ok, errKey, count)
+            if ok then
+                showToast(t(state and "any_theme_objects.applied" or "any_theme_objects.reverted", tostring(count)))
+            else
+                showToast(T(errKey or "common.failed"), true)
+            end
+            done()
+        end)
+    end)
+
+    -- ── Show Hidden Objects ───────────────────────────────────────────────────
+    addModule(container, "show_hidden_objects", t("show_hidden_objects.title"), t("show_hidden_objects.desc"), "switch", nil,
+    function(done, state)
+        ops.showHiddenObjects(state, function(ok, errKey, count)
+            if ok then
+                showToast(t(state and "show_hidden_objects.applied" or "show_hidden_objects.reverted", tostring(count)))
+            else
+                showToast(T(errKey or "common.failed"), true)
+            end
+            done()
+        end)
+    end)
+
     -- ── Copy Any ─────────────────────────────────────────────────────────────
-    -- Requires downloadedCustomTracks offset — only verified on arm64-v8a.
     addArchModule(container, "copy_any", t("copy_any.title"), t("copy_any.desc"), "button", nil,
     offsets.downloadedCustomTracks and function(done)
         ops.copyAny(function(ok, errKey, count)
@@ -23,16 +48,13 @@ return function(container)
             else
                 showToast(T(errKey or "common.failed"), true)
             end
+            done()
         end)
-        done()
     end)
 
     -- ── Track Editor (verify / set length / rename) ───────────────────────────
-    -- Requires customTracks offset — only verified on arm64-v8a.
     addArchModule(container, "track_editor", t("track_editor.title"), t("track_editor.desc"), "button", nil,
     offsets.customTracks and function(done)
-        -- Loading the track list is a scheduled op; we need it before showing any UI.
-        -- Show a loading toast, then enter the depth loop once results arrive.
         showToast(t("track_editor.loading"))
 
         ops.getCustomTracks(function(ok, tracksOrErr)
@@ -47,11 +69,11 @@ return function(container)
                 done(); return
             end
 
-            -- Build display list: "Track Name  [✓]  (500m)" or "Track Name  [?]  (500m)"
+            -- Build display list: "Track Name  [✓]  (500m)" or "Track Name  (500m)"
             local display = {}
             for _, tr in ipairs(tracks) do
-                local verified = tr.isVerified == 1 and " [✓]" or ""
-                display[#display + 1] = string.format("%s%s  (%dm)", tr.nameStr, verified, tr.length)
+                display[#display + 1] = string.format("%s%s  (%dm)",
+                    tr.nameStr, tr.isVerified == 1 and " [✓]" or "", tr.length)
             end
 
             local actions = {
@@ -61,11 +83,8 @@ return function(container)
             }
 
             -- ── Depth loop ────────────────────────────────────────────────────
-            -- depth 1 = pick a track
-            -- depth 2 = pick an action
-            -- depth 3 = action-specific input prompt
-            local depth    = 1
-            local track    = nil   -- chosen tracks[i] descriptor
+            local depth     = 1
+            local track     = nil
             local actionIdx = nil
 
             while true do
@@ -81,15 +100,16 @@ return function(container)
 
                 -- ── Depth 2: pick action ──────────────────────────────────────
                 elseif depth == 2 then
-                    local statusLine = (track.isVerified == 1)
-                        and t("track_status.verified")
-                        or  t("track_status.not_verified")
-                    local subtitle = string.format("%s — %s  |  %s",
-                        track.nameStr, statusLine, t("track_length", tostring(track.length)))
-
-                    local choice = showList(subtitle, t("action.select"), actions)
+                    local choice = showList(
+                        string.format("%s — %s  |  %s",
+                            track.nameStr,
+                            track.isVerified == 1 and t("track_status.verified") or t("track_status.not_verified"),
+                            t("track_length", tostring(track.length))),
+                        t("action.select"),
+                        actions
+                    )
                     if not choice or choice == 0 then
-                        depth = 1   -- back to track list
+                        depth = 1
                     else
                         actionIdx = choice
                         depth = 3
@@ -107,17 +127,14 @@ return function(container)
                             ops.verifyTrack(track.elemPtr, function(ok2, errKey)
                                 if ok2 then
                                     track.isVerified = 1
-                                    -- Update display entry in-place so going back shows ✓
-                                    local idx = track.index + 1
-                                    local verified = " [✓]"
-                                    display[idx] = string.format("%s%s  (%dm)",
-                                        track.nameStr, verified, track.length)
+                                    display[track.index + 1] = string.format("%s [✓]  (%dm)", track.nameStr, track.length)
                                     showToast(t("verify.applied", track.nameStr))
                                 else
                                     showToast(T(errKey or "common.failed"), true)
                                 end
+                                done()
                             end)
-                            done(); return
+                            return
                         end
 
                     -- ── Set Length ────────────────────────────────────────────
@@ -132,21 +149,19 @@ return function(container)
                             local newLen = tonumber(result[1])
                             if not newLen or newLen < 1 then
                                 showToast(t("set_length.invalid"), true)
-                                -- stay at depth 3
                             else
                                 ops.setTrackLength(track.elemPtr, newLen, function(ok2, errKey, applied)
                                     if ok2 then
                                         track.length = applied
-                                        local idx = track.index + 1
-                                        local verified = track.isVerified == 1 and " [✓]" or ""
-                                        display[idx] = string.format("%s%s  (%dm)",
-                                            track.nameStr, verified, track.length)
+                                        display[track.index + 1] = string.format("%s%s  (%dm)",
+                                            track.nameStr, track.isVerified == 1 and " [✓]" or "", applied)
                                         showToast(t("set_length.applied", track.nameStr, tostring(applied)))
                                     else
                                         showToast(T(errKey or "common.failed"), true)
                                     end
+                                    done()
                                 end)
-                                done(); return
+                                return
                             end
                         end
 
@@ -162,21 +177,19 @@ return function(container)
                             local newName = result[1]
                             if not newName or newName == "" then
                                 showToast(t("rename.empty"), true)
-                                -- stay at depth 3
                             else
                                 ops.renameTrack(track.elemPtr, newName, function(ok2, errKey, applied)
                                     if ok2 then
-                                        local idx = track.index + 1
-                                        local verified = track.isVerified == 1 and " [✓]" or ""
-                                        display[idx] = string.format("%s%s  (%dm)",
-                                            applied, verified, track.length)
+                                        display[track.index + 1] = string.format("%s%s  (%dm)",
+                                            applied, track.isVerified == 1 and " [✓]" or "", track.length)
                                         track.nameStr = applied
                                         showToast(t("rename.applied", applied))
                                     else
                                         showToast(T(errKey or "common.failed"), true)
                                     end
+                                    done()
                                 end)
-                                done(); return
+                                return
                             end
                         end
                     end

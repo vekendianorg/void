@@ -24,6 +24,15 @@ local RARITY_CAP = {
     mythic    = 3,
 }
 
+-- Parts whose in-memory name suffix doesn't match any tuning_parts key.
+-- Checked as plain suffix patterns against the full in-memory name
+-- (e.g. "jeep_start_boost" ends with "start_boost" -> cap 10).
+-- Format: { suffix, cap }
+local PART_SUFFIX_OVERRIDES = {
+    { "start_boost", 10 },  -- stored as <vehicle>_start_boost; tuning_parts key is perfect_start_boost (rare->10)
+    { "_jump",       10 },  -- stored as <vehicle>_jump (truncated from jump_boost); rare->10
+}
+
 -- Decode configs/tuning_parts.lua once and cache it — the file is ~3k lines,
 -- so both getPartGroups (UI) and partCaps (max_parts) share this single parse.
 local _tuningData
@@ -774,14 +783,26 @@ function M.maxMastery(onProgress, cb)
 end
 
 -- Resolve a part's max level from its name via the rarity-derived caps.
--- Longest matching key wins so a specific variant beats its base name.
+-- Priority: suffix overrides -> longest tuning_parts suffix match -> fallback 3.
 local function partMaxLevel(partName)
-    local maxLevel, bestLen = 3, 0  -- fallback for parts with no rarity match
+    -- 1. Suffix overrides for parts whose in-memory name doesn't match any
+    --    tuning_parts key (e.g. "jeep_start_boost", "jeep_jump").
+    for _, entry in ipairs(PART_SUFFIX_OVERRIDES) do
+        local suffix, cap = entry[1], entry[2]
+        if partName:find(suffix .. "$") then
+            return cap
+        end
+    end
+    -- 2. Longest suffix match against tuning_parts keys.
+    local maxLevel, bestLen = 3, 0
     for key, lvl in pairs(partCaps()) do
         if #key > bestLen and partName:find(key .. "$") then
             maxLevel = lvl
             bestLen  = #key
         end
+    end
+    if maxLevel == 3 and bestLen == 0 then
+        LOG.dbg("MaxParts", "No cap found for part: " .. tostring(partName) .. " -- using fallback 3")
     end
     return maxLevel
 end
@@ -850,13 +871,14 @@ function M.maxParts(onProgress, cb)
                             local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
                             if header == 49 then
                                 local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
-                                partName = namePtr2 ~= 0 and readString(namePtr2 + 1) or "unknown"
+                                partName = namePtr2 ~= 0 and readString(namePtr2) or "unknown"
                             else
                                 partName = readString(namePtr + 1)
                             end
                         end
 
                         local maxLevel = partMaxLevel(partName)
+                        LOG.dbg(TAG, string.format("  part=%s → maxLevel=%d", partName, maxLevel))
                         upgradeList[#upgradeList + 1] = { address = partPtr + 0x20, flags = 4, value = maxLevel }
                         upgradeList[#upgradeList + 1] = { address = partPtr + 0x34, flags = 4, value = maxLevel }
                     end

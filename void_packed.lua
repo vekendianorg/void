@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-06-27 07:51:51
+-- Packed by bundle.py  •  2026-06-29 09:52:00
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -24507,6 +24507,22 @@ return {
 ["tabs.creative"] = "CREATIVE MENU",
 
 -- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- any_theme_objects
+["creative.any_theme_objects.title"]   = "Any Theme Objects",
+["creative.any_theme_objects.desc"]    = "Show all objects in the editor regardless of the selected theme.",
+["creative.any_theme_objects.applied"]  = "Theme filter removed from %s object group(s).",
+["creative.any_theme_objects.reverted"] = "Theme filter restored on %s object group(s).",
+-- show_hidden_objects
+["creative.show_hidden_objects.title"]   = "Show Hidden Objects",
+["creative.show_hidden_objects.desc"]    = "Show all hidden (test-only) objects in the editor.",
+["creative.show_hidden_objects.applied"]  = "Unlocked %s hidden object(s).",
+["creative.show_hidden_objects.reverted"] = "Restored %s hidden object(s).",
+-- shared errors
+["creative.obj_anchor_not_found"] = "Could not find object group anchor in memory.",
+["creative.obj_no_cache"]         = "Nothing to revert — toggle it on first.",
+["creative.obj_no_slots"]         = "No object group slots found to process.",
+["creative.obj_alloc_failed"]     = "Failed to allocate memory for merged objects.",
+["creative.obj_already_applied"]  = "Already active — revert first.",
 -- copy_any
 ["creative.copy_any.title"]        = "Copy Any Track",
 ["creative.copy_any.desc"]         = "Lets you copy any downloaded track, not just ones you created.",
@@ -24769,6 +24785,10 @@ return {
 ["vehicle.fuel.applied"] = "Fuel locked to %s",
 ["vehicle.fuel.reset"] = "Fuel restored",
 ["vehicle.fuel.not_applied"] = "Fuel not active",
+["player.speed_hack.title"]     = "Speed Hack",
+["player.speed_hack.desc"]      = "Modifies internal speed multiplier for a faster game feel.",
+["player.speed_hack.not_found"] = "Speed value not found — start a race first.",
+["player.speed_hack.no_cache"]  = "Nothing to revert — enable it first.",
 ["player.zoom.title"] = "Adjust Zoom",
 ["player.zoom.desc"] = "Adjust how close or far your camera",
 ["player.slider.min"] = "Min",
@@ -31332,8 +31352,8 @@ end
 
 __vfs['core/engines/alloc.lua'] = function(...)
 --[[
-  core/engines/alloc.lua — Memory allocation management
-  Finds and claims zero regions in game memory for structured data (pointer arrays, etc.)
+    core/engines/alloc.lua — Memory allocation management
+    Finds and claims zero regions in game memory for structured data (pointer arrays, etc.)
 ]]
 
 local alloc = {}
@@ -31343,215 +31363,249 @@ local _claimed = {}
 local TAG = "alloc"
 
 local DEFAULTS = {
-  state  = "Ca",
-  size   = { min = nil, max = nil },
-  flags  = 4,
-  step   = 4,
-  align  = 4,
+    state    = "O",
+    size     = { min = nil, max = nil },
+    flags    = 4,
+    step     = 4,
+    align    = 4,
 }
 
 -- ─── helpers ──────────────────────────────────────────────────────────────────
 
 local function mergeOpts(opts)
-  local o = {}
-  for k, v in pairs(DEFAULTS) do
-    o[k] = (type(v) == "table") and { min = v.min, max = v.max } or v
-  end
-  if opts then
-    for k, v in pairs(opts) do
-      if k == "size" and type(v) == "table" then
-        o.size = { min = v.min, max = v.max }
-      else
-        o[k] = v
-      end
+    local o = {}
+    for k, v in pairs(DEFAULTS) do
+        o[k] = (type(v) == "table") and { min = v.min, max = v.max } or v
     end
-  end
-  return o
+    if opts then
+        for k, v in pairs(opts) do
+            if k == "size" and type(v) == "table" then
+                o.size = { min = v.min, max = v.max }
+            else
+                o[k] = v
+            end
+        end
+    end
+    return o
 end
 
 local function alignUp(addr, align)
-  if align <= 1 then return addr end
-  local rem = addr % align
-  return rem == 0 and addr or (addr + align - rem)
+    if align <= 1 then return addr end
+    local rem = addr % align
+    return rem == 0 and addr or (addr + align - rem)
 end
 
 local function isClaimed(base, size)
-  for claimedBase, info in pairs(_claimed) do
-    local claimedEnd = claimedBase + info.size
-    local reqEnd     = base + size
-    if base < claimedEnd and reqEnd > claimedBase then
-      return true
+    for claimedBase, info in pairs(_claimed) do
+        local claimedEnd = claimedBase + info.size
+        local reqEnd         = base + size
+        if base < claimedEnd and reqEnd > claimedBase then
+            return true
+        end
     end
-  end
-  return false
+    return false
+end
+
+-- Returns true for regions that are unsafe to write into.
+-- Only rw-p (read/write private) pages are safe; everything else either
+-- crashes the game immediately or causes silent data corruption.
+local function isDangerousRegion(region)
+    -- Permission check — must come first; wrong perms crash regardless of content.
+    --   rw-p: safe (read/write private) — the only type we can allocate into.
+    --   r--p / r--s: read-only, writes fail silently or SIGSEGV.
+    --   r-xp: code segment, overwriting corrupts game logic execution.
+    --   ---p: guard page, any access causes immediate SIGSEGV.
+    local perms = region.type or ""
+    if perms ~= "" and perms ~= "rw-p" then
+        return true
+    end
+    local name         = region.name         or ""
+    local internalName = region.internalName or ""
+    -- .bss: zero-initialised static/global data — belongs to the game,
+    --       looks empty but is live. The most common source of alloc crashes.
+    if name:match("%.bss") or internalName:match(":bss") then
+        return true
+    end
+    -- .data sections can also read as zero for uninitialised globals.
+    if name:match("%.data") or internalName:match(":data") then
+        return true
+    end
+    -- Guard against accidentally allocating into stack or heap.
+    if name:match("%[stack%]") or name:match("%[heap%]") then
+        return true
+    end
+    return false
 end
 
 local function readSlots(base, size, step, flags)
-  local reads = {}
-  local addr  = base
-  while addr < base + size do
-    table.insert(reads, { address = addr, flags = flags })
-    addr = addr + step
-  end
-  return gg.getValues(reads)
+    local reads = {}
+    local addr    = base
+    while addr < base + size do
+        table.insert(reads, { address = addr, flags = flags })
+        addr = addr + step
+    end
+    return gg.getValues(reads)
 end
 
 local function allZero(values)
-  if not values then return false end
-  for _, v in ipairs(values) do
-    if v.value ~= 0 then return false end
-  end
-  return true
+    if not values then return false end
+    for _, v in ipairs(values) do
+        if v.value ~= 0 then return false end
+    end
+    return true
 end
 
 -- ─── alloc.findEmpty ──────────────────────────────────────────────────────────
 
 function alloc.findEmpty(size, opts)
-  local o       = mergeOpts(opts)
-  local minSize = (o.size.min ~= nil) and o.size.min or size
-  local maxSize = o.size.max
-  local regions = gg.getRangesList()
+    local o             = mergeOpts(opts)
+    local minSize = (o.size.min ~= nil) and o.size.min or size
+    local maxSize = o.size.max
+    local regions = gg.getRangesList()
 
-  LOG.dbg(TAG, string.format("findEmpty: scanning for %d bytes (state=%s, align=%d, flags=%d)", size, o.state, o.align, o.flags))
+    LOG.dbg(TAG, string.format("findEmpty: scanning for %d bytes (state=%s, align=%d, flags=%d)", size, o.state, o.align, o.flags))
 
-  local scanned, skippedState, skippedSize, skippedClaimed, skippedDirty = 0, 0, 0, 0, 0
+    local scanned, skippedState, skippedSize, skippedClaimed, skippedDirty = 0, 0, 0, 0, 0
 
-  for _, region in ipairs(regions) do
-    scanned = scanned + 1
-    local regionSize = region["end"] - region.start
+    for _, region in ipairs(regions) do
+        scanned = scanned + 1
+        local regionSize = region["end"] - region.start
 
-    if region.state ~= o.state then
-      skippedState = skippedState + 1
-    elseif regionSize < minSize or (maxSize ~= nil and regionSize > maxSize) then
-      skippedSize = skippedSize + 1
-    else
-      local base = alignUp(region.start, o.align)
-      if base + size > region["end"] then
-        skippedSize = skippedSize + 1
-      elseif isClaimed(base, size) then
-        skippedClaimed = skippedClaimed + 1
-        LOG.dbg(TAG, string.format("findEmpty: 0x%X already claimed, skipping", base))
-      else
-        local values = readSlots(base, size, o.step, o.flags)
-        if allZero(values) then
-          LOG.info(TAG, string.format("findEmpty: found empty region @ 0x%X (regionSize=%d)", base, regionSize))
-          LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
-          return base
+        if region.state ~= o.state then
+            skippedState = skippedState + 1
+        elseif isDangerousRegion(region) then
+            skippedState = skippedState + 1
+            LOG.dbg(TAG, string.format("findEmpty: skipping dangerous region @ 0x%X (%s / %s)", region.start, region.name or "", region.internalName or ""))
+        elseif regionSize < minSize or (maxSize ~= nil and regionSize > maxSize) then
+            skippedSize = skippedSize + 1
         else
-          skippedDirty = skippedDirty + 1
+            local base = alignUp(region.start, o.align)
+            if base + size > region["end"] then
+                skippedSize = skippedSize + 1
+            elseif isClaimed(base, size) then
+                skippedClaimed = skippedClaimed + 1
+                LOG.dbg(TAG, string.format("findEmpty: 0x%X already claimed, skipping", base))
+            else
+                local values = readSlots(base, size, o.step, o.flags)
+                if allZero(values) then
+                    LOG.info(TAG, string.format("findEmpty: found empty region @ 0x%X (regionSize=%d)", base, regionSize))
+                    LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
+                    return base
+                else
+                    skippedDirty = skippedDirty + 1
+                end
+            end
         end
-      end
     end
-  end
 
-  LOG.warn(TAG, string.format("findEmpty: no empty region found for %d bytes", size))
-  LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
-  return nil
+    LOG.warn(TAG, string.format("findEmpty: no empty region found for %d bytes", size))
+    LOG.dbg(TAG, string.format("findEmpty: scanned=%d skippedState=%d skippedSize=%d skippedClaimed=%d skippedDirty=%d", scanned, skippedState, skippedSize, skippedClaimed, skippedDirty))
+    return nil
 end
 
 -- ─── alloc.new ────────────────────────────────────────────────────────────────
 
 function alloc.new(size, opts)
-  local o    = mergeOpts(opts)
-  LOG.info(TAG, string.format("new: requesting %d bytes (flags=%d, step=%d, align=%d)", size, o.flags, o.step, o.align))
+    local o        = mergeOpts(opts)
+    LOG.info(TAG, string.format("new: requesting %d bytes (flags=%d, step=%d, align=%d)", size, o.flags, o.step, o.align))
 
-  local base = alloc.findEmpty(size, o)
-  if not base then
-    LOG.error(TAG, string.format("new: failed to allocate %d bytes", size))
-    return nil
-  end
+    local base = alloc.findEmpty(size, o)
+    if not base then
+        LOG.error(TAG, string.format("new: failed to allocate %d bytes", size))
+        return nil
+    end
 
-  _claimed[base] = { size = size, step = o.step, flags = o.flags }
-  LOG.info(TAG, string.format("new: claimed 0x%X (%d bytes)", base, size))
+    _claimed[base] = { size = size, step = o.step, flags = o.flags }
+    LOG.info(TAG, string.format("new: claimed 0x%X (%d bytes)", base, size))
 
-  return alloc.at(base, size, o)
+    return alloc.at(base, size, o)
 end
 
 -- ─── alloc.at ─────────────────────────────────────────────────────────────────
 
 function alloc.at(base, size, opts)
-  local o = mergeOpts(opts)
-  LOG.info(TAG, string.format("at: wrapping 0x%X (%d bytes, flags=%d, step=%d)", base, size, o.flags, o.step))
+    local o = mergeOpts(opts)
+    LOG.info(TAG, string.format("at: wrapping 0x%X (%d bytes, flags=%d, step=%d)", base, size, o.flags, o.step))
 
-  local handle = {
-    base  = base,
-    size  = size,
-    step  = o.step,
-    flags = o.flags,
-  }
+    local handle = {
+        base    = base,
+        size    = size,
+        step    = o.step,
+        flags = o.flags,
+    }
 
-  function handle:read()
-    LOG.dbg(TAG, string.format("read: 0x%X (%d bytes)", self.base, self.size))
-    local values = readSlots(self.base, self.size, self.step, self.flags)
-    if not values then
-      LOG.warn(TAG, string.format("read: gg.getValues returned nil @ 0x%X", self.base))
-    else
-      LOG.dbg(TAG, string.format("read: got %d slots @ 0x%X", #values, self.base))
+    function handle:read()
+        LOG.dbg(TAG, string.format("read: 0x%X (%d bytes)", self.base, self.size))
+        local values = readSlots(self.base, self.size, self.step, self.flags)
+        if not values then
+            LOG.warn(TAG, string.format("read: gg.getValues returned nil @ 0x%X", self.base))
+        else
+            LOG.dbg(TAG, string.format("read: got %d slots @ 0x%X", #values, self.base))
+        end
+        return values
     end
-    return values
-  end
 
-  function handle:write(values)
-    LOG.info(TAG, string.format("write: %d values → 0x%X", #values, self.base))
-    local writes = {}
-    local addr   = self.base
-    for i, v in ipairs(values) do
-      table.insert(writes, { address = addr, flags = self.flags, value = v })
-      LOG.dbg(TAG, string.format("write: [%d] 0x%X = %s", i, addr, tostring(v)))
-      addr = addr + self.step
+    function handle:write(values)
+        LOG.info(TAG, string.format("write: %d values → 0x%X", #values, self.base))
+        local writes = {}
+        local addr     = self.base
+        for i, v in ipairs(values) do
+            table.insert(writes, { address = addr, flags = self.flags, value = v })
+            LOG.dbg(TAG, string.format("write: [%d] 0x%X = %s", i, addr, tostring(v)))
+            addr = addr + self.step
+        end
+        local result = gg.setValues(writes)
+        if not result then
+            LOG.error(TAG, string.format("write: gg.setValues failed @ 0x%X", self.base))
+        else
+            LOG.info(TAG, string.format("write: ok (%d slots written)", #writes))
+        end
     end
-    local result = gg.setValues(writes)
-    if not result then
-      LOG.error(TAG, string.format("write: gg.setValues failed @ 0x%X", self.base))
-    else
-      LOG.info(TAG, string.format("write: ok (%d slots written)", #writes))
-    end
-  end
 
-  function handle:zero()
-    LOG.info(TAG, string.format("zero: clearing 0x%X (%d bytes)", self.base, self.size))
-    local slots = {}
-    local addr  = self.base
-    while addr < self.base + self.size do
-      table.insert(slots, { address = addr, flags = self.flags, value = 0 })
-      addr = addr + self.step
+    function handle:zero()
+        LOG.info(TAG, string.format("zero: clearing 0x%X (%d bytes)", self.base, self.size))
+        local slots = {}
+        local addr    = self.base
+        while addr < self.base + self.size do
+            table.insert(slots, { address = addr, flags = self.flags, value = 0 })
+            addr = addr + self.step
+        end
+        local result = gg.setValues(slots)
+        if not result then
+            LOG.error(TAG, string.format("zero: gg.setValues failed @ 0x%X", self.base))
+        else
+            LOG.dbg(TAG, string.format("zero: ok (%d slots cleared)", #slots))
+        end
     end
-    local result = gg.setValues(slots)
-    if not result then
-      LOG.error(TAG, string.format("zero: gg.setValues failed @ 0x%X", self.base))
-    else
-      LOG.dbg(TAG, string.format("zero: ok (%d slots cleared)", #slots))
+
+    function handle:free()
+        LOG.info(TAG, string.format("free: releasing 0x%X (%d bytes)", self.base, self.size))
+        self:zero()
+        _claimed[self.base] = nil
+        LOG.info(TAG, string.format("free: 0x%X unclaimed", self.base))
     end
-  end
 
-  function handle:free()
-    LOG.info(TAG, string.format("free: releasing 0x%X (%d bytes)", self.base, self.size))
-    self:zero()
-    _claimed[self.base] = nil
-    LOG.info(TAG, string.format("free: 0x%X unclaimed", self.base))
-  end
-
-  function handle:dump()
-    LOG.dbg(TAG, string.format("dump: 0x%X (%d bytes)", self.base, self.size))
-    local values = self:read()
-    if values then
-      for i, v in ipairs(values) do
-        LOG.dbg(TAG, string.format("dump: [%d] 0x%X = %s", i, v.address, tostring(v.value)))
-      end
-    else
-      LOG.warn(TAG, string.format("dump: no values @ 0x%X", self.base))
+    function handle:dump()
+        LOG.dbg(TAG, string.format("dump: 0x%X (%d bytes)", self.base, self.size))
+        local values = self:read()
+        if values then
+            for i, v in ipairs(values) do
+                LOG.dbg(TAG, string.format("dump: [%d] 0x%X = %s", i, v.address, tostring(v.value)))
+            end
+        else
+            LOG.warn(TAG, string.format("dump: no values @ 0x%X", self.base))
+        end
     end
-  end
 
-  return handle
+    return handle
 end
 
 -- ─── alloc.claimed ────────────────────────────────────────────────────────────
 
 function alloc.claimed()
-  local out = {}
-  for k, v in pairs(_claimed) do out[k] = v end
-  return out
+    local out = {}
+    for k, v in pairs(_claimed) do out[k] = v end
+    return out
 end
 
 return alloc
@@ -33397,7 +33451,7 @@ __vfs['data/arm64-v8a/1.73.3.lua'] = function(...)
 return {
     aobs = {
         fakeVip = {
-            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 4, patch = "h 28 00 80 52", unpatch = "h 68 B2 40 39"},
+            {scan = "h 93 D6 01 F9 68 B2 40 39 1F 01 00 71", offset = 9, patch = "h 05", unpatch = "h 01"},
         },
         
         fakeUnlock = {
@@ -33795,6 +33849,28 @@ function M.applyFakeRank(cb)
     end)
 end
 
+
+-- ── Unlock achievements ─────────────────────────────────────────────────────────────────
+-- unfinished, don't touch
+
+local _achievementsData = {}
+local function achievementsData()
+    if _achievementsData ~= nil then return _achievementsData or nil end
+    local ok, data = pcall(function() return json.decode(loadModule("configs/achievements.json")) end)
+    if not ok or type(data) ~= "table" then
+        LOG.warn("Vehicle", "achievements.json failed to decode")
+        _achievementsData = false
+        return nil
+    end
+    _achievementsData = data
+    return data
+end
+
+-- TODO: in progress
+function M.unlockAchievements()
+    LOG.warn(TAG, "unlockAchievements: not yet implemented")
+end
+
 return M
 
 end
@@ -33967,6 +34043,8 @@ __vfs['modules/ops/creative.lua'] = function(...)
   Contract: see modules/ops/README.md.
 
   Features:
+    anyThemeObjects(?)
+    showHiddenObjects(?)
     getCustomTracks()  — resolve the full list of custom tracks in memory
     verifyTrack(idx)   — mark a single track as verified (isVerified = 1)
     setTrackLength(idx, len) — override the track's length (no 30–1000 cap)
@@ -33982,9 +34060,10 @@ __vfs['modules/ops/creative.lua'] = function(...)
     a second copy of the pointer follows at the end of the fixed header,
     matching the vehicle-name pattern used in vehicle.lua.
 
-  Globals used: scheduler, gg, memory, BaseLib, BaseGameStatus, offsets, LOG.
+  Globals used: scheduler, gg, memory, BaseLib, BaseGameStatus, offsets, LOG, alloc.
 ]]
 
+local alloc = loadModule("core/engines/alloc.lua")
 local M = {}
 
 -- ── Internal helpers ──────────────────────────────────────────────────────────
@@ -34082,8 +34161,7 @@ local function resolveTrackList(TAG)
 
     local tracks = {}
     for i = 0, listCount - 1 do
-        local elemPtrResult = gg.getValues({{ address = listPtr + i * 8, flags = 32 }})
-        local elemPtr = elemPtrResult and elemPtrResult[1] and elemPtrResult[1].value or 0
+        local _r = gg.getValues({{ address = listPtr + i * 8, flags = 32 }}); local elemPtr = _r and _r[1] and _r[1].value or 0
         if elemPtr ~= 0 then
             local fields = gg.getValues({
                 { address = elemPtr + 0x30, flags = 32 },  -- namePtr
@@ -34095,23 +34173,7 @@ local function resolveTrackList(TAG)
             local trackLen   = fields[2] and fields[2].value or 0
             local isVerified = fields[3] and fields[3].value or 0
 
-            local nameStr = "?"
-            if namePtr ~= 0 then
-                local lenByte = gg.getValues({{ address = namePtr, flags = 1 }})
-                local byteLen = lenByte and lenByte[1] and math.floor(lenByte[1].value / 2) or 0
-                if byteLen > 0 then
-                    local charReads = {}
-                    for b = 1, byteLen do
-                        charReads[b] = { address = namePtr + b, flags = 1 }
-                    end
-                    local chars = gg.getValues(charReads)
-                    local bytes = {}
-                    for _, c in ipairs(chars or {}) do
-                        bytes[#bytes + 1] = string.char(math.max(0, math.min(255, tonumber(c.value) or 0)))
-                    end
-                    nameStr = table.concat(bytes)
-                end
-            end
+            local nameStr = namePtr ~= 0 and readString(namePtr + 1) or "?"
 
             tracks[#tracks + 1] = {
                 index      = i,
@@ -34187,8 +34249,7 @@ function M.renameTrack(elemPtr, newName, cb)
         end
 
         -- Resolve the name pointer from the element base.
-        local namePtrResult = gg.getValues({{ address = elemPtr + 0x30, flags = 32 }})
-        local namePtr = namePtrResult and namePtrResult[1] and namePtrResult[1].value or 0
+        local _r = gg.getValues({{ address = elemPtr + 0x30, flags = 32 }}); local namePtr = _r and _r[1] and _r[1].value or 0
         if namePtr == 0 then
             LOG.error("RenameTrack", "namePtr is 0")
             finishTask(); cb(false, "creative.rename_resolve_failed"); return
@@ -34235,8 +34296,7 @@ function M.copyAny(cb)
             finishTask(); cb(false, "creative.copy_any_not_found"); return
         end
 
-        local idPtrResult = gg.getValues({{ address = BaseGameStatus + 0x30, flags = 32 }})
-        local idPtr = idPtrResult and idPtrResult[1] and idPtrResult[1].value or 0
+        local _r = gg.getValues({{ address = BaseGameStatus + 0x30, flags = 32 }}); local idPtr = _r and _r[1] and _r[1].value or 0
         if idPtr == 0 then
             LOG.error(TAG, "player ID pointer is 0")
             finishTask(); cb(false, "creative.copy_any_no_id"); return
@@ -34250,6 +34310,549 @@ function M.copyAny(cb)
 
         LOG.info(TAG, string.format("Patched %d entries with idPtr=0x%X", #edits, idPtr))
         finishTask(); cb(true, nil, #edits)
+    end)
+end
+
+-- ── Editor hacks ──────────────────────────────────────────────────────────────
+
+local PAGE_SIZE = 75   -- max objects per group per anchor slot
+
+-- Alloc handles kept in module-local only — they are runtime Lua objects and
+-- cannot be serialized. Slot data (addresses, originals) goes to memory:save.
+local _liveAllocHandles = nil
+
+-- requiresTheme zero pattern: 6 DWORDs covering +0x00..+0x14
+local THEME_ZERO_OFFSETS = { 0x00, 0x04, 0x08, 0x0C, 0x10, 0x14 }
+
+-- Group slot layout: { ptr1, ptr2, ptr3 }
+-- Each group is a cocos2d::Vector with three 64-bit pointers:
+--   ptr1 = buffer start  (first element)
+--   ptr2 = buffer end    (one-past-last element)
+--   ptr3 = capacity end  (one-past-last allocated slot, = ptr2 for exact-fit alloc)
+-- When zeroing a group that has no data, zero all three pointers (3 × QWORD = 24 bytes).
+local GROUP_SLOTS = {
+    dynamic = { ptr1 = 0x48, ptr2 = 0x50, ptr3 = 0x58 },
+    static  = { ptr1 = 0x60, ptr2 = 0x68, ptr3 = 0x70 },
+    props   = { ptr1 = 0x78, ptr2 = 0x80, ptr3 = 0x88 },
+}
+local GROUP_ORDER = { "dynamic", "static", "props" }
+
+-- Cached verified anchor list (addresses).
+local cachedAnchors = nil
+
+-- ── AOB scan + anchor verification ───────────────────────────────────────────
+
+local function resolveAnchors(TAG)
+    if cachedAnchors then
+        local chk = gg.getValues({{ address = cachedAnchors[1] - 0x8, flags = 32 }})
+        if chk and chk[1] and chk[1].value ~= 0 then
+            LOG.dbg(TAG, "anchor cache hit")
+            return cachedAnchors
+        end
+        LOG.warn(TAG, "anchor cache stale — re-scanning")
+        cachedAnchors = nil
+    end
+
+    gg.clearResults()
+    gg.setRanges(BaseRegion)
+    gg.searchNumber("h 20 66 6F 72 65 73 74 32 5F 67 66 78 2E 6A 73 6F", 1)
+    gg.refineNumber("h 20", 1)
+    local results = gg.getResults(gg.getResultsCount())
+    gg.clearResults()
+    
+    local valid = {}
+    for i, v in ipairs(results) do
+        local verify = gg.getValues({{
+            address = v.address + 0x18,
+            flags = 4
+        }, {
+            address = v.address + 0x20,
+            flags = 4
+        }})
+        
+        if verify and verify[1] and verify[2] and verify[1].value and verify[2].value then
+            table.insert(valid, { address = v.address, flags = 4 })
+        end
+    end
+    
+    local hits = gg.getValues(valid)
+    gg.clearResults()
+
+    LOG.info(TAG, string.format("AOB returned %d hit(s)", #hits))
+    if #hits == 0 then return nil end
+
+    local verified = {}
+    for hi, hit in ipairs(hits) do
+        local aobAddr = hit.address
+        LOG.dbg(TAG, string.format("hit[%d] aobAddr=0x%X", hi, aobAddr))
+
+        gg.clearResults()
+        gg.searchNumber(aobAddr, 32)
+        local ptrs = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+
+        for _, ptr in ipairs(ptrs) do
+            local addr = ptr.address
+
+            local _rA  = gg.getValues({{ address = addr - 0x8, flags = 32 }})
+            local ptrA = _rA and _rA[1] and _rA[1].value or 0
+            if ptrA == 0 then goto next_ptr end
+
+            local checkA   = gg.getValues({
+                { address = ptrA + 0x8,  flags = 4  },
+                { address = ptrA + 0x10, flags = 32 },
+            })
+            local dwordAt8 = checkA and checkA[1] and checkA[1].value or nil
+            local ptr2     = checkA and checkA[2] and checkA[2].value or 0
+            if dwordAt8 ~= 23 or ptr2 == 0 then goto next_ptr end
+
+            local countryside = readString(ptr2, 32)
+            if not countryside:find("countryside_gfx_01.json", 1, true) then goto next_ptr end
+
+            local _rB  = gg.getValues({{ address = addr + 0x8, flags = 32 }})
+            local ptrB = _rB and _rB[1] and _rB[1].value or 0
+            if ptrB == 0 then goto next_ptr end
+
+            local _bb     = gg.getValues({{ address = ptrB, flags = 1 }})
+            local byteAt0 = _bb and _bb[1] and _bb[1].value or nil
+            if byteAt0 ~= 26 then goto next_ptr end
+
+            local cityStr = readString(ptrB + 1, 8)
+            if not cityStr:find("city_gfx", 1, true) then goto next_ptr end
+
+            LOG.info(TAG, string.format("anchor verified at 0x%X", addr))
+            verified[#verified + 1] = addr
+            ::next_ptr::
+        end
+    end
+
+    if #verified == 0 then
+        LOG.warn(TAG, "no verified anchors found")
+        return nil
+    end
+
+    cachedAnchors = verified
+    return verified
+end
+
+-- ── Read all objectGroup ptr arrays from every anchor ─────────────────────────
+-- Walk anchors starting at anchor-0x8, stepping +0x8, stopping at ptr==0 or
+-- sentinel "all". For each anchor ptr, read the three group ranges and collect
+-- non-zero object pointers into the pool.
+-- Returns: pool = { dynamic={ptr,...}, static={ptr,...}, props={ptr,...} }
+--          anchorsWalked = list of { anchorSlotAddr, slotPtr, origGroups }
+--            origGroups = { dynamic={s,e}, static={s,e}, props={s,e} }
+
+local function readAllPools(TAG, anchors)
+    local pool        = { dynamic = {}, static = {}, props = {} }
+    local anchorSlots = {}
+
+    for ai, anchor in ipairs(anchors) do
+        local cur   = anchor - 0x8
+        local step  = 0
+        LOG.dbg(TAG, string.format("anchor[%d]=0x%X  walk starts at 0x%X", ai, anchor, cur))
+
+        while true do
+            local _r   = gg.getValues({{ address = cur, flags = 32 }})
+            local sPtr = _r and _r[1] and _r[1].value or 0
+            LOG.dbg(TAG, string.format("  slot[%d] cur=0x%X sPtr=0x%X", step, cur, sPtr))
+
+            if sPtr == 0 then
+                LOG.dbg(TAG, "  stop: sPtr==0")
+                break
+            end
+
+            local _sb      = gg.getValues({{ address = sPtr, flags = 1 }})
+            local sentByte = _sb and _sb[1] and _sb[1].value or 0
+            local sentStr  = readString(sPtr + 1, 3)
+            LOG.dbg(TAG, string.format("  requiresTheme sentinel: byte=%d str=%q", sentByte, sentStr))
+
+            if sentByte == 6 and sentStr:find("all", 1, true) then
+                LOG.dbg(TAG, "  stop: sentinel 'all'")
+                break
+            end
+
+            local gv = gg.getValues({
+                { address = sPtr + 0x48, flags = 32 },  -- dynamic ptr1
+                { address = sPtr + 0x50, flags = 32 },  -- dynamic ptr2
+                { address = sPtr + 0x58, flags = 32 },  -- dynamic ptr3
+                { address = sPtr + 0x60, flags = 32 },  -- static  ptr1
+                { address = sPtr + 0x68, flags = 32 },  -- static  ptr2
+                { address = sPtr + 0x70, flags = 32 },  -- static  ptr3
+                { address = sPtr + 0x78, flags = 32 },  -- props   ptr1
+                { address = sPtr + 0x80, flags = 32 },  -- props   ptr2
+                { address = sPtr + 0x88, flags = 32 },  -- props   ptr3
+            })
+
+            -- s=ptr1 (buffer start), e=ptr2 (end of elements), c=ptr3 (capacity end)
+            local origGroups = {
+                dynamic = { s = gv[1].value, e = gv[2].value, c = gv[3].value },
+                static  = { s = gv[4].value, e = gv[5].value, c = gv[6].value },
+                props   = { s = gv[7].value, e = gv[8].value, c = gv[9].value },
+            }
+
+            LOG.info(TAG, string.format(
+                "  sPtr=0x%X  dynamic=[0x%X..0x%X cap=0x%X](%d)  static=[0x%X..0x%X cap=0x%X](%d)  props=[0x%X..0x%X cap=0x%X](%d)",
+                sPtr,
+                origGroups.dynamic.s, origGroups.dynamic.e, origGroups.dynamic.c, math.max(0, math.floor((origGroups.dynamic.e - origGroups.dynamic.s) / 8)),
+                origGroups.static.s,  origGroups.static.e,  origGroups.static.c,  math.max(0, math.floor((origGroups.static.e  - origGroups.static.s)  / 8)),
+                origGroups.props.s,   origGroups.props.e,   origGroups.props.c,   math.max(0, math.floor((origGroups.props.e   - origGroups.props.s)   / 8))))
+
+            anchorSlots[#anchorSlots + 1] = { addr = cur, sPtr = sPtr, origGroups = origGroups }
+
+            for _, grp in ipairs(GROUP_ORDER) do
+                local gs      = origGroups[grp].s
+                local ge      = origGroups[grp].e
+                local before  = #pool[grp]
+                if gs ~= 0 and ge > gs then
+                    local a = gs
+                    while a < ge do
+                        local _p  = gg.getValues({{ address = a, flags = 32 }})
+                        local obj = _p and _p[1] and _p[1].value or 0
+                        if obj ~= 0 then
+                            pool[grp][#pool[grp] + 1] = obj
+                        else
+                            LOG.dbg(TAG, string.format("    %s: zero ptr at 0x%X — skipped", grp, a))
+                        end
+                        a = a + 0x8
+                    end
+                end
+                LOG.dbg(TAG, string.format("    %s: collected %d ptrs from this slot", grp, #pool[grp] - before))
+            end
+
+            cur  = cur + 0x8
+            step = step + 1
+        end
+    end
+
+    LOG.info(TAG, string.format(
+        "Pool totals: dynamic=%d  static=%d  props=%d  |  slots walked=%d",
+        #pool.dynamic, #pool.static, #pool.props, #anchorSlots))
+
+    return pool, anchorSlots
+end
+
+-- ── Chunk a flat pool into pages of PAGE_SIZE ─────────────────────────────────
+
+local function chunkPool(pool)
+    local pages = { dynamic = {}, static = {}, props = {} }
+    for _, grp in ipairs(GROUP_ORDER) do
+        local src = pool[grp]
+        local i   = 1
+        while i <= #src do
+            local page = {}
+            for j = i, math.min(i + PAGE_SIZE - 1, #src) do
+                page[#page + 1] = src[j]
+            end
+            pages[grp][#pages[grp] + 1] = page
+            i = i + PAGE_SIZE
+        end
+    end
+    return pages
+end
+
+-- ── Zero requiresTheme on a slot ptr ─────────────────────────────────────────
+
+local function zeroRequiresTheme(sPtr, writes)
+    for _, off in ipairs(THEME_ZERO_OFFSETS) do
+        writes[#writes + 1] = { address = sPtr + off, flags = 4, value = 0 }
+    end
+end
+
+-- ── Write "hidden" into requiresTheme on a slot ptr ──────────────────────────
+-- Layout: byte 0 = len*2 (6*2=12=0x0C), bytes 1-6 = "hidden"
+
+local function writeHiddenTheme(sPtr, writes)
+    writes[#writes + 1] = { address = sPtr + 0x00, flags = 1, value = 0x0C }
+    local hid = { 0x68, 0x69, 0x64, 0x64, 0x65, 0x6E }  -- "hidden"
+    for i, b in ipairs(hid) do
+        writes[#writes + 1] = { address = sPtr + i, flags = 1, value = b }
+    end
+end
+
+-- ── Zero all three cocos2d::Vector pointers for a group slot ─────────────────
+
+local function zeroGroupSlot(sPtr, gs, writes)
+    writes[#writes + 1] = { address = sPtr + gs.ptr1, flags = 32, value = 0 }
+    writes[#writes + 1] = { address = sPtr + gs.ptr2, flags = 32, value = 0 }
+    writes[#writes + 1] = { address = sPtr + gs.ptr3, flags = 32, value = 0 }
+end
+
+-- ── Main: anyThemeObjects ─────────────────────────────────────────────────────
+
+---Merge all objectGroup ptr arrays into PAGE_SIZE chunks, allocate new memory
+---for each chunk, and redistribute across anchor slots so the editor can scroll.
+---Slots that receive data get requiresTheme zeroed; source-only slots get "hidden".
+---@param state boolean  true = apply, false = revert
+---@param cb fun(ok, errKey|nil, count|nil)
+function M.anyThemeObjects(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "AnyThemeObjects"
+
+        -- ── Revert path ───────────────────────────────────────────────────────
+        if not state then
+            local cache = memory:load("any_theme_objects")
+            if not cache then
+                LOG.warn(TAG, "no cache to revert")
+                finishTask(); cb(false, "creative.obj_no_cache"); return
+            end
+
+            -- 1. Restore original start/end pointers and requiresTheme on all slots
+            local restoreWrites = {}
+            for _, slot in ipairs(cache.slots) do
+                -- Restore all three cocos2d::Vector pointers per group
+                local og  = slot.origGroups
+                local sp  = slot.sPtr
+                -- dynamic
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x48, flags = 32, value = og.dynamic.s }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x50, flags = 32, value = og.dynamic.e }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x58, flags = 32, value = og.dynamic.c }
+                -- static
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x60, flags = 32, value = og.static.s  }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x68, flags = 32, value = og.static.e  }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x70, flags = 32, value = og.static.c  }
+                -- props
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x78, flags = 32, value = og.props.s   }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x80, flags = 32, value = og.props.e   }
+                restoreWrites[#restoreWrites + 1] = { address = sp + 0x88, flags = 32, value = og.props.c   }
+                -- Restore original requiresTheme bytes
+                for _, rb in ipairs(slot.origTheme) do
+                    restoreWrites[#restoreWrites + 1] = rb
+                end
+            end
+            gg.setValues(restoreWrites)
+
+            -- 2. Free alloc handles from module-local store.
+            -- After a script restart _liveAllocHandles is nil (handles are not
+            -- serializable) — the alloc memory leaks for that session but the
+            -- game state is correctly restored via the pointer writes above.
+            if _liveAllocHandles then
+                local freedCount = #_liveAllocHandles
+                for _, handle in ipairs(_liveAllocHandles) do
+                    handle:free()
+                end
+                _liveAllocHandles = nil
+                LOG.info(TAG, string.format("Freed %d alloc handle(s)", freedCount))
+            else
+                LOG.warn(TAG, "No live alloc handles (script restarted?) — pointers restored but alloc memory not freed")
+            end
+
+            memory:save("any_theme_objects", nil)
+            LOG.info(TAG, string.format("Reverted %d slot(s)", #cache.slots))
+            finishTask(); cb(true, nil, #cache.slots); return
+        end
+
+        -- ── Apply path ────────────────────────────────────────────────────────
+
+        -- Already applied?
+        if memory:load("any_theme_objects") then
+            LOG.warn(TAG, "already applied — revert first")
+            finishTask(); cb(false, "creative.obj_already_applied"); return
+        end
+
+        -- Phase 1: resolve anchors
+        local anchors = resolveAnchors(TAG)
+        if not anchors or #anchors == 0 then
+            finishTask(); cb(false, "creative.obj_anchor_not_found"); return
+        end
+
+        -- Phase 2: read all pools + walk record
+        local pool, anchorSlots = readAllPools(TAG, anchors)
+        if #anchorSlots == 0 then
+            finishTask(); cb(false, "creative.obj_no_slots"); return
+        end
+
+        -- Phase 3: chunk into pages
+        local pages    = chunkPool(pool)
+        local numPages = math.max(#pages.dynamic, #pages.static, #pages.props)
+        LOG.info(TAG, string.format(
+            "Pages: dynamic=%d  static=%d  props=%d  → output slots needed=%d  available=%d",
+            #pages.dynamic, #pages.static, #pages.props, numPages, #anchorSlots))
+
+        if numPages > #anchorSlots then
+            -- More pages than available anchor slots — shouldn't happen in practice
+            -- since pool size / PAGE_SIZE ≤ anchorSlots × PAGE_SIZE / PAGE_SIZE
+            LOG.warn(TAG, string.format(
+                "need %d output slots but only %d anchor slots — capping", numPages, #anchorSlots))
+            numPages = #anchorSlots
+        end
+
+        -- Phase 4: allocate new memory for each page × group
+        local allocHandles = {}   -- flat list for cache/free
+        local pageAllocs   = {}   -- [pageIdx][grp] = handle|nil
+
+        local function freeAll()
+            for _, h in ipairs(allocHandles) do h:free() end
+        end
+
+        for pi = 1, numPages do
+            pageAllocs[pi] = {}
+            for _, grp in ipairs(GROUP_ORDER) do
+                local page = pages[grp][pi]
+                if page and #page > 0 then
+                    local sz     = #page * 8
+                    local handle = alloc.new(sz, { flags = 32, step = 8, align = 8 })
+                    if not handle then
+                        LOG.error(TAG, string.format(
+                            "alloc failed for page %d group %s (%d bytes)", pi, grp, sz))
+                        freeAll()
+                        finishTask(); cb(false, "creative.obj_alloc_failed"); return
+                    end
+                    handle:write(page)
+                    allocHandles[#allocHandles + 1] = handle
+                    pageAllocs[pi][grp] = handle
+                    LOG.dbg(TAG, string.format(
+                        "page[%d].%s → 0x%X (%d ptrs)", pi, grp, handle.base, #page))
+                end
+            end
+        end
+
+        -- Phase 5 + 6: write back + requiresTheme
+        -- Output slots: anchorSlots[1..numPages] receive data (requiresTheme zeroed)
+        -- Source slots: anchorSlots[numPages+1..#anchorSlots] get "hidden"
+
+        local allWrites = {}
+
+        -- Save original requiresTheme bytes for revert (read first, write after)
+        -- We need 7 bytes per slot: byte at +0x00 (len sentinel) + 6 bytes for the string
+        for _, slot in ipairs(anchorSlots) do
+            local reads = {}
+            for i = 0, 6 do
+                reads[i + 1] = { address = slot.sPtr + i, flags = 1 }
+            end
+            local orig = gg.getValues(reads)
+            slot.origTheme = orig or {}
+        end
+
+        -- Output slots (receive merged pages)
+        LOG.info(TAG, string.format("Writing %d output slot(s)", numPages))
+        for pi = 1, numPages do
+            local slot = anchorSlots[pi]
+            local sPtr = slot.sPtr
+            LOG.info(TAG, string.format("  output slot[%d] sPtr=0x%X", pi, sPtr))
+
+            for _, grp in ipairs(GROUP_ORDER) do
+                local gs     = GROUP_SLOTS[grp]
+                local handle = pageAllocs[pi][grp]
+                if handle and pages[grp][pi] and #pages[grp][pi] > 0 then
+                    local endAddr = handle.base + #pages[grp][pi] * 8
+                    -- Write all three cocos2d::Vector pointers.
+                    -- ptr3 == ptr2 since our alloc is exactly sized (no spare capacity).
+                    LOG.info(TAG, string.format(
+                        "    %s: alloc=0x%X..0x%X (%d ptrs) → +0x%X(ptr1) +0x%X(ptr2) +0x%X(ptr3)",
+                        grp, handle.base, endAddr, #pages[grp][pi], gs.ptr1, gs.ptr2, gs.ptr3))
+                    allWrites[#allWrites + 1] = { address = sPtr + gs.ptr1, flags = 32, value = handle.base }
+                    allWrites[#allWrites + 1] = { address = sPtr + gs.ptr2, flags = 32, value = endAddr     }
+                    allWrites[#allWrites + 1] = { address = sPtr + gs.ptr3, flags = 32, value = endAddr     }
+                else
+                    LOG.dbg(TAG, string.format("    %s: no data — zeroing ptr1/ptr2/ptr3", grp))
+                    zeroGroupSlot(sPtr, gs, allWrites)
+                end
+            end
+
+            zeroRequiresTheme(sPtr, allWrites)
+        end
+
+        -- Source-only slots (objects moved away → mark as "hidden")
+        LOG.info(TAG, string.format("Hiding %d source-only slot(s)", #anchorSlots - numPages))
+        for si = numPages + 1, #anchorSlots do
+            LOG.dbg(TAG, string.format("  hidden slot[%d] sPtr=0x%X", si, anchorSlots[si].sPtr))
+            writeHiddenTheme(anchorSlots[si].sPtr, allWrites)
+        end
+
+        gg.setValues(allWrites)
+
+        -- Save serializable slot data to persistent cache (survives script restart
+        -- as long as the game PID is the same). Alloc handles are runtime-only
+        -- objects — keep them in a module-local so revert can free them if the
+        -- script hasn't been restarted.
+        _liveAllocHandles = allocHandles
+        memory:save("any_theme_objects", { slots = anchorSlots })
+
+        LOG.info(TAG, string.format(
+            "Done: %d output slot(s), %d hidden, %d alloc(s), %d total writes",
+            numPages, #anchorSlots - numPages, #allocHandles, #allWrites))
+        finishTask(); cb(true, nil, numPages * PAGE_SIZE * 3)
+    end)
+end
+
+---Show all hidden (testModeOnly) objects in the editor.
+---Zeroes the testModeOnly byte (offset +0x101) for every object entry.
+---@param state boolean  true = apply, false = revert
+---@param cb fun(ok, errKey|nil, count|nil)
+function M.showHiddenObjects(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "ShowHiddenObjects"
+
+        local cache = memory:load("show_hidden_objects")
+
+        if state then
+            local anchors = resolveAnchors(TAG)
+            if not anchors or #anchors == 0 then
+                finishTask(); cb(false, "creative.obj_anchor_not_found"); return
+            end
+
+            -- Walk all slots and collect ptr3 targets (same hidden walk as before)
+            local hiddenTargets = {}
+            for _, anchor in ipairs(anchors) do
+                local cur = anchor - 0x20
+                while true do
+                    local _r  = gg.getValues({{ address = cur, flags = 32 }})
+                    local ptr = _r and _r[1] and _r[1].value or 0
+                    if ptr == 0 then break end
+
+                    local _sb      = gg.getValues({{ address = ptr, flags = 1 }})
+                    local sentByte = _sb and _sb[1] and _sb[1].value or 0
+                    if sentByte == 6 and readString(ptr + 1, 3):find("all", 1, true) then break end
+
+                    local rangeR    = gg.getValues({
+                        { address = ptr + 0x30, flags = 32 },
+                        { address = ptr + 0x38, flags = 32 },
+                    })
+                    local ptr2Start = rangeR and rangeR[1] and rangeR[1].value or 0
+                    local ptr2End   = rangeR and rangeR[2] and rangeR[2].value or 0
+
+                    if ptr2Start ~= 0 and ptr2End > ptr2Start then
+                        local cur2 = ptr2Start
+                        while cur2 < ptr2End do
+                            local _r3  = gg.getValues({{ address = cur2, flags = 32 }})
+                            local ptr3 = _r3 and _r3[1] and _r3[1].value or 0
+                            if ptr3 ~= 0 then
+                                hiddenTargets[#hiddenTargets + 1] = { address = ptr3 + 0x101, flags = 1, value = 0 }
+                            end
+                            cur2 = cur2 + 0x8
+                        end
+                    end
+                    cur = cur + 0x8
+                end
+            end
+
+            if #hiddenTargets == 0 then
+                finishTask(); cb(false, "creative.obj_anchor_not_found"); return
+            end
+
+            if not cache then
+                local reads = {}
+                for _, w in ipairs(hiddenTargets) do
+                    reads[#reads + 1] = { address = w.address, flags = w.flags }
+                end
+                cache = gg.getValues(reads)
+                memory:save("show_hidden_objects", cache)
+                LOG.dbg(TAG, string.format("Cached %d original byte(s)", #cache))
+            end
+
+            gg.setValues(hiddenTargets)
+            LOG.info(TAG, string.format("Cleared testModeOnly on %d object(s)", #hiddenTargets))
+            finishTask(); cb(true, nil, #hiddenTargets)
+        else
+            if not cache then
+                LOG.warn(TAG, "No cache to revert")
+                finishTask(); cb(false, "creative.obj_no_cache"); return
+            end
+            gg.setValues(cache)
+            LOG.info(TAG, string.format("Reverted %d byte(s)", #cache))
+            finishTask(); cb(true, nil, #cache)
+        end
     end)
 end
 
@@ -35360,6 +35963,54 @@ function M.hideFlag(state, cb)
     end)
 end
 
+---Toggle speed hack — searches REGION_CD for -1.13333332539 float,
+---freezes it to -1.0 on enable, restores on disable.
+---@param state boolean
+---@param cb fun(ok, errKey|nil)
+function M.setSpeedHack(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "SpeedHack"
+        local cache = memory:load("speed_hack")
+
+        if state then
+            if not cache then
+                gg.clearResults()
+                gg.setRanges(8)
+                gg.searchNumber("-1.13333332539", gg.TYPE_FLOAT)
+                local results = gg.getResults(gg.getResultsCount())
+                gg.clearResults()
+                LOG.info(TAG, string.format("Scan returned %d result(s)", #results))
+                if #results == 0 then
+                    finishTask(); cb(false, "player.speed_hack.not_found"); return
+                end
+                memory:save("speed_hack", results)
+                cache = results
+            else
+                gg.clearResults()
+                gg.loadResults(cache)
+                gg.getResults(gg.getResultsCount())
+            end
+            gg.editAll("-1.0", gg.TYPE_FLOAT)
+            gg.clearResults()
+            LOG.info(TAG, string.format("Enabled on %d address(es)", #cache))
+            finishTask(); cb(true)
+        else
+            if not cache then
+                LOG.warn(TAG, "no cache to revert")
+                finishTask(); cb(false, "player.speed_hack.no_cache"); return
+            end
+            gg.clearResults()
+            gg.loadResults(cache)
+            gg.getResults(gg.getResultsCount())
+            gg.editAll("-1.13333332539", gg.TYPE_FLOAT)
+            gg.clearResults()
+            memory:save("speed_hack", nil)
+            LOG.info(TAG, "Disabled — original value restored")
+            finishTask(); cb(true)
+        end
+    end)
+end
+
 -- Adjust camera zoom (slider min/max). No user-facing message in the original.
 -- status: "applied" | "none"
 function M.setZoom(vals, cb)
@@ -35635,6 +36286,15 @@ local RARITY_CAP = {
     epic      = 7,
     legendary = 4,
     mythic    = 3,
+}
+
+-- Parts whose in-memory name suffix doesn't match any tuning_parts key.
+-- Checked as plain suffix patterns against the full in-memory name
+-- (e.g. "jeep_start_boost" ends with "start_boost" -> cap 10).
+-- Format: { suffix, cap }
+local PART_SUFFIX_OVERRIDES = {
+    { "start_boost", 10 },  -- stored as <vehicle>_start_boost; tuning_parts key is perfect_start_boost (rare->10)
+    { "_jump",       10 },  -- stored as <vehicle>_jump (truncated from jump_boost); rare->10
 }
 
 -- Decode configs/tuning_parts.lua once and cache it — the file is ~3k lines,
@@ -36387,14 +37047,26 @@ function M.maxMastery(onProgress, cb)
 end
 
 -- Resolve a part's max level from its name via the rarity-derived caps.
--- Longest matching key wins so a specific variant beats its base name.
+-- Priority: suffix overrides -> longest tuning_parts suffix match -> fallback 3.
 local function partMaxLevel(partName)
-    local maxLevel, bestLen = 3, 0  -- fallback for parts with no rarity match
+    -- 1. Suffix overrides for parts whose in-memory name doesn't match any
+    --    tuning_parts key (e.g. "jeep_start_boost", "jeep_jump").
+    for _, entry in ipairs(PART_SUFFIX_OVERRIDES) do
+        local suffix, cap = entry[1], entry[2]
+        if partName:find(suffix .. "$") then
+            return cap
+        end
+    end
+    -- 2. Longest suffix match against tuning_parts keys.
+    local maxLevel, bestLen = 3, 0
     for key, lvl in pairs(partCaps()) do
         if #key > bestLen and partName:find(key .. "$") then
             maxLevel = lvl
             bestLen  = #key
         end
+    end
+    if maxLevel == 3 and bestLen == 0 then
+        LOG.dbg("MaxParts", "No cap found for part: " .. tostring(partName) .. " -- using fallback 3")
     end
     return maxLevel
 end
@@ -36463,13 +37135,14 @@ function M.maxParts(onProgress, cb)
                             local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
                             if header == 49 then
                                 local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
-                                partName = namePtr2 ~= 0 and readString(namePtr2 + 1) or "unknown"
+                                partName = namePtr2 ~= 0 and readString(namePtr2) or "unknown"
                             else
                                 partName = readString(namePtr + 1)
                             end
                         end
 
                         local maxLevel = partMaxLevel(partName)
+                        LOG.dbg(TAG, string.format("  part=%s → maxLevel=%d", partName, maxLevel))
                         upgradeList[#upgradeList + 1] = { address = partPtr + 0x20, flags = 4, value = maxLevel }
                         upgradeList[#upgradeList + 1] = { address = partPtr + 0x34, flags = 4, value = maxLevel }
                     end
@@ -36882,8 +37555,33 @@ local ops = CrashHandler.loadFeature("modules/ops/creative.lua")
 return function(container)
     local function t(key, ...) return T("creative." .. key, ...) end
 
+    -- ── Any Theme Objects ─────────────────────────────────────────────────────
+    addModule(container, "any_theme_objects", t("any_theme_objects.title"), t("any_theme_objects.desc"), "switch", nil,
+    function(done, state)
+        ops.anyThemeObjects(state, function(ok, errKey, count)
+            if ok then
+                showToast(t(state and "any_theme_objects.applied" or "any_theme_objects.reverted", tostring(count)))
+            else
+                showToast(T(errKey or "common.failed"), true)
+            end
+            done()
+        end)
+    end)
+
+    -- ── Show Hidden Objects ───────────────────────────────────────────────────
+    addModule(container, "show_hidden_objects", t("show_hidden_objects.title"), t("show_hidden_objects.desc"), "switch", nil,
+    function(done, state)
+        ops.showHiddenObjects(state, function(ok, errKey, count)
+            if ok then
+                showToast(t(state and "show_hidden_objects.applied" or "show_hidden_objects.reverted", tostring(count)))
+            else
+                showToast(T(errKey or "common.failed"), true)
+            end
+            done()
+        end)
+    end)
+
     -- ── Copy Any ─────────────────────────────────────────────────────────────
-    -- Requires downloadedCustomTracks offset — only verified on arm64-v8a.
     addArchModule(container, "copy_any", t("copy_any.title"), t("copy_any.desc"), "button", nil,
     offsets.downloadedCustomTracks and function(done)
         ops.copyAny(function(ok, errKey, count)
@@ -36892,16 +37590,13 @@ return function(container)
             else
                 showToast(T(errKey or "common.failed"), true)
             end
+            done()
         end)
-        done()
     end)
 
     -- ── Track Editor (verify / set length / rename) ───────────────────────────
-    -- Requires customTracks offset — only verified on arm64-v8a.
     addArchModule(container, "track_editor", t("track_editor.title"), t("track_editor.desc"), "button", nil,
     offsets.customTracks and function(done)
-        -- Loading the track list is a scheduled op; we need it before showing any UI.
-        -- Show a loading toast, then enter the depth loop once results arrive.
         showToast(t("track_editor.loading"))
 
         ops.getCustomTracks(function(ok, tracksOrErr)
@@ -36916,11 +37611,11 @@ return function(container)
                 done(); return
             end
 
-            -- Build display list: "Track Name  [✓]  (500m)" or "Track Name  [?]  (500m)"
+            -- Build display list: "Track Name  [✓]  (500m)" or "Track Name  (500m)"
             local display = {}
             for _, tr in ipairs(tracks) do
-                local verified = tr.isVerified == 1 and " [✓]" or ""
-                display[#display + 1] = string.format("%s%s  (%dm)", tr.nameStr, verified, tr.length)
+                display[#display + 1] = string.format("%s%s  (%dm)",
+                    tr.nameStr, tr.isVerified == 1 and " [✓]" or "", tr.length)
             end
 
             local actions = {
@@ -36930,11 +37625,8 @@ return function(container)
             }
 
             -- ── Depth loop ────────────────────────────────────────────────────
-            -- depth 1 = pick a track
-            -- depth 2 = pick an action
-            -- depth 3 = action-specific input prompt
-            local depth    = 1
-            local track    = nil   -- chosen tracks[i] descriptor
+            local depth     = 1
+            local track     = nil
             local actionIdx = nil
 
             while true do
@@ -36950,15 +37642,16 @@ return function(container)
 
                 -- ── Depth 2: pick action ──────────────────────────────────────
                 elseif depth == 2 then
-                    local statusLine = (track.isVerified == 1)
-                        and t("track_status.verified")
-                        or  t("track_status.not_verified")
-                    local subtitle = string.format("%s — %s  |  %s",
-                        track.nameStr, statusLine, t("track_length", tostring(track.length)))
-
-                    local choice = showList(subtitle, t("action.select"), actions)
+                    local choice = showList(
+                        string.format("%s — %s  |  %s",
+                            track.nameStr,
+                            track.isVerified == 1 and t("track_status.verified") or t("track_status.not_verified"),
+                            t("track_length", tostring(track.length))),
+                        t("action.select"),
+                        actions
+                    )
                     if not choice or choice == 0 then
-                        depth = 1   -- back to track list
+                        depth = 1
                     else
                         actionIdx = choice
                         depth = 3
@@ -36976,17 +37669,14 @@ return function(container)
                             ops.verifyTrack(track.elemPtr, function(ok2, errKey)
                                 if ok2 then
                                     track.isVerified = 1
-                                    -- Update display entry in-place so going back shows ✓
-                                    local idx = track.index + 1
-                                    local verified = " [✓]"
-                                    display[idx] = string.format("%s%s  (%dm)",
-                                        track.nameStr, verified, track.length)
+                                    display[track.index + 1] = string.format("%s [✓]  (%dm)", track.nameStr, track.length)
                                     showToast(t("verify.applied", track.nameStr))
                                 else
                                     showToast(T(errKey or "common.failed"), true)
                                 end
+                                done()
                             end)
-                            done(); return
+                            return
                         end
 
                     -- ── Set Length ────────────────────────────────────────────
@@ -37001,21 +37691,19 @@ return function(container)
                             local newLen = tonumber(result[1])
                             if not newLen or newLen < 1 then
                                 showToast(t("set_length.invalid"), true)
-                                -- stay at depth 3
                             else
                                 ops.setTrackLength(track.elemPtr, newLen, function(ok2, errKey, applied)
                                     if ok2 then
                                         track.length = applied
-                                        local idx = track.index + 1
-                                        local verified = track.isVerified == 1 and " [✓]" or ""
-                                        display[idx] = string.format("%s%s  (%dm)",
-                                            track.nameStr, verified, track.length)
+                                        display[track.index + 1] = string.format("%s%s  (%dm)",
+                                            track.nameStr, track.isVerified == 1 and " [✓]" or "", applied)
                                         showToast(t("set_length.applied", track.nameStr, tostring(applied)))
                                     else
                                         showToast(T(errKey or "common.failed"), true)
                                     end
+                                    done()
                                 end)
-                                done(); return
+                                return
                             end
                         end
 
@@ -37031,21 +37719,19 @@ return function(container)
                             local newName = result[1]
                             if not newName or newName == "" then
                                 showToast(t("rename.empty"), true)
-                                -- stay at depth 3
                             else
                                 ops.renameTrack(track.elemPtr, newName, function(ok2, errKey, applied)
                                     if ok2 then
-                                        local idx = track.index + 1
-                                        local verified = track.isVerified == 1 and " [✓]" or ""
-                                        display[idx] = string.format("%s%s  (%dm)",
-                                            applied, verified, track.length)
+                                        display[track.index + 1] = string.format("%s%s  (%dm)",
+                                            applied, track.isVerified == 1 and " [✓]" or "", track.length)
                                         track.nameStr = applied
                                         showToast(t("rename.applied", applied))
                                     else
                                         showToast(T(errKey or "common.failed"), true)
                                     end
+                                    done()
                                 end)
-                                done(); return
+                                return
                             end
                         end
                     end
@@ -37420,6 +38106,14 @@ return function(container)
     function(done, state)
         ops.hideFlag(state, function(status)
             showToast(t("hide_flag." .. status), true)
+        end)
+        done()
+    end)
+
+    addModule(container, "speed_hack", t("speed_hack.title"), t("speed_hack.desc"), "switch", nil,
+    function(done, state)
+        ops.setSpeedHack(state, function(ok, errKey)
+            if not ok then showToast(T(errKey or "common.failed"), true) end
         end)
         done()
     end)
@@ -38597,38 +39291,10 @@ local function _createLoadingSpinner()
     return spinner, function() state.running = false end
 end
 
--- Set once, the first time the menu is ever built in this script run. Gates
--- the background preload below so it only fires at true cold start, not on
--- every rebuildMenu() (e.g. a Settings change tearing down and rebuilding
--- the menu mid-session).
-local _earlySessionPreloadDone = false
-
--- Renders one tab id per MainHandler frame straight into _tabContentCache,
--- without ever touching moduleContainer — so it can run quietly in the
--- background without disturbing whatever tab the user is actually looking
--- at. Used only for the early-session warm-up; normal tab switches still
--- render lazily on first visit via loadCategory().
---@param ids string[]  Remaining tab ids to preload (consumed front-to-back)
-local function _preloadTabsInBackground(ids)
-    if #ids == 0 then return end
-    local id = table.remove(ids, 1)
-    MainHandler.post(Runnable({ run = function()
-        if not _tabContentCache[id] then
-            local setCategory = categoryHandlers[id]
-            if setCategory then
-                local tabContent = LinearLayout(activity)
-                tabContent.setOrientation(1)
-                tabContent.setLayoutParams(LinLayoutParams(-1, -2))
-                local ok = pcall(function() setCategory(tabContent) end)
-                if ok then
-                    _tabContentCache[id] = tabContent
-                end
-            end
-        end
-        _preloadTabsInBackground(ids)
-    end }))
-end
-
+-- Loads and displays a category (tab content) by ID.
+-- Updates active tab styling and populates moduleContainer with category modules.
+-- Cached tabs swap in instantly; uncached tabs show an animated loading
+-- indicator and render on the next MainHandler frame so the UI thread stays
 -- Loads and displays a category (tab content) by ID.
 -- Updates active tab styling and populates moduleContainer with category modules.
 -- Cached tabs swap in instantly; uncached tabs show an animated loading
@@ -39679,20 +40345,7 @@ local function _buildMenuTabs(root, _lastTab)
         loadCategory(targetId, targetTab)
     end
 
-    -- Early-session only: warm every other tab's cache in the background,
-    -- one per frame, so by the time the user actually taps around the
-    -- tabs they're instant instead of showing the loading spinner on
-    -- first visit. Skipped on later rebuilds within the same session.
-    if not _earlySessionPreloadDone then
-        _earlySessionPreloadDone = true
-        local idsToPreload = {}
-        for _, m in ipairs(menuList) do
-            if m[1] ~= "separator" and m[1] ~= targetId then
-                table.insert(idsToPreload, m[1])
-            end
-        end
-        _preloadTabsInBackground(idsToPreload)
-    end
+
 end
 
 -- Builds the content ScrollView and moduleContainer, adds them to root.
