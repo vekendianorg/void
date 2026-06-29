@@ -36,6 +36,7 @@ return {
 - Українська: AMR (Discord: amrgg)
 - Türkçe: AMR (Discord: amrgg)
 - Português (Brasil): AMR (Discord: amrgg)
+- 简体中文 (Simplified Chinese): Lan9118 (Discord: lan9118)
 ]],
 
 -- ── Credits ───────────────────────────────────────────────────────────────
