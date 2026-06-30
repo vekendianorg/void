@@ -562,7 +562,7 @@ return {
 ["event.patch_results_title"] = "补丁结果",
 ["event.restore_results_title"] = "恢复结果",
 ["event.restart_required_title"] = "需要重启",
-["event.patch_restart_msg"] = "游戏已关闭，脚本即将退出，请重新启动脚本查看补丁效果",
+["event.patch_restart_msg"] = "需要重启游戏才可使补丁生效，游戏即将关闭，请重新启动以查看补丁结果",
 ["event.restore_restart_msg"] = "游戏即将关闭以允许服务器文件同步",
 ["event.finishing_tasks_patch"] = "正在完成待处理的后台任务... 请稍候",
 ["event.finishing_tasks_restore"] = "正在完成待处理的后台任务...",
