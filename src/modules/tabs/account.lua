@@ -44,6 +44,39 @@ return function(container)
         done()
     end)
 
+    addModule(container, "change_ws", t("change_ws.title"), t("change_ws.desc"), "button", nil,
+    function(done)
+        local result = showPrompt(t("change_ws.title"), {
+            { t("change_ws.prompt_best"),    "number", "1" },
+            { t("change_ws.prompt_current"), "number", "1" },
+        })
+        if not result then done() return end
+
+        local best    = math.floor(tonumber(result[1]) or 1)
+        local current = math.floor(tonumber(result[2]) or 1)
+
+        best    = math.max(0, math.min(2147483647, best))
+        current = math.max(0, math.min(2147483647, current))
+
+        if current > best then
+            showDialog(
+                t("change_ws.current_over_best_title"),
+                t("change_ws.current_over_best_msg"),
+                T("common.ok")
+            )
+            done(); return
+        end
+
+        ops.changeWinStreak(current, best, function(status)
+            if status == "resolve_failed" then
+                showToast(t("change_ws.resolve_failed"), true)
+            else
+                showToast(t("change_ws.applied", tostring(current), tostring(best)))
+            end
+        end)
+        done()
+    end)
+
     addArchModule(container, "fake_unlock", t("fake_unlock.title"), t("fake_unlock.desc"), "switch", nil, aobs.fakeUnlock)
 
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)

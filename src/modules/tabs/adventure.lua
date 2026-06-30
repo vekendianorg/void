@@ -24,6 +24,20 @@ return function(container)
         done()
     end)
 
+    addModule(container, "free_adventure_shop", t("free_adventure_shop.title"), t("free_adventure_shop.desc"), "switch", nil,
+    function(done, state)
+        ops.freeAdventureShop(state, function(status)
+            if status == "resolve_failed" then
+                showToast(t("free_adventure_shop.resolve_failed"), true)
+            elseif status == "reverted" then
+                showToast(t("free_adventure_shop.reverted"))
+            else
+                showToast(t("free_adventure_shop.applied"))
+            end
+        end)
+        done()
+    end)
+
     addArchModule(container, "set_distance", t("set_distance.title"), t("set_distance.desc"), "button", nil,
     function(done)
         -- Loop already running? Offer to stop it.

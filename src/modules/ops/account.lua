@@ -98,6 +98,49 @@ function M.applyFakeRank(cb)
 end
 
 
+-- ── Change Win Streak ────────────────────────────────────────────────────────
+
+-- Write current and best win streak values.
+-- status: "resolve_failed" | "applied"
+function M.changeWinStreak(current, best, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "ChangeWinStreak"
+
+        local reads = gg.getValues({
+            { address = BaseGameStatus + 0x6AC, flags = 4  },  -- static key
+            { address = BaseGameStatus + 0x768, flags = 32 },  -- current WS ptr
+            { address = BaseGameStatus + 0x770, flags = 32 },  -- best WS ptr
+        })
+
+        local staticKey  = reads[1] and reads[1].value or 0
+        local currentPtr = reads[2] and reads[2].value or 0
+        local bestPtr    = reads[3] and reads[3].value or 0
+
+        LOG.info(TAG, string.format(
+            "staticKey=0x%X  currentPtr=0x%X  bestPtr=0x%X",
+            staticKey, currentPtr, bestPtr))
+
+        if currentPtr == 0 or bestPtr == 0 then
+            LOG.error(TAG, "one or more ptrs are 0 — resolve failed")
+            finishTask(); cb("resolve_failed"); return
+        end
+
+        gg.setValues({
+            { address = currentPtr + 0x18, flags = 4, value = staticKey },
+            { address = currentPtr + 0x1C, flags = 4, value = current   },
+            { address = currentPtr + 0x20, flags = 4, value = 0         },
+            { address = currentPtr + 0x24, flags = 4, value = 0         },
+            { address = bestPtr    + 0x18, flags = 4, value = staticKey },
+            { address = bestPtr    + 0x1C, flags = 4, value = best      },
+            { address = bestPtr    + 0x20, flags = 4, value = 0         },
+            { address = bestPtr    + 0x24, flags = 4, value = 0         },
+        })
+
+        LOG.info(TAG, string.format("Applied — current=%d  best=%d", current, best))
+        finishTask(); cb("applied")
+    end)
+end
+
 -- ── Unlock achievements ─────────────────────────────────────────────────────────────────
 -- unfinished, don't touch
 

@@ -2,8 +2,8 @@
 -- Loaded before any imports. Calls os.exit() on failure; no return value.
 
 local function fail(msg)
-    if gg.alert("Environment check failed!\n\n" .. msg .. "\n\nUse GG: ME by Vekendian.", "Get GG: ME", "OK") == 1 then
-        gg.copyText("https://github.com/vekendianorg/me/releases")
+    if gg.alert("Environment check failed!\n\n" .. msg .. "\n\nUse Pivot by Vekendian.", "Get Pivot", "OK") == 1 then
+        gg.copyText("https://github.com/vekendianorg/pivot/releases")
     end
     os.exit()
 end

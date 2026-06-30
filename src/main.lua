@@ -246,6 +246,7 @@ RO_Fields        = {}
 
 cast      = loadModule("core/utils/cast.lua")
 json      = loadModule("core/utils/json.lua")
+alloc     = loadModule("core/engines/alloc.lua")
 
 -- Crash capture layer — loaded early so it can sink WARN+ logs from the start
 -- and so feature modules can be loaded non-fatally via CrashHandler.loadFeature.
@@ -825,8 +826,8 @@ if not exit then
             LOG.info("INIT", "Scanning region: " .. regionName)
 
             gg.clearResults(); gg.setRanges(region)
-            gg.searchNumber("h 73 74 61 72 74 75 70 5F 63 6F 75 6E 74", gg.TYPE_BYTE)
-            gg.refineNumber("h 73", gg.TYPE_BYTE)
+            gg.searchNumber("h 73 74 61 72 74 75 70 5F 63 6F 75 6E 74", 1)
+            gg.refineNumber("h 73", 1)
             local scan_results = gg.getResults(gg.getResultsCount())
             gg.clearResults()
 
@@ -838,7 +839,7 @@ if not exit then
             local ver_mismatch    = 0
 
             for _, d in ipairs(scan_results) do
-                local ptr = gg.getValues({ { address = d.address + 0x1F, flags = gg.TYPE_QWORD } })[1]
+                local ptr = gg.getValues({ { address = d.address + 0x1F, flags = 32 } })[1]
                 if ptr and ptr.value ~= 0 then
                     -- Sanity-check: a real pointer should be in a plausible
                     -- memory range (above 0x10000). Values that look like ASCII
@@ -850,13 +851,13 @@ if not exit then
                             "  implausible ptr at 0x%X → 0x%X (likely AOB false-positive in string literal)",
                             d.address, pv))
                     else
-                        local ver = gg.getValues({ { address = pv + 0x10, flags = gg.TYPE_DWORD } })[1]
+                        local ver = gg.getValues({ { address = pv + 0x10, flags = 4 } })[1]
                         local v   = ver and tonumber(ver.value)
                         if v == 65792 or v == 65793 or v == 16843008 or v == 16843009 then
                             table.insert(status_raw_hits, ver.address)
-                            local tp = gg.getValues({ { address = pv + 0x80, flags = gg.TYPE_QWORD } })[1]
+                            local tp = gg.getValues({ { address = pv + 0x80, flags = 32 } })[1]
                             if tp and tp.value ~= 0 then
-                                local td = gg.getValues({ { address = tp.value, flags = gg.TYPE_DWORD } })[1]
+                                local td = gg.getValues({ { address = tp.value, flags = 4 } })[1]
                                 if td then table.insert(status_hits, td.address) end
                             end
                         else

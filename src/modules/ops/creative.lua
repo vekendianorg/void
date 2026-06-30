@@ -23,7 +23,6 @@
   Globals used: scheduler, gg, memory, BaseLib, BaseGameStatus, offsets, LOG, alloc.
 ]]
 
-local alloc = loadModule("core/engines/alloc.lua")
 local M = {}
 
 -- ── Internal helpers ──────────────────────────────────────────────────────────

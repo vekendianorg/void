@@ -463,6 +463,12 @@ return {
 ["adventure.auto_adventure_chests.none_found"] = "No adventure chests found",
 ["adventure.auto_adventure_chests.done"] = "Done",
 
+["adventure.free_adventure_shop.title"]          = "Free Adventure Shop",
+["adventure.free_adventure_shop.desc"]           = "Make all Adventure Shop items free, no rank requirement needed.",
+["adventure.free_adventure_shop.applied"]        = "All shop items are now free.",
+["adventure.free_adventure_shop.reverted"]       = "Original shop prices restored.",
+["adventure.free_adventure_shop.resolve_failed"] = "Could not find Adventure Shop in memory — open the shop first.",
+
 ["adventure.set_distance.title"] = "Set Distance",
 ["adventure.set_distance.desc"] = "Sets your Adventure race distance to a custom value. Must be in an active race. Higher distance can gain more stars. Max stars at 5000m. (Not a teleport function)",
 ["adventure.set_distance.loop_active_title"] = "Set Distance — Loop Active",
@@ -601,6 +607,15 @@ return {
 ["account.change_gp.too_low_title"] = "Too Low",
 ["account.change_gp.higher_value"] = "Please higher your value",
 ["account.change_gp.applied"] = "Garage Power has been changed to %s",
+
+["account.change_ws.title"]                  = "Change Win Streak",
+["account.change_ws.desc"]                   = "Set your current and best win streak values.",
+["account.change_ws.prompt_best"]            = "Best win streak",
+["account.change_ws.prompt_current"]         = "Current win streak",
+["account.change_ws.current_over_best_title"] = "Invalid Input",
+["account.change_ws.current_over_best_msg"]  = "Current win streak cannot be greater than best win streak.",
+["account.change_ws.resolve_failed"]         = "Could not resolve win streak pointers — make sure you are in-game.",
+["account.change_ws.applied"]                = "Win streak set — Current: %s  Best: %s",
 
 ["account.fake_unlock.title"] = "Fake Unlock",
 ["account.fake_unlock.desc"] = "Unlock all customizations temporarily",
