@@ -81,7 +81,9 @@ return function(container)
 
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)
 
-    addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "button", nil, function(done)
+    addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "input", {
+        { hint = t("fake_rank.hint"), value = "50.0", type = "number" }
+    }, function(done, val)
         if not ops.isCupsTab() then
             LOG.warn("FakeRank", "Not in Cups tab.")
             showToast(t("fake_rank.not_in_cups"))
@@ -101,8 +103,8 @@ return function(container)
             return
         end
 
-        ops.applyFakeRank(function()
-            showToast(t("fake_rank.applied"))
+        ops.applyFakeRank(val, function()
+            showToast(t("fake_rank.applied", tostring(val)))
         end)
         done()
     end)

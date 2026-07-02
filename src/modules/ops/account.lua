@@ -83,15 +83,17 @@ function M.isCupsTab()
     return type(activeTab) == "table" and activeTab[1] ~= nil and activeTab[1].value == 1
 end
 
--- Apply fake rank (writes 50.0). The tab confirms M.isCupsTab() and shows the
--- race-warning dialog BEFORE calling this.
+-- Apply fake rank (writes the given value). The tab confirms M.isCupsTab() and
+-- shows the race-warning dialog BEFORE calling this.
+-- value: number to write, defaults to 50.0 if nil/invalid
 -- status: "applied"
-function M.applyFakeRank(cb)
+function M.applyFakeRank(value, cb)
+    local rank = tonumber(value) or 50.0
     scheduler:add(function(finishTask)
         gg.setValues({
-            { address = BaseGameStatus + 0x200, flags = 16, value = 50.0 }
+            { address = BaseGameStatus + 0x200, flags = 16, value = rank }
         })
-        LOG.info("FakeRank", "Fake rank applied.")
+        LOG.info("FakeRank", string.format("Fake rank applied: %.1f", rank))
         finishTask()
         cb("applied")
     end)

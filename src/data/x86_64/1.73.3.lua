@@ -45,7 +45,5 @@ return {
     },
     offsets = {
         raceInfo = 0x2066508,     -- x86_64
-        vnpStats = 0x2060CA0,     -- arm64-v8a
-        customTracks = 0x1FE27F0, -- arm64-v8a
     },
 }
