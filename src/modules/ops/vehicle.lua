@@ -125,29 +125,40 @@ local function resolveVehicleList()
 
     local anchor = anchorResults[1]
 
-    -- Pattern check — 1 getValues
+    -- Pattern check + ref search on all anchors
+    local refResults
+    local bestCount = 0
+
+for anchorIdx, anchor in ipairs(anchorResults) do
     local pattern = gg.getValues({
         { address = anchor.address - 0x20, flags = 4 },
         { address = anchor.address - 0x8,  flags = 4 }
     })
 
-    if not pattern or not pattern[1] or not pattern[2]
-    or pattern[1].value ~= 0x65656A08
-    or pattern[2].value ~= 0x403147AE then
-        LOG.warn("VehicleList", "Pattern mismatch.")
-        return nil
-    end
+    if pattern and pattern[1] and pattern[2]
+        and pattern[1].value == 0x65656A08
+        and pattern[2].value == 0x403147AE then
 
-    -- Refs search
-    gg.clearResults()
-    gg.searchNumber(pattern[1].address, 32)
-    local refResults = gg.getResults(gg.getResultsCount())
-    gg.clearResults()
+        gg.clearResults()
+        gg.searchNumber(pattern[1].address, 32)
+        gg.setVisible(false)
 
-    if not refResults or #refResults == 0 then
-        LOG.warn("VehicleList", "No refs found.")
-        return nil
+        local tempResults = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+
+        if tempResults and #tempResults > bestCount then
+            bestCount = #tempResults
+            refResults = tempResults
+        end
+    else
+        LOG.dbg("VehicleList", string.format("anchor[%d] pattern mismatch", anchorIdx))
     end
+end
+
+if not refResults or #refResults == 0 then
+    LOG.warn("VehicleList", "No refs found.")
+    return nil
+end
 
     -- Collect raw vehiclePtrs — sequential (unavoidable, unknown count per ref)
     local written = {}
