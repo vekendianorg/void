@@ -9,7 +9,9 @@
     ui = {
       onProgress(key)              -- core asks the tab to toast t(key)
       chooseEvents(labels, key, p) -- core asks the tab for a multi-select
-                                   --   (tab shows gg.multiChoice titled t(key, p))
+                                   --   (tab shows its themed showList() titled
+                                   --   t(key, p), converted back to a boolean
+                                   --   map keyed by labels index)
                                    --   returns the selections table or nil
     }
 
@@ -50,6 +52,83 @@ end
 
 local function dirExists(path)
     return Shell.su("[ -d \"" .. path .. "\" ] && echo yes || echo no") == "yes"
+end
+
+-- Reads a single event's own (encrypted) JSON read-only, purely to surface
+-- its real in-game display name for the picker -- active_events.json only
+-- gives us internal codenames (e.g. "rocket"), which don't necessarily
+-- match what the event is actually called/themed as in-game ("Firecracker"),
+-- and users have no way to know that mapping. Never fails loudly: any
+-- problem along the way just falls back to showing the codename, so one
+-- bad/unreadable event file never blocks the whole picker.
+local function getEventDisplayName(path, eventName, safeWorkspace, hasRoot)
+    local eventPath        = path .. eventName .. ".json"
+    local targetEventPath  = eventPath
+    local secureEventCopy  = safeWorkspace .. eventName .. ".json"
+    local decryptedPath    = hasRoot and (safeWorkspace .. "." .. eventName) or (path .. "." .. eventName)
+    local movedViaRoot     = false
+
+    local testOpen = io.open(eventPath, "r")
+    if testOpen then
+        testOpen:close()
+    elseif hasRoot then
+        Shell.su("cp \"" .. eventPath .. "\" \"" .. secureEventCopy .. "\"")
+        Shell.su("chmod 777 \"" .. secureEventCopy .. "\"")
+        if not fileExists(secureEventCopy) then
+            LOG.dbg("EventNames", "Root copy failed for " .. eventName .. " -- falling back to codename")
+            return eventName
+        end
+        targetEventPath = secureEventCopy
+        movedViaRoot = true
+    else
+        return eventName
+    end
+
+    if not fileExists(targetEventPath) or fileSize(targetEventPath) <= 0 then
+        if movedViaRoot then os.remove(targetEventPath) end
+        return eventName
+    end
+
+    local meta = Crypto.decrypt(targetEventPath, decryptedPath)
+    if movedViaRoot then os.remove(targetEventPath) end
+    if not meta then return eventName end
+
+    local f = io.open(decryptedPath, "r")
+    if not f then return eventName end
+    local content = f:read("*a")
+    f:close()
+    os.remove(decryptedPath)
+
+    local displayName = eventName
+    pcall(function()
+        local decoded = json.decode(content)
+        local n = decoded and decoded.name
+        local text = type(n) == "table" and n.value or n
+        if type(text) == "string" and #text > 0 then
+            displayName = text
+        end
+    end)
+
+    return displayName
+end
+
+-- Resolves display names for every event in gameEvents (blocking, run inside
+-- the scheduler like the rest of the file-ops pipeline). Returns a labels
+-- array parallel to gameEvents -- indices still line up 1:1, only the text
+-- shown to the user changes.
+local function resolveEventLabels(ui, path, gameEvents, safeWorkspace, hasRoot)
+    ui.onProgress("resolving_event_names")
+    local labels = {}
+    local done = false
+    scheduler:add(function(finishTask)
+        for i = 1, #gameEvents do
+            labels[i] = getEventDisplayName(path, gameEvents[i], safeWorkspace, hasRoot)
+        end
+        finishTask()
+        done = true
+    end)
+    while not done do gg.sleep(50) end
+    return labels
 end
 
 -- ── Patch rewards ─────────────────────────────────────────────────────────────
@@ -158,8 +237,7 @@ function M.patchRewards(ui, cb)
                     goto continue_path
                 end
 
-                local labels = {}
-                for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
+                local labels = resolveEventLabels(ui, path, gameEvents, safeWorkspace, hasRoot)
 
                 local selections = ui.chooseEvents(labels, "select_events_patch", path)
                 if not selections then
@@ -397,8 +475,7 @@ function M.restoreEvents(ui, cb)
                 if ok and jsonActive then
                     local gameEvents = jsonActive.gameEvents or {}
                     if #gameEvents > 0 then
-                        local labels = {}
-                        for i = 1, #gameEvents do labels[i] = tostring(gameEvents[i]) end
+                        local labels = resolveEventLabels(ui, path, gameEvents, safeWorkspace, hasRoot)
 
                         local selections = ui.chooseEvents(labels, "select_events_restore", path)
 

@@ -128,7 +128,7 @@ function M.setDistance(params, ui)
             if not memory:load("set_distance_loop") then
                 LOG.info(TAG, "Loop stopped.")
                 ui.onLoopStopped()
-                memory:save("set_distance_ptr", nil)
+                memory:delete("set_distance_ptr")
                 return
             end
 

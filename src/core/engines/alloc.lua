@@ -78,7 +78,20 @@ local function isDangerousRegion(region)
         return true
     end
     -- Guard against accidentally allocating into stack or heap.
-    if name:match("%[stack%]") or name:match("%[heap%]") then
+    -- NOTE: "[stack]" only matches the MAIN thread's stack mapping. Every
+    -- other (worker/pthread) thread gets its own live stack+TLS mapping
+    -- named "[anon:stack_and_tls:<tid>]" by bionic — same danger (return
+    -- addresses, saved registers, TLS structs, constantly overwritten),
+    -- but the old pattern let it slip straight through since the bracket
+    -- contents don't literally read "stack". Threads also get an alternate
+    -- signal-handling stack ("[anon:thread signal stack]"), which is just
+    -- as live only during signal handling — block that too.
+    if name:match("%[stack%]")
+        or name:match("stack_and_tls")
+        or name:match("signal stack")
+        or internalName:match("stack_and_tls")
+        or internalName:match("signal stack")
+        or name:match("%[heap%]") then
         return true
     end
     return false
@@ -101,6 +114,11 @@ local function allZero(values)
     end
     return true
 end
+
+-- Exposed so other modules that scan gg.getRangesList() themselves (e.g.
+-- vehicle.lua's tuning-parts slot finder) can reuse the exact same safety
+-- rules instead of re-implementing (and potentially under-implementing) them.
+alloc.isDangerous = isDangerousRegion
 
 -- ─── alloc.findEmpty ──────────────────────────────────────────────────────────
 

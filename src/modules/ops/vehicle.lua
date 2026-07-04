@@ -72,7 +72,13 @@ local M = {}
 local function findZeroRegion(size)
     local ranges = gg.getRangesList()
     for _, region in ipairs(ranges) do
-        if region.state == "A" then
+        -- Own re-implementation of a "find scratch memory" scan — it never
+        -- had alloc.lua's stack/heap/bss/data safety filter, so it could
+        -- (and would) happily hand back a live thread stack/TLS region
+        -- (or .bss/[heap]/etc.) that just happened to read zero at that
+        -- instant. Reuse the shared, hardened check instead of trusting
+        -- state=="A" alone.
+        if region.state == "A" and not alloc.isDangerous(region) then
             local reads = {}
             for addr = region.start, region.start + size * 4, 4 do
                 table.insert(reads, { address = addr, flags = 4 })
@@ -106,7 +112,7 @@ local function resolveVehicleList()
             return cached
         else
             LOG.warn("VehicleList", "Cache stale — re-resolving")
-            memory:save("vehicle_list_deep", nil)
+            memory:delete("vehicle_list_deep")
         end
     end
 
@@ -315,7 +321,7 @@ function M.partsSlot(slot, cb)
             if not check or not check[1] or check[1].value == 0 then
                 LOG.warn(TAG, "Cache stale — re-resolving")
                 cached = nil
-                memory:save("parts_slot_deep", nil)
+                memory:delete("parts_slot_deep")
             end
         end
 
@@ -505,7 +511,7 @@ function M.applyPartsModifier(params, cb)
         gg.clearResults()
 
         if reset then
-            memory:save(cacheKey, nil)
+            memory:delete(cacheKey)
             LOG.info(TAG, "Reset: " .. cacheKey)
             finishTask(); cb("reset"); return
         end
@@ -537,7 +543,7 @@ function M.setFuel(params, cb)
                 {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
                 {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
             })
-            memory:save("fuel", nil)
+            memory:delete("fuel")
             LOG.info(TAG, "Fuel reset")
             gg.clearResults()
             finishTask(); cb("reset"); return

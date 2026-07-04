@@ -596,7 +596,7 @@ function M.anyThemeObjects(state, cb)
                 LOG.warn(TAG, "No live alloc handles (script restarted?) — pointers restored but alloc memory not freed")
             end
 
-            memory:save("any_theme_objects", nil)
+            memory:delete("any_theme_objects")
             LOG.info(TAG, string.format("Reverted %d slot(s)", #cache.slots))
             finishTask(); cb(true, nil, #cache.slots); return
         end

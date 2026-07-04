@@ -172,7 +172,7 @@ function M.setSpeedHack(state, cb)
             gg.getResults(gg.getResultsCount())
             gg.editAll("-1.13333332539", gg.TYPE_FLOAT)
             gg.clearResults()
-            memory:save("speed_hack", nil)
+            memory:delete("speed_hack")
             LOG.info(TAG, "Disabled — original value restored")
             finishTask(); cb(true)
         end

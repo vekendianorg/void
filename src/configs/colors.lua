@@ -17,7 +17,11 @@ UI = {
     GLOW = 0xFFFFFFFF,
     GLASS = 0x18FFFFFF,
     OVERLAY = 0xAA000000,
-    TABS_ICON = ">"
+    TABS_ICON = ">",
+    -- Minimized-state icon look: "pill" (default, full-width bar with title
+    -- + subtitle + close button), "circle", or "square" (compact draggable
+    -- bubble showing just the "V" logo letter). Changeable in Settings.
+    ICON_STYLE = "pill"
 }
 
 return UI

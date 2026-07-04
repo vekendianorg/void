@@ -243,6 +243,7 @@ sliderStates     = {}
 processingStates = {}
 lastClickTimes   = {}
 RO_Fields        = {}
+RO_RawValues     = {}  -- id -> raw copy value, kept in sync by addModule/updateRO
 
 cast      = loadModule("core/utils/cast.lua")
 json      = loadModule("core/utils/json.lua")
@@ -394,7 +395,9 @@ function switchToMenu()
         end
         LOG.info("switchToMenu", "attempting windowManager.addView(menuView) | menuView=" .. tostring(menuView) .. " mParams=" .. tostring(mParams) .. " windowManager=" .. tostring(windowManager))
         local ok, err = _safePcall(function()
-            -- Restore full menu height (was set to -2 for the icon pill).
+            -- Restore full menu size (icon mode may have shrunk both to
+            -- bubble dimensions or just the height, depending on ICON_STYLE).
+            mParams.width  = dp(WIN_W)
             mParams.height = dp(WIN_H + UI_CHROME_H)
             menuView.setAlpha(0.0); menuView.setScaleX(0.9); menuView.setScaleY(0.9)
             windowManager.addView(menuView, mParams); activeView = menuView
@@ -429,7 +432,16 @@ function switchToIcon()
         local ok, err = _safePcall(function()
             -- Use WRAP_CONTENT height for the icon pill; the full menu height
             -- is restored in switchToMenu before menuView is added back.
-            mParams.height = -2
+            -- Circle/square styles get a small fixed square window instead —
+            -- the pill's width (WIN_W) would otherwise force an invisible
+            -- full-width touch target around the tiny bubble.
+            if UI.ICON_STYLE == "circle" or UI.ICON_STYLE == "square" then
+                mParams.width  = dp(ICON_BUBBLE_SIZE)
+                mParams.height = dp(ICON_BUBBLE_SIZE)
+            else
+                mParams.width  = dp(WIN_W)
+                mParams.height = -2
+            end
             iconView.setAlpha(0.0); windowManager.addView(iconView, mParams); activeView = iconView
             iconView.animate().alpha(1.0).setDuration(180).start()
         end)
@@ -477,6 +489,16 @@ if saved_prefs then
     end
 end
 
+-- Icon Style is stored under its own global key rather than inside
+-- "ui_prefs" so it survives independently of the theme system — resetting
+-- or importing a theme (which replaces/merges "ui_prefs") must NOT wipe or
+-- override this personal layout preference.
+local saved_icon_style = memory:load_global("icon_style")
+if saved_icon_style == "pill" or saved_icon_style == "circle" or saved_icon_style == "square" then
+    LOG.info("INIT", "Icon style RE-APPLIED: " .. saved_icon_style)
+    UI.ICON_STYLE = saved_icon_style
+end
+
 
 -- ── Window size bounds (dp) ───────────────────────────────────────────────────
 -- Referenced by applyWindowResize and settings sliders.
@@ -492,6 +514,9 @@ SIDEBAR_W = 125
 -- Keeps mParams.height explicit so WindowManager doesn't expand the overlay to full screen.
 -- Global so switchToMenu in main.lua can restore mParams.height correctly.
 UI_CHROME_H = 55
+-- Fixed square size (dp) for the compact "circle"/"square" minimized icon
+-- style. The pill style ignores this and uses the full WIN_W instead.
+ICON_BUBBLE_SIZE = 56
 
 -- Window size preferences (persisted globally across restarts)
 -- WIN_W : panel width in dp

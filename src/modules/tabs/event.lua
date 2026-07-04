@@ -14,10 +14,30 @@ return function(container)
     local function t(key, ...) return T("event." .. key, ...) end
 
     -- Interaction callbacks handed to core for the unavoidable mid-pipeline UI.
+    -- chooseEvents used to call raw gg.multiChoice() -- every other picker in
+    -- the app (vehicle.lua, creative.lua, settings.lua) already uses the
+    -- app's own themed showList() widget, so this one stuck out (native GG
+    -- dialog look/behavior instead of the app's UI). Switched to showList in
+    -- multi-select mode; it returns an array of selected 1-based indices
+    -- rather than gg.multiChoice's full boolean map, so we convert it back
+    -- into the boolean-map shape ops/event.lua already expects -- no changes
+    -- needed downstream.
+    local titleForKey = {
+        select_events_patch   = t("patch_rewards.title"),
+        select_events_restore = t("restore_events.title"),
+    }
+
     local ui = {
         onProgress = function(key) gg.toast(t(key)) end,
         chooseEvents = function(labels, titleKey, arg)
-            return gg.multiChoice(labels, nil, t(titleKey, arg))
+            local title = titleForKey[titleKey] or t(titleKey, arg)
+            local picked = showList(title, t(titleKey, arg), labels, true)
+            if not picked then return nil end
+            local selections = {}
+            for _, idx in ipairs(picked) do
+                selections[idx] = true
+            end
+            return selections
         end,
     }
 

@@ -144,7 +144,7 @@ return {
 ["creative.obj_no_cache"]         = "Nothing to revert — toggle it on first.",
 ["creative.obj_no_slots"]         = "No object group slots found to process.",
 ["creative.obj_alloc_failed"]     = "Failed to allocate memory for merged objects.",
-["creative.obj_already_applied"]  = "Already active — revert first.",
+["creative.obj_already_applied"]  = "Already enabled — disable it first.",
 -- copy_any
 ["creative.copy_any.title"]        = "Copy Any Track",
 ["creative.copy_any.desc"]         = "Lets you copy any downloaded track, not just ones you created.",
@@ -371,6 +371,13 @@ return {
 ["settings.win_height.desc"] = "Height of the scrollable content area (%d – %d dp)",
 ["settings.slider.height"] = "Height",
 
+["settings.icon_style.title"] = "Icon Style",
+["settings.icon_style.desc"] = "How the minimized menu icon looks",
+["settings.icon_style.pill"] = "Pill (Default)",
+["settings.icon_style.circle"] = "Circle",
+["settings.icon_style.square"] = "Rounded Square",
+["settings.icon_style.changed"] = "Icon style set to: %s",
+
 -- ── modules/tabs/about.lua ────────────────────────────────────────────────────
 ["about.about_script.title"] = "About Script",
 ["about.about_script.desc"] = "A powerful and highly optimized memory manipulation script built for Hill Climb Racing 2 on the custom Pivot environment.\n\nDownload Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
@@ -539,6 +546,11 @@ return {
 ["cups.rank_points_bonus.nothing_to_restore"] = "Nothing to restore",
 ["cups.rank_points_bonus.restored"] = "Restored: %s",
 
+-- ── modules/tabs/team.lua ─────────────────────────────────────────────────────
+["team.coming_soon.title"] = "Team Mode",
+["team.coming_soon.desc"] = "Team features are still in development and aren't available yet. Check back in a future update.",
+["team.coming_soon.status"] = "Coming Soon",
+
 -- ── modules/tabs/event.lua ────────────────────────────────────────────────────
 ["event.patch_rewards.title"] = "Event Rewards Patch",
 ["event.patch_rewards.desc"] = "Patch the current public event rewards to custom one provided by VOID (require game restart)",
@@ -547,6 +559,7 @@ return {
 
 ["event.checking_permissions"] = "Checking environment permissions...",
 ["event.scanning_files"] = "Scanning active files...",
+["event.resolving_event_names"] = "Reading event names...",
 ["event.decode_rewards_failed"] = "Failed to decode rewards JSON",
 ["event.workspace_creation_failed"] = "FATAL: Workspace creation failed: %s",
 ["event.workspace_creation_failed_dialog"] = "FATAL: Could not create workspace directory.\n%s",

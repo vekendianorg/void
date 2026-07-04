@@ -33,7 +33,7 @@ end
 
 -- Sets layout direction on a view so Android mirrors padding and drawables.
 -- API 17+; silently skipped on older devices.
-local function setLayoutDir(view)
+function setLayoutDir(view)
     if Build.VERSION.SDK_INT >= 17 then
         local dir = isRTL() and 1 or 0  -- LAYOUT_DIRECTION_RTL = 1, LTR = 0
         view.setLayoutDirection(dir)
@@ -66,6 +66,10 @@ local _tabContentCache = {}
 -- than leaving it ticking on a detached view.
 --@return View spinner, fun() stop
 local _LOADING_DOTS = { "", ".", "..", "..." }
+-- Hard ceiling on ticks as a last-resort safety net: 600 * 350ms ≈ 3.5 minutes,
+-- far beyond any real tab render. If something forgets to call stop() this
+-- guarantees the loop still dies instead of ticking forever.
+local _SPINNER_MAX_TICKS = 600
 local function _createLoadingSpinner()
     local spinner = TextView(activity)
     spinner.setTextColor(UI.SUB)
@@ -73,9 +77,23 @@ local function _createLoadingSpinner()
     spinner.setGravity(Gravity.CENTER)
     spinner.setLayoutParams(LinLayoutParams(-1, dp(60)))
 
-    local state = { running = true, frame = 0 }
+    local state = { running = true, frame = 0, ticks = 0 }
+
+    -- Auto-stop if the view itself gets detached (tab switched away / menu
+    -- closed) — this covers the case even when the caller never calls stop()
+    -- on that code path.
+    spinner.addOnAttachStateChangeListener(View.OnAttachStateChangeListener({
+        onViewAttachedToWindow = function(v) end,
+        onViewDetachedFromWindow = function(v) state.running = false end
+    }))
+
     local function tick()
         if not state.running then return end
+        state.ticks = state.ticks + 1
+        if state.ticks > _SPINNER_MAX_TICKS then
+            state.running = false
+            return
+        end
         state.frame = (state.frame % #_LOADING_DOTS) + 1
         spinner.setText(T("ui.loading") .. _LOADING_DOTS[state.frame])
         spinner.postDelayed(function() tick() end, 350)
@@ -272,12 +290,15 @@ end
 --   "spinner" — Dropdown selector (state saved)
 --   "slider"  — Single or multi-slider input (state saved)
 --   "input"   — Single or multi-line text input (state saved)
+--   nil       — Plain info card: title+desc only, no action widget at all.
+--              For content that's just meant to be read (e.g. About tab),
+--              not a value anyone needs to toggle/copy/configure.
 --
 --@param parent View  Container to add the card to
 --@param id string  Unique module identifier
 --@param title string  Display title
 --@param desc string  Description text
---@param mode string  "switch" | "button" | "ro" | "spinner" | "slider" | "input"
+--@param mode string?  "switch" | "button" | "ro" | "spinner" | "slider" | "input" | nil
 --@param extra any  Mode-specific data
 --@param callback? fun(done:fun(), ...)  Called on action; must call done() when finished
 --@return nil
@@ -303,6 +324,20 @@ local function setRichText(tv, text, linkColor)
         if linkColor then tv.setLinkTextColor(linkColor) end
     end)
     if not ok then tv.setText(text) end
+end
+
+-- Long/multi-line "ro" values (e.g. multi-paragraph about/credits text) must
+-- never be rendered verbatim inside the compact copy-chip: with no width
+-- bound a long value blows up topRow's layout and squeezes the title+desc
+-- text out of view entirely. This truncates the CHIP'S DISPLAY text only —
+-- callers always get the full original value back via RO_RawValues for
+-- copy-to-clipboard.
+local function _roDisplayText(rawVal)
+    local firstLine = rawVal:match("^[^\n]*") or rawVal
+    if #firstLine > 40 or firstLine ~= rawVal then
+        return firstLine:sub(1, 40) .. "…"
+    end
+    return rawVal
 end
 
 currentInputs = {}
@@ -434,14 +469,27 @@ function addModule(parent, id, title, desc, mode, extra, callback)
 
     elseif mode == "ro" then
         local info = TextView(activity)
-        info.setText(tostring(extra or T("ui.na")))
+        -- Tap-to-copy affordance: a chip-style background (like every other
+        -- interactive control) plus a copy glyph, so RO cards don't look like
+        -- a plain inert label. The raw (un-suffixed) value is tracked in
+        -- RO_RawValues so updateRO() can keep both the display and the
+        -- clipboard payload in sync for fields that change at runtime.
+        local rawVal = tostring(extra or T("ui.na"))
+        RO_RawValues[id] = rawVal
+        info.setText(_roDisplayText(rawVal) .. "  \xe2\xa7\x89")
         info.setTextColor(UI.LOGO)
         info.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+        info.setTextSize(1, 11)
+        info.setPadding(dp(8), dp(4), dp(8), dp(4))
+        info.setBackground(getSkin(UI.MUTED, 8))
+        info.setMaxWidth(dp(160))
+        info.setSingleLine(true)
+        info.setEllipsize(TruncateAt.END)
         info.setFocusable(true)
         info.setClickable(true)
         info.setOnClickListener(View.OnClickListener({ onClick = function(v)
             local cm = activity.getSystemService("clipboard")
-            cm.setPrimaryClip(ClipData.newPlainText("Copy", tostring(v.getText())))
+            cm.setPrimaryClip(ClipData.newPlainText("Copy", tostring(RO_RawValues[id])))
         end }))
         RO_Fields[id] = info
         actionArea.addView(info)
@@ -740,7 +788,7 @@ function addModule(parent, id, title, desc, mode, extra, callback)
                 goBtn.setText(isRTL() and "<-" or "->")
                 goBtn.setTextColor(UI.LOGO)
                 goBtn.setGravity(Gravity.CENTER)
-                goBtn.setTypeface(Typeface.DEFAULT_BOLD)
+                goBtn.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
                 goBtn.setBackground(getSkin(UI.ACCENT, 8))
                 goBtn.setOnClickListener(View.OnClickListener{ onClick = performMod })
                 if isRTL() then
@@ -827,7 +875,9 @@ end
 function updateRO(id, newText)
     MainHandler.post(function()
         if RO_Fields[id] then
-            RO_Fields[id].setText(tostring(newText))
+            local rawVal = tostring(newText)
+            RO_RawValues[id] = rawVal
+            RO_Fields[id].setText(_roDisplayText(rawVal) .. "  \xe2\xa7\x89")
         end
     end)
 end
@@ -837,10 +887,60 @@ end
 -- ICON VIEW  (collapsed floating pill)
 -- ─────────────────────────────────────────────────────────────────────────────
 
+-- Creates the small circular/rounded-square bubble icon shown when the menu
+-- is minimised (UI.ICON_STYLE == "circle" | "square"). Draggable; tap opens
+-- the full menu. Just the "V" logo letter — no title/subtitle/close button,
+-- there isn't room and the full menu already has its own ✕.
+--@return View  The bubble root view
+local function _createBubbleIconView()
+    local size    = dp(ICON_BUBBLE_SIZE)
+    local radius  = (UI.ICON_STYLE == "circle") and (ICON_BUBBLE_SIZE / 2) or 16
+    local bubble  = LinearLayout(activity)
+    bubble.setOrientation(0)
+    bubble.setGravity(Gravity.CENTER)
+    bubble.setBackground(getSkin(UI.HEADER, radius, 1, UI.STROKE))
+    bubble.setLayoutParams(LayoutParams(size, size))
+
+    local letter = TextView(activity)
+    letter.setText("V")
+    letter.setTextColor(UI.LOGO)
+    letter.setTextSize(1, 20)
+    letter.setGravity(Gravity.CENTER)
+    letter.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
+    bubble.addView(letter)
+
+    -- Same drag-to-move / tap-to-open behavior as the pill.
+    local initialX, initialY, initialTouchX, initialTouchY
+    bubble.setOnTouchListener(View.OnTouchListener{
+        onTouch = function(v, e)
+            if e.getAction() == MotionEvent.ACTION_DOWN then
+                initialX      = mParams.x
+                initialY      = mParams.y
+                initialTouchX = e.getRawX()
+                initialTouchY = e.getRawY()
+                return true
+            elseif e.getAction() == MotionEvent.ACTION_MOVE then
+                mParams.x = initialX + (e.getRawX() - initialTouchX)
+                mParams.y = initialY + (e.getRawY() - initialTouchY)
+                windowManager.updateViewLayout(iconView, mParams)
+                return true
+            elseif e.getAction() == MotionEvent.ACTION_UP then
+                if math.abs(e.getRawX() - initialTouchX) < 12 and math.abs(e.getRawY() - initialTouchY) < 12 then
+                    switchToMenu()
+                end
+                return true
+            end
+            return false
+        end
+    })
+
+    return bubble
+end
+
 -- Creates the floating icon pill shown when the menu is minimised.
 -- Draggable; tap expands back to the full menu.
 --@return View  The icon LinearLayout
-function createIconView()
+local function _createPillIconView()
     LOG.info("createIconView", "START")
     local iconRoot = LinearLayout(activity)
     iconRoot.setOrientation(0)
@@ -952,6 +1052,16 @@ function createIconView()
     return iconRoot
 end
 
+-- Public entry point — dispatches to the bubble or pill builder based on the
+-- current Settings → Icon Style choice.
+--@return View  The icon view (bubble or pill)
+function createIconView()
+    if UI.ICON_STYLE == "circle" or UI.ICON_STYLE == "square" then
+        return _createBubbleIconView()
+    end
+    return _createPillIconView()
+end
+
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- MENU VIEW HELPERS
@@ -1003,6 +1113,7 @@ local function _buildMenuHeader(root)
     sub.setFocusableInTouchMode(true)
     sub.requestFocus()
     sub.setSelected(true)
+    sub.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
     titleLayout.addView(sub)
     headerGroup.addView(titleLayout)
 

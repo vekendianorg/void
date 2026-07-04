@@ -41,7 +41,7 @@ function raceinfo.resolve(cacheKey, validate)
             return base
         else
             LOG.warn(TAG, "ptr invalid — clearing cache (" .. tostring(cacheKey) .. ")")
-            memory:save(cacheKey, nil)
+            memory:delete(cacheKey)
         end
     end
 

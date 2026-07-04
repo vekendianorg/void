@@ -159,7 +159,11 @@ local function applyTheme(shareId)
             local ok, exportData = pcall(load(rawText))
             if ok and type(exportData) == "table" and exportData.version then
                 for k, v in pairs(exportData.ui) do
-                    if UI[k] ~= nil then
+                    -- Icon Style is a personal layout preference, not part of
+                    -- a shared theme's colors — never let an installed/imported
+                    -- theme change it (see also export_theme, which strips it
+                    -- before sharing so it never even ends up in exportData.ui).
+                    if UI[k] ~= nil and k ~= "ICON_STYLE" then
                         UI[k] = deepCopy(v)
                     end
                 end
@@ -581,9 +585,15 @@ return function(container)
         
         memory:delete_global("ui_prefs")
         UI = loadModule("configs/colors.lua")
+
+        -- Icon Style is a personal layout preference, not a theme color —
+        -- "Reset Theme" should only reset colors/background, so re-apply it.
+        local saved_icon_style = memory:load_global("icon_style")
+        if saved_icon_style then UI.ICON_STYLE = saved_icon_style end
         
         done()
         rebuildMenu()
+        MainHandler.post(function() iconView = createIconView() end)
     end)
     
     addModule(container, "import_theme", t("import_theme.title"), t("import_theme.desc"), "input", {
@@ -603,6 +613,10 @@ return function(container)
         local TAG = "ExportTheme"
         LOG.info(TAG, "User triggered theme export")
         local exportUI = deepCopy(UI)
+        -- Icon Style is a personal layout preference, not a shareable theme
+        -- color — strip it so installing this theme never touches someone
+        -- else's icon shape choice.
+        exportUI.ICON_STYLE = nil
     
         local function finalizeExport(imageUrl)
             local exportData = {
@@ -847,7 +861,9 @@ return function(container)
     
     local function buildText(r, g, b)
         UI.TEXT = (0xFF << 24) | (r << 16) | (g << 8) | b
-        UI.LOGO = UI.TEXT
+        -- NOTE: UI.LOGO is its own independent slider (see logo_rgb above) —
+        -- it must NOT be overwritten here, otherwise a user who customizes
+        -- Highlight RGB loses it the moment they touch Text RGB.
     end
     
     addModule(container, "text_rgb", t("text_rgb.title"),
@@ -886,5 +902,38 @@ return function(container)
             done()
         end
     )
+
+    -- ── Icon Style ────────────────────────────────────────────────────────────
+    -- Switches the minimized-state icon between the original full-width pill
+    -- and a compact circular/rounded-square "V" bubble.
+
+    do
+        local ICON_STYLE_OPTIONS = { "pill", "circle", "square" }
+        local styleLabels = {
+            t("icon_style.pill"), t("icon_style.circle"), t("icon_style.square"),
+        }
+        local currentIndex = 1
+        for i, style in ipairs(ICON_STYLE_OPTIONS) do
+            if UI.ICON_STYLE == style then currentIndex = i end
+        end
+
+        addModule(container, "icon_style", t("icon_style.title"), t("icon_style.desc"),
+            "spinner",
+            { options = styleLabels, default = currentIndex },
+            function(done, item, index)
+                UI.ICON_STYLE = ICON_STYLE_OPTIONS[index] or "pill"
+                -- Dedicated global key (independent of "ui_prefs") so theme
+                -- reset/import never wipes this choice — see main.lua load
+                -- and the reset_theme / applyTheme handlers below.
+                memory:save_global("icon_style", UI.ICON_STYLE)
+                saveAndRefresh()
+                -- Rebuild the (currently hidden, since we're inside the full
+                -- menu) icon view so the next minimize uses the new style.
+                MainHandler.post(function() iconView = createIconView() end)
+                showToast(t("icon_style.changed", styleLabels[index]))
+                done()
+            end
+        )
+    end
 
 end
