@@ -1,5 +1,6 @@
 --[[
-  configs/lang/de.lua — German language 
+  configs/lang/de.lua — German language
+
   Flat table of dotted keys -> strings, loaded by core/utils/lang.lua.
   Looked up at runtime via the global T(key, ...) function, e.g.:
       T("common.ok")                          -> "OK"
@@ -18,6 +19,8 @@
 
     This file handles the German localization for the VOID script.
 ]]
+
+
 
 return {
 
@@ -76,6 +79,8 @@ return {
 ["main.waiting_for_lib"] = "Warte auf %s...",
 ["main.initialized"] = "Initialisiert",
 ["main.gamestatus_not_found"] = "Spielstatus nicht gefunden",
+["main.gamestatus_not_found_tip_arm64"] = "Das Spiel lädt entweder noch, oder der GameStatus konnte nicht im Arbeitsspeicher gefunden werden.\n\nWenn du einen Emulator verwendest, versuche HCR2 mit Multi App Ultra zu starten.",
+["main.gamestatus_not_found_tip_x86"]   = "Das Spiel lädt entweder noch, oder der GameStatus konnte nicht im Arbeitsspeicher gefunden werden.\n\nWenn du einen Emulator verwendest, versuche BlueStacks oder LDPlayer für bessere Kompatibilität zu verwenden.",
 ["main.dont_interrupt"] = "Unterbrich dieses Skript nicht",
 
 -- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
@@ -85,6 +90,7 @@ return {
 ["ui.na"] = "N/V",
 ["ui.spinner_select"] = "Auswählen",
 ["ui.slider_default_title"] = "Wert",
+["ui.loading"] = "Lädt",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
 ["patches.requires_arch"] = "Erfordert %s Gerät (dein Gerät: %s)",
@@ -98,6 +104,7 @@ return {
 ["arch.non_primary_arch_msg"] = "Erkannt: %s\nEinige oder alle Bibliotheks-Patches funktionieren möglicherweise nicht.",
 ["arch.unknown_version_msg"] = "Spielversion unbekannt. Versuche es erneut, nachdem das Spiel geladen wurde.",
 ["arch.no_base_data_msg"] = "Interner Fehler: Keine Basisdaten für diese Architektur verfügbar.",
+["arch.newer_version_msg"] = "Deine Spielversion (%s) ist neuer als die aktuellsten bekannten Daten (%s).\nVOID wird die am nächsten liegenden verfügbaren Daten verwenden – einige Funktionen funktionieren eventuell nicht wie gewollt.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Scheduler-Warnung: Aufgabe abgestürzt -> %s",
@@ -120,17 +127,89 @@ return {
 ["tabs.team"] = "TEAM-MENÜ",
 ["tabs.event"] = "EVENT-MENÜ",
 ["tabs.creative"] = "KREATIV-MENÜ",
+
+-- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- any_theme_objects
+["creative.any_theme_objects.title"]   = "Objekte aller Designs",
+["creative.any_theme_objects.desc"]    = "Zeige alle Objekte im Editor unabhängig vom ausgewählten Design.",
+["creative.any_theme_objects.applied"]  = "Designfilter für %s Objektgruppe(n) entfernt.",
+["creative.any_theme_objects.reverted"] = "Designfilter für %s Objektgruppe(n) wiederhergestellt.",
+-- show_hidden_objects
+["creative.show_hidden_objects.title"]   = "Zeige versteckte Objekte",
+["creative.show_hidden_objects.desc"]    = "Zeige alle versteckten (test-only) Objekte im Editor",
+["creative.show_hidden_objects.applied"]  = "%s versteckte Objekt(e) freigeschaltet.",
+["creative.show_hidden_objects.reverted"] = "%s versteckte Objekt(e) wiederhergestellt",
+-- shared errors
+["creative.obj_anchor_not_found"] = "Objektgruppenanker konnte im Speicher nicht gefunden werden.",
+["creative.obj_no_cache"]         = "Nichts zum wiederherstellen - schalte es zuerst an.",
+["creative.obj_no_slots"]         = "Keine Objektgruppen-Slots zur Verarbeitung gefunden.",
+["creative.obj_alloc_failed"]     = "Speicherzuweisung für zusammengeführte Objekte fehlgeschlagen.",
+["creative.obj_already_applied"]  = "Bereits aktiviert – bitte zuerst deaktivieren.",
+-- copy_any
+["creative.copy_any.title"]        = "Beliebige Track kopieren",
+["creative.copy_any.desc"]         = "Ermöglicht das Kopieren jeder heruntergeladenen Track, nicht nur der selbst erstellten.",
+["creative.copy_any.applied"]      = "%s heruntergeladene Track(s) gepatcht.",
+-- track_editor
+["creative.track_editor.title"]    = "Track-Editor",
+["creative.track_editor.desc"]     = "Eine benutzerdefinierte Track auswählen, um sie zu verifizieren, ihre Länge festzulegen oder sie umzubenennen.",
+["creative.track_editor.loading"]  = "Trackliste wird geladen…",
+["creative.track_editor.select"]   = "Wähl eine Track aus",
+["creative.track_editor.no_tracks"] = "Keine benutzerdefinierten Tracks im Speicher gefunden.",
+-- error keys (returned from ops)
+["creative.tracks_not_found"]      = "Benutzerdefinierte Trackliste konnte im Speicher nicht gefunden werden.",
+["creative.invalid_track"]         = "Ungültige Trackreferenz.",
+["creative.copy_any_not_found"]    = "Heruntergeladene Trackliste nicht im Speicher gefunden.",
+["creative.copy_any_no_id"]        = "Spieler-ID konnte nicht gefunden werden.",
+["creative.rename_empty"]          = "Name darf nicht leer sein.",
+["creative.rename_resolve_failed"] = "Pointer für den Tracknamen konnte nicht gefunden werden.",
+-- track status
+["creative.track_status.verified"]     = "Verifiziert",
+["creative.track_status.not_verified"] = "Nicht verifiziert",
+["creative.track_length"]              = "Länge: %sm",
+-- actions
+["creative.action.select"]     = "Was möchtest du tun?",
+["creative.action.verify"]     = "Track verifizieren",
+["creative.action.set_length"] = "Länge ändern",
+["creative.action.rename"]     = "Umbenennen",
+-- verify
+["creative.verify.applied"]          = "%s ist jetzt verifiziert.",
+["creative.verify.already_verified"] = "Die Track ist bereits verifiziert.",
+-- set_length
+["creative.set_length.title"]   = "Tracklänge ändern",
+["creative.set_length.prompt"]  = "Länge in Metern (aktuell: %s)",
+["creative.set_length.applied"] = "%s länge zu %s gesetzt.",
+["creative.set_length.invalid"] = "Gib eine valide Zahl größer als 0 ein.",
+-- rename
+["creative.rename.title"]   = "Track umbenennen",
+["creative.rename.prompt"]  = "Neuer Name",
+["creative.rename.applied"] = "Track zu \"%s\" umbenannt.",
+["creative.rename.empty"]   = "Name kann nicht leer sein.",
+
+
 ["tabs.shop"] = "SHOP-MENÜ",
 ["tabs.other"] = "SONSTIGES-MENÜ",
 ["tabs.sep_script"] = "SKRIPT-MENÜ",
 ["tabs.settings"] = "EINSTELLUNGEN",
 ["tabs.about"] = "ÜBER UNS",
+["tabs.console"] = "KONSOLE",
 
-["registry.module_load_failed"] = "Modul konnte nicht geladen werden. Überprüfe die Logs für Details.",
+-- ── modules/tabs/console.lua ─────────────────────────────────────────────────
+["console.desc"] = "Absturzberichte, Scheduler-Fehler und alle Protokolleinträge. Drücke Alle kopieren zum Teilen.",
+["console.copy_all"] = "Alle kopieren",
+["console.refresh"] = "Aktualisieren",
+["console.clear"] = "Löschen",
+["console.copied"] = "Protokolle in die Zwischenablage kopiert.",
+["console.cleared"] = "Konsole geleert",
+["console.empty"] = "Keine Abstürze oder Warnungen aufgezeichnet.",
+["console.crashes_header"] = "ABSTÜRZE & FEHLER (%d)",
+["console.logs_header"] = "PROTOKOLLE (%d)",
+["console.unavailable"] = "Absturz-handler nicht verfügbar.",
+
+["registry.module_load_failed"] = "Modul konnte nicht geladen werden. Überprüfe die Protokolle für Details.",
 ["registry.module_runtime_error"] = "Laufzeitfehler: %s",
 ["registry.error"] = "Fehler",
 
--- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
+    -- ── modules/tabs/settings.lua ─────────────────────────────────────────────────
 ["settings.section_updates"] = "Updates",
 ["settings.auto_update.title"] = "Automatische Updates",
 ["settings.auto_update.desc"] = "VOID beim Start automatisch aktualisieren",
@@ -161,7 +240,7 @@ return {
 ["settings.language.restart_msg"] = "Starte das Skript neu, um die Sprache vollständig zu übernehmen",
 
 ["settings.region.other"] = "O: Sonstige",
-["settings.region.cpp_alloc"] = "Ca: C++ Allokation",
+["settings.region.cpp_alloc"] = "Ca: C++ alloc",
 ["settings.region.unknown"] = "U: Unbekannt",
 ["settings.section_memory"] = "Speicher",
 ["settings.memory_range.title"] = "Speicherbereich",
@@ -174,37 +253,82 @@ return {
 ["settings.clear_memory.desc"] = "Löscht den gesamten gespeicherten VOID-Speicher, ohne das ganze Spiel neu starten zu müssen.",
 
 ["settings.section_ui_customizations"] = "UI-Anpassungen",
-["settings.theme_store.title"] = "Theme-Store",
-["settings.theme_store.desc"] = "Durchsuche und installiere Community-Themes für VOID",
-["settings.theme_store.unreachable_msg"] = "Theme-Store konnte nicht erreicht werden:\n%s",
-["settings.theme_store.parse_failed_msg"] = "Theme-Store-Daten konnten nicht verarbeitet werden.",
-["settings.theme_store.list_title"] = "VOID Theme-Store",
+["settings.section_log_management"]         = "Protokollverwaltung",
+["settings.rate_limit_msg"]                 = "Bitte warte noch %s Sekunde(n).",
+["settings.send_log.title"]               = "Protokoll zur Cloud hochladen",
+["settings.send_log.desc"]                = "Lädt das aktuelle Debugprotokoll in die Cloud zum Developerreview.",
+["settings.send_log.sending"]             = "Protokoll lädt hoch...",
+["settings.send_log.caption"]             = "VOID Debugprotokoll",
+["settings.send_log.empty_title"]         = "Es gibt nichts zum Hochladen",
+["settings.send_log.empty_msg"]           = "Das Protokoll ist leer. Versuche den Fehler zu reproduzieren und dann erneut hochzuladen.",
+["settings.send_log.success_title"]       = "Protokoll hochgeladen",
+["settings.send_log.success_msg"]         = "Dein Protokoll wurde in der Cloud gespeichert.\n\nWenn du weitere Probleme hast, kontaktiere die Entwickler und sie werden es sich anschauen.",
+["settings.send_log.failed_title"]        = "Hochladen fehlgeschlagen",
+["settings.send_log.failed_msg"]          = "Protokoll konnte nicht hochgeladen werden (HTTP %s).\n\nÜberprüfe deine Internetverbindung und versuche erneut.",
+["settings.clear_log.title"]              = "Protokoll löschen",
+["settings.clear_log.desc"]               = "Löscht das Protokoll permanent vom Gerät.",
+["settings.clear_log.success_title"]      = "Protokoll gelöscht.",
+["settings.clear_log.success_msg"]        = "Das Protokoll wurde vom gerät erfolgreich gelöscht.",
+["settings.clear_log.no_path_msg"]        = "Protokollpfad ist leer.",
+["settings.clear_log.failed_msg"]         = "Löschen des Protokolls ist fehlgeschlagen.",
+["settings.section_feedback"]             = "Rückmeldung",
+["settings.feedback.title"]               = "Rückmeldung Senden",
+["settings.feedback.desc"]                = "Einen Bug melden, ein Feature anfragen, oder nur etwas mitteilen.",
+["settings.feedback.pick_category"]       = "Welche Art Rückmeldung?",
+["settings.feedback.pick_category_desc"]  = "Wähl die Kategorie aus, die am besten passt.",
+["settings.feedback.cat_bug"]             = "Bug Melden",
+["settings.feedback.cat_feature"]         = "Feature Anfragen",
+["settings.feedback.cat_general"]         = "Allgemeines",
+["settings.feedback.write_title"]         = "Schreibe deine Rückmeldung",
+["settings.feedback.write_hint"]          = "Schreibe deine Rückmeldung hier...",
+["settings.feedback.too_short_title"]     = "Zu kurz",
+["settings.feedback.too_short_msg"]       = "Bitte schreibe wenigstens ein Paar Worte, so dass sich der Entwickler verstehen kann.",
+["settings.feedback.sending"]             = "Rückmeldung wird gesendet...",
+["settings.feedback.success_title"]       = "Rückmeldung erfolgreich gesendet",
+["settings.feedback.success_msg"]         = "Danke! Deine Rückmeldung wurde empfangen. Der Entwickler wird sie sich Anschauen.",
+["settings.feedback.failed_title"]        = "Senden fehlgeschlagen",
+["settings.feedback.failed_msg"]          = "Konnte das Feedback nicht senden. Überprüfe eine Internetverbindung und versuch erneut.",
+["settings.feedback.field_version"]       = "Version",
+["settings.feedback.field_arch"]          = "Arch",
+["settings.section_console"]              = "Konsole",
+["settings.console_crash_cap.title"]      = "Größe des Absturzpuffers",
+["settings.console_crash_cap.desc"]       = "Maximale Anzahl der in der Konsole gespeicherten Absturzelemente. Ältere werden zuerst gelöscht, wenn der Puffer voll ist.",
+["settings.console_crash_cap.slider"]     = "Maximale Abstürze",
+["settings.console_log_cap.title"]        = "Größe des Protokollpuffers",
+["settings.console_log_cap.desc"]         = "Maximale Anzahl der in der Konsole gespeicherten Protokollzeilen. Höhere Werte benötigen mehr Speicher.",
+["settings.console_log_cap.slider"]       = "Maximale Protokollzeilen",
+["settings.console_cap_applied"]          = "Pufferbegrenzung auf %s gesetzt",
+["settings.theme_store.title"]              = "Theme-Store",
+["settings.theme_store.desc"]               = "Durchsuche und installiere Community-Themes für VOID",
+["settings.theme_store.unreachable_msg"]    = "Theme-Store konnte nicht erreicht werden:\n%s",
+["settings.theme_store.parse_failed_msg"]   = "Theme-Store-Daten konnten nicht verarbeitet werden.",
+["settings.theme_store.list_title"]         = "VOID Theme-Store",
 ["settings.theme_store.search_results_desc"] = "Suchergebnisse: %s gefunden",
-["settings.theme_store.available_desc"] = "%s Themes verfügbar",
-["settings.theme_store.by_author"] = "von %s",
-["settings.theme_store.search_item"] = "🔍 Suchen...",
-["settings.theme_store.clear_search_item"] = "✕ Suche zurücksetzen",
-["settings.theme_store.search_title"] = "Themes durchsuchen",
-["settings.theme_store.search_hint"] = "Theme-Name, Autor oder Beschreibung",
-["settings.theme_store.no_results"] = "Keine Themes gefunden für: %s",
-["settings.theme_store.detail_msg"] = "Von %s\n\n%s\n\nID: %s",
-["settings.theme_store.install_button"] = "Theme installieren",
-["settings.theme_downloading_bg"] = "Hintergrundbild wird heruntergeladen...",
-["settings.theme_imported"] = "Theme importiert!",
-["settings.theme_invalid_bundle"] = "Ungültiges Bundle-Format.",
-["settings.theme_cloud_error"] = "Cloud-Fehler: %s",
-["settings.reset_theme.title"] = "Theme zurücksetzen",
-["settings.reset_theme.desc"] = "Setzt das benutzerdefinierte Theme und Hintergrundbild auf den Standard zurück",
-["settings.import_theme.title"] = "Theme importieren",
-["settings.import_theme.desc"] = "Importiere ein benutzerdefiniertes Theme aus der Cloud",
-["settings.import_theme.hint"] = "Freigabe-ID eingeben",
-["settings.export_theme.title"] = "Theme exportieren",
-["settings.export_theme.desc"] = "Exportiere das benutzerdefinierte Theme und Hintergrundbild in die Cloud",
-["settings.export_theme.share_id_msg"] = "Freigabe-ID: %s\n\nIn die Zwischenablage kopiert.",
+["settings.theme_store.available_desc"]     = "%s Themes verfügbar",
+["settings.theme_store.by_author"]          = "von %s",
+["settings.theme_store.search_item"]        = "🔍 Suchen...",
+["settings.theme_store.clear_search_item"]  = "✕ Suche zurücksetzen",
+["settings.theme_store.search_title"]       = "Themes durchsuchen",
+["settings.theme_store.search_hint"]        = "Theme-Name, Autor oder Beschreibung",
+["settings.theme_store.no_results"]         = "Keine Themes gefunden für: %s",
+["settings.theme_store.detail_msg"]         = "Von %s\n\n%s\n\nID: %s",
+["settings.theme_store.install_button"]     = "Theme installieren",
+["settings.theme_downloading_bg"]           = "Hintergrundbild wird heruntergeladen...",
+["settings.theme_imported"]                 = "Theme importiert!",
+["settings.theme_invalid_bundle"]           = "Ungültiges Bundle-Format.",
+["settings.theme_cloud_error"]              = "Cloud-Fehler: %s",
+["settings.reset_theme.title"]              = "Theme zurücksetzen",
+["settings.reset_theme.desc"]               = "Setzt das benutzerdefinierte Theme und Hintergrundbild auf den Standard zurück",
+["settings.import_theme.title"]             = "Theme importieren",
+["settings.import_theme.desc"]              = "Importiere ein benutzerdefiniertes Theme aus der Cloud",
+["settings.import_theme.hint"]              = "Freigabe-ID eingeben",
+["settings.export_theme.title"]             = "Theme exportieren",
+["settings.export_theme.desc"]              = "Exportiere das benutzerdefinierte Theme und Hintergrundbild in die Cloud",
+["settings.export_theme.share_id_msg"]      = "Freigabe-ID: %s\n\nIn die Zwischenablage kopiert.",
 ["settings.export_theme.upload_failed_msg"] = "Upload fehlgeschlagen: %s",
 ["settings.export_theme.size_warning_title"] = "Upload-Größenwarnung",
-["settings.export_theme.size_warning_msg"] = "Benutzerdefiniertes Hintergrundbild einschließen? Dies erhöht die Upload-Größe je nach Dimensionen deines Bildes. Fortfahren?",
-["settings.export_theme.uploading_bg"] = "Hintergrundbild wird auf Catbox hochgeladen...",
+["settings.export_theme.size_warning_msg"]  = "Benutzerdefiniertes Hintergrundbild einschließen? Dies erhöht die Upload-Größe je nach Dimensionen deines Bildes. Fortfahren?",
+["settings.export_theme.uploading_bg"]      = "Hintergrundbild wird auf Catbox hochgeladen...",
 ["settings.export_theme.image_upload_failed_title"] = "Fehler",
 ["settings.export_theme.image_upload_failed_msg"] = "Bild-Upload fehlgeschlagen: %s",
 ["settings.tabs_icon.title"] = "Tab-Symbol",
@@ -247,6 +371,13 @@ return {
 ["settings.win_height.desc"] = "Höhe des scrollbaren Inhaltsbereichs (%d – %d dp)",
 ["settings.slider.height"] = "Höhe",
 
+["settings.icon_style.title"] = "Icon Stil",
+["settings.icon_style.desc"] = "Wie das minimierte Iconmenü aussieht",
+["settings.icon_style.pill"] = "Pille (Standart)",
+["settings.icon_style.circle"] = "Kreis",
+["settings.icon_style.square"] = "Abgerundetes Quadrat",
+["settings.icon_style.changed"] = "Icon Stil zu %s geändert",
+
 -- ── modules/tabs/about.lua ────────────────────────────────────────────────────
 ["about.about_script.title"] = "Über das Skript",
 ["about.about_script.desc"] = "Ein mächtiges und hochgradig optimiertes Skript zur Speichermanipulation, entwickelt für Hill Climb Racing 2 auf der maßgeschneiderten Pivot-Umgebung.\n\nPivot herunterladen:\nhttps://github.com/vekendianorg/pivot/releases/",
@@ -270,6 +401,10 @@ return {
 ["other.resolution_offset.desc"] = "Passe den Breiten- und Höhenversatz an (Standard ist 0x0), ideal für kleine Auflösungen auf großen Bildschirmen.",
 ["other.resolution_offset.applied"] = "Auflösungs-Versatz eingestellt auf %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView nicht gefunden",
+["other.aspect_ratio.title"] = "Seitenverhältnis verändern",
+["other.aspect_ratio.desc"] = "Seitenverhältnis erzwingen (wendetr eine passende Auflösung bei 1080p Höhe an.)",
+["other.aspect_ratio.options"] = {"16:9", "18:9", "19,5:9", "20:9", "21:9", "4:3"},
+["other.aspect_ratio.applied"] = "Seitenverhältnis auf %s gesetzt.",
 
 -- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
 ["shop.free_chest.title"] = "Kostenlose Truhe",
@@ -294,6 +429,8 @@ return {
 -- ── modules/tabs/player.lua ───────────────────────────────────────────────────
 ["player.auto_detach.title"] = "Automatisches Ablösen",
 ["player.auto_detach.desc"] = "Löst Teile wie das Rallye-Auto-Dach automatisch ab",
+["player.auto_die.title"] = "Automatisches Sterben",
+["player.auto_die.desc"] = "Lässt dich automatisch Sterben (Tank Leer)",
 ["player.no_clip.title"] = "No-Clip (Durchwandern)",
 ["player.no_clip.desc"] = "Lässt deinen Spieler durch Objekte hindurchfahren, ohne zu sterben (Erlaubt das Überfahren von Ziellinien in Pokalen)",
 ["player.no_clip.enabled"] = "No-Clip aktiviert",
@@ -306,6 +443,18 @@ return {
 ["player.hide_flag.desc"] = "Blendet deine Nationalflagge im Rennen aus",
 ["player.hide_flag.enabled"] = "Flagge ausgeblendet",
 ["player.hide_flag.disabled"] = "Flagge eingeblendet",
+["vehicle.fuel.title"] = "Tank Ändern",
+["vehicle.fuel.desc"] = "Tank auf einen konstanten Wert während eines Rennens feststellen (0.0 - 100.0)",
+["vehicle.fuel.prompt_amount"] = "Tank Menge (0 – 100)",
+["vehicle.fuel.prompt_reset"] = "Zurücksetzen",
+["vehicle.fuel.invalid"] = "Ungültiger Wert (0 – 100)",
+["vehicle.fuel.applied"] = "Tank auf %s festgestellt",
+["vehicle.fuel.reset"] = "Tank zurückgesetzt",
+["vehicle.fuel.not_applied"] = "Tank konnte nicht geändert werden.",
+["player.speed_hack.title"]     = "Geschwindigkeit Hack",
+["player.speed_hack.desc"]      = "Modifiziert den internen Geschwindigkeitsmultiplikator für ein schnelleres Spielgefühl.",
+["player.speed_hack.not_found"] = "Geschwindigkeitswert nicht gefunden - Starte zuerst ein Rennen.",
+["player.speed_hack.no_cache"]  = "Nichts zum wiederherstellen - aktiviere es zuerst.",
 ["player.zoom.title"] = "Zoom anpassen",
 ["player.zoom.desc"] = "Passe den Abstand der Kamera an",
 ["player.slider.min"] = "Min",
@@ -320,6 +469,12 @@ return {
 ["adventure.auto_adventure_chests.desc"] = "Erhöht automatisch das Level deiner Abenteuertruhen",
 ["adventure.auto_adventure_chests.none_found"] = "Keine Abenteuertruhen gefunden",
 ["adventure.auto_adventure_chests.done"] = "Fertig",
+
+["adventure.free_adventure_shop.title"]          = "Gratis Abenteuerladen",
+["adventure.free_adventure_shop.desc"]           = "Macht alle Gegenstände im Abenteuerladen kostenlos, keine Rangvorraussetzung erforderlích.",
+["adventure.free_adventure_shop.applied"]        = "Alle Gegenstände im Abenteuerladen sind jetzt kostenlos.",
+["adventure.free_adventure_shop.reverted"]       = "Ursprüngliche Preise wurden wiederhergestellt",
+["adventure.free_adventure_shop.resolve_failed"] = "Der Abenteuerladen konnte im Speicher nicht gefunden werden. Öffne den Laden zuerst.",
 
 ["adventure.set_distance.title"] = "Distanz festlegen",
 ["adventure.set_distance.desc"] = "Setzt deine Distanz im aktiven Abenteuerrennen auf einen benutzerdefinierten Wert. Du musst dich in einem aktiven Rennen befinden. Höhere Distanzen bringen mehr Sterne. Maximale Sterne bei 5000m. (Keine Teleportfunktion)",
@@ -339,21 +494,42 @@ return {
 ["adventure.set_distance.applied"] = "Distanz eingestellt auf: %sm",
 ["adventure.set_distance.loop_stopped"] = "Distanz-Schleife gestoppt.",
 ["adventure.set_distance.loop_running"] = "Distanz-Schleife läuft — Tippe auf 'Distanz festlegen', um sie zu stoppen",
+["adventure.set_distance.loop_warn_title"] = "Distanzschleifenwarnung",
+["adventure.set_distance.loop_warn_msg"] = "Der Schleifenmodus schreibt wiederholt alle %s ms in den Speicher.\n\nDie Verwendung eines kurzen Interwalls kann zu Instabilität, Grafikfehlern oder Spielabstürzen führen.\n\nTrotzdem fortfahren?",
 
--- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
+    -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Countdown anpassen",
 ["cups.adjust_countdown.desc"] = "Passe den Countdown vor dem Rennstart an",
 ["cups.slider.seconds"] = "Sekunden",
 ["cups.adjust_countdown.applied"] = "Countdown auf %ss angepasst",
+
 ["cups.auto_win.title"] = "Automatischer Sieg",
 ["cups.auto_win.desc"] = "Gewinne automatisch das Rennen, unabhängig von deinen tatsächlichen Rennergebnissen",
+
 ["cups.force_boss.title"] = "Boss erzwingen",
 ["cups.force_boss.desc"] = "Erzwingt, dass der Boss-Gegner immer erscheint",
+
 ["cups.force_cup.title"] = "Pokal erzwingen",
 ["cups.force_cup.desc"] = "Erzwingt einen einzelnen bestimmten Pokal",
 ["cups.force_cup.not_found"] = "Erzwungener Pokal nicht gefunden. Versuche es später noch einmal.",
 ["cups.force_cup.enabled"] = "Pokal erzwingen aktiviert",
 ["cups.force_cup.disabled"] = "Pokal erzwingen deaktiviert",
+
+["cups.force_frenzy_mode.title"] = "Frenzy-Modus erzwingen",
+["cups.force_frenzy_mode.desc"] = "Zwingt den Pokalmodus in den Frenzy-Modus.",
+["cups.force_frenzy_mode.not_found"] = "Frenzy-Modus nicht gefunden. Versuche später erneut.",
+["cups.force_frenzy_mode.enabled"] = "Frenzy-Modus erzwingen aktiviert",
+["cups.force_frenzy_mode.disabled"] = "Frenzy-Modus erzwingen deaktiviert",
+
+["cups.set_time.title"] = "Zeit einstellen",
+["cups.set_time.desc"] = "Stelle die Rennzeit ein (die Zeit wird aus Sicherheitsgründen nicht eingefroren). Muss in einem aktiven Cup-Rennen sein. (z,.B. 1:09.069 oder 7.284)",
+["cups.set_time.hint"] = "Zeit (1:09.069 or 7.284)",
+["cups.set_time.invalid_format"] = "Ungültiges Format. Gib 1:09.069 oder 7.284 ein.",
+["cups.set_time.no_negative"] = "Keine negativen Werte",
+["cups.set_time.not_in_cup"] = "Gehe zum Tab \"Pokale\" und starte zuerst ein Rennen.",
+["cups.set_time.start_race_first"] = "Starte zuerst ein Rennen",
+["cups.set_time.applied"] = "Zeit auf %s eingestellt",
+
 ["cups.unlimited_tasks.title"] = "Unbegrenzte Aufgaben",
 ["cups.unlimited_tasks.desc"] = "Friert alle Aufgaben als abgeschlossen und dauerhaft einforderbar ein. Belohnungen können wiederholt abgeholt werden.",
 ["cups.unlimited_tasks.resolve_failed"] = "Aufgabenliste konnte nicht aufgelöst werden",
@@ -361,6 +537,7 @@ return {
 ["cups.unlimited_tasks.enabled"] = "Unbegrenzte Aufgaben aktiviert",
 ["cups.unlimited_tasks.disabled"] = "Unbegrenzte Aufgaben deaktiviert",
 ["cups.unlimited_tasks.none_to_freeze"] = "Keine Aufgaben zum Einfrieren vorhanden",
+
 ["cups.rank_points_bonus.title"] = "+498 Rangpunkte",
 ["cups.rank_points_bonus.desc"] = "Lässt alle Liga-Aufgaben 498 Punkte statt 200 Punkte einbringen und entfernt andere Belohnungen.",
 ["cups.rank_points_bonus.none_found"] = "Keine Liga-Aufgaben gefunden",
@@ -368,6 +545,11 @@ return {
 ["cups.rank_points_bonus.no_match"] = "Keine passenden Liga-Aufgaben gefunden",
 ["cups.rank_points_bonus.nothing_to_restore"] = "Nichts zum Wiederherstellen vorhanden",
 ["cups.rank_points_bonus.restored"] = "Wiederhergestellt: %s",
+
+-- ── modules/tabs/team.lua ─────────────────────────────────────────────────────
+["team.coming_soon.title"] = "Team Modus",
+["team.coming_soon.desc"] = "Team Funktionen befinden sich noch in der Entwicklung und sind noch nicht verfügbar. Schau in einem zukünftigen Update noch einmal nach.",
+["team.coming_soon.status"] = "Demnächst verfügbar",
 
 -- ── modules/tabs/event.lua ────────────────────────────────────────────────────
 ["event.patch_rewards.title"] = "Event-Belohnungen Patch",
@@ -377,6 +559,7 @@ return {
 
 ["event.checking_permissions"] = "Überprüfe Berechtigungen der Umgebung...",
 ["event.scanning_files"] = "Scanne aktive Dateien...",
+["event.resolving_event_names"] = "Eventnamen werden gelesen...",
 ["event.decode_rewards_failed"] = "Belohnungs-JSON konnte nicht dekodiert werden",
 ["event.workspace_creation_failed"] = "FATAL: Workspace-Erstellung fehlgeschlagen: %s",
 ["event.workspace_creation_failed_dialog"] = "FATAL: Workspace-Verzeichnis konnte nicht erstellt werden.\n%s",
@@ -438,20 +621,50 @@ return {
 ["account.change_gp.higher_value"] = "Bitte erhöhe deinen Wert",
 ["account.change_gp.applied"] = "Garagen-Power wurde auf %s geändert",
 
+["account.change_ws.title"]                  = "Siegesserie ändern",
+["account.change_ws.desc"]                   = "Ändere deine aktuelle und rekord Siegesserie",
+["account.change_ws.prompt_best"]            = "Rekord Siegesserie",
+["account.change_ws.prompt_current"]         = "Aktuelle Siegesserie",
+["account.change_ws.current_over_best_title"] = "Ungültige Eingabe",
+["account.change_ws.current_over_best_msg"]  = "Aktuelle Siegesserie kann nicht größer als rekord Siegesserie sein.",
+["account.change_ws.resolve_failed"]         = "Siegesserien-Pointer konnten nicht verarbeitet werden. Stelle sicher, dass du im Spiel bist.",
+["account.change_ws.applied"]                = "Siegesserie festgelegt: Aktuell: %s Rekord: %s",
+
 ["account.fake_unlock.title"] = "Fake-Freischaltung",
 ["account.fake_unlock.desc"] = "Schaltet alle Anpassungen vorübergehend frei",
 ["account.fake_vip.title"] = "Fake-VIP",
 ["account.fake_vip.desc"] = "Schaltet den VIP-Abonnementstatus lokal um",
+
 ["account.fake_rank.title"] = "Fake-Rang",
 ["account.fake_rank.desc"] = "Setzt deinen Rang automatisch auf einen gefälschten Legenden-Rang",
+["account.fake_rank.hint"] = "Gib einen Rangwert ein",
+["account.fake_rank.race_warn_title"] = "Rennen benötigt",
+["account.fake_rank.race_warn_msg"] = "Fake-Rank darf nur während eines Pokal-Rennens angewandt werden.\n\nWenn es außerhalb eines Rennens angewand wird, kann es zu einem Shadow, bzw. echten Bann führen.\n\nStelle sicher, dass du dich bereits in einem Pokal-Rennen befindest, bevor du fortfährst.\n\nTrotzdem fortfahren?",
+["account.fake_rank.continue_button"] = "Fortfahren",
 ["account.fake_rank.applied"] = "Fake-Rang wurde injiziert.",
+["account.fake_rank.not_in_cups"] = "Starte zuerst ein Rennen",
 
--- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
+    -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
 ["vehicle.parts_slot.title"] = "Tuning-Plätze anpassen",
 ["vehicle.parts_slot.desc"] = "Passe die Tuning-Teile-Slots für alle Fahrzeuge an",
 ["vehicle.parts_slot.slider_title"] = "Plätze",
 ["vehicle.parts_slot.no_vehicles"] = "Keine Fahrzeuge gefunden",
 ["vehicle.parts_slot.applied"] = "Tuning-Plätze angepasst: %d Fahrzeuge",
+
+["vehicle.parts_modifier.title"] = "Tuning-Teile Modifizieren",
+["vehicle.parts_modifier.desc"] = "Das Level der Tuning-Teile im aktiven Rennen modifizieren.",
+["vehicle.parts_modifier.select"] = "Wähle ein Tuning-Teil aus",
+["vehicle.parts_modifier.select_stat"] = "Wähle einen Wert zum modifizieren aus.",
+["vehicle.parts_modifier.prompt_level"] = "Level (Wie viele mittlere Ziffern, 1–9)",
+["vehicle.parts_modifier.prompt_digit0"] = "Mittlere Ziffer, wiederholte Level Anzahl (0–9)",
+["vehicle.parts_modifier.prompt_digit1"] = "Letzte Ziffer (1–9)  →  baut: 1.<mittleres…><letztes>",
+["vehicle.parts_modifier.prompt_reset"] = "Zum Original zurücksetzen",
+["vehicle.parts_modifier.invalid"] = "Ungültiger Levelwert",
+["vehicle.parts_modifier.status_cached"] = "Aktiv: %d Adressen zwischengespeichert",
+["vehicle.parts_modifier.status_none"]   = "nicht angewandt",
+["vehicle.parts_modifier.not_found"] = "Teil nicht im Speicher gefunden",
+["vehicle.parts_modifier.applied"] = "%s auf Level %s setzen",
+["vehicle.parts_modifier.reset"] = "%s zurückgesetzt",
 
 ["vehicle.unlock_vehicles.title"] = "Fahrzeuge freischalten",
 ["vehicle.unlock_vehicles.desc"] = "Schaltet alle Fahrzeuge frei, sodass sie mit Münzen gekauft werden können",
