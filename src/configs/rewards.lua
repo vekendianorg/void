@@ -43,7 +43,8 @@ return [[
                     "trusty",
                     "atv",
                     "super_offroad",
-                    "stock"
+                    "stock",
+                    "rocketkart"
                 ],
                 "unlockDriverAssets": [
                     "10th_anniversary_bill_premium",
@@ -229,6 +230,7 @@ return [[
                     "robotsanta",
                     "rockbouncer",
                     "rocker",
+                    "rocketkart",
                     "rotator",
                     "rusty_premium",
                     "saki_premium",
@@ -265,6 +267,7 @@ return [[
                     "sweet_premium",
                     "swim_premium",
                     "tank",
+                    "tinfoil_premium",
                     "towel",
                     "tractor",
                     "trusty",
@@ -2447,6 +2450,54 @@ return [[
                     {
                         "vehicleId": "stock",
                         "paintId": "VIP"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_red_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_gray_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_green_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_yellow_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_blue_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_curves_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_darkburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_speckled_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_starburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swirls_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swoop_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "VIP"
                     }
                 ],
                 "unlockVehicleSpriteVariants": [
@@ -4349,6 +4400,16 @@ return [[
                         "partId": "wheel",
                         "variantId": "stock_tire-vip",
                         "vehicleId": "stock"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-vip",
+                        "vehicleId": "rocketkart"
                     }
                 ],
                 "tuningParts": [
@@ -6907,6 +6968,82 @@ return [[
                     {
                         "id": "stock_echo",
                         "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_echo",
+                        "amount": 1
                     }
                 ],
                 "unlockAdventureMaps": [
@@ -7391,7 +7528,8 @@ return [[
                     "trusty",
                     "atv",
                     "super_offroad",
-                    "stock"
+                    "stock",
+                    "rocketkart"
                 ]
             },
             "maxCollectAmount": -1
@@ -7603,6 +7741,7 @@ return [[
                     "robotsanta",
                     "rockbouncer",
                     "rocker",
+                    "rocketkart",
                     "rotator",
                     "rusty_premium",
                     "saki_premium",
@@ -7639,6 +7778,7 @@ return [[
                     "sweet_premium",
                     "swim_premium",
                     "tank",
+                    "tinfoil_premium",
                     "towel",
                     "tractor",
                     "trusty",
@@ -9837,6 +9977,54 @@ return [[
                     {
                         "vehicleId": "stock",
                         "paintId": "VIP"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_red_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_gray_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_green_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_yellow_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_blue_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_curves_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_darkburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_speckled_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_starburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swirls_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swoop_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "VIP"
                     }
                 ],
                 "unlockVehicleSpriteVariants": [
@@ -11739,6 +11927,16 @@ return [[
                         "partId": "wheel",
                         "variantId": "stock_tire-vip",
                         "vehicleId": "stock"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-vip",
+                        "vehicleId": "rocketkart"
                     }
                 ]
             },
@@ -14307,6 +14505,82 @@ return [[
                     {
                         "id": "stock_echo",
                         "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -14467,28 +14741,36 @@ return [[
                     {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "rare",
                         "amount": 200
                     }
@@ -14511,28 +14793,36 @@ return [[
                     {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "epic",
                         "amount": 200
                     }
@@ -14555,28 +14845,36 @@ return [[
                     {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "legendary",
                         "amount": 200
                     }
@@ -14599,28 +14897,36 @@ return [[
                     {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
-                    },{
+                    },
+                    {
                         "rarity": "mythic",
                         "amount": 200
                     }
@@ -18736,6 +19042,23 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
+                "id": "event_reward_rareVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "rare",
+                        "vehicleId": "rocketkart",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
                 "id": "event_reward_epicVC_jeep",
                 "vehicleChests": [
                     {
@@ -19302,6 +19625,23 @@ return [[
                     {
                         "chestId": "epic",
                         "vehicleId": "stock",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_epicVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "epic",
+                        "vehicleId": "rocketkart",
                         "targetIndex": 0
                     }
                 ]
@@ -19892,6 +20232,23 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
+                "id": "event_reward_legendaryVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "legendary",
+                        "vehicleId": "rocketkart",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
                 "id": "event_reward_mythicVC_jeep",
                 "vehicleChests": [
                     {
@@ -20458,6 +20815,23 @@ return [[
                     {
                         "chestId": "mythic",
                         "vehicleId": "stock",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_mythicVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "mythic",
+                        "vehicleId": "rocketkart",
                         "targetIndex": 0
                     }
                 ]
