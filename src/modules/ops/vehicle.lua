@@ -201,7 +201,7 @@ end
     -- Batch read all deepPtrs — 1 getValues
     local deepReads = {}
     for _, vehiclePtr in ipairs(rawPtrs) do
-        table.insert(deepReads, { address = vehiclePtr + 0x530, flags = 32 })
+        table.insert(deepReads, { address = vehiclePtr + 0x550, flags = 32 })
     end
     local deepPtrs = gg.getValues(deepReads)
 
@@ -216,7 +216,7 @@ end
         if dp and dp.value ~= 0 then
             table.insert(validPtrs, {
                 vehiclePtr  = rawPtrs[i],
-                deepPtrAddr = rawPtrs[i] + 0x530,
+                deepPtrAddr = rawPtrs[i] + 0x550,
                 deepPtr     = dp.value,
             })
         end
