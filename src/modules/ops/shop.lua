@@ -2,7 +2,7 @@
   modules/ops/shop.lua — Shop feature memory ops (no UI)
   Contract: see modules/ops/README.md.
 
-  Globals used: scheduler, memory, gg, BaseRegion, LOG.
+  Globals used: scheduler, storage, gg, BaseRegion, LOG.
 ]]
 
 local M = {}
@@ -11,7 +11,7 @@ local M = {}
 function M.freeChest(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "FreeChest"
-        local cache = memory:load("free_chest")
+        local cache = storage:load_session("free_chest")
         if cache then
             LOG.dbg(TAG, "Using cached results")
             gg.clearResults()
@@ -25,7 +25,7 @@ function M.freeChest(state, cb)
             gg.refineNumber("h CD CC CC 3D", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("free_chest", results)
+            storage:save_session("free_chest", results)
         end
 
         if state then
@@ -97,7 +97,7 @@ function M.changeChest(index, cb)
         local chestIDs = {
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20
         }
-        local cache = memory:load("change_chest")
+        local cache = storage:load_session("change_chest")
         if cache then
             gg.clearResults()
             gg.loadResults(cache)
@@ -111,7 +111,7 @@ function M.changeChest(index, cb)
             if #results > 0 then
                 gg.loadResults(gg.getValues({{ address = results[1].address + 0x4C, flags = 1 }}))
                 local results2 = gg.getResults(gg.getResultsCount())
-                memory:save("change_chest", results2)
+                storage:save_session("change_chest", results2)
             end
         end
 

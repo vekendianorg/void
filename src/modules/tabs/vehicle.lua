@@ -109,7 +109,7 @@ return function(container)
             -- ── Depth 3: level prompt ─────────────────────────────────────────
             elseif depth == 3 then
                 -- Show what was previously applied for this stat (if anything).
-                local cached     = memory:load(cacheKey)
+                local cached     = storage:load_session(cacheKey)
                 local statusLine = cached
                     and t("parts_modifier.status_cached", #cached)
                     or  t("parts_modifier.status_none")

@@ -2,7 +2,7 @@
   modules/ops/account.lua — Account feature memory ops (no UI)
   Contract: see modules/ops/README.md. Order mirrors the Account tab.
 
-  Globals used: scheduler, memory, gg, BaseGameStatus, BaseGameStatusRaw, LOG.
+  Globals used: scheduler, storage, gg, BaseGameStatus, BaseGameStatusRaw, LOG.
 ]]
 
 local M = {}
@@ -160,6 +160,29 @@ local function achievementsData()
 end
 
 -- TODO: in progress
+-- Toggle the ad-free entitlement via the Nebula SDK (GameStatus.adFree, Bool).
+-- status: "enabled" | "disabled" | "nebula_unavailable" | "failed"
+function M.setAdFree(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "AdFree"
+
+        if not (Nebula and Nebula.GameStatus) then
+            LOG.warn(TAG, "Nebula SDK unavailable")
+            finishTask(); cb("nebula_unavailable"); return
+        end
+
+        local ok, err = pcall(Nebula.GameStatus.set, "adFree", state and true or false)
+        if not ok then
+            LOG.error(TAG, "Nebula.GameStatus.set(adFree) failed: " .. tostring(err))
+            finishTask(); cb("failed"); return
+        end
+
+        LOG.info(TAG, "adFree=" .. tostring(state and true or false))
+        finishTask()
+        cb(state and "enabled" or "disabled")
+    end)
+end
+
 function M.unlockAchievements()
     LOG.warn(TAG, "unlockAchievements: not yet implemented")
 end

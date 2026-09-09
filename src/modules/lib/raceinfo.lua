@@ -13,7 +13,7 @@
   callers differ only in their persistent cache key and an optional validator
   applied to a cached base (e.g. "is a race actually running right now?").
 
-  Globals used: memory, gg, BaseRegion, BaseLib, offsets, LOG.
+  Globals used: storage, gg, BaseRegion, BaseLib, offsets, LOG.
 ]]
 
 local TAG = "RaceInfo"
@@ -28,7 +28,7 @@ local raceinfo = {}
 --               attempt can reuse it once the player is back in a race).
 -- Returns the base address, or nil if it can't be resolved.
 function raceinfo.resolve(cacheKey, validate)
-    local cachedPtr = memory:load(cacheKey)
+    local cachedPtr = storage:load_session(cacheKey)
     if cachedPtr and cachedPtr ~= 0 then
         local verify = gg.getValues({{ address = cachedPtr, flags = 32 }})
         if verify and verify[1] and verify[1].value ~= 0 then
@@ -41,7 +41,7 @@ function raceinfo.resolve(cacheKey, validate)
             return base
         else
             LOG.warn(TAG, "ptr invalid — clearing cache (" .. tostring(cacheKey) .. ")")
-            memory:delete(cacheKey)
+            storage:delete_session(cacheKey)
         end
     end
 
@@ -86,7 +86,7 @@ function raceinfo.resolve(cacheKey, validate)
                 if resolvedPointers then
                     for _, ptr in ipairs(resolvedPointers) do
                         if ptr and ptr.value and ptr.value ~= 0 then
-                            memory:save(cacheKey, ptr.address)
+                            storage:save_session(cacheKey, ptr.address)
                             resolvedBase = ptr.value
                             LOG.info(TAG, string.format("Resolved + cached: ptr=0x%X → base=0x%X", ptr.address, resolvedBase))
                             break

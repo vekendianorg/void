@@ -18,8 +18,8 @@
 ]]
 
 -- Caps are loaded lazily on first getCaps()/setCaps() call because
--- memory is not yet initialized when this module loads (crash_handler
--- loads at line ~250 in main.lua; memory loads at line ~461).
+-- storage is not yet initialized when this module loads (crash_handler
+-- loads at line ~250 in main.lua; storage loads at line ~461).
 local MAX_CRASHES = 50
 local MAX_LOGS    = 250
 local _capsLoaded = false
@@ -27,8 +27,8 @@ local _capsLoaded = false
 local function ensureCapsLoaded()
     if _capsLoaded then return end
     _capsLoaded = true
-    if memory then
-        local saved = memory:load_global("console_caps") or {}
+    if storage then
+        local saved = storage:load_global("console_caps") or {}
         MAX_CRASHES = saved.crashes or MAX_CRASHES
         MAX_LOGS    = saved.logs    or MAX_LOGS
     end
@@ -148,7 +148,7 @@ function CrashHandler.setCaps(crashCap, logCap)
     MAX_LOGS    = logCap
     trimTo(crashes, MAX_CRASHES)
     trimTo(logs,    MAX_LOGS)
-    memory:save_global("console_caps", { crashes = MAX_CRASHES, logs = MAX_LOGS })
+    storage:save_global("console_caps", { crashes = MAX_CRASHES, logs = MAX_LOGS })
     LOG.info("CrashHandler", string.format("Caps updated: crashes=%d  logs=%d", MAX_CRASHES, MAX_LOGS))
 end
 

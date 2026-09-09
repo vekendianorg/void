@@ -213,16 +213,24 @@ DEFAULT_ARCH   = "arm64-v8a"
 SCRIPT_PATH = gg.getFile() or ""
 SCRIPT_NAME = SCRIPT_PATH:match("([^/\\]+)$") or ""
 IS_DEV = SCRIPT_NAME == "main.lua"
+-- Release channel shown as a badge next to the VOID title (rendered in ui.lua):
+--   running src/main.lua directly      → FOR DEV
+--   packed file with test/beta in name → FOR TESTER
+--   anything else (release build)      → FOR USER
+RELEASE_CHANNEL = IS_DEV and "FOR DEV"
+    or (SCRIPT_NAME:match("[Tt]est") or SCRIPT_NAME:match("[Bb]eta")) and "FOR TESTER"
+    or "FOR USER"
 CURRENT_VERSION = scriptSubHeader:match("v([%d%.]+)") or "0.0.0"
 RELEASE_API = "https://api.github.com/repos/vekendianorg/void/releases/latest"
 
-UI = loadModule("configs/colors.lua")
+UI = loadModule("configs/app/colors.lua")
+VOID_RISK = loadModule("configs/app/risk.lua")
 
 -- ── Global state ──────────────────────────────────────────────────────────────
 
 exit             = false
-WIN_W            = nil    -- resolved after memory loads (see below)
-WIN_H            = nil    -- resolved after memory loads (see below)
+WIN_W            = nil    -- resolved after storage loads (see below)
+WIN_H            = nil    -- resolved after storage loads (see below)
 loader           = nil
 menuView         = nil
 iconView         = nil
@@ -253,13 +261,25 @@ alloc     = loadModule("core/engines/alloc.lua")
 -- and so feature modules can be loaded non-fatally via CrashHandler.loadFeature.
 CrashHandler = loadModule("core/engines/crash_handler.lua")
 
+-- ── Nebula SDK (vendored packed build) ────────────────────────────────────────
+-- modules/lib/nebula.lua is the packed Nebula SDK with its VFS loader renamed
+-- (nebulaLoadModule) and fatal os.exit() converted to error(), so a Nebula
+-- failure is caught here instead of killing the script. Soft-loaded: features
+-- that use Nebula must degrade gracefully when it's unavailable.
+Nebula = loadModule("modules/lib/nebula.lua", true)
+if Nebula then
+    LOG.info("Nebula", "SDK loaded | version=" .. tostring(Nebula.VERSION))
+else
+    LOG.warn("Nebula", "SDK failed to load — Nebula-backed features disabled")
+end
+
 -- ── UI utilities (global; needed by modules before ui.lua loads) ──────────────
 
 -- Cache density once so dp() is a pure Lua multiply — no Java call per use.
 -- createMenuView calls dp() ~100 times; each Java crossing burns stack space.
 --
 -- NOTE: dp() must NOT recompute RESIZE_MAX_W/H here.  Those bounds are set
--- once in the do-block below (after memory loads) and must not be overwritten
+-- once in the do-block below (after storage loads) and must not be overwritten
 -- by lazy dp() calls that happen later during UI construction.
 local _dp_density = nil
 function dp(v)
@@ -473,15 +493,15 @@ end
 
 -- ── Core modules ──────────────────────────────────────────────────────────────
 
-memory    = loadModule("core/engines/memory.lua")
+storage   = loadModule("core/engines/storage.lua")
 loadModule("core/utils/lang.lua") -- sets globals: T, setLanguage, LANG_CODE, LANG_AVAILABLE
 scheduler = loadModule("core/engines/scheduler.lua")
-loader    = loadModule("core/utils/loader.lua")
+loader    = loadModule("core/engines/loader.lua")
 catbox    = loadModule("core/utils/catbox.lua")
 paste     = loadModule("core/utils/paste.lua")
 webhook   = loadModule("core/utils/webhook.lua")
 
-local saved_prefs = memory:load_global("ui_prefs")
+local saved_prefs = storage:load_global("ui_prefs")
 if saved_prefs then
     LOG.info("INIT", "User preferences RE-APPLIED")
     for k, v in pairs(saved_prefs) do
@@ -493,7 +513,7 @@ end
 -- "ui_prefs" so it survives independently of the theme system — resetting
 -- or importing a theme (which replaces/merges "ui_prefs") must NOT wipe or
 -- override this personal layout preference.
-local saved_icon_style = memory:load_global("icon_style")
+local saved_icon_style = storage:load_global("icon_style")
 if saved_icon_style == "pill" or saved_icon_style == "circle" or saved_icon_style == "square" then
     LOG.info("INIT", "Icon style RE-APPLIED: " .. saved_icon_style)
     UI.ICON_STYLE = saved_icon_style
@@ -529,7 +549,7 @@ do
     RESIZE_MAX_W = math.min(RESIZE_MAX_W, math.floor(screen_wdp * 0.85))
     RESIZE_MAX_H = math.min(RESIZE_MAX_H, math.floor(screen_hdp * 0.75))
 
-    local prefs = memory:load_global("window_size")
+    local prefs = storage:load_global("window_size")
     WIN_W = math.min(math.max((prefs and prefs.w) or DEFAULT_WIN_W, RESIZE_MIN_W), RESIZE_MAX_W)
     WIN_H = math.min(math.max((prefs and prefs.h) or 333,           RESIZE_MIN_H), RESIZE_MAX_H)
 end
@@ -537,7 +557,7 @@ end
 loadModule("core/engines/patches.lua")
 
 -- Detects arch, loads matching data from manifest → sets globals: aobs, offsets
-loadModule("core/engines/arch.lua")
+loadModule("core/engines/resolver.lua")
 
 -- Lazy tab registry → returns {tabHandlers, categoryHandlers}
 tabHandlers, categoryHandlers = loadModule("modules/registry.lua")
@@ -599,7 +619,7 @@ function versionNewer(remote, current)
     return false
 end
 
-local auto_update = memory:load_global("auto_update")
+local auto_update = storage:load_global("auto_update")
 if auto_update and not IS_DEV then
     local remote_ver, download_url, release_body = fetchLatestVersion()
     if remote_ver and versionNewer(remote_ver, CURRENT_VERSION) and download_url then
@@ -819,13 +839,13 @@ if not exit then
     -- ── GameStatus resolution ─────────────────────────────────────────────────────
     
     local SEARCH_REGIONS = { gg.REGION_C_ALLOC, gg.REGION_OTHER }
-    local saved_status   = memory:load("gamestatus")
+    local saved_status   = storage:load_session("gamestatus")
     
-    shellStates   = memory:load("shell_states")   or { root = false }
-    toggleStates  = memory:load("toggle_states")  or {}
-    inputStates   = memory:load("input_states")   or {}
-    spinnerStates = memory:load("spinner_states") or {}
-    sliderStates  = memory:load("slider_states")  or {}
+    shellStates   = storage:load_session("shell_states")   or { root = false }
+    toggleStates  = storage:load_session("toggle_states")  or {}
+    inputStates   = storage:load_session("input_states")   or {}
+    spinnerStates = storage:load_session("spinner_states") or {}
+    sliderStates  = storage:load_session("slider_states")  or {}
     
     if saved_status then
         BaseRegion, BaseGameStatus, BaseGameStatusRaw = saved_status[1], saved_status[2], saved_status[3]
@@ -903,7 +923,7 @@ if not exit then
 
             if #status_hits > 0 then
                 BaseRegion, BaseGameStatus, BaseGameStatusRaw = region, status_hits[1], status_raw_hits[1]
-                memory:save("gamestatus", { region, status_hits[1], status_raw_hits[1] })
+                storage:save_session("gamestatus", { region, status_hits[1], status_raw_hits[1] })
                 LOG.info("INIT", string.format(
                     "  ✓ Found in %s | BaseGameStatus=0x%X  BaseGameStatusRaw=0x%X",
                     regionName, BaseGameStatus, BaseGameStatusRaw))

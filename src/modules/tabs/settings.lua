@@ -4,7 +4,7 @@
             accent RGB, logo RGB, sub-text RGB
 
   All color preferences are saved globally (PID-independent) via
-  memory:save_global so they survive game restarts without being cleared
+  storage:save_global so they survive game restarts without being cleared
   by a process change.
 ]]
 
@@ -140,7 +140,7 @@ end
 
 local function saveAndRefresh()
     LOG.info("Settings", "UI preferences saved and refresh triggered")
-    memory:save_global("ui_prefs", UI)
+    storage:save_global("ui_prefs", UI)
     MainHandler.post(function()
         if menuView then
             menuView.setBackground(getSkin(UI.BG, 16, 0, UI.STROKE))
@@ -179,7 +179,7 @@ local function applyTheme(shareId)
                 else
                     UI.BG_IMAGE.PATH = "no_media"
                 end
-                memory:save_global("ui_prefs", UI)
+                storage:save_global("ui_prefs", UI)
                 saveAndRefresh()
                 showDialog(T("common.success"), t("theme_imported"), T("common.ok"))
             else
@@ -206,7 +206,7 @@ return function(container)
         if IS_DEV then
             showDialog(t("dev_mode_title"), t("auto_update.dev_mode_msg"), {T("common.ok")})
         else
-            memory:save_global("auto_update", state)
+            storage:save_global("auto_update", state)
         end
         done()
     end)
@@ -308,7 +308,7 @@ return function(container)
     -- ── Session Control ────────────────────────────────────────────────────────
     addModule(container, "clear_memory", t("clear_memory.title"), t("clear_memory.desc"), "button", nil, function(done)
         LOG.info("Settings", "User triggered clear_all()")
-        memory:clear_all()
+        storage:clear_all_session()
         done()
     end)
     
@@ -583,12 +583,12 @@ return function(container)
         local TAG = "ResetTheme"
         LOG.info(TAG, "User triggered theme reset")
         
-        memory:delete_global("ui_prefs")
-        UI = loadModule("configs/colors.lua")
+        storage:delete_global("ui_prefs")
+        UI = loadModule("configs/app/colors.lua")
 
         -- Icon Style is a personal layout preference, not a theme color —
         -- "Reset Theme" should only reset colors/background, so re-apply it.
-        local saved_icon_style = memory:load_global("icon_style")
+        local saved_icon_style = storage:load_global("icon_style")
         if saved_icon_style then UI.ICON_STYLE = saved_icon_style end
         
         done()
@@ -925,7 +925,7 @@ return function(container)
                 -- Dedicated global key (independent of "ui_prefs") so theme
                 -- reset/import never wipes this choice — see main.lua load
                 -- and the reset_theme / applyTheme handlers below.
-                memory:save_global("icon_style", UI.ICON_STYLE)
+                storage:save_global("icon_style", UI.ICON_STYLE)
                 saveAndRefresh()
                 -- Rebuild the (currently hidden, since we're inside the full
                 -- menu) icon view so the next minimize uses the new style.

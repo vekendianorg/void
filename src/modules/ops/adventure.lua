@@ -6,7 +6,7 @@
   periodic UI feedback, the tab passes a small `ui` handler table; core never
   calls showToast/showDialog directly.
 
-  Globals used: scheduler, memory, gg, BaseRegion, BaseGameStatusRaw, BaseLib,
+  Globals used: scheduler, storage, gg, BaseRegion, BaseGameStatusRaw, BaseLib,
   offsets, LOG.
 ]]
 
@@ -44,8 +44,8 @@ end
 -- ── Set distance (+ optional re-apply loop) ──────────────────────────────────
 
 -- Loop state helpers (synchronous; gate the loop-active dialog in the tab).
-function M.isLoopActive() return memory:load("set_distance_loop") and true or false end
-function M.stopLoop()     memory:save("set_distance_loop", false) end
+function M.isLoopActive() return storage:load_session("set_distance_loop") and true or false end
+function M.stopLoop()     storage:save_session("set_distance_loop", false) end
 
 local TAG = "SetDistance"
 
@@ -120,15 +120,15 @@ function M.setDistance(params, ui)
             finishTask(); return
         end
 
-        memory:save("set_distance_loop", true)
+        storage:save_session("set_distance_loop", true)
         finishTask()
 
         local tickCount = 0
         local function loopTick()
-            if not memory:load("set_distance_loop") then
+            if not storage:load_session("set_distance_loop") then
                 LOG.info(TAG, "Loop stopped.")
                 ui.onLoopStopped()
-                memory:delete("set_distance_ptr")
+                storage:delete_session("set_distance_ptr")
                 return
             end
 
@@ -170,7 +170,7 @@ end
 --
 -- Cache: { {ptr, orig18, orig1C}, ... } — original values are saved BEFORE
 -- the first edit so disable can restore them exactly. The cache is NEVER
--- cleared on disable — memory:save/load is PID-scoped so a game restart
+-- cleared on disable — storage:save_session/load is PID-scoped so a game restart
 -- already invalidates it naturally; skipping the clear avoids a full
 -- re-scan on every toggle.
 -- status: "resolve_failed" | "applied" | "reverted"
@@ -178,7 +178,7 @@ function M.freeAdventureShop(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "FreeAdventureShop"
 
-        local cache = memory:load("free_adventure_shop")
+        local cache = storage:load_session("free_adventure_shop")
 
         if not state then
             if not cache then
@@ -330,7 +330,7 @@ function M.freeAdventureShop(state, cb)
         end
 
         -- Save originals BEFORE editing
-        memory:save("free_adventure_shop", touched)
+        storage:save_session("free_adventure_shop", touched)
 
         local edits = {}
         for _, e in ipairs(touched) do

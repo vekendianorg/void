@@ -20,7 +20,7 @@
     a second copy of the pointer follows at the end of the fixed header,
     matching the vehicle-name pattern used in vehicle.lua.
 
-  Globals used: scheduler, gg, memory, BaseLib, BaseGameStatus, offsets, LOG, alloc.
+  Globals used: scheduler, gg, storage, BaseLib, BaseGameStatus, offsets, LOG, alloc.
 ]]
 
 local M = {}
@@ -277,7 +277,7 @@ end
 local PAGE_SIZE = 75   -- max objects per group per anchor slot
 
 -- Alloc handles kept in module-local only — they are runtime Lua objects and
--- cannot be serialized. Slot data (addresses, originals) goes to memory:save.
+-- cannot be serialized. Slot data (addresses, originals) goes to storage:save_session.
 local _liveAllocHandles = nil
 
 -- requiresTheme zero pattern: 6 DWORDs covering +0x00..+0x14
@@ -550,7 +550,7 @@ function M.anyThemeObjects(state, cb)
 
         -- ── Revert path ───────────────────────────────────────────────────────
         if not state then
-            local cache = memory:load("any_theme_objects")
+            local cache = storage:load_session("any_theme_objects")
             if not cache then
                 LOG.warn(TAG, "no cache to revert")
                 finishTask(); cb(false, "creative.obj_no_cache"); return
@@ -596,7 +596,7 @@ function M.anyThemeObjects(state, cb)
                 LOG.warn(TAG, "No live alloc handles (script restarted?) — pointers restored but alloc memory not freed")
             end
 
-            memory:delete("any_theme_objects")
+            storage:delete_session("any_theme_objects")
             LOG.info(TAG, string.format("Reverted %d slot(s)", #cache.slots))
             finishTask(); cb(true, nil, #cache.slots); return
         end
@@ -604,7 +604,7 @@ function M.anyThemeObjects(state, cb)
         -- ── Apply path ────────────────────────────────────────────────────────
 
         -- Already applied?
-        if memory:load("any_theme_objects") then
+        if storage:load_session("any_theme_objects") then
             LOG.warn(TAG, "already applied — revert first")
             finishTask(); cb(false, "creative.obj_already_applied"); return
         end
@@ -726,7 +726,7 @@ function M.anyThemeObjects(state, cb)
         -- objects — keep them in a module-local so revert can free them if the
         -- script hasn't been restarted.
         _liveAllocHandles = allocHandles
-        memory:save("any_theme_objects", { slots = anchorSlots })
+        storage:save_session("any_theme_objects", { slots = anchorSlots })
 
         LOG.info(TAG, string.format(
             "Done: %d output slot(s), %d hidden, %d alloc(s), %d total writes",
@@ -743,7 +743,7 @@ function M.showHiddenObjects(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "ShowHiddenObjects"
 
-        local cache = memory:load("show_hidden_objects")
+        local cache = storage:load_session("show_hidden_objects")
 
         if state then
             local anchors = resolveAnchors(TAG)
@@ -796,7 +796,7 @@ function M.showHiddenObjects(state, cb)
                     reads[#reads + 1] = { address = w.address, flags = w.flags }
                 end
                 cache = gg.getValues(reads)
-                memory:save("show_hidden_objects", cache)
+                storage:save_session("show_hidden_objects", cache)
                 LOG.dbg(TAG, string.format("Cached %d original byte(s)", #cache))
             end
 

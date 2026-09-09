@@ -2,7 +2,7 @@
   modules/ops/other.lua — Misc feature memory ops (no UI)
   Contract: see modules/ops/README.md.
 
-  Globals used: scheduler, memory, gg, BaseRegion, BaseGameStatusRaw, LOG.
+  Globals used: scheduler, storage, gg, BaseRegion, BaseGameStatusRaw, LOG.
 ]]
 
 local M = {}
@@ -30,7 +30,7 @@ function M.setResolution(params, cb)
         local height = tonumber(params.height) or 720
         LOG.info(TAG, string.format("Applying resolution: %dx%d", width, height))
 
-        local results = memory:load("resolution")
+        local results = storage:load_session("resolution")
 
         if not results then
             LOG.dbg(TAG, "No cache — searching for GLSurfaceView")
@@ -64,7 +64,7 @@ function M.setResolution(params, cb)
 
             if #addresses > 0 then
                 results = addresses
-                memory:save("resolution", results)
+                storage:save_session("resolution", results)
             else
                 finishTask(); cb("none"); return
             end
@@ -101,7 +101,7 @@ function M.setResolutionOffset(params, cb)
         local width  = tonumber(params.width)  or 0
         local height = tonumber(params.height) or 0
 
-        local results = memory:load("resolution_offset")
+        local results = storage:load_session("resolution_offset")
 
         if not results then
             gg.clearResults()
@@ -131,7 +131,7 @@ function M.setResolutionOffset(params, cb)
 
             if #addresses > 0 then
                 results = addresses
-                memory:save("resolution_offset", results)
+                storage:save_session("resolution_offset", results)
             else
                 finishTask(); cb("none"); return
             end

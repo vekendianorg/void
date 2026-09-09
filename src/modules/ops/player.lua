@@ -2,7 +2,7 @@
   modules/ops/player.lua — Player feature memory ops (no UI)
   Contract: see modules/ops/README.md.
 
-  Globals used: scheduler, memory, gg, BaseRegion, LOG.
+  Globals used: scheduler, storage, gg, BaseRegion, LOG.
 ]]
 
 local M = {}
@@ -11,7 +11,7 @@ local M = {}
 function M.noClip(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "NoClip"
-        local cache = memory:load("no_clip")
+        local cache = storage:load_session("no_clip")
         if cache then
             LOG.dbg(TAG, "Using cached results")
             gg.clearResults()
@@ -25,7 +25,7 @@ function M.noClip(state, cb)
             gg.refineNumber("h 0A D7 23 3C", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("no_clip", results)
+            storage:save_session("no_clip", results)
         end
         if state then
             gg.editAll("h CD CC 08 C1", 1)
@@ -44,7 +44,7 @@ end
 function M.hideName(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "HideName"
-        local cache = memory:load("hide_name")
+        local cache = storage:load_session("hide_name")
         if cache then
             LOG.dbg(TAG, "Using cached results")
             gg.clearResults()
@@ -58,7 +58,7 @@ function M.hideName(state, cb)
             gg.refineNumber("h 71 3D 0A 3F 71 3D 0A 3F", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("hide_name", results)
+            storage:save_session("hide_name", results)
         end
         if state then
             gg.editAll("h 00 00 00 00 00 00 00 00", 1)
@@ -78,7 +78,7 @@ function M.hideFlag(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "HideFlag"
 
-        local cache = memory:load("hide_flag")
+        local cache = storage:load_session("hide_flag")
         if cache then
             LOG.dbg(TAG, "Using cached results (part 1)")
             gg.clearResults()
@@ -92,7 +92,7 @@ function M.hideFlag(state, cb)
             gg.refineNumber("h 00 00 08 42 00 00 C0 41", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results (part 1): " .. tostring(#results))
-            memory:save("hide_flag", results)
+            storage:save_session("hide_flag", results)
         end
         if state then
             gg.editAll("h 00 00 00 00 00 00 00 00", 1)
@@ -101,7 +101,7 @@ function M.hideFlag(state, cb)
         end
         gg.clearResults()
 
-        local cache2 = memory:load("hide_flag2")
+        local cache2 = storage:load_session("hide_flag2")
         if cache2 then
             LOG.dbg(TAG, "Using cached results (part 2)")
             gg.clearResults()
@@ -115,7 +115,7 @@ function M.hideFlag(state, cb)
             gg.refineNumber("h FF FF FF FF", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results (part 2): " .. tostring(#results))
-            memory:save("hide_flag2", results)
+            storage:save_session("hide_flag2", results)
         end
         if state then
             gg.editAll("h 00 00 00 00", 1)
@@ -138,7 +138,7 @@ end
 function M.setSpeedHack(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "SpeedHack"
-        local cache = memory:load("speed_hack")
+        local cache = storage:load_session("speed_hack")
 
         if state then
             if not cache then
@@ -151,7 +151,7 @@ function M.setSpeedHack(state, cb)
                 if #results == 0 then
                     finishTask(); cb(false, "player.speed_hack.not_found"); return
                 end
-                memory:save("speed_hack", results)
+                storage:save_session("speed_hack", results)
                 cache = results
             else
                 gg.clearResults()
@@ -172,7 +172,7 @@ function M.setSpeedHack(state, cb)
             gg.getResults(gg.getResultsCount())
             gg.editAll("-1.13333332539", gg.TYPE_FLOAT)
             gg.clearResults()
-            memory:delete("speed_hack")
+            storage:delete_session("speed_hack")
             LOG.info(TAG, "Disabled — original value restored")
             finishTask(); cb(true)
         end
@@ -184,7 +184,7 @@ end
 function M.setZoom(vals, cb)
     scheduler:add(function(finishTask)
         local TAG = "Zoom"
-        local results = memory:load("zoom")
+        local results = storage:load_session("zoom")
         if not results then
             LOG.dbg(TAG, "No cache — scanning memory")
             gg.clearResults()
@@ -193,7 +193,7 @@ function M.setZoom(vals, cb)
             results = gg.getResults(gg.getResultsCount())
             gg.clearResults()
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            if #results > 0 then memory:save("zoom", results) end
+            if #results > 0 then storage:save_session("zoom", results) end
         else
             LOG.dbg(TAG, "Using cached results")
         end
@@ -218,7 +218,7 @@ end
 function M.setGravity(vals, cb)
     scheduler:add(function(finishTask)
         local TAG = "Gravity"
-        local allGravity = memory:load("gravity")
+        local allGravity = storage:load_session("gravity")
 
         if not allGravity then
             LOG.dbg(TAG, "No cache — running pointer walk scan")
@@ -270,7 +270,7 @@ function M.setGravity(vals, cb)
                 end
 
                 LOG.info(TAG, string.format("Gravity addresses found: %d", #allGravity.x))
-                memory:save("gravity", allGravity)
+                storage:save_session("gravity", allGravity)
             else
                 LOG.warn(TAG, "Initial scan returned 0 results — gravity addresses not found")
             end

@@ -23,7 +23,7 @@
       restart     = <bool>,                       -- true if a restart is warranted
     }
 
-  Globals used: scheduler, memory, gg, json, loadModule, Shell, Crypto,
+  Globals used: scheduler, storage, gg, json, loadModule, Shell, Crypto,
   game_path, LOG.
 ]]
 
@@ -138,9 +138,9 @@ function M.patchRewards(ui, cb)
     local hasRoot = checkRoot()
 
     if hasRoot then
-        memory:save("shell_states", {root=true})
+        storage:save_session("shell_states", {root=true})
     else
-        memory:save("shell_states", {root=false})
+        storage:save_session("shell_states", {root=false})
     end
 
     ui.onProgress("scanning_files")
@@ -150,7 +150,7 @@ function M.patchRewards(ui, cb)
     local successList = {}
     local failedList = {}
 
-    local custom_rewards = loadModule("configs/rewards.lua")
+    local custom_rewards = loadModule("configs/content/rewards.lua")
     local jsonMod = nil
     local ok, err = pcall(function()
         jsonMod = json.decode(custom_rewards)
@@ -395,9 +395,9 @@ function M.restoreEvents(ui, cb)
     local hasRoot = checkRoot()
 
     if hasRoot then
-        memory:save("shell_states", {root=true})
+        storage:save_session("shell_states", {root=true})
     else
-        memory:save("shell_states", {root=false})
+        storage:save_session("shell_states", {root=false})
     end
 
     ui.onProgress("scanning_files")

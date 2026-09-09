@@ -1,9 +1,9 @@
 --[[
   core/utils/lang.lua — Multi-language engine
 
-  Loads configs/lang/<code>.lua (a flat table of dotted keys -> strings)
+  Loads configs/app/lang/<code>.lua (a flat table of dotted keys -> strings)
   and exposes a global T(key, ...) lookup used by every user-facing string
-  in the project. English (configs/lang/en.lua) is always loaded as the
+  in the project. English (configs/app/lang/en.lua) is always loaded as the
   fallback table so a partially-translated language file never produces
   blank UI text — missing keys silently fall back to English, then to the
   raw key itself if even English is missing it (should never happen).
@@ -15,7 +15,7 @@
     LANG_AVAILABLE       -- ordered list of { code, name } for the spinner UI
 
   To add a new language:
-    1. Copy configs/lang/en.lua to configs/lang/<code>.lua and translate
+    1. Copy configs/app/lang/en.lua to configs/app/lang/<code>.lua and translate
        every value (keep the %s/%d placeholders intact).
     2. Add { code = "<code>", name = "<Native Name>" } to AVAILABLE below.
   That's it — settings.lua's Language spinner picks it up automatically.
@@ -51,7 +51,7 @@ local AVAILABLE = {
 -- broken language file should silently fall back to English, never crash
 -- the script. This loader returns nil instead of exiting.
 local function tryLoadLangFile(code)
-    local ok, result = pcall(loadModule, "configs/lang/" .. code .. ".lua")
+    local ok, result = pcall(loadModule, "configs/app/lang/" .. code .. ".lua")
     if not ok or type(result) ~= "table" then return nil end
     return result
 end
@@ -60,9 +60,9 @@ end
 -- Loaded before EN so that arch-universal content (names, handles, URLs) lives
 -- in one place. T() checks CREDITS last, after ACTIVE and EN, so a lang file
 -- can still override any key here if truly needed (shouldn't be necessary).
-local ok_credits, CREDITS = pcall(loadModule, "configs/credits.lua")
+local ok_credits, CREDITS = pcall(loadModule, "configs/app/credits.lua")
 if not ok_credits or type(CREDITS) ~= "table" then
-    LOG.warn("Lang", "configs/credits.lua failed to load — credits will fall through to EN")
+    LOG.warn("Lang", "configs/app/credits.lua failed to load — credits will fall through to EN")
     CREDITS = {}
 end
 
@@ -71,7 +71,7 @@ if not EN then
     -- English itself is the framework's hard dependency; if it's missing
     -- something is badly wrong with the install, but we still shouldn't
     -- crash the whole script over missing translations.
-    LOG.error("Lang", "configs/lang/en.lua failed to load — falling back to raw keys")
+    LOG.error("Lang", "configs/app/lang/en.lua failed to load — falling back to raw keys")
     EN = {}
 end
 
@@ -106,7 +106,7 @@ end
 local ACTIVE      = EN
 local ACTIVE_CODE = "en"
 
-local saved_code = memory:load_global("language")
+local saved_code = storage:load_global("language")
 if saved_code and saved_code ~= "en" then
     local loaded = tryLoadLangFile(saved_code)
     if loaded then
@@ -157,7 +157,7 @@ function setLanguage(code)
     if code == "en" then
         ACTIVE, ACTIVE_CODE = EN, "en"
         LANG_CODE = "en"
-        memory:save_global("language", "en")
+        storage:save_global("language", "en")
         return true
     end
 
@@ -169,7 +169,7 @@ function setLanguage(code)
 
     ACTIVE, ACTIVE_CODE = loaded, code
     LANG_CODE = code
-    memory:save_global("language", code)
+    storage:save_global("language", code)
     return true
 end
 

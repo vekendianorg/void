@@ -51,6 +51,18 @@ end
 local _tabData     = {}
 local _activeTabId = nil
 
+-- ── Global search state ──────────────────────────────────────────────────────
+-- VOID_MODULE_INDEX is populated by addModule() at render time (id →
+-- { title, desc, tabId, tabName }); VOID_CURRENT_TAB/NAME are set by
+-- loadCategory() and by the background cache warm-up so registrations
+-- know which tab they belong to. _searchBox/_searchActive manage the
+-- search bar's interaction with loadCategory.
+VOID_MODULE_INDEX     = {}
+VOID_CURRENT_TAB      = nil
+VOID_CURRENT_TAB_NAME = nil
+local _searchBox     = nil
+local _searchActive  = false
+
 -- Per-tab rendered view-tree cache: id → LinearLayout already populated by
 -- that tab's render function. On revisit we just swap this cached subtree
 -- back into moduleContainer instead of clearing+re-running the render
@@ -138,6 +150,22 @@ function loadCategory(id, tabView)
 
     _activeTabId  = id
     activeTabView = tabView
+    VOID_CURRENT_TAB, VOID_CURRENT_TAB_NAME = id, id
+
+    -- Any tab switch leaves search mode; clear the box silently (the
+    -- TextWatcher sees the now-empty query and skips a re-render because
+    -- _searchActive is already false) and restore the window's NOT_FOCUSABLE
+    -- flags in case the search box still held focus.
+    if _searchActive then
+        _searchActive = false
+        if _searchBox then _searchBox.setText("") end
+        if menuView and mParams.flags ~= (8 | 32) then
+            pcall(function()
+                mParams.flags = 8 | 32
+                windowManager.updateViewLayout(menuView, mParams)
+            end)
+        end
+    end
 
     moduleContainer.removeAllViews()
 
@@ -341,7 +369,58 @@ local function _roDisplayText(rawVal)
 end
 
 currentInputs = {}
-function addModule(parent, id, title, desc, mode, extra, callback)
+--==================================================
+-- Risk badge (per-card risk level pill)
+--==================================================
+
+-- Builds the small colored pill shown on cards with a risk level
+-- (registry: configs/app/risk.lua, colors: UI.RISK). Tapping it opens a
+-- dialog explaining what the level means. Returns nil when the card
+-- has no risk level assigned.
+function buildRiskPill(id, level)
+    local def = UI.RISK and UI.RISK[level:upper()]
+    if not def then return nil end
+
+    local pill = TextView(activity)
+    pill.setText(T("risk." .. level))
+    pill.setTextColor(def.TEXT)
+    pill.setTextSize(1, 8)
+    pill.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+    pill.setPadding(dp(6), dp(2), dp(6), dp(2))
+    pill.setBackground(getSkin(def.BG, 8, 1, def.TEXT))
+    local lp = LinLayoutParams(-2, -2)
+    lp.leftMargin  = dp(4)
+    lp.rightMargin = dp(4)
+    pill.setLayoutParams(lp)
+    pill.setOnClickListener(View.OnClickListener({ onClick = function()
+        showDialog(T("risk.title"), T("risk." .. level .. ".info"), T("common.ok"))
+    end }))
+    return pill
+end
+
+-- Release-channel badge next to the VOID title (menu header + icon pill).
+-- Text/color come from RELEASE_CHANNEL (main.lua) and UI.CHANNEL.
+function buildChannelBadge()
+    if not RELEASE_CHANNEL then return nil end
+    local def = UI.CHANNEL and UI.CHANNEL[RELEASE_CHANNEL]
+    local b = TextView(activity)
+    b.setText(RELEASE_CHANNEL)
+    b.setTextColor(def and def.TEXT or UI.SUB)
+    b.setTextSize(1, 8)
+    b.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+    b.setPadding(dp(6), dp(2), dp(6), dp(2))
+    b.setBackground(getSkin(def and def.BG or UI.MUTED, 8, 1, def and def.TEXT or UI.STROKE))
+    local lp = LinLayoutParams(-2, -2)
+    lp.leftMargin  = dp(6)
+    lp.rightMargin = dp(2)
+    b.setLayoutParams(lp)
+    return b
+end
+
+function addModule(parent, id, title, desc, mode, extra, callback, opts)
+    -- Risk level: opts.risk wins, otherwise the configs/app/risk.lua registry.
+    local riskLevel = (opts and opts.risk) or (VOID_RISK and VOID_RISK[id]) or nil
+
     if processingStates[id] == nil then processingStates[id] = false end
     if toggleStates[id]     == nil then toggleStates[id]     = false end
     if lastClickTimes[id]   == nil then lastClickTimes[id]   = 0     end
@@ -355,6 +434,16 @@ function addModule(parent, id, title, desc, mode, extra, callback)
     card.setBackground(getSkin(UI.CARD, 12, 1, UI.STROKE))
     card.setAlpha(1.0)
     setLayoutDir(card)
+
+    -- Register in the global search index + tag the card view so search
+    -- results can scroll to it inside the cached tab content.
+    VOID_MODULE_INDEX[id] = {
+        title   = tostring(title),
+        desc    = tostring(desc),
+        tabId   = VOID_CURRENT_TAB,
+        tabName = VOID_CURRENT_TAB_NAME,
+    }
+    pcall(function() card.setTag(id) end)
 
     -- Debounce + visual feedback wrapper around user callbacks.
     local function safeCallback(...)
@@ -385,10 +474,10 @@ function addModule(parent, id, title, desc, mode, extra, callback)
                         tb = (debug and debug.traceback) and debug.traceback(tostring(e), 2) or tostring(e)
                         return e
                     end)
-                memory:save("toggle_states",  toggleStates)
-                memory:save("input_states",   inputStates)
-                memory:save("spinner_states", spinnerStates)
-                memory:save("slider_states",  sliderStates)
+                storage:save_session("toggle_states",  toggleStates)
+                storage:save_session("input_states",   inputStates)
+                storage:save_session("spinner_states", spinnerStates)
+                storage:save_session("slider_states",  sliderStates)
                 if not ok then
                     -- Capture so the failure surfaces in the Console tab; the
                     -- scheduler only sees crashes inside scheduler:add, not the
@@ -422,7 +511,29 @@ function addModule(parent, id, title, desc, mode, extra, callback)
     t1.setTextColor(UI.TEXT)
     t1.setTextSize(1, 14)
     t1.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+    -- Hug the title text (no weight), but cap it so a long title truncates
+    -- instead of pushing the risk pill out of the card.
+    t1.setSingleLine(true)
+    t1.setEllipsize(TruncateAt.END)
+    t1.setMaxWidth(dp(190))
     if isRTL() then t1.setGravity(Gravity.RIGHT) end
+
+    -- Title row: title (hugged, width-capped) + pill right after it + a
+    -- weight-1 spacer that absorbs the remaining space.
+    local titleRow = LinearLayout(activity)
+    titleRow.setOrientation(0)
+    titleRow.setGravity(Gravity.CENTER_VERTICAL)
+    setLayoutDir(titleRow)
+    titleRow.setLayoutParams(LinLayoutParams(-1, -2))
+
+    titleRow.addView(t1)
+    if riskLevel then
+        local rp = buildRiskPill(id, riskLevel)
+        if rp then titleRow.addView(rp) end
+    end
+    local titleSpacer = View(activity)
+    titleSpacer.setLayoutParams(LinLayoutParams(0, 1, 1.0))
+    titleRow.addView(titleSpacer)
 
     local t2 = TextView(activity)
     setRichText(t2, desc, UI.LOGO)
@@ -430,7 +541,7 @@ function addModule(parent, id, title, desc, mode, extra, callback)
     t2.setTextSize(1, 10)
     if isRTL() then t2.setGravity(Gravity.RIGHT) end
 
-    textLayout.addView(t1)
+    textLayout.addView(titleRow)
     textLayout.addView(t2)
     topRow.addView(textLayout)
 
@@ -969,15 +1080,15 @@ local function _createPillIconView()
     titleLayout.setLayoutParams(LinLayoutParams(0, -2, 1.0))
 
     local title = TextView(activity)
-    if IS_DEV then
-        title.setText("VOID [FOR DEV]")
-    else
-        title.setText("VOID")
-    end
+    title.setText("VOID")
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
     titleLayout.addView(title)
+
+    -- Release-channel badge (FOR DEV / FOR TESTER / FOR USER).
+    local chBadge = buildChannelBadge()
+    if chBadge then titleLayout.addView(chBadge) end
 
     local sub = TextView(activity)
     sub.setText(scriptSubHeader)
@@ -1015,10 +1126,10 @@ local function _createPillIconView()
     addHeaderBtn("✕", UI.RED, function()
         showDialog(T("common.confirm_exit_title"), T("common.confirm_exit_msg"),
             {T("common.yes"), function()
-                memory:save("toggle_states",  toggleStates)
-                memory:save("input_states",   inputStates)
-                memory:save("spinner_states", spinnerStates)
-                memory:save("slider_states",  sliderStates)
+                storage:save_session("toggle_states",  toggleStates)
+                storage:save_session("input_states",   inputStates)
+                storage:save_session("spinner_states", spinnerStates)
+                storage:save_session("slider_states",  sliderStates)
                 exitScript()
             end},
             {T("common.no")})
@@ -1090,15 +1201,15 @@ local function _buildMenuHeader(root)
     titleLayout.setLayoutParams(LinLayoutParams(0, -2, 1.0))
 
     local title = TextView(activity)
-    if IS_DEV then
-        title.setText("VOID [FOR DEV]")
-    else
-        title.setText("VOID")
-    end
+    title.setText("VOID")
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
     titleLayout.addView(title)
+
+    -- Release-channel badge (FOR DEV / FOR TESTER / FOR USER).
+    local chBadge = buildChannelBadge()
+    if chBadge then titleLayout.addView(chBadge) end
 
     local sub = TextView(activity)
     sub.setText(scriptSubHeader)
@@ -1156,10 +1267,10 @@ local function _buildMenuHeader(root)
                 pcall(function()
                     showDialog(T("common.confirm_exit_title"), T("common.confirm_exit_msg"),
                         {T("common.yes"), function()
-                            memory:save("toggle_states",  toggleStates)
-                            memory:save("input_states",   inputStates)
-                            memory:save("spinner_states", spinnerStates)
-                            memory:save("slider_states",  sliderStates)
+                            storage:save_session("toggle_states",  toggleStates)
+                            storage:save_session("input_states",   inputStates)
+                            storage:save_session("spinner_states", spinnerStates)
+                            storage:save_session("slider_states",  sliderStates)
                             exitScript()
                         end},
                         {T("common.no")})
@@ -1253,24 +1364,246 @@ local function _buildMenuTabs(root, _lastTab)
 
 end
 
--- Builds the content ScrollView and moduleContainer, adds them to root.
+-- ─────────────────────────────────────────────────────────────────────────────
+-- GLOBAL SEARCH
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Jumps to a search result: opens its tab, then scrolls the content list to
+-- the card and briefly flashes it. The card is located inside the cached tab
+-- content by its tag (set in addModule), so stale view refs never matter.
+local function _openSearchResult(m)
+    local td = _tabData[m.tabId]
+    if not td then
+        showToast(T("search.tab_missing"))
+        return
+    end
+    loadCategory(m.tabId, td.container)
+
+    -- Defer until loadCategory's deferred render/cache-swap has happened.
+    MainHandler.postDelayed(function()
+        local content = _tabContentCache[m.tabId]
+        if not content then return end
+        local target
+        pcall(function()
+            for j = 0, content.getChildCount() - 1 do
+                local child = content.getChildAt(j)
+                if tostring(child.getTag()) == m.tabId then target = child break end
+            end
+        end)
+        if not target or not _menuScroll then return end
+        _menuScroll.smoothScrollTo(0, math.max(0, target.getTop() - dp(40)))
+        -- Brief highlight flash (respect any running card animation).
+        pcall(function()
+            target.setBackground(getSkin(UI.ACCENT, 12, 1, UI.STROKE))
+            MainHandler.postDelayed(function()
+                if processingStates[m.tabId] then return end
+                target.setBackground(getSkin(UI.CARD, 12, 1, UI.STROKE))
+            end, 500)
+        end)
+    end, 450)
+end
+
+-- Re-renders the content area as a search results list (or restores the
+-- current tab when the query is cleared).
+local function _performSearch(query)
+    query = tostring(query or "")
+    if query == "" then
+        if _searchActive then
+            _searchActive = false
+            local td = _activeTabId and _tabData[_activeTabId]
+            if td then loadCategory(_activeTabId, td.container) end
+        end
+        -- Restore NOT_FOCUSABLE flags (e.g. after ✕ clear) in case focus lingers.
+        if menuView and mParams.flags ~= (8 | 32) then
+            pcall(function()
+                mParams.flags = 8 | 32
+                windowManager.updateViewLayout(menuView, mParams)
+            end)
+        end
+        return
+    end
+
+    _searchActive = true
+    if not moduleContainer then return end
+    moduleContainer.removeAllViews()
+
+    local ql = query:lower()
+    local results = {}
+    for id, m in pairs(VOID_MODULE_INDEX) do
+        if m.tabId and (tostring(m.title):lower():find(ql, 1, true)
+                     or tostring(m.desc):lower():find(ql, 1, true)) then
+            results[#results + 1] = { id = id, m = m }
+        end
+    end
+    table.sort(results, function(a, b)
+        if tostring(a.m.tabName) ~= tostring(b.m.tabName) then
+            return tostring(a.m.tabName) < tostring(b.m.tabName)
+        end
+        return a.id < b.id
+    end)
+
+    local count = TextView(activity)
+    count.setText(T("search.results", #results))
+    count.setTextColor(UI.SUB)
+    count.setTextSize(1, 10)
+    count.setPadding(dp(4), dp(2), dp(4), dp(6))
+    moduleContainer.addView(count)
+
+    if #results == 0 then
+        local none = TextView(activity)
+        none.setText(T("search.no_results"))
+        none.setTextColor(UI.SUB)
+        none.setTextSize(1, 12)
+        none.setGravity(Gravity.CENTER)
+        none.setPadding(dp(12), dp(20), dp(12), dp(20))
+        moduleContainer.addView(none)
+        return
+    end
+
+    for _, r in ipairs(results) do
+        local row = LinearLayout(activity)
+        row.setOrientation(0)
+        row.setGravity(Gravity.CENTER_VERTICAL)
+        setLayoutDir(row)
+        local rlp = LinLayoutParams(-1, -2)
+        rlp.bottomMargin = dp(6)
+        row.setLayoutParams(rlp)
+        row.setPadding(dp(10), dp(8), dp(10), dp(8))
+        row.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
+        row.setClickable(true)
+
+        -- Risk-colored dot (muted fallback for cards without a risk level).
+        local rl = VOID_RISK and VOID_RISK[r.id]
+        local rdef = rl and UI.RISK and UI.RISK[rl:upper()]
+        local dot = View(activity)
+        dot.setLayoutParams(LinLayoutParams(dp(8), dp(8)))
+        dot.setBackgroundColor(rdef and rdef.TEXT or UI.SUB)
+        row.addView(dot)
+
+        local textCol = LinearLayout(activity)
+        textCol.setOrientation(1)
+        textCol.setLayoutParams(LinLayoutParams(0, -2, 1.0))
+        textCol.setPadding(dp(8), 0, dp(8), 0)
+
+        local t1 = TextView(activity)
+        t1.setText(tostring(r.m.title))
+        t1.setTextColor(UI.TEXT)
+        t1.setTextSize(1, 12)
+        t1.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+        t1.setSingleLine(true)
+        t1.setEllipsize(TruncateAt.END)
+        textCol.addView(t1)
+
+        local t2 = TextView(activity)
+        t2.setText(tostring(r.m.tabName or r.m.tabId or "?"))
+        t2.setTextColor(UI.SUB)
+        t2.setTextSize(1, 9)
+        textCol.addView(t2)
+        row.addView(textCol)
+
+        row.setOnClickListener(View.OnClickListener({ onClick = function() _openSearchResult(r.m) end }))
+        moduleContainer.addView(row)
+    end
+end
+
+-- Builds the content area: a search bar row on top + the module ScrollView
+-- below, grouped in a vertical wrapper that takes the contentLayer's slack.
 --@param root View  Parent LinearLayout (horizontal inner row)
---@return View  The ScrollView (available for future use)
+--@return View  The ScrollView (kept as _menuScroll by createMenuView)
 local function _buildMenuContent(root)
+    local wrapper = LinearLayout(activity)
+    wrapper.setOrientation(1)
+    wrapper.setLayoutParams(LinLayoutParams(0, -1, 1.0))
+
+    -- ── Search row ──
+    local srow = LinearLayout(activity)
+    srow.setOrientation(0)
+    setLayoutDir(srow)
+    local srlp = LinLayoutParams(-1, -2)
+    srlp.bottomMargin = dp(6)
+    srow.setLayoutParams(srlp)
+
+    local searchBox = EditText(activity)
+    searchBox.setHint(T("search.hint"))
+    searchBox.setTextColor(UI.TEXT)
+    searchBox.setHintTextColor(UI.SUB)
+    searchBox.setTextSize(1, 11)
+    searchBox.setSingleLine(true)
+    searchBox.setPadding(dp(10), 0, dp(10), 0)
+    searchBox.setBackground(getSkin(UI.BG, 8, 1, UI.STROKE))
+    searchBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+    local IME_FLAG_NO_EXTRACT_UI = 16777216
+    local IME_FLAG_NO_FULLSCREEN = 33554432
+    searchBox.setImeOptions(IME_FLAG_NO_EXTRACT_UI | IME_FLAG_NO_FULLSCREEN)
+    local slp = LinLayoutParams(0, dp(32), 1.0)
+    if isRTL() then slp.leftMargin = dp(6) else slp.rightMargin = dp(6) end
+    searchBox.setLayoutParams(slp)
+    srow.addView(searchBox)
+
+    -- Debounced query handling: a token invalidates stale delayed runs.
+    local searchToken = 0
+    searchBox.addTextChangedListener(TextWatcher{
+        onTextChanged = function(s)
+            searchToken = searchToken + 1
+            local tk = searchToken
+            MainHandler.postDelayed(function()
+                if tk ~= searchToken then return end
+                _performSearch(tostring(s))
+            end, 250)
+        end
+    })
+
+    local clearBtn = TextView(activity)
+    clearBtn.setText("✕")
+    clearBtn.setTextColor(UI.SUB)
+    clearBtn.setTextSize(1, 12)
+    clearBtn.setGravity(Gravity.CENTER)
+    clearBtn.setLayoutParams(LinLayoutParams(dp(28), dp(32)))
+    clearBtn.setBackground(getSkin(UI.MUTED, 8))
+    clearBtn.setOnClickListener(View.OnClickListener({ onClick = function()
+        searchBox.setText("")
+    end }))
+    srow.addView(clearBtn)
+
+    -- The floating window is NOT_FOCUSABLE by default, so the IME won't open
+    -- on its own. Same pattern as the module input fields: on touch, clear
+    -- FLAG_NOT_FOCUSABLE, focus the box and show the keyboard explicitly.
+    searchBox.setOnTouchListener(View.OnTouchListener{
+        onTouch = function(v, ev)
+            if ev.getAction() == MotionEvent.ACTION_DOWN then
+                mParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                              | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                windowManager.updateViewLayout(menuView, mParams)
+                v.requestFocus()
+                local imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
+                v.postDelayed(function()
+                    imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
+                end, 80)
+            end
+            return false
+        end
+    })
+
+    _searchBox = searchBox
+    wrapper.addView(srow)
+
+    -- ── Module list (unchanged ScrollView + moduleContainer) ──
     local scroll = ScrollView(activity)
-    scroll.setLayoutParams(LinLayoutParams(0, -1, 1.0))
+    scroll.setLayoutParams(LinLayoutParams(-1, 0, 1.0))
     scroll.setVerticalScrollBarEnabled(false)
-    scroll.setPadding(dp(10), dp(10), dp(10), dp(10))
+    scroll.setPadding(dp(10), dp(4), dp(10), dp(10))
 
     moduleContainer = LinearLayout(activity)
     moduleContainer.setOrientation(1)
     scroll.addView(moduleContainer)
 
+    wrapper.addView(scroll)
+
     if isRTL() then
         -- In RTL the content area is on the left, so insert before the sidebar.
-        root.addView(scroll, 0)
+        root.addView(wrapper, 0)
     else
-        root.addView(scroll)
+        root.addView(wrapper)
     end
     return scroll
 end
@@ -1289,7 +1622,7 @@ local _menuScroll = nil
 function applyWindowResize(newW, newH)
     WIN_W = math.max(RESIZE_MIN_W, math.min(RESIZE_MAX_W, math.floor(newW)))
     WIN_H = math.max(RESIZE_MIN_H, math.min(RESIZE_MAX_H, math.floor(newH)))
-    memory:save_global("window_size", { w = WIN_W, h = WIN_H })
+    storage:save_global("window_size", { w = WIN_W, h = WIN_H })
     showToast(T("ui.size_saved_restart"))
     exitScript()
 end
@@ -1335,6 +1668,14 @@ local function _setupMenuInteraction(base)
                             isTouchOnInput = true; break
                         end
                     end
+                end
+                -- The search box keeps its own focused-flag state, so an
+                -- outside tap must also dismiss it (like a regular input).
+                if not isTouchOnInput and _searchBox and _searchBox.hasFocus() then
+                    isTouchOnInput = false
+                    handleBackButton()
+                    _searchBox.clearFocus()
+                    return true
                 end
                 if not isTouchOnInput then handleBackButton() end
             end
@@ -1437,6 +1778,36 @@ function createMenuView(lastTab)
     _buildMenuTabs(contentLayer, lastTab)
     local scroll = _buildMenuContent(contentLayer)
     _menuScroll = scroll
+
+    -- Background cache warm-up: render each tab one per frame so the search
+    -- index is fully populated shortly after the menu opens (and every later
+    -- tab switch becomes an instant cache swap). Console is skipped — it must
+    -- always re-render to show fresh reports.
+    MainHandler.post(Runnable({ run = function()
+        local defs = tabHandlers or {}
+        local i = 1
+        local function step()
+            while defs[i] and defs[i][1] == "separator" do i = i + 1 end
+            local def = defs[i]
+            if not def then return end
+            local id = def[1]
+            if id ~= "console" and not _tabContentCache[id]
+               and categoryHandlers and categoryHandlers[id] then
+                VOID_CURRENT_TAB, VOID_CURRENT_TAB_NAME = id, def[2]
+                local content = LinearLayout(activity)
+                content.setOrientation(1)
+                local ok, err = pcall(function() categoryHandlers[id](content) end)
+                if ok then
+                    _tabContentCache[id] = content
+                else
+                    LOG.warn("search_warmup", "render failed | tab=" .. tostring(id) .. " err=" .. tostring(err))
+                end
+            end
+            i = i + 1
+            if defs[i] then MainHandler.postDelayed(step, 60) end
+        end
+        step()
+    end }))
 
     -- _buildMenuTabs handles its own deferred first-tab load.
 

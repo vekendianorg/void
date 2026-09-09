@@ -2,7 +2,7 @@
   modules/ops/cups.lua — Cups feature memory ops (no UI)
   Contract: see modules/ops/README.md.
 
-  Globals used: scheduler, memory, gg, cast, BaseRegion, BaseGameStatus,
+  Globals used: scheduler, storage, gg, cast, BaseRegion, BaseGameStatus,
   BaseGameStatusRaw, BaseLib, offsets, LOG.
 ]]
 
@@ -21,7 +21,7 @@ function M.adjustCountdown(countdownValue, cb)
     scheduler:add(function(finishTask)
         local TAG = "AdjustCountdown"
         LOG.info(TAG, "Adjusting countdown to: " .. tostring(countdownValue) .. "s")
-        local cache = memory:load("adjust_countdown")
+        local cache = storage:load_session("adjust_countdown")
 
         if cache and #cache > 0 then
             LOG.dbg(TAG, "Using cached results")
@@ -36,7 +36,7 @@ function M.adjustCountdown(countdownValue, cb)
             gg.refineNumber("h 00 00 40 40", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("adjust_countdown", results)
+            storage:save_session("adjust_countdown", results)
         end
 
         gg.editAll(cast.float(countdownValue), 1)
@@ -55,7 +55,7 @@ function M.forceCup(state, cb)
         if state then
             LOG.info(TAG, "Enabling Force Cup...")
 
-            local cache = memory:load("force_cup_cache")
+            local cache = storage:load_session("force_cup_cache")
 
             -- Verify cache is still valid
             if cache then
@@ -64,7 +64,7 @@ function M.forceCup(state, cb)
                 if not verify or not verify[1] or verify[1].value ~= 0xB8 then
                     LOG.warn(TAG, "Base address moved. Invalidating cache and re-searching...")
                     cache = nil
-                    memory:delete("force_cup_cache")
+                    storage:delete_session("force_cup_cache")
                 else
                     LOG.dbg(TAG, "Base address valid. Using cache.")
                 end
@@ -99,7 +99,7 @@ function M.forceCup(state, cb)
                     }
                 }
 
-                memory:save("force_cup_cache", cache)
+                storage:save_session("force_cup_cache", cache)
                 LOG.info(TAG, "Cache saved.")
             end
 
@@ -120,7 +120,7 @@ function M.forceCup(state, cb)
         else
             LOG.info(TAG, "Disabling Force Cup...")
 
-            local cache = memory:load("force_cup_cache")
+            local cache = storage:load_session("force_cup_cache")
 
             if cache then
                 local unfreezeItems = {}
@@ -153,7 +153,7 @@ function M.forceFrenzyMode(state, cb)
             LOG.info(TAG, "Enabling Force Frenzy Mode...")
             
             -- it use the same cache as force cup
-            local cache = memory:load("force_cup_cache")
+            local cache = storage:load_session("force_cup_cache")
 
             -- Verify cache is still valid
             if cache then
@@ -162,7 +162,7 @@ function M.forceFrenzyMode(state, cb)
                 if not verify or not verify[1] or verify[1].value ~= 0xB8 then
                     LOG.warn(TAG, "Base address moved. Invalidating cache and re-searching...")
                     cache = nil
-                    memory:delete("force_cup_cache")
+                    storage:delete_session("force_cup_cache")
                 else
                     LOG.dbg(TAG, "Base address valid. Using cache.")
                 end
@@ -204,7 +204,7 @@ function M.forceFrenzyMode(state, cb)
                     }
                 }
 
-                memory:save("force_cup_cache", cache)
+                storage:save_session("force_cup_cache", cache)
                 LOG.info(TAG, "Cache saved.")
             end
 
@@ -225,7 +225,7 @@ function M.forceFrenzyMode(state, cb)
         else
             LOG.info(TAG, "Disabling Frenzy Mode...")
 
-            local cache = memory:load("force_cup_cache")
+            local cache = storage:load_session("force_cup_cache")
 
             if cache then
                 local unfreezeItems = {}
@@ -395,7 +395,7 @@ function M.rankPointsBonus(state, cb)
                 ::continueResult::
             end
 
-            memory:save("rank_points_bonus", saved)
+            storage:save_session("rank_points_bonus", saved)
             LOG.info(TAG, "Done. Patched: " .. tostring(successCount))
 
             if successCount > 0 then
@@ -405,7 +405,7 @@ function M.rankPointsBonus(state, cb)
             end
         else
             -- DISABLE: restore original values from saved data
-            local saved = memory:load("rank_points_bonus")
+            local saved = storage:load_session("rank_points_bonus")
 
             if not saved or #saved == 0 then
                 LOG.warn(TAG, "No saved data to restore.")
@@ -425,7 +425,7 @@ function M.rankPointsBonus(state, cb)
                 restoreCount = restoreCount + 1
             end
 
-            memory:save("rank_points_bonus", {})
+            storage:save_session("rank_points_bonus", {})
             LOG.info(TAG, "Restored: " .. tostring(restoreCount))
             finishTask(); cb("restored", restoreCount); return
         end

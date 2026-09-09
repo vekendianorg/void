@@ -81,6 +81,13 @@ return function(container)
 
     addArchModule(container, "fake_vip", t("fake_vip.title"), t("fake_vip.desc"), "switch", nil, aobs.fakeVip)
 
+    addModule(container, "ad_free", t("ad_free.title"), t("ad_free.desc"), "switch", nil, function(done, state)
+        ops.setAdFree(state, function(status)
+            showToast(t("ad_free." .. status), true)
+        end)
+        done()
+    end)
+
     addModule(container, "fake_rank", t("fake_rank.title"), t("fake_rank.desc"), "input", {
         { hint = t("fake_rank.hint"), value = "50.0", type = "number" }
     }, function(done, val)

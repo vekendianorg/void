@@ -48,8 +48,8 @@ return function(container)
         card.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
 
         local head = TextView(activity)
-        head.setText(string.format("[%s]  %s", e.ts, e.tag))
-        head.setTextColor(UI.RED)
+        head.setText(string.format("✖ [%s]  %s", e.ts, e.tag))
+        head.setTextColor(UI.CONSOLE.CRASH)
         head.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
         head.setTextSize(1, 12)
         card.addView(head)
@@ -59,6 +59,24 @@ return function(container)
         msg.setTextColor(UI.TEXT)
         msg.setTextSize(1, 12)
         card.addView(msg)
+
+        -- Tap for the full report (traceback included) with a Copy action.
+        card.setClickable(true)
+        card.setOnClickListener(View.OnClickListener({ onClick = function()
+            local detail = string.format("%s\n\n%s", e.ts, tostring(e.message))
+            if e.traceback then
+                detail = detail .. "\n\n" .. tostring(e.traceback)
+            end
+            showDialog(t("details_title", e.tag), detail,
+                { t("copy"), function()
+                    pcall(function()
+                        local cm = activity.getSystemService("clipboard")
+                        cm.setPrimaryClip(ClipData.newPlainText("VOID Crash", detail))
+                    end)
+                    showToast(t("copied_one"))
+                end },
+                { T("common.ok") })
+        end }))
 
         if e.traceback then
             local tb = TextView(activity)
@@ -75,22 +93,74 @@ return function(container)
         return card
     end
 
+    -- Level glyph + color, both driven by UI.CONSOLE (configs/app/colors.lua).
+    local function levelStyle(level)
+        if level == "ERROR" or level == "FATAL" then return "✖", UI.CONSOLE.ERROR
+        elseif level == "WARN"                   then return "⚠", UI.CONSOLE.WARN
+        elseif level == "DEBUG"                  then return "·", UI.CONSOLE.DEBUG
+        else                                          return "ℹ", UI.CONSOLE.INFO end
+    end
+
     local function logLine(e)
         local tv = TextView(activity)
         local lp = LinLayoutParams(-1, -2)
         lp.bottomMargin = dp(4)
         tv.setLayoutParams(lp)
-        tv.setText(string.format("[%s] %s [%s] %s", e.ts, e.level, e.tag, e.message))
-        -- Color by severity: error/fatal red, warn accent, info default, debug muted.
-        local color = UI.SUB
-        if e.level == "ERROR" or e.level == "FATAL" then color = UI.RED
-        elseif e.level == "WARN" then color = UI.LOGO
-        elseif e.level == "INFO" then color = UI.TEXT end
+        local glyph, color = levelStyle(e.level)
+        tv.setText(string.format("[%s] %s %s [%s] %s", e.ts, glyph, e.level, e.tag, e.message))
         tv.setTextColor(color)
         tv.setTextSize(1, 10)
         tv.setPadding(dp(10), dp(6), dp(10), dp(6))
         tv.setBackground(getSkin(UI.BG, 8))
+        tv.setClickable(true)
+        -- Tap to copy this single entry.
+        tv.setOnClickListener(View.OnClickListener({ onClick = function()
+            local ok = pcall(function()
+                local cm = activity.getSystemService("clipboard")
+                cm.setPrimaryClip(ClipData.newPlainText("VOID Log",
+                    string.format("[%s] [%s] %s: %s", e.ts, e.level, e.tag, e.message)))
+            end)
+            showToast(ok and t("copied_one") or T("common.failed"))
+        end }))
         return tv
+    end
+
+    -- ── Filter chips ("all" | "logs" | "crashes") ─────────────────────────────
+    local filter = "all"
+    local chipRefs = {}
+
+    local function refreshChips()
+        for key, btn in pairs(chipRefs) do
+            if key == filter then
+                btn.setBackground(getSkin(UI.ACCENT, 8))
+                btn.setTextColor(UI.TEXT)
+            else
+                btn.setBackground(getSkin(UI.BG, 8, 1, UI.STROKE))
+                btn.setTextColor(UI.SUB)
+            end
+        end
+    end
+
+    local function makeChip(label, key)
+        local btn = TextView(activity)
+        local lp = LinLayoutParams(0, -2, 1.0)
+        lp.rightMargin = dp(6)
+        btn.setLayoutParams(lp)
+        btn.setText(label)
+        btn.setTextColor(UI.SUB)
+        btn.setGravity(Gravity.CENTER)
+        btn.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+        btn.setTextSize(1, 11)
+        btn.setPadding(dp(10), dp(8), dp(10), dp(8))
+        btn.setBackground(getSkin(UI.BG, 8, 1, UI.STROKE))
+        btn.setOnClickListener(View.OnClickListener({ onClick = function()
+            if filter == key then return end
+            filter = key
+            refreshChips()
+            populate()
+        end }))
+        chipRefs[key] = btn
+        return btn
     end
 
     -- ── Dynamic list (rebuilt on render / refresh / clear) ────────────────────
@@ -102,33 +172,45 @@ return function(container)
     local function populate()
         listLayout.removeAllViews()
 
-        if CrashHandler.isEmpty() then
-            local empty = TextView(activity)
-            empty.setText(t("empty"))
-            empty.setTextColor(UI.SUB)
-            empty.setTextSize(1, 12)
-            empty.setPadding(dp(12), dp(14), dp(12), dp(14))
-            empty.setGravity(Gravity.CENTER)
-            empty.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
-            listLayout.addView(empty)
-            return
-        end
-
         local crashes = CrashHandler.getCrashes()
         local logs    = CrashHandler.getLogs()
+        local showC   = (filter ~= "logs")
+        local showL   = (filter ~= "crashes")
 
-        if #crashes > 0 then
+        -- Keep chip counts live.
+        if chipRefs.all then
+            chipRefs.all.setText(t("filter_all"))
+            chipRefs.logs.setText(t("filter_logs", #logs))
+            chipRefs.crashes.setText(t("filter_crashes", #crashes))
+        end
+
+        local rendered = false
+
+        if showC and #crashes > 0 then
+            rendered = true
             addModuleSep(listLayout, t("crashes_header", #crashes))
             for i = #crashes, 1, -1 do      -- newest first
                 listLayout.addView(crashCard(crashes[i]))
             end
         end
 
-        if #logs > 0 then
+        if showL and #logs > 0 then
+            rendered = true
             addModuleSep(listLayout, t("logs_header", #logs))
             for i = #logs, 1, -1 do
                 listLayout.addView(logLine(logs[i]))
             end
+        end
+
+        if not rendered then
+            local empty = TextView(activity)
+            empty.setText(CrashHandler.isEmpty() and t("empty") or t("empty_filtered"))
+            empty.setTextColor(UI.SUB)
+            empty.setTextSize(1, 12)
+            empty.setPadding(dp(12), dp(14), dp(12), dp(14))
+            empty.setGravity(Gravity.CENTER)
+            empty.setBackground(getSkin(UI.CARD, 10, 1, UI.STROKE))
+            listLayout.addView(empty)
         end
     end
 
@@ -149,6 +231,18 @@ return function(container)
     ilp.bottomMargin = dp(8)
     intro.setLayoutParams(ilp)
     container.addView(intro)
+
+    -- Filter chips row (ALL / LOGS / CRASHES) with live counts.
+    local chips = LinearLayout(activity)
+    chips.setOrientation(0)
+    setLayoutDir(chips)
+    local clp = LinLayoutParams(-1, -2)
+    clp.bottomMargin = dp(8)
+    chips.setLayoutParams(clp)
+    chips.addView(makeChip(t("filter_all"), "all"))
+    chips.addView(makeChip(t("filter_logs"), "logs"))
+    chips.addView(makeChip(t("filter_crashes"), "crashes"))
+    container.addView(chips)
 
     local row = LinearLayout(activity)
     row.setOrientation(0)

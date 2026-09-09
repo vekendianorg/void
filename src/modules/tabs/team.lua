@@ -1,15 +1,24 @@
 --[[
   Team Tab - Team mode features
-  Status: TODO - Not yet implemented
+  Features: Team Size Bypass
+
+  UI wiring only. Memory ops live in modules/ops/team.lua.
+  done() is called right after dispatch (not inside the result callback) so a
+  crash in the scheduled work can't leave a card stuck.
 
   @module callback Receives container View to populate with modules
 ]]
 
+local ops = CrashHandler.loadFeature("modules/ops/team.lua")
+
 return function(container)
     local function t(key, ...) return T("team." .. key, ...) end
 
-    -- Feature isn't built yet — show an explicit placeholder instead of a
-    -- silent blank content area (which looked like a broken/dead tab).
-    addModule(container, "team_coming_soon", t("coming_soon.title"),
-        t("coming_soon.desc"), "ro", t("coming_soon.status"), nil)
+    addModule(container, "team_size_bypass", t("team_size_bypass.title"),
+        t("team_size_bypass.desc"), "switch", nil, function(done, state)
+        ops.teamSizeBypass(state, function(status)
+            showToast(t("team_size_bypass." .. status), true)
+        end)
+        done()
+    end)
 end

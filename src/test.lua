@@ -214,7 +214,7 @@ CrashHandler = loadModule("core/engines/crash_handler.lua")
 -- createMenuView calls dp() ~100 times; each Java crossing burns stack space.
 --
 -- NOTE: dp() must NOT recompute RESIZE_MAX_W/H here.  Those bounds are set
--- once in the do-block below (after memory loads) and must not be overwritten
+-- once in the do-block below (after storage loads) and must not be overwritten
 -- by lazy dp() calls that happen later during UI construction.
 local _dp_density = nil
 function dp(v)
@@ -417,17 +417,17 @@ end
 
 -- ── Core modules ──────────────────────────────────────────────────────────────
 alloc     = loadModule("core/engines/alloc.lua")
-memory    = loadModule("core/engines/memory.lua")
+storage   = loadModule("core/engines/storage.lua")
 loadModule("core/utils/lang.lua") -- sets globals: T, setLanguage, LANG_CODE, LANG_AVAILABLE
 scheduler = loadModule("core/engines/scheduler.lua")
-loader    = loadModule("core/utils/loader.lua")
+loader    = loadModule("core/engines/loader.lua")
 catbox    = loadModule("core/utils/catbox.lua")
 paste     = loadModule("core/utils/paste.lua")
 
 loadModule("core/engines/patches.lua")
 
 -- Detects arch, loads matching data from manifest → sets globals: aobs, offsets
-loadModule("core/engines/arch.lua")
+loadModule("core/engines/resolver.lua")
 
 -- Lazy tab registry → returns {tabHandlers, categoryHandlers}
 tabHandlers, categoryHandlers = loadModule("modules/registry.lua")

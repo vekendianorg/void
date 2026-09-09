@@ -1,6 +1,6 @@
 -- core/engines/patches.lua — Memory patch engine + architecture-aware module helper
 -- Exposes globals: addArchModule
--- Depends on: memory, scheduler, gg (all loaded before this file)
+-- Depends on: storage, scheduler, gg (all loaded before this file)
 
 -- ── Internal helpers ──────────────────────────────────────────────────────────
 
@@ -90,7 +90,7 @@ end
 ---@param enable  boolean true → apply patch bytes, false → revert to unpatch bytes
 ---@return number fail_count Number of entries that could not be resolved
 local function apply_patch(id, entries, enable)
-    local cached = memory:load(id)
+    local cached = storage:load_session(id)
 
     if cached then
         -- Fast path: addresses already known, skip scanning.
@@ -162,7 +162,7 @@ local function apply_patch(id, entries, enable)
             end
         end
         gg.setValues(writes)
-        memory:save(id, new_cache)
+        storage:save_session(id, new_cache)
     end
 
     return fail_count
@@ -186,10 +186,10 @@ end
 ---@param mode             string "switch" | "button" | "slider" | "input" | "ro" | …
 ---@param extra            any    Mode-specific config (options table, slider config, etc.)
 ---@param patch_or_callback any   Patch list or callback (from aobs table or inline fn)
-function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
+function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback, opts)
     -- Read-only cards need no arch check.
     if mode == "ro" then
-        addModule(parent, id, title, desc, mode, extra, nil)
+        addModule(parent, id, title, desc, mode, extra, nil, opts)
         return
     end
 
@@ -231,5 +231,5 @@ function addArchModule(parent, id, title, desc, mode, extra, patch_or_callback)
         end
     end
 
-    addModule(parent, id, title, desc, mode, extra, callback)
+    addModule(parent, id, title, desc, mode, extra, callback, opts)
 end

@@ -8,14 +8,14 @@
   Several ops loop over every vehicle and report progress; those accept an
   optional `onProgress(i, total)` UI reporter so core stays UI-free.
 
-  Globals used: scheduler, memory, gg, cast, aobs, json, loadModule,
+  Globals used: scheduler, storage, gg, cast, aobs, json, loadModule,
   readString, BaseRegion, BaseGameStatus, BaseLib, offsets, LOG.
 ]]
 
 -- ── Tuning-parts config (decoded once, shared) ───────────────────────────────
 
 -- Part max upgrade level is derived from each part's rarity, sourced from
--- configs/tuning_parts.lua — replacing the old hardcoded name→level map.
+-- configs/content/tuning_parts.lua — replacing the old hardcoded name→level map.
 local RARITY_CAP = {
     common    = 15,
     rare      = 10,
@@ -38,7 +38,7 @@ local PART_SUFFIX_OVERRIDES = {
 local _tuningData
 local function tuningData()
     if _tuningData ~= nil then return _tuningData or nil end
-    local ok, data = pcall(function() return json.decode(loadModule("configs/tuning_parts.lua")) end)
+    local ok, data = pcall(function() return json.decode(loadModule("configs/content/tuning_parts.lua")) end)
     if not ok or type(data) ~= "table" then
         LOG.warn("Vehicle", "tuning_parts.lua failed to decode")
         _tuningData = false
@@ -104,7 +104,7 @@ local function findZeroRegion(size)
 end
 
 local function resolveVehicleList()
-    local cached = memory:load("vehicle_list_deep")
+    local cached = storage:load_session("vehicle_list_deep")
     if cached and #cached > 0 then
         local check = gg.getValues({{ address = cached[1].deepPtrAddr, flags = 32 }})
         if check and check[1] and check[1].value ~= 0 then
@@ -112,7 +112,7 @@ local function resolveVehicleList()
             return cached
         else
             LOG.warn("VehicleList", "Cache stale — re-resolving")
-            memory:delete("vehicle_list_deep")
+            storage:delete_session("vehicle_list_deep")
         end
     end
 
@@ -135,37 +135,37 @@ local function resolveVehicleList()
     local refResults
     local bestCount = 0
 
-for anchorIdx, anchor in ipairs(anchorResults) do
-    local pattern = gg.getValues({
-        { address = anchor.address - 0x20, flags = 4 },
-        { address = anchor.address - 0x8,  flags = 4 }
-    })
-
-    if pattern and pattern[1] and pattern[2]
-        and pattern[1].value == 0x65656A08
-        and pattern[2].value == 0x403147AE then
-
-        gg.clearResults()
-        gg.searchNumber(pattern[1].address, 32)
-        gg.setVisible(false)
-
-        local tempResults = gg.getResults(gg.getResultsCount())
-        gg.clearResults()
-
-        if tempResults and #tempResults > bestCount then
-            bestCount = #tempResults
-            refResults = tempResults
+    for anchorIdx, anchor in ipairs(anchorResults) do
+        local pattern = gg.getValues({
+            { address = anchor.address - 0x20, flags = 4 },
+            { address = anchor.address - 0x8,  flags = 4 }
+        })
+    
+        if pattern and pattern[1] and pattern[2]
+            and pattern[1].value == 0x65656A08
+            and pattern[2].value == 0x403147AE then
+    
+            gg.clearResults()
+            gg.searchNumber(pattern[1].address, 32)
+            gg.setVisible(false)
+    
+            local tempResults = gg.getResults(gg.getResultsCount())
+            gg.clearResults()
+    
+            if tempResults and #tempResults > bestCount then
+                bestCount = #tempResults
+                refResults = tempResults
+            end
+        else
+            LOG.dbg("VehicleList", string.format("anchor[%d] pattern mismatch", anchorIdx))
         end
-    else
-        LOG.dbg("VehicleList", string.format("anchor[%d] pattern mismatch", anchorIdx))
     end
-end
-
-if not refResults or #refResults == 0 then
-    LOG.warn("VehicleList", "No refs found.")
-    return nil
-end
-
+    
+    if not refResults or #refResults == 0 then
+        LOG.warn("VehicleList", "No refs found.")
+        return nil
+    end
+    
     -- Collect raw vehiclePtrs — sequential (unavoidable, unknown count per ref)
     local written = {}
     local rawPtrs = {}
@@ -274,7 +274,7 @@ end
         return nil
     end
 
-    memory:save("vehicle_list_deep", vehicles)
+    storage:save_session("vehicle_list_deep", vehicles)
     LOG.info("VehicleList", "Resolved + cached: " .. tostring(#vehicles) .. " vehicles")
     return vehicles
 end
@@ -313,7 +313,7 @@ function M.partsSlot(slot, cb)
         local TAG = "PartsSlot"
         LOG.info(TAG, "Slot: " .. tostring(slot))
 
-        local cached = memory:load("parts_slot_deep")
+        local cached = storage:load_session("parts_slot_deep")
 
         -- Validate cache
         if cached and #cached > 0 then
@@ -321,7 +321,7 @@ function M.partsSlot(slot, cb)
             if not check or not check[1] or check[1].value == 0 then
                 LOG.warn(TAG, "Cache stale — re-resolving")
                 cached = nil
-                memory:delete("parts_slot_deep")
+                storage:delete_session("parts_slot_deep")
             end
         end
 
@@ -334,7 +334,7 @@ function M.partsSlot(slot, cb)
             for _, vehiclePtr in ipairs(vehiclePtrs) do
                 table.insert(cached, vehiclePtr.deepPtrAddr)
             end
-            memory:save("parts_slot_deep", cached)
+            storage:save_session("parts_slot_deep", cached)
             LOG.info(TAG, "Cached " .. tostring(#cached) .. " deepPtrAddrs")
         end
 
@@ -372,7 +372,7 @@ function M.partsSlot(slot, cb)
     end)
 end
 
--- Build tuning-part groups from configs/tuning_parts.lua (pure data, no UI).
+-- Build tuning-part groups from configs/content/tuning_parts.lua (pure data, no UI).
 -- Returns groupOrder (sorted labels) and groupMap (label → {variants}).
 --
 -- Each variant now carries a `statList` array — one entry per editable stat:
@@ -458,7 +458,7 @@ function M.applyPartsModifier(params, cb)
 
     scheduler:add(function(finishTask)
         local TAG = "PartsModifier"
-        local cache = memory:load(cacheKey)
+        local cache = storage:load_session(cacheKey)
 
         if not cache then
             LOG.dbg(TAG, string.format("Scanning for %s [%.4g–%.4g]",
@@ -495,7 +495,7 @@ function M.applyPartsModifier(params, cb)
                 finishTask(); cb("not_found"); return
             end
 
-            memory:save(cacheKey, toEdit)
+            storage:save_session(cacheKey, toEdit)
             cache = toEdit
             LOG.info(TAG, string.format("Cached %d addresses for %s", #toEdit, cacheKey))
         else
@@ -511,7 +511,7 @@ function M.applyPartsModifier(params, cb)
         gg.clearResults()
 
         if reset then
-            memory:delete(cacheKey)
+            storage:delete_session(cacheKey)
             LOG.info(TAG, "Reset: " .. cacheKey)
             finishTask(); cb("reset"); return
         end
@@ -530,7 +530,7 @@ function M.setFuel(params, cb)
 
         -- Reset
         if params.reset then
-            local cache = memory:load("fuel")
+            local cache = storage:load_session("fuel")
             if not cache then
                 finishTask(); cb("not_applied"); return
             end
@@ -543,7 +543,7 @@ function M.setFuel(params, cb)
                 {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
                 {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
             })
-            memory:delete("fuel")
+            storage:delete_session("fuel")
             LOG.info(TAG, "Fuel reset")
             gg.clearResults()
             finishTask(); cb("reset"); return
@@ -562,7 +562,7 @@ function M.setFuel(params, cb)
         local movk = 0x72A00000 | (hi << 5) | 8
         local fmov = 0x1E270100
 
-        local cache = memory:load("fuel")
+        local cache = storage:load_session("fuel")
         if cache then
             LOG.dbg(TAG, "Using cached results")
             gg.clearResults()
@@ -576,7 +576,7 @@ function M.setFuel(params, cb)
             gg.refineNumber("h 61", 1)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            memory:save("fuel", results)
+            storage:save_session("fuel", results)
         end
 
         local base = gg.getResults(1)[1].address
