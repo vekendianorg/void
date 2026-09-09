@@ -2497,6 +2497,22 @@ return [[
                     },
                     {
                         "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_crimson_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_greenblack_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_orchid_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_synth_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
                         "paintId": "VIP"
                     }
                 ],
@@ -4404,6 +4420,26 @@ return [[
                     {
                         "partId": "wheel",
                         "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-crimson_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-greenblack_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-orchid_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-synth_epic",
                         "vehicleId": "rocketkart"
                     },
                     {
@@ -6979,6 +7015,10 @@ return [[
                     },
                     {
                         "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_rollcage",
                         "amount": 1
                     },
                     {
@@ -10024,6 +10064,22 @@ return [[
                     },
                     {
                         "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_crimson_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_greenblack_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_orchid_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_synth_epic"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
                         "paintId": "VIP"
                     }
                 ],
@@ -11931,6 +11987,26 @@ return [[
                     {
                         "partId": "wheel",
                         "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-crimson_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-greenblack_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-orchid_epic",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-synth_epic",
                         "vehicleId": "rocketkart"
                     },
                     {
@@ -14516,6 +14592,10 @@ return [[
                     },
                     {
                         "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_rollcage",
                         "amount": 1
                     },
                     {
