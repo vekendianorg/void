@@ -7,7 +7,7 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_all",
+                "id": "event_reward_All",
                 "unlockVehicleLevel": 20,
                 "unlockVehicles": [
                     "scooter",
@@ -43,7 +43,8 @@ return [[
                     "trusty",
                     "atv",
                     "super_offroad",
-                    "stock"
+                    "stock",
+                    "rocketkart"
                 ],
                 "unlockDriverAssets": [
                     "10th_anniversary_bill_premium",
@@ -229,6 +230,7 @@ return [[
                     "robotsanta",
                     "rockbouncer",
                     "rocker",
+                    "rocketkart",
                     "rotator",
                     "rusty_premium",
                     "saki_premium",
@@ -263,7 +265,9 @@ return [[
                     "superhero_premium",
                     "survivor",
                     "sweet_premium",
+                    "swim_premium",
                     "tank",
+                    "tinfoil_premium",
                     "towel",
                     "tractor",
                     "trusty",
@@ -570,6 +574,10 @@ return [[
                     {
                         "vehicleId": "superjeep",
                         "paintId": "superjeep_safari_epic"
+                    },
+                    {
+                        "vehicleId": "superjeep",
+                        "paintId": "superjeep_swim_premium"
                     },
                     {
                         "vehicleId": "superjeep",
@@ -1733,15 +1741,15 @@ return [[
                     },
                     {
                         "vehicleId": "superbike",
-                        "paintId": "superbike_racing_blue_premium"
-                    },
-                    {
-                        "vehicleId": "superbike",
                         "paintId": "superbike_red_premium"
                     },
                     {
                         "vehicleId": "superbike",
                         "paintId": "superbike_villain_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
                     },
                     {
                         "vehicleId": "superbike",
@@ -2442,6 +2450,54 @@ return [[
                     {
                         "vehicleId": "stock",
                         "paintId": "VIP"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_red_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_gray_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_green_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_yellow_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_blue_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_curves_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_darkburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_speckled_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_starburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swirls_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swoop_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "VIP"
                     }
                 ],
                 "unlockVehicleSpriteVariants": [
@@ -2703,6 +2759,11 @@ return [[
                     {
                         "partId": "wheel",
                         "variantId": "superjeep_tire-safari_epic",
+                        "vehicleId": "superjeep"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "superjeep_tire-swim_premium",
                         "vehicleId": "superjeep"
                     },
                     {
@@ -4339,6 +4400,16 @@ return [[
                         "partId": "wheel",
                         "variantId": "stock_tire-vip",
                         "vehicleId": "stock"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-vip",
+                        "vehicleId": "rocketkart"
                     }
                 ],
                 "tuningParts": [
@@ -6897,6 +6968,82 @@ return [[
                     {
                         "id": "stock_echo",
                         "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_echo",
+                        "amount": 1
                     }
                 ],
                 "unlockAdventureMaps": [
@@ -7381,7 +7528,24 @@ return [[
                     "trusty",
                     "atv",
                     "super_offroad",
-                    "stock"
+                    "stock",
+                    "rocketkart"
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_UV",
+                "unlockVehicleLevel": 20,
+                "unlockVehicles": [
+                    "sled",
+                    "doughnut",
+                    "snowboard"
                 ]
             },
             "maxCollectAmount": -1
@@ -7394,18 +7558,17 @@ return [[
             "lootDefinition": {
                 "id": "event_reward_skins",
                 "unlockDriverAssets": [
-                    "pitcrew",
+                    "10th_anniversary_bill_premium",
+                    "abstract_character",
+                    "alien",
+                    "alice",
+                    "america",
+                    "arena",
+                    "atv",
+                    "bandaged_premium",
+                    "beach",
+                    "beast",
                     "betatestdummy",
-                    "10th_anniversary_bill_premium",
-                    "abstract_character",
-                    "alien",
-                    "alice",
-                    "america",
-                    "arena",
-                    "atv",
-                    "bandaged_premium",
-                    "beach",
-                    "beast",
                     "biker",
                     "bikergirl",
                     "billybob",
@@ -7561,6 +7724,7 @@ return [[
                     "pigsy",
                     "pinata2025_premium",
                     "pirate",
+                    "pitcrew",
                     "pixel",
                     "police",
                     "prisoner",
@@ -7577,6 +7741,7 @@ return [[
                     "robotsanta",
                     "rockbouncer",
                     "rocker",
+                    "rocketkart",
                     "rotator",
                     "rusty_premium",
                     "saki_premium",
@@ -7611,252 +7776,9 @@ return [[
                     "superhero_premium",
                     "survivor",
                     "sweet_premium",
+                    "swim_premium",
                     "tank",
-                    "towel",
-                    "tractor",
-                    "trusty",
-                    "underwater",
-                    "vampiress",
-                    "villain",
-                    "voltage_robot_premium",
-                    "warlock_premium",
-                    "winter",
-                    "wintergirl",
-                    "winterguy",
-                    "winteroutfit",
-                    "workrobot",
-                    "yeti",
-                    "zarek_premium",
-                    "zephyr_premium",
-                    "zombie"
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-                {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_skins_obt",
-                "unlockDriverAssets": [
-                    "10th_anniversary_bill_premium",
-                    "abstract_character",
-                    "alien",
-                    "alice",
-                    "america",
-                    "arena",
-                    "atv",
-                    "bandaged_premium",
-                    "beach",
-                    "beast",
-                    "biker",
-                    "bikergirl",
-                    "billybob",
-                    "bling",
-                    "bobsledder",
-                    "bomber-aqua_premium",
-                    "bomber-black_premium",
-                    "bomber-blue_premium",
-                    "bomber-green_premium",
-                    "bomber-pink_premium",
-                    "bomber-red_premium",
-                    "bomber-white_premium",
-                    "bomber-yellow_premium",
-                    "bunny",
-                    "bunnygirl",
-                    "bus",
-                    "busdriver",
-                    "bwbog",
-                    "calaveragirl",
-                    "calaveraman",
-                    "candy",
-                    "canyoneer",
-                    "carrie",
-                    "cat",
-                    "caveman",
-                    "cc-ev",
-                    "china",
-                    "chinahanfu_premium",
-                    "chiron_premium",
-                    "chopper",
-                    "Christmas_2022_premium",
-                    "circus_bill_premium",
-                    "city",
-                    "clown",
-                    "cny2021ox_premium",
-                    "cny2022_premium",
-                    "cny2024_premium",
-                    "cny2025_premium",
-                    "cny_rabbit",
-                    "cowboy",
-                    "crewchief",
-                    "cuptown",
-                    "dakota",
-                    "dave",
-                    "default",
-                    "deepforest_farmer_premium",
-                    "desert",
-                    "diwali-2024",
-                    "diwali2022_premium",
-                    "dinnersuit",
-                    "discoman_premium",
-                    "docshocks_premium",
-                    "drafted",
-                    "driftmas2020_premium",
-                    "driftmas2021_premium",
-                    "driftmas2023_premium",
-                    "driftmas2024_premium",
-                    "driftmas2025_mythic",
-                    "dunebuggy",
-                    "elf",
-                    "explorer_premium",
-                    "fabulo_logjaw_premium",
-                    "fabulo_premium",
-                    "fabulo_ranger_premium",
-                    "farmer",
-                    "firefighter",
-                    "firehorsecny_premium",
-                    "fingersoft",
-                    "forest",
-                    "formula",
-                    "frank",
-                    "freya_premium",
-                    "fusell_premium",
-                    "gaspresto_premium",
-                    "geisha",
-                    "ghost_premium",
-                    "gilbert_premium",
-                    "ginger",
-                    "glacier",
-                    "glider",
-                    "gloomvale",
-                    "goth",
-                    "gretel",
-                    "grillbill",
-                    "grinch",
-                    "halloween",
-                    "halloween2024_premium",
-                    "handyman",
-                    "hansel",
-                    "hazardeer_premium",
-                    "headless",
-                    "hillclimber",
-                    "hillclimbermk2",
-                    "hipster",
-                    "honeybill_premium",
-                    "hoodie",
-                    "hotrod",
-                    "hoverbike",
-                    "icegrille_premium",
-                    "inuit",
-                    "issen_premium",
-                    "jock",
-                    "johnny_epic",
-                    "king",
-                    "kleopatra",
-                    "kmight",
-                    "knight_premium",
-                    "ladybee_premium",
-                    "Leprechaun",
-                    "lifeguardgirl",
-                    "lifeguardguy",
-                    "lowrider",
-                    "luxskully_premium",
-                    "mackie",
-                    "maiden",
-                    "marshal_premium",
-                    "mellow",
-                    "mindy_premium",
-                    "mine",
-                    "miner",
-                    "moc_premium",
-                    "monowheel",
-                    "montana",
-                    "moon",
-                    "moonlander",
-                    "moonrabbit_premium",
-                    "monstertruck",
-                    "motocross",
-                    "mountain",
-                    "mrsvip",
-                    "mrvip",
-                    "mummy_premium",
-                    "musclecar",
-                    "naked",
-                    "nancy_premium",
-                    "nationalday",
-                    "nationalpark",
-                    "nerdgirl",
-                    "nikita_acrobat_premium",
-                    "nikita_superhero_premium",
-                    "nikita_thief_premium",
-                    "ninja",
-                    "nightsuit",
-                    "nitrox_premium",
-                    "officer",
-                    "oldbard",
-                    "oldie",
-                    "overspill",
-                    "patchwork",
-                    "pbox_premium",
-                    "pecker_premium",
-                    "pierre_epic",
-                    "pigsy",
-                    "pinata2025_premium",
-                    "pirate",
-                    "pixel",
-                    "police",
-                    "prisoner",
-                    "punk",
-                    "raccoonsuit",
-                    "racingtruck",
-                    "raider",
-                    "rallycar",
-                    "rap-artist",
-                    "rat",
-                    "referee",
-                    "reindeer",
-                    "retroride_bill_premium",
-                    "robotsanta",
-                    "rockbouncer",
-                    "rocker",
-                    "rotator",
-                    "rusty_premium",
-                    "saki_premium",
-                    "samurai",
-                    "santa",
-                    "savanna",
-                    "scarecrow_premium",
-                    "scooter",
-                    "shaman",
-                    "skeleton",
-                    "slumberbot_premium",
-                    "snow",
-                    "snowmobile",
-                    "snowqueen",
-                    "soccer",
-                    "soldier",
-                    "spacesuit",
-                    "spirit_premium",
-                    "sports",
-                    "sportscar",
-                    "sportsformula",
-                    "steam",
-                    "steampunk",
-                    "stock",
-                    "streetbiker",
-                    "stuntman",
-                    "sunburnt",
-                    "super_offroad",
-                    "superbike",
-                    "supercar",
-                    "superdiesel",
-                    "superhero_premium",
-                    "survivor",
-                    "sweet_premium",
-                    "tank",
+                    "tinfoil_premium",
                     "towel",
                     "tractor",
                     "trusty",
@@ -8183,6 +8105,10 @@ return [[
                     {
                         "vehicleId": "superjeep",
                         "paintId": "superjeep_safari_epic"
+                    },
+                    {
+                        "vehicleId": "superjeep",
+                        "paintId": "superjeep_swim_premium"
                     },
                     {
                         "vehicleId": "superjeep",
@@ -9346,10 +9272,6 @@ return [[
                     },
                     {
                         "vehicleId": "superbike",
-                        "paintId": "superbike_racing_blue_premium"
-                    },
-                    {
-                        "vehicleId": "superbike",
                         "paintId": "superbike_red_premium"
                     },
                     {
@@ -10055,6 +9977,54 @@ return [[
                     {
                         "vehicleId": "stock",
                         "paintId": "VIP"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_red_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_gray_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_green_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_yellow_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_blue_common"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_curves_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_darkburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_speckled_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_starburst_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swirls_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "rocketkart_swoop_rare"
+                    },
+                    {
+                        "vehicleId": "rocketkart",
+                        "paintId": "VIP"
                     }
                 ],
                 "unlockVehicleSpriteVariants": [
@@ -10316,6 +10286,11 @@ return [[
                     {
                         "partId": "wheel",
                         "variantId": "superjeep_tire-safari_epic",
+                        "vehicleId": "superjeep"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "superjeep_tire-swim_premium",
                         "vehicleId": "superjeep"
                     },
                     {
@@ -11952,6 +11927,16 @@ return [[
                         "partId": "wheel",
                         "variantId": "stock_tire-vip",
                         "vehicleId": "stock"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-rare",
+                        "vehicleId": "rocketkart"
+                    },
+                    {
+                        "partId": "wheel",
+                        "variantId": "rocketkart_tire-vip",
+                        "vehicleId": "rocketkart"
                     }
                 ]
             },
@@ -14520,6 +14505,82 @@ return [[
                     {
                         "id": "stock_echo",
                         "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -14607,6 +14668,262 @@ return [[
                     },
                     {
                         "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_shardsRare",
+                "styleShards": [
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "rare",
+                        "amount": 200
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_shardsEpic",
+                "styleShards": [
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "epic",
+                        "amount": 200
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_shardsLeg",
+                "styleShards": [
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "legendary",
+                        "amount": 200
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_shardsMyth",
+                "styleShards": [
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
+                        "amount": 200
+                    },
+                    {
+                        "rarity": "mythic",
                         "amount": 200
                     },
                     {
@@ -15089,6 +15406,22 @@ return [[
                     {
                         "id": "stock_wall_mounted_radiator",
                         "amount": 100
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_10",
+                "currencies": [
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
                     }
                 ]
             },
@@ -16405,6 +16738,1106 @@ return [[
                     {
                         "currency": "research_points",
                         "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
+                    },
+                    {
+                        "currency": "research_points",
+                        "amount": 5000
                     }
                 ]
             },
@@ -16417,7 +17850,7 @@ return [[
             },
             "lootDefinition": {
                 "id": "event_reward_coins",
-                "coinAmount": 1000000
+                "coinAmount": 100000000
             },
             "maxCollectAmount": -1
         },
@@ -16442,7 +17875,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "scrap",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16458,7 +17891,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "special_tickets",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16474,7 +17907,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "adventure_token",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16490,7 +17923,39 @@ return [[
                 "currencies": [
                     {
                         "currency": "challenge_tickets",
-                        "amount": 5000
+                        "amount": 100000
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_distance_tickets",
+                "currencies": [
+                    {
+                        "currency": "distance_tickets",
+                        "amount": 100000
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_moon_tickets",
+                "currencies": [
+                    {
+                        "currency": "moon_tickets",
+                        "amount": 100000
                     }
                 ]
             },
@@ -16506,7 +17971,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "event_points",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16522,7 +17987,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "vehicle_blueprint",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16538,7 +18003,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "video_skips",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16554,7 +18019,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "gacha_token",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16570,7 +18035,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "team_coins",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16618,7 +18083,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "winstreak_shield",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -16650,23 +18115,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "rank_doubler",
-                        "amount": 100000
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rank_doubler",
-                "currencies": [
-                    {
-                        "currency": "rank_doubler",
-                        "amount": 10000000
+                        "amount": 1000000000
                     }
                 ]
             },
@@ -16730,7 +18179,7 @@ return [[
                 "currencies": [
                     {
                         "currency": "event_tickets",
-                        "amount": 5000
+                        "amount": 100000
                     }
                 ]
             },
@@ -17593,6 +19042,23 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
+                "id": "event_reward_rareVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "rare",
+                        "vehicleId": "rocketkart",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
                 "id": "event_reward_epicVC_jeep",
                 "vehicleChests": [
                     {
@@ -18159,6 +19625,23 @@ return [[
                     {
                         "chestId": "epic",
                         "vehicleId": "stock",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_epicVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "epic",
+                        "vehicleId": "rocketkart",
                         "targetIndex": 0
                     }
                 ]
@@ -18749,6 +20232,23 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
+                "id": "event_reward_legendaryVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "legendary",
+                        "vehicleId": "rocketkart",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
                 "id": "event_reward_mythicVC_jeep",
                 "vehicleChests": [
                     {
@@ -19315,6 +20815,23 @@ return [[
                     {
                         "chestId": "mythic",
                         "vehicleId": "stock",
+                        "targetIndex": 0
+                    }
+                ]
+            },
+            "maxCollectAmount": -1
+        },
+        {
+            "rewardCondition": {
+                "criteria": 0,
+                "type": "score"
+            },
+            "lootDefinition": {
+                "id": "event_reward_mythicVC_havoc",
+                "vehicleChests": [
+                    {
+                        "chestId": "mythic",
+                        "vehicleId": "rocketkart",
                         "targetIndex": 0
                     }
                 ]
