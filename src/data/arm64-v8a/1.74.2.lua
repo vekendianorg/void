@@ -1,4 +1,4 @@
--- data/arm64-v8a/1.73.3.lua — 
+-- data/arm64-v8a/1.74.2.lua — 
 return {
     aobs = {
         fakeVip = {
@@ -33,7 +33,7 @@ return {
         },
     },
     offsets = {
-        raceInfo = 0x200BC58, -- race info like distance, cd
+        raceInfo = 0x20ACE18, -- race info like distance, cd
         vnpStats = 0x2060CA0, -- vehicles and parts, cd
         customTracks = 0x1FE27F0, -- custom tracks list, cd
         downloadedCustomTracks = 0x2008E38, -- downloaded custom tracks
