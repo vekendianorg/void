@@ -3,12 +3,37 @@
   Contract: see modules/ops/README.md.
 
   Globals used: scheduler, storage, gg, cast, BaseRegion, BaseGameStatus,
-  BaseGameStatusRaw, BaseLib, offsets, LOG.
+  BaseGameStatusRaw, BaseLib, offsets, Nebula, LOG.
 ]]
 
 local raceinfo = loadModule("modules/lib/raceinfo.lua")
 
 local M = {}
+
+-- ── Nebula helpers ───────────────────────────────────────────────────────────
+
+local function nebulaReady()
+    return (Nebula and Nebula.PlayerInfo and Nebula.VERSION) and true or false
+end
+
+local function gameDataReady()
+    return (Nebula and Nebula.GameData) and true or false
+end
+
+-- PlayerInfo.get wrapper: value, err
+local function pget(path)
+    local ok, v, err = pcall(Nebula.PlayerInfo.get, path)
+    if not ok then return nil, "get_threw: " .. tostring(v) end
+    return v, err
+end
+
+-- PlayerInfo.set wrapper: true | false, err
+local function pset(path, value)
+    local ok, r, err = pcall(Nebula.PlayerInfo.set, path, value)
+    if not ok then return false, "set_threw: " .. tostring(r) end
+    if not r then return false, err end
+    return true, nil
+end
 
 -- Quick synchronous read: is the game on the Cups tab? (activeTab == 1)
 local function isCupTab()
@@ -16,34 +41,29 @@ local function isCupTab()
     return type(activeTab) == "table" and activeTab[1] ~= nil and activeTab[1].value == 1
 end
 
--- Adjust race countdown. status: "applied"
+-- Adjust race countdown. Nebula GameData.startCountdown (Float @0x90).
+-- status: "applied" (data = seconds) | "nebula_unavailable" | "failed"
 function M.adjustCountdown(countdownValue, cb)
     scheduler:add(function(finishTask)
         local TAG = "AdjustCountdown"
-        LOG.info(TAG, "Adjusting countdown to: " .. tostring(countdownValue) .. "s")
-        local cache = storage:load_session("adjust_countdown")
-
-        if cache and #cache > 0 then
-            LOG.dbg(TAG, "Using cached results")
-            gg.clearResults()
-            gg.loadResults(cache)
-            gg.getResults(gg.getResultsCount())
-        else
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(16)
-            gg.searchNumber("h 00 00 40 40 00 00 80 40 00 00 40 41", 1)
-            gg.refineNumber("h 00 00 40 40", 1)
-            local results = gg.getResults(gg.getResultsCount())
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            storage:save_session("adjust_countdown", results)
+        if not gameDataReady() then
+            finishTask(); cb("nebula_unavailable"); return
         end
 
-        gg.editAll(cast.float(countdownValue), 1)
-        LOG.info(TAG, "Done")
-        gg.clearResults()
-        finishTask()
-        cb("applied")
+        local n = tonumber(countdownValue) or 0
+        if n < 0 then n = 0 end
+        if n > 600 then n = 600 end
+
+        -- Drop the old raw-scan cache if one is left over from a previous run.
+        storage:delete_session("adjust_countdown")
+
+        local ok, r, err = pcall(Nebula.GameData.set, "startCountdown", n)
+        if not ok or not r then
+            LOG.error(TAG, "startCountdown write failed: " .. tostring(err or r))
+            finishTask(); cb("failed", err or r); return
+        end
+        LOG.info(TAG, "Countdown set to " .. n .. "s (GameData.startCountdown)")
+        finishTask(); cb("applied", n)
     end)
 end
 
@@ -281,55 +301,74 @@ end
 
 -- Unlimited tasks toggle. status: "resolve_failed" | "none_found" |
 -- "none_to_freeze" | "enabled" | "disabled"
+-- Unlimited Tasks (switch). Nebula gameStatus.activeLeagueTasks:
+-- ON  snapshots each task's progress/claimed, then sets
+--     progress = target and claimed = false for every task (one batched
+--     whole-array write; id/target/createTimestamp stay untouched).
+-- OFF restores the snapshot (matched by index + id) and clears it.
+-- Re-enabling re-applies without re-capturing.
+-- status: "applied" (data = task count) | "reverted" (data = restored count)
+--       | "none_found" | "nebula_unavailable" | "failed"
 function M.unlimitedTasks(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "UnlimitedTasks"
-        local ptr1 = gg.getValues({{ address = BaseGameStatus + 0x6F8, flags = 32 }})[1].value
-
-        if not ptr1 or ptr1 == 0 then
-            LOG.fatal(TAG, "Ptr1 is nil or 0.")
-            finishTask(); cb("resolve_failed"); return
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
         end
 
-        local totalTasks = gg.getValues({{ address = BaseGameStatus + 0x700, flags = 4 }})[1].value
-
-        if not totalTasks or totalTasks == 0 then
-            LOG.warn(TAG, "totalTasks is 0.")
+        local tasks, tErr = pget("gameStatus.activeLeagueTasks")
+        if tErr or type(tasks) ~= "table" then
+            LOG.warn(TAG, "task read failed: " .. tostring(tErr))
+            finishTask(); cb("none_found"); return
+        end
+        if #tasks == 0 then
+            LOG.info(TAG, "no active tasks")
             finishTask(); cb("none_found"); return
         end
 
-        LOG.dbg(TAG, "Total tasks: " .. tostring(totalTasks))
+        if state then
+            if not storage:load_session("unlimited_tasks") then
+                local snap = {}
+                for i, tk in ipairs(tasks) do
+                    snap[i] = { id = tk.id, progress = tk.progress, claimed = tk.claimed }
+                end
+                storage:save_session("unlimited_tasks", snap)
+            end
 
-        local freezeItems = {}
+            local values = {}
+            for i, tk in ipairs(tasks) do
+                values[i] = { progress = tk.target or 0, claimed = false }
+            end
+            local ok, wErr = pset("gameStatus.activeLeagueTasks", values)
+            if not ok then
+                LOG.error(TAG, "task write failed: " .. tostring(wErr))
+                finishTask(); cb("failed", wErr); return
+            end
+            LOG.info(TAG, "ON: " .. #tasks .. " tasks set complete + claimable")
+            finishTask(); cb("applied", #tasks)
+        else
+            local snap = storage:load_session("unlimited_tasks")
+            if not snap then
+                finishTask(); cb("reverted", 0); return
+            end
 
-        for i = 0, totalTasks - 1 do
-            local ptr2 = gg.getValues({{ address = ptr1 + i * 8, flags = 32 }})[1].value
-
-            if ptr2 and ptr2 ~= 0 then
-                local completeTarget = gg.getValues({{ address = ptr2 + 0x1C, flags = 4 }})[1].value
-
-                if completeTarget and completeTarget > 0 then
-                    table.insert(freezeItems, { address = ptr2 + 0x1C, flags = 4, value = completeTarget, freeze = state })
-                    table.insert(freezeItems, { address = ptr2 + 0x20, flags = 4, value = completeTarget, freeze = state })
-                    table.insert(freezeItems, { address = ptr2 + 0x24, flags = 4, value = 0,             freeze = state })
-                    LOG.dbg(TAG, string.format("Task [%d] queued. completeTarget: %d", i, completeTarget))
+            local values, restored = {}, 0
+            for i, sn in ipairs(snap) do
+                if tasks[i] and tasks[i].id == sn.id then
+                    values[i] = { progress = sn.progress, claimed = sn.claimed }
+                    restored = restored + 1
                 end
             end
-        end
-
-        if #freezeItems > 0 then
-            if state then
-                gg.addListItems(freezeItems)
-                LOG.info(TAG, "Enabled. Frozen " .. tostring(#freezeItems / 3) .. " tasks.")
-                finishTask(); cb("enabled"); return
-            else
-                gg.removeListItems(freezeItems)
-                LOG.info(TAG, "Disabled. Unfrozen " .. tostring(#freezeItems / 3) .. " tasks.")
-                finishTask(); cb("disabled"); return
+            if restored > 0 then
+                local ok, wErr = pset("gameStatus.activeLeagueTasks", values)
+                if not ok then
+                    LOG.error(TAG, "restore failed: " .. tostring(wErr))
+                    finishTask(); cb("failed", wErr); return
+                end
             end
-        else
-            LOG.warn(TAG, "freezeItems is empty.")
-            finishTask(); cb("none_to_freeze"); return
+            storage:delete_session("unlimited_tasks")
+            LOG.info(TAG, "OFF: " .. restored .. " task(s) restored")
+            finishTask(); cb("reverted", restored)
         end
     end)
 end

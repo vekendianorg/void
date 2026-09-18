@@ -27,6 +27,10 @@ return {
 
     -- Team tab
     team_size_bypass = "low",
+    unlimited_vehicle_usage = "medium", allow_all_vehicles = "medium",
+    free_entry_fee = "low", vehicle_bonuses = "medium",
+    custom_participants = "medium", custom_duration = "medium",
+    instant_ticket_refill = "low",
     
     -- Event tab
     patch_rewards = "low", restore_events = "very_low",

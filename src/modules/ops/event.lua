@@ -540,4 +540,154 @@ function M.restoreEvents(ui, cb)
     cb({ successList = successList, failedList = failedList, restart = #successList > 0 })
 end
 
+
+
+-- ── EventDefinition patches (switches; shared core: modules/lib/eventpatch.lua) ──
+local eventpatch = loadModule("modules/lib/eventpatch.lua")
+
+local KIND = "PublicEvent"
+
+-- Unlimited Vehicle Usage (switch). -1 experiment: gameMode.defaultRunCountLimit
+-- plus a same-length -1 array over gameMode.perVehicleRunCountLimits.
+-- status: "applied" | "reverted" | "resolve_failed" | "nebula_unavailable" | "failed"
+function M.unlimitedVehicleUsage(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "UnlimitedVehicleUsage"
+        local status, err = eventpatch.toggle(KIND, state,
+            "ep_unlimited_usage_" .. KIND,
+            { "gameMode.defaultRunCountLimit", "gameMode.perVehicleRunCountLimits" },
+            function()
+                local limits = eventpatch.get(KIND, "gameMode.perVehicleRunCountLimits")
+                local writes = { { path = "gameMode.defaultRunCountLimit", value = -1 } }
+                if type(limits) == "table" and #limits > 0 then
+                    local neg = {}
+                    for i = 1, #limits do neg[i] = -1 end
+                    writes[#writes + 1] = { path = "gameMode.perVehicleRunCountLimits", value = neg }
+                end
+                return eventpatch.apply(KIND, writes)
+            end)
+        if status ~= "applied" and status ~= "reverted" then
+            LOG.warn(TAG, "toggle failed: " .. tostring(err))
+        end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Allow All Vehicles (switch). Clear gameMode.bannedVehicles + fill
+-- gameMode.allowedVehicles with every GameData vehicle id (vehicle_*.json -> *).
+-- status: "applied" | "reverted" | "no_vehicles" | "resolve_failed" |
+--         "nebula_unavailable" | "failed"
+function M.allowAllVehicles(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "AllowAllVehicles"
+        local status, err = eventpatch.toggle(KIND, state,
+            "ep_allow_all_vehicles_" .. KIND,
+            { "gameMode.bannedVehicles", "gameMode.allowedVehicles" },
+            function()
+                local ids, ierr = eventpatch.vehicleIds()
+                if not ids then
+                    return (ierr == "nebula_unavailable") and "nebula_unavailable" or "no_vehicles", ierr
+                end
+                return eventpatch.apply(KIND, {
+                    { path = "gameMode.bannedVehicles", value = {} },
+                    { path = "gameMode.allowedVehicles", value = ids },
+                })
+            end)
+        if status ~= "applied" and status ~= "reverted" then
+            LOG.warn(TAG, "toggle failed: " .. tostring(err))
+        end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Free Entry Fee (switch). sessionEntry.entryFeeTickets = 0.
+-- status: "applied" | "reverted" | "resolve_failed" | "nebula_unavailable" | "failed"
+function M.freeEntryFee(state, cb)
+    scheduler:add(function(finishTask)
+        local status, err = eventpatch.toggle(KIND, state,
+            "ep_free_entry_fee_" .. KIND,
+            { "sessionEntry.entryFeeTickets" },
+            function()
+                return eventpatch.apply(KIND,
+                    { { path = "sessionEntry.entryFeeTickets", value = 0 } })
+            end)
+        if status ~= "applied" and status ~= "reverted" then
+            LOG.warn("FreeEntryFee", "toggle failed: " .. tostring(err))
+        end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Bonuses for All Vehicles (switch). bonusVehiclePool = every GameData vehicle id.
+-- status: "applied" | "reverted" | "no_vehicles" | "resolve_failed" |
+--         "nebula_unavailable" | "failed"
+function M.vehicleBonuses(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "VehicleBonuses"
+        local status, err = eventpatch.toggle(KIND, state,
+            "ep_vehicle_bonuses_" .. KIND,
+            { "bonusVehiclePool" },
+            function()
+                local ids, ierr = eventpatch.vehicleIds()
+                if not ids then
+                    return (ierr == "nebula_unavailable") and "nebula_unavailable" or "no_vehicles", ierr
+                end
+                return eventpatch.apply(KIND,
+                    { { path = "bonusVehiclePool", value = ids } })
+            end)
+        if status ~= "applied" and status ~= "reverted" then
+            LOG.warn(TAG, "toggle failed: " .. tostring(err))
+        end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Custom Participants: gameMode.maxSessionParticipants = n (1..2147483647).
+-- status: "applied" | "invalid" | "resolve_failed" | "nebula_unavailable" | "failed"
+function M.customParticipants(n, cb)
+    scheduler:add(function(finishTask)
+        n = math.floor(tonumber(n) or 0)
+        if n < 1 then finishTask(); cb("invalid"); return end
+        if n > 2147483647 then n = 2147483647 end
+        local status, err = eventpatch.apply(KIND,
+            { { path = "gameMode.maxSessionParticipants", value = n } })
+        if status ~= "applied" then LOG.warn("CustomParticipants", "apply failed: " .. tostring(err)) end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Custom Session Duration: gameMode.duration = n seconds (1..2147483647).
+-- status: "applied" | "invalid" | "resolve_failed" | "nebula_unavailable" | "failed"
+function M.customDuration(n, cb)
+    scheduler:add(function(finishTask)
+        n = math.floor(tonumber(n) or 0)
+        if n < 1 then finishTask(); cb("invalid"); return end
+        if n > 2147483647 then n = 2147483647 end
+        local status, err = eventpatch.apply(KIND,
+            { { path = "gameMode.duration", value = n } })
+        if status ~= "applied" then LOG.warn("CustomDuration", "apply failed: " .. tostring(err)) end
+        finishTask(); cb(status)
+    end)
+end
+
+-- Instant Ticket Refill (switch). sessionEntry refill time + cost = 0.
+-- status: "applied" | "reverted" | "resolve_failed" | "nebula_unavailable" | "failed"
+function M.instantTicketRefill(state, cb)
+    scheduler:add(function(finishTask)
+        local status, err = eventpatch.toggle(KIND, state,
+            "ep_instant_refill_" .. KIND,
+            { "sessionEntry.eventTicketRefillTime", "sessionEntry.eventTicketRefillCost" },
+            function()
+                return eventpatch.apply(KIND, {
+                    { path = "sessionEntry.eventTicketRefillTime", value = 0 },
+                    { path = "sessionEntry.eventTicketRefillCost", value = 0 },
+                })
+            end)
+        if status ~= "applied" and status ~= "reverted" then
+            LOG.warn("InstantTicketRefill", "toggle failed: " .. tostring(err))
+        end
+        finishTask(); cb(status)
+    end)
+end
+
 return M

@@ -1,3 +1,7 @@
 # Logs
 *.log
 *.bak
+
+# Dev stuff
+*todo.md
+/temp

@@ -3,7 +3,10 @@
   Contract: see modules/ops/README.md.
 
   Public ops are ordered to mirror the Vehicle tab: parts_slot, parts_modifier,
-  fuel, unlock_vehicles, max_vehicles, max_mastery, max_parts.
+  fuel, unlock_vehicles, max_vehicles, max_mastery, max_parts, then the tuning
+  parts editors (tuning_equipped / tuning_presets cards). max_parts,
+  max_vehicles and the editors are Nebula-powered (PlayerInfo dotted paths),
+  the rest stay raw for now.
 
   Several ops loop over every vehicle and report progress; those accept an
   optional `onProgress(i, total)` UI reporter so core stays UI-free.
@@ -14,27 +17,6 @@
 
 -- ── Tuning-parts config (decoded once, shared) ───────────────────────────────
 
--- Part max upgrade level is derived from each part's rarity, sourced from
--- configs/content/tuning_parts.lua — replacing the old hardcoded name→level map.
-local RARITY_CAP = {
-    common    = 15,
-    rare      = 10,
-    epic      = 7,
-    legendary = 4,
-    mythic    = 3,
-}
-
--- Parts whose in-memory name suffix doesn't match any tuning_parts key.
--- Checked as plain suffix patterns against the full in-memory name
--- (e.g. "jeep_start_boost" ends with "start_boost" -> cap 10).
--- Format: { suffix, cap }
-local PART_SUFFIX_OVERRIDES = {
-    { "start_boost", 10 },  -- stored as <vehicle>_start_boost; tuning_parts key is perfect_start_boost (rare->10)
-    { "_jump",       10 },  -- stored as <vehicle>_jump (truncated from jump_boost); rare->10
-}
-
--- Decode configs/tuning_parts.lua once and cache it — the file is ~3k lines,
--- so both getPartGroups (UI) and partCaps (max_parts) share this single parse.
 local _tuningData
 local function tuningData()
     if _tuningData ~= nil then return _tuningData or nil end
@@ -46,23 +28,6 @@ local function tuningData()
     end
     _tuningData = data
     return data
-end
-
--- Lazily-built map: tuning-part key → max level (by rarity).
-local _partCaps
-local function partCaps()
-    if _partCaps then return _partCaps end
-    _partCaps = {}
-    local data = tuningData()
-    if not data or type(data.tuningParts) ~= "table" then
-        LOG.warn("MaxParts", "tuning_parts.lua unavailable — part caps fall back to default")
-        return _partCaps
-    end
-    for key, part in pairs(data.tuningParts) do
-        local cap = type(part) == "table" and part.rarity and RARITY_CAP[part.rarity]
-        if cap then _partCaps[key] = cap end
-    end
-    return _partCaps
 end
 
 local M = {}
@@ -201,7 +166,7 @@ local function resolveVehicleList()
     -- Batch read all deepPtrs — 1 getValues
     local deepReads = {}
     for _, vehiclePtr in ipairs(rawPtrs) do
-        table.insert(deepReads, { address = vehiclePtr + 0x550, flags = 32 })
+        table.insert(deepReads, { address = vehiclePtr + 0x530, flags = 32 })
     end
     local deepPtrs = gg.getValues(deepReads)
 
@@ -216,7 +181,7 @@ local function resolveVehicleList()
         if dp and dp.value ~= 0 then
             table.insert(validPtrs, {
                 vehiclePtr  = rawPtrs[i],
-                deepPtrAddr = rawPtrs[i] + 0x550,
+                deepPtrAddr = rawPtrs[i] + 0x530,
                 deepPtr     = dp.value,
             })
         end
@@ -303,6 +268,44 @@ local function forEachVehicle(vehicles, cb)
     end
     return successCount
 end
+
+-- ── Nebula helpers (PlayerInfo dotted paths) ───────────────────────────────
+
+local MAX_VEHICLES = 300   -- sanity caps for array walks
+local MAX_PARTS    = 200
+local MAX_PRESETS  = 50
+
+local function nebulaReady()
+    return (Nebula and Nebula.PlayerInfo and Nebula.VERSION) and true or false
+end
+
+-- PlayerInfo.get wrapper: returns value, err (err is nil on success).
+local function pget(path)
+    local ok, v, err = pcall(Nebula.PlayerInfo.get, path)
+    if not ok then
+        return nil, "get_threw: " .. tostring(v)
+    end
+    return v, err
+end
+
+-- PlayerInfo.set wrapper: returns true, nil or false, err.
+local function pset(path, value)
+    local ok, r, err = pcall(Nebula.PlayerInfo.set, path, value)
+    if not ok then
+        return false, "set_threw: " .. tostring(r)
+    end
+    if not r then
+        return false, err
+    end
+    return true, nil
+end
+
+local function isBoundsErr(err)
+    return tostring(err):find("index_out_of_bounds", 1, true) ~= nil
+end
+
+-- Shared log tag for the Nebula-powered ops (max parts/vehicles, editors).
+local TAG = "Tuning"
 
 -- ── Ops ──────────────────────────────────────────────────────────────────────
 
@@ -624,80 +627,144 @@ function M.unlockVehicles(cb)
     end)
 end
 
--- Max all vehicle upgrades. onProgress(i, total) optional.
--- status: "no_vehicles" | "all_maxed" | "failed"
--- Batched: pointer reads are collapsed into a few gg.getValues calls instead of
--- one per vehicle/slot. Same write set as the original sequential version.
+-- ── Max vehicles ──────────────────────────────────────────────
+
+-- Set level = maxLevel = 19 on every upgrade of every vehicle (same write
+-- set as the raw pointer-walk version: engine/susp/tires/4wd slots, plus
+-- the extra lowrider slot, which the array walk picks up automatically).
+-- onProgress(upgradesDone, upgradesTotal) optional.
+-- cb(status, stats) — stats = {vehicles=n, upgrades=m, written=k}
+-- status: "all_maxed" | "no_vehicles" | "failed"
 function M.maxVehicles(onProgress, cb)
     scheduler:add(function(finishTask)
-        local TAG = "MaxVehicles"
-        LOG.info(TAG, "Module activated.")
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
 
-        local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
-
-        if not vehicleListPtr or vehicleListPtr == 0 then
-            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+        -- Pass 1: collect vehicles (bounded probe walk).
+        local vehicles = {}
+        for i = 1, MAX_VEHICLES do
+            local id, err = pget("gameStatus.vehicleStatus[" .. i .. "].vehicleId")
+            if err then
+                if not isBoundsErr(err) and #vehicles == 0 then
+                    LOG.error(TAG, "vehicle probe failed: " .. tostring(err))
+                    finishTask(); cb("failed", tostring(err)); return
+                end
+                break
+            end
+            vehicles[#vehicles + 1] = i
+        end
+        if #vehicles == 0 then
             finishTask(); cb("no_vehicles"); return
         end
-        totalVehicles = totalVehicles or 0
-        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
 
-        -- Batch 1: all vehicle pointers in one read.
-        local reads = {}
-        for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
-        end
-        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
-        local vehicles = {}
-        for _, v in ipairs(vPtrs) do
-            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
-        end
+        -- Pass 2: per vehicle, one array read for the whole upgrade list,
+        -- then level/maxLevel writes only where below target.
+        local TARGET = 19
+        local upTotal, upDone = 0, 0
+        local stats = { vehicles = #vehicles, upgrades = 0, written = 0 }
 
-        -- Batch 2: namePtr (+0x18) and upgradeListPtr (+0x20) per vehicle.
-        local meta = {}
-        for _, vp in ipairs(vehicles) do
-            meta[#meta + 1] = { address = vp + 0x18, flags = 32 }
-            meta[#meta + 1] = { address = vp + 0x20, flags = 32 }
-        end
-        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
-
-        -- Resolve slot count per vehicle (needs the name) and collect all
-        -- upgrade-slot pointer addresses for a single batched read.
-        local upReads = {}
-        local n = #vehicles
-        local step = math.max(1, math.floor(n / 12))
-        for k, vp in ipairs(vehicles) do
-            local namePtr        = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
-            local upgradeListPtr = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
-            local vehicleName  = (namePtr and namePtr ~= 0) and readString(namePtr + 1) or "unknown"
-            local upgradeSlots = vehicleName:find("lowrider") and 5 or 4
-            if upgradeListPtr and upgradeListPtr ~= 0 then
-                for j = 0, upgradeSlots - 1 do
-                    upReads[#upReads + 1] = { address = upgradeListPtr + j * 8, flags = 32 }
+        for _, vi in ipairs(vehicles) do
+            local arr, err = pget("gameStatus.vehicleStatus[" .. vi .. "].upgrades")
+            if err and not isBoundsErr(err) then
+                LOG.warn(TAG, "upgrades[" .. vi .. "] read failed: " .. tostring(err))
+            else
+                local n = math.min(#(arr or {}), MAX_PARTS)
+                upTotal = upTotal + n
+                for j = 1, n do
+                    local u = arr[j]
+                    if u and u.upgradeId then
+                        local level    = tonumber(u.level) or 0
+                        local maxLevel = tonumber(u.maxLevel) or 0
+                        if level < TARGET or maxLevel < TARGET then
+                            local ok1 = level < TARGET
+                                and pset("gameStatus.vehicleStatus[" .. vi
+                                    .. "].upgrades[" .. j .. "].level", TARGET)
+                            local ok2 = maxLevel < TARGET
+                                and pset("gameStatus.vehicleStatus[" .. vi
+                                    .. "].upgrades[" .. j .. "].maxLevel", TARGET)
+                            if ok1 or ok2 then stats.written = stats.written + 1 end
+                        end
+                    end
+                    upDone = upDone + 1
+                    if onProgress then onProgress(upDone, upTotal) end
                 end
             end
-            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
         end
 
-        -- Batch 3: all upgrade pointers, then build the edit list.
-        local upPtrs = (#upReads > 0 and gg.getValues(upReads)) or {}
-        local upgradeList = {}
-        for _, p in ipairs(upPtrs) do
-            if p.value and p.value ~= 0 then
-                upgradeList[#upgradeList + 1] = { address = p.value + 0x20, flags = 4, value = 19 }
-                upgradeList[#upgradeList + 1] = { address = p.value + 0x24, flags = 4, value = 19 }
+        stats.upgrades = upTotal
+        LOG.info(TAG, string.format("Max vehicles done: %d vehicles, %d upgrades, %d written",
+            stats.vehicles, stats.upgrades, stats.written))
+        finishTask(); cb("all_maxed", stats)
+    end)
+end
+
+-- ── Max parts ──────────────────────────────────────────────────
+
+-- Set level = maxLevel on every owned part of every vehicle, entirely via
+-- Nebula reads/writes (the raw version walked pointers manually and
+-- sourced max level from a static rarity table; the save itself already
+-- carries maxLevel per part).
+-- onProgress(partsDone, partsTotal) optional.
+-- cb(status, stats) — stats = {vehicles=n, parts=m, written=k}
+-- status: "all_maxed" | "no_vehicles" | "failed"
+function M.maxParts(onProgress, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
+
+        -- Pass 1: collect vehicles (bounded probe walk).
+        local vehicles = {}
+        for i = 1, MAX_VEHICLES do
+            local id, err = pget("gameStatus.vehicleStatus[" .. i .. "].vehicleId")
+            if err then
+                if not isBoundsErr(err) and #vehicles == 0 then
+                    LOG.error(TAG, "vehicle probe failed: " .. tostring(err))
+                    finishTask(); cb("failed", tostring(err)); return
+                end
+                break
+            end
+            vehicles[#vehicles + 1] = i
+        end
+        if #vehicles == 0 then
+            finishTask(); cb("no_vehicles"); return
+        end
+
+        -- Pass 2: per vehicle, one array read for the whole parts list,
+        -- then a level write only where level < maxLevel.
+        local partsTotal, partsDone = 0, 0
+        local stats = { vehicles = #vehicles, parts = 0, written = 0 }
+
+        for _, vi in ipairs(vehicles) do
+            local arr, err = pget("gameStatus.vehicleStatus[" .. vi .. "].tuningParts")
+            if err and not isBoundsErr(err) then
+                LOG.warn(TAG, "tuningParts[" .. vi .. "] read failed: " .. tostring(err))
+            else
+                local n = math.min(#(arr or {}), MAX_PARTS)
+                partsTotal = partsTotal + n
+                for j = 1, n do
+                    local p = arr[j]
+                    if p and p.id then
+                        local level    = tonumber(p.level) or 0
+                        local maxLevel = tonumber(p.maxLevel) or 0
+                        if maxLevel > 0 and level < maxLevel then
+                            local ok, wErr = pset("gameStatus.vehicleStatus[" .. vi
+                                .. "].tuningParts[" .. j .. "].level", maxLevel)
+                            if ok then stats.written = stats.written + 1 end
+                            if wErr then LOG.warn(TAG, "part level write failed: " .. tostring(wErr)) end
+                        end
+                    end
+                    partsDone = partsDone + 1
+                    if onProgress then onProgress(partsDone, partsTotal) end
+                end
             end
         end
 
-        if #upgradeList > 0 then
-            gg.setValues(upgradeList)
-            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
-            finishTask(); cb("all_maxed"); return
-        else
-            LOG.warn(TAG, "upgradeList is empty.")
-            finishTask(); cb("failed"); return
-        end
+        stats.parts = partsTotal
+        LOG.info(TAG, string.format("Max parts done: %d vehicles, %d parts, %d written",
+            stats.vehicles, stats.parts, stats.written))
+        finishTask(); cb("all_maxed", stats)
     end)
 end
 
@@ -799,118 +866,378 @@ function M.maxMastery(onProgress, cb)
     end)
 end
 
--- Resolve a part's max level from its name via the rarity-derived caps.
--- Priority: suffix overrides -> longest tuning_parts suffix match -> fallback 3.
-local function partMaxLevel(partName)
-    -- 1. Suffix overrides for parts whose in-memory name doesn't match any
-    --    tuning_parts key (e.g. "jeep_start_boost", "jeep_jump").
-    for _, entry in ipairs(PART_SUFFIX_OVERRIDES) do
-        local suffix, cap = entry[1], entry[2]
-        if partName:find(suffix .. "$") then
-            return cap
-        end
-    end
-    -- 2. Longest suffix match against tuning_parts keys.
-    local maxLevel, bestLen = 3, 0
-    for key, lvl in pairs(partCaps()) do
-        if #key > bestLen and partName:find(key .. "$") then
-            maxLevel = lvl
-            bestLen  = #key
-        end
-    end
-    if maxLevel == 3 and bestLen == 0 then
-        LOG.dbg("MaxParts", "No cap found for part: " .. tostring(partName) .. " -- using fallback 3")
-    end
-    return maxLevel
-end
+-- ── Tuning parts editors (Nebula PlayerInfo paths) ─────────────────────────
 
--- Max all parts for all vehicles. onProgress(i, total) optional.
--- status: "no_vehicles" | "all_maxed" | "failed"
--- Batched: vehicle pointers, each vehicle's parts-list header, and each
--- vehicle's part-pointer array are read in bulk. The (conditional, multi-level)
--- part-name lookup stays sequential — identical to the original.
-function M.maxParts(onProgress, cb)
+--[[
+  Equipped Tuning Parts editor and Tuning Part Preset editor. All
+  reads/writes go through Nebula.PlayerInfo dotted paths against
+  gameStatus.vehicleStatus:
+
+    vehicleStatus[i].vehicleId            String
+    vehicleStatus[i].tuningParts[j]      id / level / maxLevel / ...
+    vehicleStatus[i].equippedTuningParts Array<String> (live equipped)
+    vehicleStatus[i].tuningPartPresets[p].equippedParts  Array<String>
+    vehicleStatus[i].selectedPresetIndex  Int32
+
+  Indexed array paths are 1-based in Nebula. Every list operation walks
+  indexes until Nebula reports index_out_of_bounds, with sanity caps so
+  a corrupted header can never loop forever. Preset edits stay within
+  ONE vehicle on purpose: vehicles do not share the same part pool, so
+  cross-vehicle preset copying is not offered.
+
+  UI wiring lives in modules/tabs/vehicle.lua.
+
+]]
+-- ── Vehicle list ─────────────────────────────────────────────────────────────
+
+-- cb(status, list) — list = { {index=1, id="hillclimber"}, ... }
+-- status: "ok" | "no_vehicles" | "nebula_unavailable" | "failed"
+function M.listVehicles(cb)
     scheduler:add(function(finishTask)
-        local TAG = "MaxParts"
-        LOG.info(TAG, "Module activated.")
+        if not nebulaReady() then
+            LOG.warn(TAG, "Nebula SDK unavailable")
+            finishTask(); cb("nebula_unavailable"); return
+        end
 
-        local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+        local list = {}
+        for i = 1, MAX_VEHICLES do
+            local id, err = pget("gameStatus.vehicleStatus[" .. i .. "].vehicleId")
+            if err then
+                if not isBoundsErr(err) and #list == 0 then
+                    LOG.error(TAG, "vehicleStatus[1] read failed: " .. tostring(err))
+                    finishTask(); cb("failed", tostring(err)); return
+                end
+                if not isBoundsErr(err) then
+                    LOG.warn(TAG, "vehicle walk stopped at [" .. i .. "]: " .. tostring(err))
+                end
+                break
+            end
+            list[#list + 1] = { index = i, id = tostring(id) }
+        end
 
-        if not vehicleListPtr or vehicleListPtr == 0 then
-            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+        if #list == 0 then
             finishTask(); cb("no_vehicles"); return
         end
-        totalVehicles = totalVehicles or 0
-        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+        LOG.info(TAG, "Vehicle walk: " .. #list .. " vehicles")
+        finishTask(); cb("ok", list)
+    end)
+end
 
-        -- Batch 1: all vehicle pointers.
-        local reads = {}
-        for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
+-- ── Owned parts inventory ───────────────────────────────────────────────────
+
+-- cb(status, parts) — parts = { {id, level, maxLevel}, ... }
+-- One array read per vehicle (TuningPartStatus is a tiny struct, so a
+-- whole-array get is far cheaper than 3 scalar reads per part).
+-- status: "ok" | "no_parts" | "nebula_unavailable" | "failed"
+function M.listParts(vIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
         end
-        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
-        local vehicles = {}
-        for _, v in ipairs(vPtrs) do
-            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
+
+        local arr, err = pget("gameStatus.vehicleStatus[" .. vIdx .. "].tuningParts")
+        if err then
+            LOG.error(TAG, "tuningParts read failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
         end
 
-        -- Batch 2: partsListPtr (+0x58) and totalParts (+0x60) per vehicle.
-        local meta = {}
-        for _, vp in ipairs(vehicles) do
-            meta[#meta + 1] = { address = vp + 0x58, flags = 32 }
-            meta[#meta + 1] = { address = vp + 0x60, flags = 4 }
+        local parts = {}
+        for i = 1, math.min(#(arr or {}), MAX_PARTS) do
+            local p = arr[i]
+            if p and p.id then
+                parts[#parts + 1] = {
+                    id       = tostring(p.id),
+                    level    = tonumber(p.level) or 0,
+                    maxLevel = tonumber(p.maxLevel) or 0,
+                }
+            end
         end
-        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
 
-        local upgradeList = {}
-        local n = #vehicles
-        local step = math.max(1, math.floor((n > 0 and n or 1) / 12))
-        for k, vp in ipairs(vehicles) do
-            local partsListPtr = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
-            local totalParts   = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
+        if #parts == 0 then
+            finishTask(); cb("no_parts"); return
+        end
+        finishTask(); cb("ok", parts)
+    end)
+end
 
-            if partsListPtr and partsListPtr ~= 0 and totalParts and totalParts > 0 then
-                -- Batch this vehicle's part pointers in one read.
-                local pReads = {}
-                for j = 0, totalParts - 1 do
-                    pReads[#pReads + 1] = { address = partsListPtr + j * 8, flags = 32 }
+-- ── Equipped parts ──────────────────────────────────────────────────────────
+
+-- cb(status, ids) — ids = { "part_engine", ... }
+-- status: "ok" | "nebula_unavailable" | "failed"
+function M.getEquipped(vIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
+        end
+
+        local arr, err = pget("gameStatus.vehicleStatus[" .. vIdx .. "].equippedTuningParts")
+        if err then
+            LOG.error(TAG, "equippedTuningParts read failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+
+        local ids = {}
+        for i = 1, math.min(#(arr or {}), MAX_PARTS) do
+            if arr[i] and arr[i] ~= false then
+                ids[#ids + 1] = tostring(arr[i])
+            end
+        end
+        finishTask(); cb("ok", ids)
+    end)
+end
+
+-- Rewrite the equipped list. Mirrors the write into the selected preset
+-- (the garage keeps equipped and the active preset in sync; writing only
+-- the live list would be reverted on the next preset switch).
+-- cb(status, count, mirrored) — status: "applied" | "invalid" | "failed"
+function M.setEquipped(vIdx, ids, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
+        if type(ids) ~= "table" or #ids == 0 or #ids > MAX_PARTS then
+            finishTask(); cb("invalid"); return
+        end
+
+        local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx .. "].equippedTuningParts", ids)
+        if not ok then
+            LOG.error(TAG, "equipped write failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+
+        -- Mirror into the selected preset when one is active.
+        local mirrored = false
+        local selIdx, selErr = pget("gameStatus.vehicleStatus[" .. vIdx .. "].selectedPresetIndex")
+        if not selErr and selIdx ~= nil and tonumber(selIdx)
+           and selIdx >= 0 and selIdx < MAX_PRESETS then
+            local mOk, mErr = pset("gameStatus.vehicleStatus[" .. vIdx
+                .. "].tuningPartPresets[" .. (selIdx + 1) .. "].equippedParts", ids)
+            if mOk then
+                mirrored = true
+            else
+                LOG.warn(TAG, "preset mirror skipped: " .. tostring(mErr))
+            end
+        end
+
+        LOG.info(TAG, string.format("Equipped set: %d parts (preset mirror: %s)",
+            #ids, tostring(mirrored)))
+        finishTask(); cb("applied", #ids, mirrored)
+    end)
+end
+
+-- ── Presets ──────────────────────────────────────────────────────────────────
+
+-- cb(status, presets, selected) —
+-- presets = { {index=1, parts={"id1","id2"}}, ... }; selected = Int32
+-- status: "ok" | "no_presets" | "nebula_unavailable" | "failed"
+function M.listPresets(vIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
+        end
+
+        -- The game stores selectedPresetIndex 0-based (0 = first); the UI
+        -- works 1-based, so convert. No active preset -> no marker.
+        local selected = nil
+        local selVal, selErr = pget("gameStatus.vehicleStatus[" .. vIdx .. "].selectedPresetIndex")
+        if not selErr and selVal ~= nil then
+            selected = tonumber(selVal)
+            if selected then selected = selected + 1 end
+        end
+
+        local presets = {}
+        for p = 1, MAX_PRESETS do
+            local arr, err = pget("gameStatus.vehicleStatus[" .. vIdx
+                .. "].tuningPartPresets[" .. p .. "].equippedParts")
+            if err then
+                if not isBoundsErr(err) and #presets == 0 then
+                    LOG.error(TAG, "preset walk failed: " .. tostring(err))
+                    finishTask(); cb("failed", tostring(err)); return
                 end
-                local partPtrs = gg.getValues(pReads) or {}
-
-                for _, pp in ipairs(partPtrs) do
-                    local partPtr = pp.value
-                    if partPtr and partPtr ~= 0 then
-                        local namePtr  = gg.getValues({{ address = partPtr + 0x18, flags = 32 }})[1].value
-                        local partName = "unknown"
-
-                        if namePtr and namePtr ~= 0 then
-                            local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
-                            if header == 49 then
-                                local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
-                                partName = namePtr2 ~= 0 and readString(namePtr2) or "unknown"
-                            else
-                                partName = readString(namePtr + 1)
-                            end
-                        end
-
-                        local maxLevel = partMaxLevel(partName)
-                        LOG.dbg(TAG, string.format("  part=%s → maxLevel=%d", partName, maxLevel))
-                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x20, flags = 4, value = maxLevel }
-                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x34, flags = 4, value = maxLevel }
-                    end
+                if not isBoundsErr(err) then
+                    LOG.warn(TAG, "preset walk stopped at [" .. p .. "]: " .. tostring(err))
+                end
+                break
+            end
+            local parts = {}
+            for i = 1, math.min(#(arr or {}), MAX_PARTS) do
+                if arr[i] and arr[i] ~= false then
+                    parts[#parts + 1] = tostring(arr[i])
                 end
             end
-            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
+            presets[#presets + 1] = { index = p, parts = parts }
         end
 
-        if #upgradeList > 0 then
-            gg.setValues(upgradeList)
-            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
-            finishTask(); cb("all_maxed"); return
+        if #presets == 0 then
+            finishTask(); cb("no_presets"); return
+        end
+        finishTask(); cb("ok", presets, selected)
+    end)
+end
+
+-- Rewrite one preset's part list (same vehicle only).
+-- cb(status, count) — status: "applied" | "invalid" | "failed"
+function M.setPresetParts(vIdx, pIdx, ids, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
+        if type(ids) ~= "table" or #ids == 0 or #ids > MAX_PARTS
+           or tonumber(pIdx) == nil or pIdx < 1 or pIdx > MAX_PRESETS then
+            finishTask(); cb("invalid"); return
+        end
+
+        local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx
+            .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
+        if not ok then
+            LOG.error(TAG, "preset write failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+        LOG.info(TAG, "Preset " .. pIdx .. " set: " .. #ids .. " parts")
+        finishTask(); cb("applied", #ids)
+    end)
+end
+
+-- Copy the CURRENT equipped list into a preset (same vehicle only).
+-- cb(status, count) — status: "applied" | "not_equipped" | "failed"
+function M.saveEquippedToPreset(vIdx, pIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
+
+        local arr, err = pget("gameStatus.vehicleStatus[" .. vIdx .. "].equippedTuningParts")
+        if err then
+            LOG.error(TAG, "equipped read failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+        local ids = {}
+        for i = 1, math.min(#(arr or {}), MAX_PARTS) do
+            if arr[i] and arr[i] ~= false then
+                ids[#ids + 1] = tostring(arr[i])
+            end
+        end
+        if #ids == 0 then
+            finishTask(); cb("not_equipped"); return
+        end
+
+        local ok, wErr = pset("gameStatus.vehicleStatus[" .. vIdx
+            .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
+        if not ok then
+            LOG.error(TAG, "preset write failed: " .. tostring(wErr))
+            finishTask(); cb("failed", tostring(wErr)); return
+        end
+        LOG.info(TAG, "Equipped (" .. #ids .. ") copied to preset " .. pIdx)
+        finishTask(); cb("applied", #ids)
+    end)
+end
+
+-- Switch the active preset (selectedPresetIndex write).
+-- cb(status) — status: "applied" | "invalid" | "failed"
+function M.setSelectedPreset(vIdx, pIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("failed", "nebula_unavailable"); return
+        end
+        if tonumber(pIdx) == nil or pIdx < 1 or pIdx > MAX_PRESETS then
+            finishTask(); cb("invalid"); return
+        end
+
+        -- UI is 1-based, the game field is 0-based (0 = first preset).
+        local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx .. "].selectedPresetIndex", pIdx - 1)
+        if not ok then
+            LOG.error(TAG, "selectedPresetIndex write failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+        LOG.info(TAG, "Selected preset: " .. pIdx)
+        finishTask(); cb("applied")
+    end)
+end
+
+
+-- Append one empty preset by rewriting the whole tuningPartPresets array:
+-- existing entries pass through untouched, the new entry is an empty
+-- preset (same vehicle only). cb(status, count) —
+-- status: "applied" | "max_reached" | "nebula_unavailable" | "failed"
+function M.addPreset(vIdx, cb)
+    scheduler:add(function(finishTask)
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
+        end
+
+        -- Count the current presets (same walk as listPresets).
+        local n = 0
+        for p = 1, MAX_PRESETS do
+            local _, err = pget("gameStatus.vehicleStatus[" .. vIdx
+                .. "].tuningPartPresets[" .. p .. "].equippedParts")
+            if err then
+                if not isBoundsErr(err) and n == 0 then
+                    LOG.error(TAG, "preset walk failed: " .. tostring(err))
+                    finishTask(); cb("failed", tostring(err)); return
+                end
+                if not isBoundsErr(err) then
+                    LOG.warn(TAG, "preset walk stopped at [" .. p .. "]: " .. tostring(err))
+                end
+                break
+            end
+            n = n + 1
+        end
+
+        if n >= MAX_PRESETS then
+            finishTask(); cb("max_reached"); return
+        end
+
+        -- Whole-array write: existing entries carry no field values, so
+        -- their structs are left untouched; the new entry is an empty preset.
+        local values = {}
+        for i = 1, n do values[i] = {} end
+        values[n + 1] = { equippedParts = {} }
+
+        local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx
+            .. "].tuningPartPresets", values)
+        if not ok then
+            LOG.error(TAG, "add preset failed: " .. tostring(err))
+            finishTask(); cb("failed", tostring(err)); return
+        end
+        LOG.info(TAG, "Preset added (now " .. (n + 1) .. ")")
+        finishTask(); cb("applied", n + 1)
+    end)
+end
+
+-- Show Hidden Vehicles (switch). PlayerInfo.showHiddenVehicles (Bool,
+-- top-level @0xEA). Snapshot on first enable, restore on disable.
+-- status: "applied" | "reverted" | "nebula_unavailable" | "failed"
+function M.showHiddenVehicles(state, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "HiddenVehicles"
+        if not nebulaReady() then
+            finishTask(); cb("nebula_unavailable"); return
+        end
+
+        if state then
+            local cur, rErr = pget("showHiddenVehicles")
+            if not rErr and cur ~= nil then
+                storage:save_session("show_hidden_snapshot", cur)
+            end
+            local ok, wErr = pset("showHiddenVehicles", true)
+            if not ok then
+                LOG.error(TAG, "write failed: " .. tostring(wErr))
+                finishTask(); cb("failed", tostring(wErr)); return
+            end
+            LOG.info(TAG, "ON")
+            finishTask(); cb("applied")
         else
-            LOG.warn(TAG, "upgradeList is empty.")
-            finishTask(); cb("failed"); return
+            local snap = storage:load_session("show_hidden_snapshot")
+            if snap ~= nil then
+                local ok, wErr = pset("showHiddenVehicles", snap)
+                storage:delete_session("show_hidden_snapshot")
+                if not ok then
+                    LOG.error(TAG, "restore failed: " .. tostring(wErr))
+                    finishTask(); cb("failed", tostring(wErr)); return
+                end
+            end
+            LOG.info(TAG, "OFF")
+            finishTask(); cb("reverted")
         end
     end)
 end

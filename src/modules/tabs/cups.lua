@@ -16,8 +16,14 @@ return function(container)
     addModule(container, "adjust_countdown", t("adjust_countdown.title"), t("adjust_countdown.desc"), "slider",
     {title=t("slider.seconds"), min=0, max=10, current=3},
     function(done, vals)
-        ops.adjustCountdown(vals, function()
-            showToast(t("adjust_countdown.applied", tostring(vals)), true)
+        ops.adjustCountdown(vals, function(status)
+            if status == "applied" then
+                showToast(t("adjust_countdown.applied", tostring(vals)), true)
+            elseif status == "nebula_unavailable" then
+                showToast(T("common.nebula_unavailable"))
+            else
+                showToast(t("adjust_countdown.failed"))
+            end
         end)
         done()
     end)
@@ -101,17 +107,17 @@ return function(container)
 
     addModule(container, "unlimited_tasks", t("unlimited_tasks.title"), t("unlimited_tasks.desc"), "switch", nil,
     function(done, state)
-        ops.unlimitedTasks(state, function(status)
-            if status == "resolve_failed" then
-                showToast(t("unlimited_tasks.resolve_failed"))
+        ops.unlimitedTasks(state, function(status, count)
+            if status == "applied" then
+                showToast(t("unlimited_tasks.enabled", count or 0), true)
+            elseif status == "reverted" then
+                showToast(t("unlimited_tasks.disabled", count or 0), true)
             elseif status == "none_found" then
                 showToast(t("unlimited_tasks.none_found"))
-            elseif status == "enabled" then
-                showToast(t("unlimited_tasks.enabled"))
-            elseif status == "disabled" then
-                showToast(t("unlimited_tasks.disabled"))
+            elseif status == "nebula_unavailable" then
+                showToast(T("common.nebula_unavailable"))
             else
-                showToast(t("unlimited_tasks.none_to_freeze"))
+                showToast(t("unlimited_tasks.failed"))
             end
         end)
         done()

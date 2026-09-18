@@ -160,24 +160,34 @@ local function achievementsData()
 end
 
 -- TODO: in progress
--- Toggle the ad-free entitlement via the Nebula SDK (GameStatus.adFree, Bool).
+-- Toggle the ad-free entitlement via the Nebula SDK. Since Nebula 1.0.0 there
+-- is no separate GameStatus module: the save struct is PlayerInfo's child and
+-- every save field is a dotted path — PlayerInfo.set("gameStatus.adFree", Bool).
 -- status: "enabled" | "disabled" | "nebula_unavailable" | "failed"
 function M.setAdFree(state, cb)
     scheduler:add(function(finishTask)
         local TAG = "AdFree"
 
-        if not (Nebula and Nebula.GameStatus) then
+        if not (Nebula and Nebula.PlayerInfo) then
             LOG.warn(TAG, "Nebula SDK unavailable")
             finishTask(); cb("nebula_unavailable"); return
         end
 
-        local ok, err = pcall(Nebula.GameStatus.set, "adFree", state and true or false)
-        if not ok then
-            LOG.error(TAG, "Nebula.GameStatus.set(adFree) failed: " .. tostring(err))
+        local value = state and true or false
+        local ok, op = pcall(Nebula.PlayerInfo.set, "gameStatus.adFree", value)
+        if not ok or type(op) ~= "table" or not op._ok then
+            local err = (not ok) and op or (op and op._err or "unknown_error")
+            LOG.error(TAG, "Nebula.PlayerInfo.set(gameStatus.adFree) failed: " .. tostring(err))
             finishTask(); cb("failed"); return
         end
 
-        LOG.info(TAG, "adFree=" .. tostring(state and true or false))
+        -- Read-back verification (Nebula 1.0.0): a mismatch is logged, not fatal.
+        if op:verify()._verified == false then
+            LOG.warn(TAG, "adFree read-back mismatch: expected=" .. tostring(value)
+                .. " actual=" .. tostring(op._actual))
+        end
+
+        LOG.info(TAG, "adFree=" .. tostring(value))
         finishTask()
         cb(state and "enabled" or "disabled")
     end)

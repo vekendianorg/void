@@ -31,6 +31,7 @@ local function gravityEnd()
     return isRTL() and Gravity.LEFT or Gravity.RIGHT
 end
 
+
 -- Sets layout direction on a view so Android mirrors padding and drawables.
 -- API 17+; silently skipped on older devices.
 function setLayoutDir(view)
@@ -237,6 +238,7 @@ local _TAB_ICONS = {
     shop      = "\xe2\x97\x91",  -- ◑  coin/shop
     other     = "\xe2\x8b\xaf",  -- ⋯  ellipsis/other
     settings  = "\xe2\x9a\x99",  -- ⚙  gear/settings
+    status    = "\xe2\x97\x88",  -- ◈  status/diagnostics
     about     = "\xe2\x84\xb9",  -- ℹ  info/about
     console   = "\xe2\x9a\xa0",  -- ⚠  warning/console
 }
@@ -1084,6 +1086,7 @@ local function _createPillIconView()
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
+
     titleLayout.addView(title)
 
     -- Release-channel badge (FOR DEV / FOR TESTER / FOR USER).
@@ -1205,6 +1208,7 @@ local function _buildMenuHeader(root)
     title.setTextColor(UI.LOGO)
     title.setTextSize(1, 16)
     title.setTypeface(Typeface.create("sans-serif-black", Typeface.BOLD))
+
     titleLayout.addView(title)
 
     -- Release-channel badge (FOR DEV / FOR TESTER / FOR USER).

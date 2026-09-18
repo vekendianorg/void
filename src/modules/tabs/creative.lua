@@ -101,7 +101,7 @@ return function(container)
                 -- ── Depth 2: pick action ──────────────────────────────────────
                 elseif depth == 2 then
                     local choice = showList(
-                        string.format("%s — %s  |  %s",
+                        string.format("%s: %s  |  %s",
                             track.nameStr,
                             track.isVerified == 1 and t("track_status.verified") or t("track_status.not_verified"),
                             t("track_length", tostring(track.length))),
@@ -140,7 +140,7 @@ return function(container)
                     -- ── Set Length ────────────────────────────────────────────
                     elseif actionIdx == 2 then
                         local result = showPrompt(
-                            t("set_length.title") .. " — " .. track.nameStr,
+                            t("set_length.title") .. ": " .. track.nameStr,
                             {{ t("set_length.prompt", tostring(track.length)), "number", tostring(track.length) }}
                         )
                         if not result then
@@ -168,7 +168,7 @@ return function(container)
                     -- ── Rename ────────────────────────────────────────────────
                     elseif actionIdx == 3 then
                         local result = showPrompt(
-                            t("rename.title") .. " — " .. track.nameStr,
+                            t("rename.title") .. ": " .. track.nameStr,
                             {{ t("rename.prompt"), "text", track.nameStr }}
                         )
                         if not result then

@@ -4,7 +4,6 @@ Embeds all src/ modules into a single VFS-based void_packed.lua.
 
 Usage:
   python bundle.py              # normal pack
-  python bundle.py -m           # pack + strip Lua comments (minify)
   python bundle.py -o out.lua   # custom output path
   python bundle.py -v 1.0.0     # inject version string
 """
@@ -91,65 +90,6 @@ def strip_loader_block(lines):
     return lines, diag
 
 
-# ── Lua minifier (basic) ───────────────────────────────────────────────────────
-
-def _lua_strip_comment(line):
-    """Strip a trailing single-line `-- ...` comment from *line*, respecting
-    quoted strings.  Long comments `--[[...]]` on a line by themselves are
-    removed entirely.  Returns the cleaned line (with its original newline)."""
-    # Drop standalone long-comment lines
-    if re.match(r'^\s*--\[\[', line):
-        return "\n"
-
-    result  = []
-    i       = 0
-    src     = line.rstrip("\n")
-    n       = len(src)
-    in_str  = None   # None | '"' | "'"
-
-    while i < n:
-        ch = src[i]
-
-        if in_str:
-            result.append(ch)
-            if ch == "\\" and i + 1 < n:          # escape sequence
-                i += 1
-                result.append(src[i])
-            elif ch == in_str:
-                in_str = None
-        else:
-            if ch in ('"', "'"):
-                in_str = ch
-                result.append(ch)
-            elif src[i:i+2] == "--":               # comment starts here
-                break
-            else:
-                result.append(ch)
-        i += 1
-
-    return "".join(result).rstrip() + "\n"
-
-
-def minify_lua(source):
-    """Strip single-line comments and collapse consecutive blank lines."""
-    cleaned    = []
-    prev_blank = False
-
-    for line in source.splitlines(keepends=True):
-        stripped = _lua_strip_comment(line)
-        is_blank = stripped.strip() == ""
-
-        if is_blank:
-            if not prev_blank:
-                cleaned.append("\n")
-            prev_blank = True
-        else:
-            cleaned.append(stripped)
-            prev_blank = False
-
-    return "".join(cleaned)
-
-
 # ── VFS loader (replaces the stripped native loader) ──────────────────────────
 
 def build_vfs_loader():
@@ -190,7 +130,7 @@ end
 
 # ── Main bundler ───────────────────────────────────────────────────────────────
 
-def bundle(output_file, do_minify, version=None):
+def bundle(output_file, version=None):
     if not os.path.exists(MAIN_FILE):
         print(f"[-] Entry point not found: {MAIN_FILE}")
         print("    Run this script from the project root (folder containing 'src/').")
@@ -212,8 +152,6 @@ def bundle(output_file, do_minify, version=None):
         with open(real_path, encoding="utf-8") as f:
             content = f.read()
         total_src_bytes += len(content.encode("utf-8"))
-        if do_minify:
-            content = minify_lua(content)
         sz = len(content.encode("utf-8"))
         print(f"[+] {virtual_name:<45}  {sz:>7,} B")
         parts.append(f"__vfs['{virtual_name}'] = function(...)\n{content}\nend\n")
@@ -237,8 +175,6 @@ def bundle(output_file, do_minify, version=None):
         print(f"[~] Version injected: v{version}")
 
     total_src_bytes += len(main_src.encode("utf-8"))
-    if do_minify:
-        main_src = minify_lua(main_src)
 
     parts.append(build_vfs_loader())
     parts.append("\n-- ── MAIN ENTRYPOINT ──────────────────────────────────────────────────────\n\n")
@@ -252,16 +188,13 @@ def bundle(output_file, do_minify, version=None):
 
     # ── Stats ─────────────────────────────────────────────────────────────────
     line_count = output.count("\n")
-    ratio      = (1 - len(out_bytes) / total_src_bytes) * 100 if total_src_bytes else 0
-    tag        = "  [minified]" if do_minify else ""
+    tag        = ""
 
     print()
     print(f"[✔] Output  →  '{output_file}'{tag}")
     print(f"    Modules :  {len(modules)}")
     print(f"    Lines   :  {line_count:,}")
     print(f"    Size    :  {len(out_bytes):,} B  ({len(out_bytes)/1024:.1f} KB)")
-    if do_minify:
-        print(f"    Savings :  {ratio:.1f}% vs unminified sources")
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────
@@ -269,10 +202,6 @@ def bundle(output_file, do_minify, version=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Pack VOID src/ modules into a single Lua file.")
-    parser.add_argument(
-        "-m", "--minify",
-        action="store_true",
-        help="Strip single-line Lua comments and collapse blank lines")
     parser.add_argument(
         "-o", "--output",
         default=DEFAULT_OUTPUT,
@@ -286,4 +215,4 @@ if __name__ == "__main__":
         
     args = parser.parse_args()
 
-    bundle(output_file=args.output, do_minify=args.minify, version=args.version)
+    bundle(output_file=args.output, version=args.version)

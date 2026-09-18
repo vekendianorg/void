@@ -1,7 +1,7 @@
 -- VOID v1 — HCR2 Modding Framework
 -- Load order: env → imports → constants → core → patches → arch+data → modules → ui → init → loop
 
-scriptSubHeader = " v1.0.24 • By Vekendian"
+scriptSubHeader = " v1.1.0 • By Vekendian"
 
 do
     local LOG_TO_FILE  = true
@@ -262,14 +262,27 @@ alloc     = loadModule("core/engines/alloc.lua")
 CrashHandler = loadModule("core/engines/crash_handler.lua")
 
 -- ── Nebula SDK (vendored packed build) ────────────────────────────────────────
--- modules/lib/nebula.lua is the packed Nebula SDK with its VFS loader renamed
--- (nebulaLoadModule) and fatal os.exit() converted to error(), so a Nebula
--- failure is caught here instead of killing the script. Soft-loaded: features
--- that use Nebula must degrade gracefully when it's unavailable.
-Nebula = loadModule("modules/lib/nebula.lua", true)
-if Nebula then
+-- modules/lib/nebula.lua is the packed Nebula v1.0.1 release build, fully
+-- encapsulated upstream: private VFS + module environment, and its only
+-- global write is the exported Nebula table itself. Host contract (1.0+):
+-- seed Nebula = { embed = true } BEFORE loading so a module-load failure
+-- raises a catchable error instead of gg.alert + os.exit(); the soft load
+-- below catches it either way. Config keys (log, verbose, traceMem) are
+-- read-honored — seed them on the table to enable Nebula-side tracing.
+-- API surface (1.0.1): PlayerInfo (save struct as "gameStatus.*" dotted
+-- paths), GameData, PublicEvent, TeamEvent, CommunityEvent — each with
+-- get()/set()/fields()/meta(), set ops chainable via :dry()/:verify().
+-- New in 1.0.1: all RaceInfo nested structs have metadata snapshots
+-- (levelDefinition, worldDefinition, currentCup, specialEvent, wcRace,
+-- divisionStatus, challenge...), currentRace.vehicleSpecificRecords is
+-- a mapped Array of VehicleRecord, and Proto2 subtrees carry
+-- stringDirect = false so their strings decode as pointer-backed.
+Nebula = { embed = true }
+Nebula = loadModule("modules/lib/nebula.lua", true) or nil
+if Nebula and Nebula.VERSION then
     LOG.info("Nebula", "SDK loaded | version=" .. tostring(Nebula.VERSION))
 else
+    Nebula = nil
     LOG.warn("Nebula", "SDK failed to load — Nebula-backed features disabled")
 end
 
@@ -577,6 +590,12 @@ if not target_info.x64 then
     showDialog(T("main.arch_64bit_required_title"), T("main.arch_64bit_required_msg"))
     os.exit()
 end
+
+-- Game version shown in the menu header subtitle.
+-- TEMP DISABLED: crash bisect, re-enable after device test.
+-- if target_info.versionName then
+--     scriptSubHeader = scriptSubHeader .. " • " .. tostring(target_info.versionName)
+-- end
 
 function fetchLatestVersion()
     local raw, err = paste.get(RELEASE_API)

@@ -2,7 +2,7 @@
   modules/ops/player.lua — Player feature memory ops (no UI)
   Contract: see modules/ops/README.md.
 
-  Globals used: scheduler, storage, gg, BaseRegion, LOG.
+  Globals used: scheduler, storage, gg, BaseRegion, Nebula, LOG.
 ]]
 
 local M = {}
@@ -181,40 +181,40 @@ end
 
 -- Adjust camera zoom (slider min/max). No user-facing message in the original.
 -- status: "applied" | "none"
+-- Adjust zoom (slider min/max). Nebula GameData camera visible range:
+-- minVisibleRange (Float @0x1E4) and maxVisibleRange (Float @0x1E8).
+-- vals = { minRange, maxRange }.
+-- status: "applied" (data = {min, max}) | "nebula_unavailable" | "failed"
 function M.setZoom(vals, cb)
     scheduler:add(function(finishTask)
         local TAG = "Zoom"
-        local results = storage:load_session("zoom")
-        if not results then
-            LOG.dbg(TAG, "No cache — scanning memory")
-            gg.clearResults()
-            gg.setRanges(16)
-            gg.searchNumber("20;50::5", 16)
-            results = gg.getResults(gg.getResultsCount())
-            gg.clearResults()
-            LOG.info(TAG, "Scan results: " .. tostring(#results))
-            if #results > 0 then storage:save_session("zoom", results) end
-        else
-            LOG.dbg(TAG, "Using cached results")
+        if not (Nebula and Nebula.GameData) then
+            finishTask(); cb("nebula_unavailable"); return
         end
-        if results then
-            for i, v in ipairs(results) do
-                v.value = (i % 2 == 1) and vals[1] or vals[2]
-                v.flags = 16
-            end
-            gg.setValues(results)
-            LOG.info(TAG, string.format("Zoom set — min: %s max: %s", tostring(vals[1]), tostring(vals[2])))
-            finishTask(); cb("applied"); return
-        else
-            LOG.warn(TAG, "No results to apply zoom to")
+
+        local minR = tonumber(vals and vals[1]) or 20
+        local maxR = tonumber(vals and vals[2]) or 50
+        if minR < 0 then minR = 0 end
+        if maxR < minR then maxR = minR end
+
+        -- Drop the old raw-scan cache if one is left over from a previous run.
+        storage:delete_session("zoom")
+
+        local ok, r, err = pcall(Nebula.GameData.set, "minVisibleRange", minR)
+        if not ok or not r then
+            LOG.error(TAG, "minVisibleRange write failed: " .. tostring(err or r))
+            finishTask(); cb("failed", err or r); return
         end
-        finishTask()
-        cb("none")
+        ok, r, err = pcall(Nebula.GameData.set, "maxVisibleRange", maxR)
+        if not ok or not r then
+            LOG.error(TAG, "maxVisibleRange write failed: " .. tostring(err or r))
+            finishTask(); cb("failed", err or r); return
+        end
+        LOG.info(TAG, string.format("Zoom set — range %.1f-%.1f", minR, maxR))
+        finishTask(); cb("applied", { minR, maxR })
     end)
 end
 
--- Adjust gravity (slider x/y). No user-facing message in the original.
--- status: "applied" | "none"
 function M.setGravity(vals, cb)
     scheduler:add(function(finishTask)
         local TAG = "Gravity"

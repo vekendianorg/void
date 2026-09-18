@@ -1,6 +1,6 @@
 --[[
   Settings Tab - Script settings and UI customization
-  Features: Memory info, background opacity, background RGB,
+  Features: background opacity, background RGB,
             accent RGB, logo RGB, sub-text RGB
 
   All color preferences are saved globally (PID-independent) via
@@ -293,25 +293,6 @@ return function(container)
     
     -- ── Read-only info ────────────────────────────────────────────────────────
 
-    local function regionName()
-        if BaseRegion == -2080896 then return t("region.other")
-        elseif BaseRegion == 4 then return t("region.cpp_alloc")
-        else return t("region.unknown") end
-    end
-    
-    addModuleSep(container, t("section_memory"))
-
-    addModule(container, "memory_range", t("memory_range.title"), t("memory_range.desc"), "ro", regionName(), nil)
-    addModule(container, "gamestatus_address", t("gamestatus.title"), t("gamestatus.desc"), "ro", string.format("0x%X", BaseGameStatus or 0), nil)
-    addModule(container, "gamestatus_raw_address", t("gamestatus_raw.title"), t("gamestatus_raw.desc"), "ro", string.format("0x%X", BaseGameStatusRaw or 0), nil)
-    
-    -- ── Session Control ────────────────────────────────────────────────────────
-    addModule(container, "clear_memory", t("clear_memory.title"), t("clear_memory.desc"), "button", nil, function(done)
-        LOG.info("Settings", "User triggered clear_all()")
-        storage:clear_all_session()
-        done()
-    end)
-    
     -- ── Log Management & Feedback ────────────────────────────────────────────
     addModuleSep(container, t("section_log_management"))
 

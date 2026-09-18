@@ -52,7 +52,15 @@ return function(container)
         {title=t("slider.min"), min=10, max=100, current=20},
         {title=t("slider.max"), min=10, max=100, current=50}
     }, function(done, vals)
-        ops.setZoom(vals, function() end)
+        ops.setZoom(vals, function(status)
+            if status == "applied" then
+                showToast(t("zoom.applied", tostring(vals[1]), tostring(vals[2])), true)
+            elseif status == "nebula_unavailable" then
+                showToast(T("common.nebula_unavailable"))
+            else
+                showToast(t("zoom.failed"))
+            end
+        end)
         done()
     end)
 
@@ -60,7 +68,11 @@ return function(container)
         {title=t("slider.x"), min=-100, max=100, current=0},
         {title=t("slider.y"), min=-100, max=100, current=-10}
     }, function(done, vals)
-        ops.setGravity(vals, function() end)
+        ops.setGravity(vals, function(status)
+            if status == "applied" then
+                showToast(t("gravity.applied", tostring(vals[1]), tostring(vals[2])), true)
+            end
+        end)
         done()
     end)
 end

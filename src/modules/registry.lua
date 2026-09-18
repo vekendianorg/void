@@ -25,6 +25,7 @@ local TAB_DEFS = {
     { "other", "tabs.other" },
     { "separator", "tabs.sep_script" },
     { "settings", "tabs.settings" },
+    -- { "status", "tabs.status" },  -- TEMP DISABLED: crash bisect, re-enable after device test
     { "console", "tabs.console" },
     { "about", "tabs.about" },
 }

@@ -110,6 +110,7 @@ return function(container)
         tv.setText(string.format("[%s] %s %s [%s] %s", e.ts, glyph, e.level, e.tag, e.message))
         tv.setTextColor(color)
         tv.setTextSize(1, 10)
+        tv.setTypeface(Typeface.create("monospace", Typeface.NORMAL))
         tv.setPadding(dp(10), dp(6), dp(10), dp(6))
         tv.setBackground(getSkin(UI.BG, 8))
         tv.setClickable(true)
@@ -128,6 +129,15 @@ return function(container)
     -- ── Filter chips ("all" | "logs" | "crashes") ─────────────────────────────
     local filter = "all"
     local chipRefs = {}
+
+    -- Level chips (second row): nil = all levels.
+    local levelFilter = nil
+    local levelRefs   = {}
+    local RENDER_CAP  = 150
+
+    -- Forward declaration: the chip closures call populate() before its
+    -- definition, which would otherwise resolve to a nil global.
+    local populate
 
     local function refreshChips()
         for key, btn in pairs(chipRefs) do
@@ -163,13 +173,47 @@ return function(container)
         return btn
     end
 
+    local function refreshLevelChips()
+        for key, btn in pairs(levelRefs) do
+            if key == levelFilter then
+                btn.setBackground(getSkin(UI.ACCENT, 8))
+                btn.setTextColor(UI.TEXT)
+            else
+                btn.setBackground(getSkin(UI.BG, 8, 1, UI.STROKE))
+                btn.setTextColor(UI.SUB)
+            end
+        end
+    end
+
+    -- Tapping the active level chip again clears the filter.
+    local function makeLevelChip(label, key)
+        local btn = TextView(activity)
+        local lp = LinLayoutParams(0, -2, 1.0)
+        lp.rightMargin = dp(6)
+        btn.setLayoutParams(lp)
+        btn.setText(label)
+        btn.setTextColor(UI.SUB)
+        btn.setGravity(Gravity.CENTER)
+        btn.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+        btn.setTextSize(1, 11)
+        btn.setPadding(dp(10), dp(8), dp(10), dp(8))
+        btn.setBackground(getSkin(UI.BG, 8, 1, UI.STROKE))
+        btn.setOnClickListener(View.OnClickListener({ onClick = function()
+            levelFilter = (levelFilter == key) and nil or key
+            refreshLevelChips()
+            populate()
+        end }))
+        levelRefs[key] = btn
+        return btn
+    end
+
     -- ── Dynamic list (rebuilt on render / refresh / clear) ────────────────────
     local listLayout = LinearLayout(activity)
     listLayout.setOrientation(1)
     setLayoutDir(listLayout)
     listLayout.setLayoutParams(LinLayoutParams(-1, -2))
 
-    local function populate()
+    function populate()
         listLayout.removeAllViews()
 
         local crashes = CrashHandler.getCrashes()
@@ -195,10 +239,34 @@ return function(container)
         end
 
         if showL and #logs > 0 then
-            rendered = true
-            addModuleSep(listLayout, t("logs_header", #logs))
+            -- Level filter (nil = every level); FATAL shares the ERROR chip.
+            local lvLogs = {}
             for i = #logs, 1, -1 do
-                listLayout.addView(logLine(logs[i]))
+                local e = logs[i]
+                if not levelFilter or levelFilter == e.level
+                    or (levelFilter == "ERROR" and e.level == "FATAL") then
+                    lvLogs[#lvLogs + 1] = e
+                end
+            end
+
+            if #lvLogs > 0 then
+                rendered = true
+                addModuleSep(listLayout, t("logs_header", #lvLogs))
+                -- Render the newest RENDER_CAP entries only.
+                local total = #lvLogs
+                local from  = math.max(1, total - RENDER_CAP + 1)
+                for i = from, total do
+                    listLayout.addView(logLine(lvLogs[i]))
+                end
+                if total > RENDER_CAP then
+                    local more = TextView(activity)
+                    more.setText(t("capped", RENDER_CAP, total))
+                    more.setTextColor(UI.SUB)
+                    more.setTextSize(1, 10)
+                    more.setGravity(Gravity.CENTER)
+                    more.setPadding(dp(12), dp(4), dp(12), dp(4))
+                    listLayout.addView(more)
+                end
             end
         end
 
@@ -243,6 +311,19 @@ return function(container)
     chips.addView(makeChip(t("filter_logs"), "logs"))
     chips.addView(makeChip(t("filter_crashes"), "crashes"))
     container.addView(chips)
+
+    -- Level chips (ERROR / WARN / INFO / DEBUG) narrow the log stream.
+    local lchips = LinearLayout(activity)
+    lchips.setOrientation(0)
+    setLayoutDir(lchips)
+    local llp = LinLayoutParams(-1, -2)
+    llp.bottomMargin = dp(8)
+    lchips.setLayoutParams(llp)
+    lchips.addView(makeLevelChip("ERROR", "ERROR"))
+    lchips.addView(makeLevelChip("WARN", "WARN"))
+    lchips.addView(makeLevelChip("INFO", "INFO"))
+    lchips.addView(makeLevelChip("DEBUG", "DEBUG"))
+    container.addView(lchips)
 
     local row = LinearLayout(activity)
     row.setOrientation(0)
