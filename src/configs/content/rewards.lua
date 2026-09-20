@@ -9320,6 +9320,10 @@ return [[
                     },
                     {
                         "vehicleId": "superbike",
+                        "paintId": "superbike_racing_blue_premium"
+                    },
+                    {
+                        "vehicleId": "superbike",
                         "paintId": "VIP"
                     },
                     {
@@ -18544,1797 +18548,91 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_rareVC_jeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "jeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_scooter",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "scooter",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_bus",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "bus",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_superjeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "superjeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_tractor",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "tractor",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_motocross",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "motocross",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_dunebuggy",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "dunebuggy",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_sportscar",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "sportscar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_monster",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "monster",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_upsidedown",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "upsidedown",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_pickup_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "pickup_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_chopper",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "chopper",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_minitank",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "minitank",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_lowrider",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "lowrider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_snowmobile",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "snowmobile",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_monowheel",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "monowheel",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_beast",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "beast",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_rally",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "rally",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_formula",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "formula",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_musclecar",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "musclecar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_racing_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "racing_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_hotrod",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "hotrod",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_electric_car",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "electric_car",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_superbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "superbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_lambo",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "lambo",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_moonlander",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "moonlander",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_rockbouncer",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "rockbouncer",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_hoverbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "hoverbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_raider",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "raider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_glider",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "glider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_trusty",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "trusty",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_atv",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "atv",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_super_offroad",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "super_offroad",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_stock",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "stock",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_rareVC_havoc",
-                "vehicleChests": [
-                    {
-                        "chestId": "rare",
-                        "vehicleId": "rocketkart",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_jeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "jeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_scooter",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "scooter",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_bus",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "bus",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_superjeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "superjeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_tractor",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "tractor",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_motocross",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "motocross",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_dunebuggy",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "dunebuggy",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_sportscar",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "sportscar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_monster",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "monster",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_upsidedown",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "upsidedown",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_pickup_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "pickup_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_chopper",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "chopper",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_minitank",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "minitank",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_lowrider",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "lowrider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_snowmobile",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "snowmobile",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_monowheel",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "monowheel",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_beast",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "beast",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_rally",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "rally",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_formula",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "formula",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_musclecar",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "musclecar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_racing_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "racing_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_hotrod",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "hotrod",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_electric_car",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "electric_car",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_superbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "superbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_lambo",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "lambo",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_moonlander",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "moonlander",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_rockbouncer",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "rockbouncer",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_hoverbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "hoverbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_raider",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "raider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_glider",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "glider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_trusty",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "trusty",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_atv",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "atv",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_super_offroad",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "super_offroad",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_stock",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "stock",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_epicVC_havoc",
-                "vehicleChests": [
-                    {
-                        "chestId": "epic",
-                        "vehicleId": "rocketkart",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_jeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "jeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_scooter",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "scooter",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_bus",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "bus",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_superjeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "superjeep",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_tractor",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "tractor",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_motocross",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "motocross",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_dunebuggy",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "dunebuggy",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_sportscar",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "sportscar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_monster",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "monster",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_upsidedown",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "upsidedown",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_pickup_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "pickup_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_chopper",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "chopper",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_minitank",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "minitank",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_lowrider",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "lowrider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_snowmobile",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "snowmobile",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_monowheel",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "monowheel",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_beast",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "beast",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_rally",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "rally",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_formula",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "formula",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_musclecar",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "musclecar",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_racing_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "racing_truck",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_hotrod",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "hotrod",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_electric_car",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "electric_car",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_superbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "superbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_lambo",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "lambo",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_moonlander",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "moonlander",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_rockbouncer",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "rockbouncer",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_hoverbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "hoverbike",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_raider",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "raider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_glider",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "glider",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_trusty",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "trusty",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_atv",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "atv",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_super_offroad",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "super_offroad",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_stock",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "stock",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_legendaryVC_havoc",
-                "vehicleChests": [
-                    {
-                        "chestId": "legendary",
-                        "vehicleId": "rocketkart",
-                        "targetIndex": 0
-                    }
-                ]
-            },
-            "maxCollectAmount": -1
-        },
-        {
-            "rewardCondition": {
-                "criteria": 0,
-                "type": "score"
-            },
-            "lootDefinition": {
-                "id": "event_reward_mythicVC_jeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "jeep",
-                        "targetIndex": 0
+                "id": "event_reward_jeepParts",
+                "tuningParts": [
+                    {
+                        "id": "jeep_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "jeep_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20346,12 +18644,91 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_scooter",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "scooter",
-                        "targetIndex": 0
+                "id": "event_reward_scooterParts",
+                "tuningParts": [
+                    {
+                        "id": "scooter_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "scooter_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20363,12 +18740,75 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_bus",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "bus",
-                        "targetIndex": 0
+                "id": "event_reward_busParts",
+                "tuningParts": [
+                    {
+                        "id": "bus_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "bus_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20380,12 +18820,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_superjeep",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "superjeep",
-                        "targetIndex": 0
+                "id": "event_reward_superjeepParts",
+                "tuningParts": [
+                    {
+                        "id": "superjeep_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superjeep_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20397,12 +18912,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_tractor",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "tractor",
-                        "targetIndex": 0
+                "id": "event_reward_tractorParts",
+                "tuningParts": [
+                    {
+                        "id": "tractor_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "tractor_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20414,12 +18996,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_motocross",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "motocross",
-                        "targetIndex": 0
+                "id": "event_reward_motocrossParts",
+                "tuningParts": [
+                    {
+                        "id": "motocross_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "motocross_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20431,12 +19088,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_dunebuggy",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "dunebuggy",
-                        "targetIndex": 0
+                "id": "event_reward_dunebuggyParts",
+                "tuningParts": [
+                    {
+                        "id": "dunebuggy_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "dunebuggy_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20448,12 +19180,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_sportscar",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "sportscar",
-                        "targetIndex": 0
+                "id": "event_reward_sportscarParts",
+                "tuningParts": [
+                    {
+                        "id": "sportscar_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "sportscar_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20465,12 +19268,91 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_monster",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "monster",
-                        "targetIndex": 0
+                "id": "event_reward_monsterParts",
+                "tuningParts": [
+                    {
+                        "id": "monster_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monster_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20482,12 +19364,75 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_upsidedown",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "upsidedown",
-                        "targetIndex": 0
+                "id": "event_reward_upsidedownParts",
+                "tuningParts": [
+                    {
+                        "id": "upsidedown_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "upsidedown_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20499,12 +19444,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_pickup_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "pickup_truck",
-                        "targetIndex": 0
+                "id": "event_reward_pickup_truckParts",
+                "tuningParts": [
+                    {
+                        "id": "pickup_truck_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "pickup_truck_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20516,12 +19536,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_chopper",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "chopper",
-                        "targetIndex": 0
+                "id": "event_reward_chopperParts",
+                "tuningParts": [
+                    {
+                        "id": "chopper_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "chopper_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20533,12 +19620,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_minitank",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "minitank",
-                        "targetIndex": 0
+                "id": "event_reward_minitankParts",
+                "tuningParts": [
+                    {
+                        "id": "minitank_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "minitank_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20550,12 +19708,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_lowrider",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "lowrider",
-                        "targetIndex": 0
+                "id": "event_reward_lowriderParts",
+                "tuningParts": [
+                    {
+                        "id": "lowrider_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lowrider_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20567,12 +19796,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_snowmobile",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "snowmobile",
-                        "targetIndex": 0
+                "id": "event_reward_snowmobileParts",
+                "tuningParts": [
+                    {
+                        "id": "snowmobile_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "snowmobile_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20584,12 +19880,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_monowheel",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "monowheel",
-                        "targetIndex": 0
+                "id": "event_reward_monowheelParts",
+                "tuningParts": [
+                    {
+                        "id": "monowheel_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "monowheel_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20601,12 +19964,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_beast",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "beast",
-                        "targetIndex": 0
+                "id": "event_reward_beastParts",
+                "tuningParts": [
+                    {
+                        "id": "beast_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "beast_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20618,12 +20056,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_rally",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "rally",
-                        "targetIndex": 0
+                "id": "event_reward_rallyParts",
+                "tuningParts": [
+                    {
+                        "id": "rally_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rally_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20635,12 +20148,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_formula",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "formula",
-                        "targetIndex": 0
+                "id": "event_reward_formulaParts",
+                "tuningParts": [
+                    {
+                        "id": "formula_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "formula_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20652,12 +20240,91 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_musclecar",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "musclecar",
-                        "targetIndex": 0
+                "id": "event_reward_musclecarParts",
+                "tuningParts": [
+                    {
+                        "id": "musclecar_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "musclecar_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20669,12 +20336,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_racing_truck",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "racing_truck",
-                        "targetIndex": 0
+                "id": "event_reward_racing_truckParts",
+                "tuningParts": [
+                    {
+                        "id": "racing_truck_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "racing_truck_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20686,12 +20424,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_hotrod",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "hotrod",
-                        "targetIndex": 0
+                "id": "event_reward_hotrodParts",
+                "tuningParts": [
+                    {
+                        "id": "hotrod_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hotrod_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20703,12 +20508,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_electric_car",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "electric_car",
-                        "targetIndex": 0
+                "id": "event_reward_electric_carParts",
+                "tuningParts": [
+                    {
+                        "id": "electric_car_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "electric_car_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20720,12 +20592,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_superbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "superbike",
-                        "targetIndex": 0
+                "id": "event_reward_superbikeParts",
+                "tuningParts": [
+                    {
+                        "id": "superbike_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "superbike_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20737,12 +20676,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_lambo",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "lambo",
-                        "targetIndex": 0
+                "id": "event_reward_lamboParts",
+                "tuningParts": [
+                    {
+                        "id": "lambo_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "lambo_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20754,12 +20768,55 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_moonlander",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "moonlander",
-                        "targetIndex": 0
+                "id": "event_reward_moonlanderParts",
+                "tuningParts": [
+                    {
+                        "id": "moonlander_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "moonlander_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20771,12 +20828,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_rockbouncer",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "rockbouncer",
-                        "targetIndex": 0
+                "id": "event_reward_rockbouncerParts",
+                "tuningParts": [
+                    {
+                        "id": "rockbouncer_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rockbouncer_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20788,12 +20916,63 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_hoverbike",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "hoverbike",
-                        "targetIndex": 0
+                "id": "event_reward_hoverbikeParts",
+                "tuningParts": [
+                    {
+                        "id": "hoverbike_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "hoverbike_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20805,12 +20984,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_raider",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "raider",
-                        "targetIndex": 0
+                "id": "event_reward_raiderParts",
+                "tuningParts": [
+                    {
+                        "id": "raider_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "raider_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20822,12 +21076,71 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_glider",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "glider",
-                        "targetIndex": 0
+                "id": "event_reward_gliderParts",
+                "tuningParts": [
+                    {
+                        "id": "glider_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "gliderfume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "glider_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20839,12 +21152,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_trusty",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "trusty",
-                        "targetIndex": 0
+                "id": "event_reward_trustyParts",
+                "tuningParts": [
+                    {
+                        "id": "trusty_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "trusty_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20856,12 +21244,91 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_atv",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "atv",
-                        "targetIndex": 0
+                "id": "event_reward_atvParts",
+                "tuningParts": [
+                    {
+                        "id": "atv_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_spoiler",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "atv_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20873,12 +21340,79 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_super_offroad",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "super_offroad",
-                        "targetIndex": 0
+                "id": "event_reward_super_offroadParts",
+                "tuningParts": [
+                    {
+                        "id": "super_offroad_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "super_offroad_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20890,12 +21424,83 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_stock",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "stock",
-                        "targetIndex": 0
+                "id": "event_reward_stockParts",
+                "tuningParts": [
+                    {
+                        "id": "stock_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "stock_echo",
+                        "amount": 1
                     }
                 ]
             },
@@ -20907,12 +21512,87 @@ return [[
                 "type": "score"
             },
             "lootDefinition": {
-                "id": "event_reward_mythicVC_havoc",
-                "vehicleChests": [
-                    {
-                        "chestId": "mythic",
-                        "vehicleId": "rocketkart",
-                        "targetIndex": 0
+                "id": "event_reward_rocketkartParts",
+                "tuningParts": [
+                    {
+                        "id": "rocketkart_magnet",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_heavyweight",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_glide",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_rollcage",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_air_control",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_winter_tyres",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_start_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_wheelie_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fume_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_flip_speed_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_jump",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_perfect_landing_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_turbo_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_afterburner",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_thrusters",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_fuel_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_coin_boost",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_nitro",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_amplifier",
+                        "amount": 1
+                    },
+                    {
+                        "id": "rocketkart_echo",
+                        "amount": 1
                     }
                 ]
             },
