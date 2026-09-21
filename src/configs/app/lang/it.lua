@@ -66,17 +66,19 @@ return {
 ["main.multiple_spaces_title"] = "Spazi Multipli Rilevati",
 ["main.multiple_spaces_desc"] = "HCR2 è stato trovato in %d spazi virtuali.\nSeleziona lo spazio in cui stai giocando.",
 ["main.select_space_toast"] = "Seleziona uno spazio per continuare.",
-["main.user_space_item"] = "Utente %s  —  %s",
+["main.user_space_item"] = "Utente %s  |  %s",
 ["main.permission_error_title"] = "Errore di Permesso",
 ["main.permission_error_msg"] = "L'accesso alla shell è stato negato.\n\nVoid ne ha bisogno per localizzare HCR2 nel tuo spazio virtuale. Controlla il codice sorgente di Void per verificare quale comando viene eseguito.",
 ["main.hcr2_not_found_title"] = "Dati HCR2 Non Trovati",
 ["main.hcr2_not_found_msg"] = "Void non ha trovato i dati HCR2 nel tuo spazio virtuale. Questo può accadere se HCR2 non è stato ancora avviato, o se la tua app dello spazio virtuale usa una struttura di percorso insolita.\n\nLe funzionalità che dipendono dai file di gioco (Ricompense Eventi, ecc.) non funzioneranno senza un percorso valido.",
 ["main.manual_data_path_title"] = "Percorso Dati Manuale",
 ["main.manual_data_path_hint"] = "Inserisci il percorso dei dati HCR2",
-["main.manual_path_cancelled"] = "Annullato — procedendo senza percorso.",
+["main.manual_path_cancelled"] = "Annullato: procedendo senza percorso.",
 ["main.waiting_for_lib"] = "In attesa di %s...",
 ["main.initialized"] = "Inizializzato",
 ["main.gamestatus_not_found"] = "GameStatus Non Trovato",
+["main.gamestatus_not_found_tip_arm64"] = "Il gioco potrebbe essere ancora in caricamento, oppure GameStatus non è stato localizzato in memoria.\n\nSe sei su un emulatore, prova Multi App Ultra per eseguire HCR2.",
+["main.gamestatus_not_found_tip_x86"]   = "Il gioco potrebbe essere ancora in caricamento, oppure GameStatus non è stato localizzato in memoria.\n\nSe sei su un emulatore, prova BlueStacks o LDPlayer per una migliore compatibilità.",
 ["main.dont_interrupt"] = "Non interrompere questo script",
 
 -- ── ui/ui.lua (framework chrome: menu, cards, dialogs) ────────────────────────
@@ -89,7 +91,7 @@ return {
 ["ui.loading"] = "Caricamento",
 
 -- ── core/engines/patches.lua (addArchModule patch engine) ────────────────────
-["patches.requires_arch"] = "Richiede dispositivo %s (tuo dispositivo: %s)",
+["patches.no_data_this_version"] = "Non disponibile per la tua versione del gioco.",
 ["patches.suffix_enabled"] = " Attivato",
 ["patches.suffix_disabled"] = " Disattivato",
 ["patches.pattern_not_found"] = "Fallito: %d pattern non trovati",
@@ -100,6 +102,7 @@ return {
 ["arch.non_primary_arch_msg"] = "Rilevato: %s\nAlcune o tutte le patch della libreria potrebbero non funzionare.",
 ["arch.unknown_version_msg"] = "Versione del gioco sconosciuta. Riprova dopo il caricamento del gioco.",
 ["arch.no_base_data_msg"] = "Errore interno: nessun dato base disponibile per questa architettura.",
+["arch.newer_version_msg"] = "La tua versione del gioco (%s) è più recente degli ultimi dati conosciuti (%s).\nVOID userà i dati disponibili più vicini, alcune funzionalità potrebbero non funzionare correttamente.",
 
 -- ── core/engines/scheduler.lua ────────────────────────────────────────────────
 ["scheduler.task_crashed"] = "Avviso Scheduler: Attività crashata -> %s",
@@ -122,11 +125,83 @@ return {
 ["tabs.team"] = "MENU SQUADRA",
 ["tabs.event"] = "MENU EVENTI",
 ["tabs.creative"] = "MENU CREATIVO",
+
+-- ── modules/tabs/creative.lua ─────────────────────────────────────────────────
+-- any_theme_objects
+["creative.any_theme_objects.title"]   = "Oggetti di Qualsiasi Tema",
+["creative.any_theme_objects.desc"]    = "Mostra tutti gli oggetti nell'editor indipendentemente dal tema selezionato.",
+["creative.any_theme_objects.applied"]  = "Filtro del tema rimosso da %s gruppo/i di oggetti.",
+["creative.any_theme_objects.reverted"] = "Filtro del tema ripristinato su %s gruppo/i di oggetti.",
+-- show_hidden_objects
+["creative.show_hidden_objects.title"]   = "Mostra Oggetti Nascosti",
+["creative.show_hidden_objects.desc"]    = "Mostra tutti gli oggetti nascosti (solo per test) nell'editor.",
+["creative.show_hidden_objects.applied"]  = "%s oggetto/i nascosto/i sbloccato/i.",
+["creative.show_hidden_objects.reverted"] = "%s oggetto/i nascosto/i ripristinato/i.",
+-- shared errors
+["creative.obj_anchor_not_found"] = "Impossibile trovare l'ancora del gruppo di oggetti in memoria.",
+["creative.obj_no_cache"]         = "Nulla da ripristinare: attivalo prima.",
+["creative.obj_no_slots"]         = "Nessuno slot del gruppo di oggetti trovato da elaborare.",
+["creative.obj_alloc_failed"]     = "Impossibile allocare memoria per gli oggetti uniti.",
+["creative.obj_already_applied"]  = "Già attivato: disattivalo prima.",
+-- copy_any
+["creative.copy_any.title"]        = "Copia Qualsiasi Pista",
+["creative.copy_any.desc"]         = "Ti permette di copiare qualsiasi pista scaricata, non solo quelle che hai creato.",
+["creative.copy_any.applied"]      = "%s pista/e scaricata/e patchata/e.",
+-- track_editor
+["creative.track_editor.title"]    = "Editor Piste",
+["creative.track_editor.desc"]     = "Seleziona una pista personalizzata per verificarla, impostarne la lunghezza o rinominarla.",
+["creative.track_editor.loading"]  = "Caricamento elenco piste…",
+["creative.track_editor.select"]   = "Scegli una pista",
+["creative.track_editor.no_tracks"] = "Nessuna pista personalizzata trovata in memoria.",
+-- error keys (returned from ops)
+["creative.tracks_not_found"]      = "Impossibile trovare l'elenco delle piste personalizzate in memoria.",
+["creative.invalid_track"]         = "Riferimento pista non valido.",
+["creative.copy_any_not_found"]    = "Elenco delle piste scaricate non trovato in memoria.",
+["creative.copy_any_no_id"]        = "Impossibile risolvere l'ID del giocatore.",
+["creative.rename_empty"]          = "Il nome non può essere vuoto.",
+["creative.rename_resolve_failed"] = "Impossibile risolvere il puntatore del nome della pista.",
+-- track status
+["creative.track_status.verified"]     = "Verificata",
+["creative.track_status.not_verified"] = "Non verificata",
+["creative.track_length"]              = "Lunghezza: %sm",
+-- actions
+["creative.action.select"]     = "Cosa vuoi fare?",
+["creative.action.verify"]     = "Verifica pista",
+["creative.action.set_length"] = "Imposta lunghezza",
+["creative.action.rename"]     = "Rinomina",
+-- verify
+["creative.verify.applied"]          = "%s è ora verificata.",
+["creative.verify.already_verified"] = "Questa pista è già verificata.",
+-- set_length
+["creative.set_length.title"]   = "Imposta Lunghezza Pista",
+["creative.set_length.prompt"]  = "Lunghezza in metri (attuale: %s)",
+["creative.set_length.applied"] = "Lunghezza di %s impostata a %sm.",
+["creative.set_length.invalid"] = "Inserisci un numero valido maggiore di 0.",
+-- rename
+["creative.rename.title"]   = "Rinomina Pista",
+["creative.rename.prompt"]  = "Nuovo nome",
+["creative.rename.applied"] = "Pista rinominata in \"%s\".",
+["creative.rename.empty"]   = "Il nome non può essere vuoto.",
+
+
 ["tabs.shop"] = "MENU NEGOZIO",
 ["tabs.other"] = "MENU ALTRO",
 ["tabs.sep_script"] = "MENU SCRIPT",
 ["tabs.settings"] = "IMPOSTAZIONI",
 ["tabs.about"] = "INFO",
+["tabs.console"] = "CONSOLE",
+
+-- ── modules/tabs/console.lua ─────────────────────────────────────────────────
+["console.desc"] = "Rapporti di crash, errori dello scheduler e tutte le voci di log. Tocca Copia tutto per condividere.",
+["console.copy_all"] = "Copia tutto",
+["console.refresh"] = "Aggiorna",
+["console.clear"] = "Pulisci",
+["console.copied"] = "Log copiati negli appunti",
+["console.cleared"] = "Console pulita",
+["console.empty"] = "Nessun crash o avviso registrato.",
+["console.crashes_header"] = "CRASH ED ERRORI (%d)",
+["console.logs_header"] = "LOG (%d)",
+["console.unavailable"] = "Gestore dei crash non disponibile.",
 
 ["registry.module_load_failed"] = "Caricamento modulo fallito. Controlla i log per i dettagli.",
 ["registry.module_runtime_error"] = "Errore runtime: %s",
@@ -176,6 +251,51 @@ return {
 ["settings.clear_memory.desc"] = "Cancella tutta la memoria salvata da VOID senza dover riavviare il gioco.",
 
 ["settings.section_ui_customizations"] = "Personalizzazioni UI",
+["settings.section_log_management"]       = "Gestione Log",
+["settings.rate_limit_msg"]               = "Attendi ancora %s secondo/i.",
+["settings.send_log.title"]               = "Carica Log su Cloud",
+["settings.send_log.desc"]                = "Carica il file di log di debug corrente sul cloud per la revisione dello sviluppatore.",
+["settings.send_log.sending"]             = "Caricamento log...",
+["settings.send_log.caption"]             = "Log di debug VOID",
+["settings.send_log.empty_title"]         = "Nulla da Caricare",
+["settings.send_log.empty_msg"]           = "Il file di log è vuoto. Prova prima a riprodurre il problema, poi carica.",
+["settings.send_log.success_title"]       = "Log Caricato",
+["settings.send_log.success_msg"]         = "Il tuo file di log è stato salvato sul cloud.\n\nSe stai riscontrando un problema, contatta lo sviluppatore e potrà esaminarlo.",
+["settings.send_log.failed_title"]        = "Caricamento Fallito",
+["settings.send_log.failed_msg"]          = "Impossibile caricare il file di log (HTTP %s).\n\nControlla la connessione internet e riprova.",
+["settings.clear_log.title"]              = "Cancella File di Log",
+["settings.clear_log.desc"]               = "Elimina definitivamente il file di log di debug dal disco.",
+["settings.clear_log.success_title"]      = "Log Cancellato",
+["settings.clear_log.success_msg"]        = "Il file di log è stato eliminato dal disco.",
+["settings.clear_log.no_path_msg"]        = "Percorso log non disponibile.",
+["settings.clear_log.failed_msg"]         = "Cancellazione del log fallita: %s",
+["settings.section_feedback"]             = "Feedback",
+["settings.feedback.title"]               = "Invia Feedback",
+["settings.feedback.desc"]                = "Segnala un bug, richiedi una funzionalità, o semplicemente di' qualcosa.",
+["settings.feedback.pick_category"]       = "Che tipo di feedback?",
+["settings.feedback.pick_category_desc"]  = "Scegli la categoria più adatta.",
+["settings.feedback.cat_bug"]             = "Segnalazione Bug",
+["settings.feedback.cat_feature"]         = "Richiesta Funzionalità",
+["settings.feedback.cat_general"]         = "Generale",
+["settings.feedback.write_title"]         = "Scrivi il tuo feedback",
+["settings.feedback.write_hint"]          = "Digita il tuo messaggio qui...",
+["settings.feedback.too_short_title"]     = "Troppo Corto",
+["settings.feedback.too_short_msg"]       = "Scrivi almeno alcune parole così lo sviluppatore può capire il problema.",
+["settings.feedback.sending"]             = "Invio feedback...",
+["settings.feedback.success_title"]       = "Feedback Inviato",
+["settings.feedback.success_msg"]         = "Grazie! Il tuo feedback è stato ricevuto. Lo sviluppatore lo esaminerà.",
+["settings.feedback.failed_title"]        = "Invio Fallito",
+["settings.feedback.failed_msg"]          = "Impossibile inviare il feedback. Controlla la connessione internet e riprova.",
+["settings.feedback.field_version"]       = "Versione",
+["settings.feedback.field_arch"]          = "Arch",
+["settings.section_console"] = "Console",
+["settings.console_crash_cap.title"] = "Dimensione Buffer Crash",
+["settings.console_crash_cap.desc"]  = "Numero massimo di voci di crash mantenute nella console. Le più vecchie vengono eliminate per prime quando il buffer è pieno.",
+["settings.console_crash_cap.slider"] = "Max crash",
+["settings.console_log_cap.title"] = "Dimensione Buffer Log",
+["settings.console_log_cap.desc"]  = "Numero massimo di righe di log mantenute nella console. Valori più alti usano più memoria.",
+["settings.console_log_cap.slider"] = "Max righe di log",
+["settings.console_cap_applied"] = "Limite buffer impostato a %s",
 ["settings.theme_store.title"] = "Negozio Temi",
 ["settings.theme_store.desc"] = "Sfoglia e installa i temi della community Void",
 ["settings.theme_store.unreachable_msg"] = "Impossibile raggiungere il negozio temi:\n%s",
@@ -249,48 +369,21 @@ return {
 ["settings.win_height.desc"] = "Altezza dell'area di contenuto scrollabile (%d – %d dp)",
 ["settings.slider.height"] = "Altezza",
 
+["settings.icon_style.title"] = "Stile Icona",
+["settings.icon_style.desc"] = "Come appare l'icona del menu minimizzato",
+["settings.icon_style.pill"] = "Pillola (Predefinito)",
+["settings.icon_style.circle"] = "Cerchio",
+["settings.icon_style.square"] = "Quadrato Arrotondato",
+["settings.icon_style.changed"] = "Stile icona impostato su: %s",
+
 -- ── modules/tabs/about.lua ────────────────────────────────────────────────────
 ["about.about_script.title"] = "Informazioni Script",
 ["about.about_script.desc"] = "Uno script di manipolazione della memoria potente e altamente ottimizzato costruito per Hill Climb Racing 2 sull'ambiente Pivot personalizzato.\n\nScarica Pivot:\nhttps://github.com/vekendianorg/pivot/releases/",
 ["about.script_owner.title"] = "Proprietario Script",
-["about.script_owner.desc"] = "- Vekendian Organization (github: vekendianorg)",
 ["about.script_dev.title"] = "Sviluppatore Script",
-["about.script_dev.desc"] = [[
-- Lazor (github: lazor-git)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-]],
 ["about.script_translator.title"] = "Traduttore Script",
-["about.script_translator.desc"] = [[
-- English: Lazor (github: lazor-git)
-- Bahasa Indonesia: Lazor (github: lazor-git)
-- Español: Jayy2k (github: Jayy2k)
-- Deutsch: Erik (github: eomthix)
-- Русский: Winter Lotus(github: Ohranik1Pitorochki; discord:nikolaypg67)
-- Thai: NaiArt777 (github: artphakkapol-hub)
-- বাংলা: AMR (github: amr-gt)
-- العربية: AMR (github: amr-gt)
-- اردو: AMR (github: amr-gt)
-- Français: AMR (github: amr-gt)
-- Українська: AMR (github: amr-gt)
-- Türkçe: AMR (github: amr-gt)
-- Português (Brasil): AMR (github: amr-gt)
-- हिन्दी: AMR (github: amr-gt)
-- Italiano: AMR (github: amr-gt)
-]],
 ["about.credits.title"] = "Crediti",
-["about.credits.desc"] = [[
-- Lazor (github: lazor-git)
-- Lan9118 (discord: lan9118)
-- AMR (github: amr-gt)
-- Erik (github: eomthix)
-- Sr Romero
-- Profinoobru
-]],
 ["about.special_thanks.title"] = "Ringraziamenti Speciali",
-["about.special_thanks.desc"] = [[
-- Aryan/KokushiboModz
-]],
 
 -- ── modules/tabs/other.lua ────────────────────────────────────────────────────
 ["other.debug_mode.title"] = "Modalità Debug",
@@ -306,6 +399,10 @@ return {
 ["other.resolution_offset.desc"] = "Regola l'offset di larghezza e altezza del gioco (default 0x0), ideale per piccole risoluzioni su grandi schermi.",
 ["other.resolution_offset.applied"] = "Offset risoluzione impostato su %dx%d",
 ["other.glsurface_not_found"] = "GLSurfaceView non trovato",
+["other.aspect_ratio.title"] = "Cambia Proporzioni",
+["other.aspect_ratio.desc"] = "Forza un rapporto di aspetto dello schermo (applica una risoluzione corrispondente a 1080p di altezza).",
+["other.aspect_ratio.options"] = {"16:9", "18:9", "19.5:9", "20:9", "21:9", "4:3"},
+["other.aspect_ratio.applied"] = "Rapporto di aspetto impostato a %s",
 
 -- ── modules/tabs/shop.lua ─────────────────────────────────────────────────────
 ["shop.free_chest.title"] = "Baule Gratuito",
@@ -344,7 +441,7 @@ return {
 ["player.hide_flag.desc"] = "Nascondi la bandiera del tuo giocatore in gara",
 ["player.hide_flag.enabled"] = "Nascondi Bandiera Attivato",
 ["player.hide_flag.disabled"] = "Nascondi Bandiera Disattivato",
-["vehicle.fuel.title"] = "Carburante",
+["vehicle.fuel.title"] = "Imposta Carburante",
 ["vehicle.fuel.desc"] = "Blocca il carburante a un valore costante durante la gara (0.0 – 100.0)",
 ["vehicle.fuel.prompt_amount"] = "Quantità di carburante (0 – 100)",
 ["vehicle.fuel.prompt_reset"] = "Ripristina",
@@ -352,6 +449,10 @@ return {
 ["vehicle.fuel.applied"] = "Carburante bloccato a %s",
 ["vehicle.fuel.reset"] = "Carburante ripristinato",
 ["vehicle.fuel.not_applied"] = "Carburante non attivo",
+["player.speed_hack.title"]     = "Hack Velocità",
+["player.speed_hack.desc"]      = "Modifica il moltiplicatore di velocità interno per una sensazione di gioco più veloce.",
+["player.speed_hack.not_found"] = "Valore di velocità non trovato: inizia prima una gara.",
+["player.speed_hack.no_cache"]  = "Nulla da ripristinare: attivalo prima.",
 ["player.zoom.title"] = "Regola Zoom",
 ["player.zoom.desc"] = "Regola quanto è vicina o lontana la tua fotocamera",
 ["player.slider.min"] = "Min",
@@ -362,14 +463,20 @@ return {
 ["player.slider.y"] = "Y",
 
 -- ── modules/tabs/adventure.lua ────────────────────────────────────────────────
-["adventure.auto_adventure_chests.title"] = "Bauli Avventura Automatici (instabile)",
+["adventure.auto_adventure_chests.title"] = "Bauli Avventura Automatici",
 ["adventure.auto_adventure_chests.desc"] = "Aumenta automaticamente il livello dei tuoi bauli avventura",
 ["adventure.auto_adventure_chests.none_found"] = "Nessun baule avventura trovato",
 ["adventure.auto_adventure_chests.done"] = "Fatto",
 
+["adventure.free_adventure_shop.title"]          = "Negozio Avventura Gratuito",
+["adventure.free_adventure_shop.desc"]           = "Rendi gratuiti tutti gli oggetti del Negozio Avventura, nessun requisito di rango.",
+["adventure.free_adventure_shop.applied"]        = "Tutti gli oggetti del negozio sono ora gratuiti.",
+["adventure.free_adventure_shop.reverted"]       = "Prezzi originali del negozio ripristinati.",
+["adventure.free_adventure_shop.resolve_failed"] = "Impossibile trovare il Negozio Avventura in memoria: apri prima il negozio.",
+
 ["adventure.set_distance.title"] = "Imposta Distanza",
 ["adventure.set_distance.desc"] = "Imposta la distanza della tua gara avventura su un valore personalizzato. Devi essere in una gara attiva. Una distanza maggiore può dare più stelle. Massimo stelle a 5000m. (Non è una funzione di teletrasporto)",
-["adventure.set_distance.loop_active_title"] = "Imposta Distanza — Ciclo Attivo",
+["adventure.set_distance.loop_active_title"] = "Imposta Distanza: Ciclo Attivo",
 ["adventure.set_distance.loop_active_msg"] = "Il ciclo di distanza è attualmente in esecuzione.\nCosa vuoi fare?",
 ["adventure.set_distance.stop_loop"] = "Ferma Ciclo",
 ["adventure.set_distance.keep_running"] = "Continua",
@@ -384,24 +491,34 @@ return {
 ["adventure.set_distance.start_race_first"] = "Inizia prima una gara",
 ["adventure.set_distance.applied"] = "Distanza impostata: %sm",
 ["adventure.set_distance.loop_stopped"] = "Ciclo Imposta Distanza fermato.",
-["adventure.set_distance.loop_running"] = "Ciclo distanza in esecuzione — tocca Imposta Distanza per fermare",
+["adventure.set_distance.loop_running"] = "Ciclo distanza in esecuzione, tocca Imposta Distanza per fermare",
 ["adventure.set_distance.loop_warn_title"] = "Avviso Ciclo Distanza",
 ["adventure.set_distance.loop_warn_msg"] = "La modalità ciclo scrive in memoria ogni %s ms.\n\nUsare un intervallo breve può aumentare instabilità, glitch visivi o crash del gioco.\n\nContinuare comunque?",
-
+    
 -- ── modules/tabs/cups.lua ─────────────────────────────────────────────────────
 ["cups.adjust_countdown.title"] = "Regola Conto alla Rovescia",
 ["cups.adjust_countdown.desc"] = "Regola il conto alla rovescia prima di iniziare la gara",
 ["cups.slider.seconds"] = "Secondi",
 ["cups.adjust_countdown.applied"] = "Conto alla rovescia regolato a %ss",
+
 ["cups.auto_win.title"] = "Vittoria Automatica",
 ["cups.auto_win.desc"] = "Vinci automaticamente qualunque sia il risultato della tua gara",
+
 ["cups.force_boss.title"] = "Forza Boss",
 ["cups.force_boss.desc"] = "Il boss appare sempre",
+
 ["cups.force_cup.title"] = "Forza Coppa",
 ["cups.force_cup.desc"] = "Forza una singola coppa",
 ["cups.force_cup.not_found"] = "Forza Coppa non trovata. Riprova più tardi.",
 ["cups.force_cup.enabled"] = "Forza Coppa Attivato",
 ["cups.force_cup.disabled"] = "Forza Coppa Disattivato",
+
+["cups.force_frenzy_mode.title"] = "Forza Modalità Frenzy",
+["cups.force_frenzy_mode.desc"] = "Forza la modalità coppa a Frenzy",
+["cups.force_frenzy_mode.not_found"] = "Modalità Frenzy forzata non trovata. Riprova più tardi.",
+["cups.force_frenzy_mode.enabled"] = "Forza Modalità Frenzy Attivato",
+["cups.force_frenzy_mode.disabled"] = "Forza Modalità Frenzy Disattivato",
+
 ["cups.set_time.title"] = "Imposta Tempo",
 ["cups.set_time.desc"] = "Imposta il tempo della tua gara (non congelerà il tempo per sicurezza). Devi essere in una gara di coppa attiva. (es. 1:09.069, 7.284)",
 ["cups.set_time.hint"] = "Tempo (1:09.069 o 7.284)",
@@ -410,6 +527,7 @@ return {
 ["cups.set_time.not_in_cup"] = "Vai alla scheda Coppe e inizia prima una gara",
 ["cups.set_time.start_race_first"] = "Inizia prima una gara",
 ["cups.set_time.applied"] = "Tempo impostato su %s",
+
 ["cups.unlimited_tasks.title"] = "Attività Illimitate",
 ["cups.unlimited_tasks.desc"] = "Blocca tutte le attività come completate e sempre richiedibili. Richiedi ricompense ripetutamente.",
 ["cups.unlimited_tasks.resolve_failed"] = "Impossibile risolvere l'elenco delle attività",
@@ -417,6 +535,7 @@ return {
 ["cups.unlimited_tasks.enabled"] = "Attività Illimitate Attivate",
 ["cups.unlimited_tasks.disabled"] = "Attività Illimitate Disattivate",
 ["cups.unlimited_tasks.none_to_freeze"] = "Nessuna attività da bloccare",
+
 ["cups.rank_points_bonus.title"] = "+498 Punti Classifica",
 ["cups.rank_points_bonus.desc"] = "Fai in modo che tutte le attività della lega ti diano 498 punti invece di 200, e rimuovi anche altre ricompense.",
 ["cups.rank_points_bonus.none_found"] = "Nessuna attività lega trovata",
@@ -425,14 +544,106 @@ return {
 ["cups.rank_points_bonus.nothing_to_restore"] = "Niente da ripristinare",
 ["cups.rank_points_bonus.restored"] = "Ripristinato: %s",
 
+-- ── modules/tabs/team.lua ─────────────────────────────────────────────────────
+["team.coming_soon.title"] = "Modalità Squadra",
+["team.coming_soon.desc"] = "Le funzionalità della squadra sono ancora in sviluppo e non sono ancora disponibili. Ricontrolla in un futuro aggiornamento.",
+["team.coming_soon.status"] = "Prossimamente",
+
+["team.team_size_bypass.title"] = "Bypass Dimensione Squadra",
+["team.team_size_bypass.desc"] = "Ti permette di iniziare il matchmaking senza dover avere 5 membri nella tua squadra",
+["team.team_size_bypass.enabled"] = "Bypass Dimensione Squadra attivato, inizia il matchmaking con qualsiasi dimensione di squadra",
+["team.team_size_bypass.disabled"] = "Bypass Dimensione Squadra disattivato, requisito originale di dimensione squadra ripristinato",
+["team.team_size_bypass.resolve_failed"] = "Unisciti prima a una squadra",
+["team.team_size_bypass.nebula_unavailable"] = "Nebula SDK non disponibile, funzionalità disattivata",
+
+["team.ep.resolve_failed"] = "Nessun evento squadra attivo al momento",
+["team.ep.failed"] = "Patch fallita, controlla il log della console",
+["team.ep.nebula_unavailable"] = "Nebula SDK non disponibile, funzionalità disattivata",
+["team.ep.no_vehicles"] = "Impossibile leggere l'elenco dei veicoli",
+["team.ep.invalid"] = "Inserisci un numero di 1 o più",
+["team.unlimited_vehicle_usage.title"] = "Uso Illimitato dei Veicoli",
+["team.unlimited_vehicle_usage.desc"] = "Rimuove i limiti di conteggio corse per veicolo nell'evento squadra attivo (scrive -1, l'esperimento illimitato); disattiva per ripristinare i limiti originali",
+["team.unlimited_vehicle_usage.applied"] = "Limiti di utilizzo dei veicoli rimossi",
+["team.unlimited_vehicle_usage.reverted"] = "Limiti di utilizzo originali ripristinati",
+["team.allow_all_vehicles.title"] = "Consenti Tutti i Veicoli",
+["team.allow_all_vehicles.desc"] = "Cancella l'elenco dei veicoli vietati e consenti a ogni veicolo di entrare nell'evento squadra attivo; disattiva per ripristinare le restrizioni originali",
+["team.allow_all_vehicles.applied"] = "Tutti i veicoli consentiti nell'evento",
+["team.allow_all_vehicles.reverted"] = "Restrizioni originali dei veicoli ripristinate",
+["team.allow_all_vehicles.reverted"] = "Restrizioni originali dei veicoli ripristinate",
+["team.free_entry_fee.title"] = "Tassa di Ingresso Gratuita",
+["team.free_entry_fee.desc"] = "Imposta la tassa di ingresso dell'evento squadra attivo a 0 biglietti; disattiva per ripristinare la tassa originale",
+["team.free_entry_fee.applied"] = "L'ingresso all'evento è ora gratuito",
+["team.free_entry_fee.reverted"] = "Tassa di ingresso originale ripristinata",
+["team.free_entry_fee.reverted"] = "Tassa di ingresso originale ripristinata",
+["team.vehicle_bonuses.title"] = "Bonus per Tutti i Veicoli",
+["team.vehicle_bonuses.desc"] = "Inserisce ogni veicolo nel pool di bonus dell'evento squadra attivo; disattiva per ripristinare il pool originale",
+["team.vehicle_bonuses.applied"] = "Il pool di bonus ora copre ogni veicolo",
+["team.vehicle_bonuses.reverted"] = "Pool di bonus originale ripristinato",
+["team.custom_participants.title"] = "Partecipanti Personalizzati",
+["team.custom_participants.desc"] = "Imposta il numero massimo di partecipanti alla sessione dell'evento squadra attivo (da 1 a 2147483647)",
+["team.custom_participants.hint"] = "Max partecipanti",
+["team.custom_participants.invalid"] = "Inserisci un numero di 1 o più",
+["team.custom_participants.warn_big"] = "Valore enorme, la sessione potrebbe non riempirsi o desincronizzarsi",
+["team.custom_participants.applied"] = "Numero massimo di partecipanti impostato",
+["team.custom_duration.title"] = "Durata Sessione Personalizzata",
+["team.custom_duration.desc"] = "Imposta la durata della sessione dell'evento squadra attivo in secondi (da 1 a 2147483647)",
+["team.custom_duration.hint"] = "Durata (secondi)",
+["team.custom_duration.invalid"] = "Inserisci un numero di 1 o più",
+["team.custom_duration.warn_big"] = "Oltre un'ora, la sessione praticamente non finisce mai",
+["team.custom_duration.applied"] = "Durata sessione impostata",
+["team.instant_ticket_refill.title"] = "Ricarica Biglietti Istantanea",
+["team.instant_ticket_refill.desc"] = "Azzera il tempo e il costo di ricarica dei biglietti dell'evento squadra attivo; disattiva per ripristinare i valori originali",
+["team.instant_ticket_refill.applied"] = "I biglietti dell'evento ora si ricaricano istantaneamente e gratuitamente",
+["team.instant_ticket_refill.reverted"] = "Ricarica biglietti originale ripristinata",
+
+
 -- ── modules/tabs/event.lua ────────────────────────────────────────────────────
 ["event.patch_rewards.title"] = "Patch Ricompense Eventi",
 ["event.patch_rewards.desc"] = "Applica patch alle ricompense dell'evento pubblico attuale con quelle personalizzate fornite da VOID (richiede riavvio del gioco)",
 ["event.restore_events.title"] = "Ripristina Ricompense Eventi",
 ["event.restore_events.desc"] = "Elimina i JSON degli eventi modificati per forzare il ripristino del server di gioco (richiede riavvio del gioco)",
 
-["event.checking_permissions"] = "Controllo permessi ambiente...",
+["event.ep.resolve_failed"] = "Nessun evento pubblico attivo al momento",
+["event.ep.failed"] = "Patch fallita, controlla il log della console",
+["event.ep.nebula_unavailable"] = "Nebula SDK non disponibile, funzionalità disattivata",
+["event.ep.no_vehicles"] = "Impossibile leggere l'elenco dei veicoli",
+["event.ep.invalid"] = "Inserisci un numero di 1 o più",
+["event.unlimited_vehicle_usage.title"] = "Uso Illimitato dei Veicoli",
+["event.unlimited_vehicle_usage.desc"] = "Rimuove i limiti di conteggio corse per veicolo nell'evento pubblico attivo (scrive -1, l'esperimento illimitato); disattiva per ripristinare i limiti originali",
+["event.unlimited_vehicle_usage.applied"] = "Limiti di utilizzo dei veicoli rimossi",
+["event.unlimited_vehicle_usage.reverted"] = "Limiti di utilizzo originali ripristinati",
+["event.allow_all_vehicles.title"] = "Consenti Tutti i Veicoli",
+["event.allow_all_vehicles.desc"] = "Cancella l'elenco dei veicoli vietati e consenti a ogni veicolo di entrare nell'evento pubblico attivo; disattiva per ripristinare le restrizioni originali",
+["event.allow_all_vehicles.applied"] = "Tutti i veicoli consentiti nell'evento",
+["event.allow_all_vehicles.reverted"] = "Restrizioni originali dei veicoli ripristinate",
+["event.free_entry_fee.title"] = "Tassa di Ingresso Gratuita",
+["event.free_entry_fee.desc"] = "Imposta la tassa di ingresso dell'evento pubblico attivo a 0 biglietti; disattiva per ripristinare la tassa originale",
+["event.free_entry_fee.applied"] = "L'ingresso all'evento è ora gratuito",
+["event.free_entry_fee.reverted"] = "Tassa di ingresso originale ripristinata",
+["event.vehicle_bonuses.title"] = "Bonus per Tutti i Veicoli",
+["event.vehicle_bonuses.desc"] = "Inserisce ogni veicolo nel pool di bonus dell'evento pubblico attivo; disattiva per ripristinare il pool originale",
+["event.vehicle_bonuses.applied"] = "Il pool di bonus ora copre ogni veicolo",
+["event.vehicle_bonuses.reverted"] = "Pool di bonus originale ripristinato",
+["event.custom_participants.title"] = "Partecipanti Personalizzati",
+["event.custom_participants.desc"] = "Imposta il numero massimo di partecipanti alla sessione dell'evento pubblico attivo (da 1 a 2147483647)",
+["event.custom_participants.hint"] = "Max partecipanti",
+["event.custom_participants.invalid"] = "Inserisci un numero di 1 o più",
+["event.custom_participants.warn_big"] = "Valore enorme, la sessione potrebbe non riempirsi o desincronizzarsi",
+["event.custom_participants.applied"] = "Numero massimo di partecipanti impostato",
+["event.custom_duration.title"] = "Durata Sessione Personalizzata",
+["event.custom_duration.desc"] = "Imposta la durata della sessione dell'evento pubblico attivo in secondi (da 1 a 2147483647)",
+["event.custom_duration.hint"] = "Durata (secondi)",
+["event.custom_duration.invalid"] = "Inserisci un numero di 1 o più",
+["event.custom_duration.warn_big"] = "Oltre un'ora, la sessione praticamente non finisce mai",
+["event.custom_duration.applied"] = "Durata sessione impostata",
+["event.instant_ticket_refill.title"] = "Ricarica Biglietti Istantanea",
+["event.instant_ticket_refill.desc"] = "Azzera il tempo e il costo di ricarica dei biglietti dell'evento pubblico attivo; disattiva per ripristinare i valori originali",
+["event.instant_ticket_refill.applied"] = "I biglietti dell'evento ora si ricaricano istantaneamente e gratuitamente",
+["event.instant_ticket_refill.reverted"] = "Ricarica biglietti originale ripristinata",
+
+["event.checking_permissions"] = "Verifica permessi ambiente...",
 ["event.scanning_files"] = "Scansione file attivi...",
+["event.resolving_event_names"] = "Lettura nomi eventi...",
 ["event.decode_rewards_failed"] = "Decodifica del JSON delle ricompense fallita",
 ["event.workspace_creation_failed"] = "FATALE: Creazione workspace fallita: %s",
 ["event.workspace_creation_failed_dialog"] = "FATALE: Impossibile creare la directory del workspace.\n%s",
@@ -494,17 +705,34 @@ return {
 ["account.change_gp.higher_value"] = "Aumenta il valore",
 ["account.change_gp.applied"] = "La Potenza del Garage è stata cambiata in %s",
 
+["account.change_ws.title"]                  = "Cambia Striscia di Vittorie",
+["account.change_ws.desc"]                   = "Imposta i valori della striscia di vittorie attuale e migliore.",
+["account.change_ws.prompt_best"]            = "Striscia di vittorie migliore",
+["account.change_ws.prompt_current"]         = "Striscia di vittorie attuale",
+["account.change_ws.current_over_best_title"] = "Input Non Valido",
+["account.change_ws.current_over_best_msg"]  = "La striscia di vittorie attuale non può essere maggiore di quella migliore.",
+["account.change_ws.resolve_failed"]         = "Impossibile risolvere i puntatori della striscia di vittorie: assicurati di essere in gioco.",
+["account.change_ws.applied"]                = "Striscia di vittorie impostata. Attuale: %s  Migliore: %s",
+
 ["account.fake_unlock.title"] = "Sblocco Falso",
 ["account.fake_unlock.desc"] = "Sblocca tutte le personalizzazioni temporaneamente",
 ["account.fake_vip.title"] = "VIP Falso",
 ["account.fake_vip.desc"] = "Attiva/disattiva lo stato di abbonamento VIP localmente",
 
+["account.ad_free.title"] = "Senza Pubblicità",
+["account.ad_free.desc"] = "Attiva/disattiva Senza Pubblicità sul tuo account",
+["account.ad_free.enabled"] = "Senza Pubblicità attivato",
+["account.ad_free.disabled"] = "Senza Pubblicità disattivato",
+["account.ad_free.failed"] = "Impossibile impostare adFree, il gioco ha superato la schermata di caricamento?",
+["account.ad_free.nebula_unavailable"] = "Nebula SDK non disponibile, funzionalità disattivata",
+
 ["account.fake_rank.title"] = "Classifica Falsa",
-["account.fake_rank.desc"] = "Imposta la tua classifica a leggendaria falsa istantaneamente",
+["account.fake_rank.desc"] = "Imposta un valore di classifica (falso) personalizzato istantaneamente",
+["account.fake_rank.hint"] = "Inserisci il valore di classifica",
 ["account.fake_rank.race_warn_title"] = "Gara Richiesta",
 ["account.fake_rank.race_warn_msg"] = "La Classifica Falsa dovrebbe essere applicata solo mentre una gara di Coppe è attivamente in esecuzione.\n\nApplicarla al di fuori di una gara potrebbe comportare un shadow ban.\n\nAssicurati di essere già all'interno di una gara di Coppe prima di continuare.\n\nContinuare comunque?",
 ["account.fake_rank.continue_button"] = "Continua",
-["account.fake_rank.applied"] = "Classifica falsa iniettata",
+["account.fake_rank.applied"] = "Classifica falsa impostata a %s",
 ["account.fake_rank.not_in_cups"] = "Inizia prima una gara",
 
 -- ── modules/tabs/vehicle.lua ──────────────────────────────────────────────────
@@ -517,11 +745,14 @@ return {
 ["vehicle.parts_modifier.title"] = "Modificatore Parti",
 ["vehicle.parts_modifier.desc"] = "Modifica i livelli delle parti di tuning in gara attiva",
 ["vehicle.parts_modifier.select"] = "Seleziona una parte",
-["vehicle.parts_modifier.prompt_level"] = "Livello: ",
-["vehicle.parts_modifier.prompt_digit0"] = "Cifra: ",
-["vehicle.parts_modifier.prompt_digit1"] = "Coda: ",
-["vehicle.parts_modifier.prompt_reset"] = "Ripristina",
+["vehicle.parts_modifier.select_stat"] = "Seleziona la statistica da modificare",
+["vehicle.parts_modifier.prompt_level"] = "Livello (quante cifre centrali, 1–9)",
+["vehicle.parts_modifier.prompt_digit0"] = "Cifra centrale, ripetuta Livello volte (0–9)",
+["vehicle.parts_modifier.prompt_digit1"] = "Ultima cifra (1–9)  →  costruisce: 1.<centrale…><ultima>",
+["vehicle.parts_modifier.prompt_reset"] = "Ripristina all'originale",
 ["vehicle.parts_modifier.invalid"] = "Valore livello non valido",
+["vehicle.parts_modifier.status_cached"] = "attivo: %d indirizzi in cache",
+["vehicle.parts_modifier.status_none"]   = "non applicato",
 ["vehicle.parts_modifier.not_found"] = "Parte non trovata in memoria",
 ["vehicle.parts_modifier.applied"] = "%s impostato al livello %s",
 ["vehicle.parts_modifier.reset"] = "%s ripristinato",
@@ -536,6 +767,7 @@ return {
 ["vehicle.max_vehicles.desc"] = "Massimizza istantaneamente i livelli di potenziamento di tutti i veicoli sbloccati",
 ["vehicle.max_vehicles.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
 ["vehicle.max_vehicles.all_maxed"] = "Tutti i veicoli massimizzati",
+["vehicle.max_vehicles.applied"] = "Massimizzati %d di %d potenziamenti su %d veicoli",
 ["vehicle.max_vehicles.failed"] = "Massimizzazione veicoli fallita",
 
 ["vehicle.max_mastery.title"] = "Maestria Massima",
@@ -548,10 +780,125 @@ return {
 ["vehicle.max_parts.no_vehicles"] = "Impossibile risolvere l'elenco veicoli",
 ["vehicle.max_parts.all_maxed"] = "Tutte le parti massimizzate",
 ["vehicle.max_parts.failed"] = "Massimizzazione parti fallita",
+["vehicle.max_parts.applied"] = "Massimizzate %d di %d parti su %d veicoli",
+
+-- ── Tuning parts editors (Nebula) ─────────────────────────────────────
+["vehicle.tuning_equipped.title"] = "Parti Equipaggiate",
+["vehicle.tuning_equipped.desc"] = "Modifica quali parti di tuning sono equipaggiate su un veicolo.",
+["vehicle.tuning_equipped.pick_vehicle"] = "Scegli un veicolo",
+["vehicle.tuning_equipped.pick_vehicle_desc"] = "Scegli il veicolo da modificare",
+["vehicle.tuning_equipped.no_parts"] = "Questo veicolo non ha ancora parti di tuning",
+["vehicle.tuning_equipped.hint"] = "Tocca uno slot per cambiarlo o rimuoverlo. Le modifiche si sincronizzano anche con il preset attivo. Chiudi l'elenco al termine.",
+["vehicle.tuning_equipped.failed"] = "Modifica delle parti equipaggiate fallita",
+
+["vehicle.tuning_presets.title"] = "Preset Parti",
+["vehicle.tuning_presets.desc"] = "Modifica, attiva o riempi i preset delle parti di tuning per veicolo.",
+["vehicle.tuning_presets.pick_vehicle"] = "Scegli un veicolo",
+["vehicle.tuning_presets.pick_vehicle_desc"] = "Scegli il veicolo da modificare",
+["vehicle.tuning_presets.no_presets"] = "Questo veicolo non ha preset",
+["vehicle.tuning_presets.preset_label"] = "Preset %d: %s",
+["vehicle.tuning_presets.preset_empty"] = "(vuoto)",
+["vehicle.tuning_presets.active"] = "attivo",
+["vehicle.tuning_presets.add"] = "+ Aggiungi Preset",
+["vehicle.tuning_presets.added"] = "Preset %d aggiunto",
+["vehicle.tuning_presets.max_reached"] = "Limite preset raggiunto (50)",
+["vehicle.tuning_presets.pick_preset_desc"] = "Scegli un preset da gestire",
+["vehicle.tuning_presets.pick_action"] = "Cosa vuoi fare?",
+["vehicle.tuning_presets.action_edit"] = "Modifica le parti del preset",
+["vehicle.tuning_presets.action_activate"] = "Attiva questo preset",
+["vehicle.tuning_presets.action_copy_current"] = "Copia le parti equipaggiate attuali qui",
+["vehicle.tuning_presets.hint"] = "Tocca uno slot per cambiarlo o rimuoverlo. Chiudi l'elenco al termine.",
+["vehicle.tuning_presets.activated"] = "Preset %d ora attivo",
+["vehicle.tuning_presets.copied"] = "Copiate %d parti equipaggiate nel preset %d",
+["vehicle.tuning_presets.nothing_equipped"] = "Niente equipaggiato da copiare",
+["vehicle.tuning_presets.failed"] = "Modifica del preset fallita",
+
+["vehicle.slot.filled"] = "Slot %d: %s",
+["vehicle.slot.empty"] = "Slot %d: (vuoto)",
+["vehicle.slot.add"] = "+ Aggiungi una parte",
+["vehicle.slot.saved"] = "Modifiche salvate",
+["vehicle.slot.add_title"] = "Aggiungi una parte",
+["vehicle.slot.pick_title"] = "Slot %d",
+["vehicle.slot.pick_part"] = "Scegli una parte per questo slot",
+["vehicle.slot.remove"] = "- Rimuovi questa parte",
+["vehicle.slot.none_free"] = "Nessuna parte di tuning disponibile",
+["vehicle.slot.write_failed"] = "Impossibile salvare la modifica",
 
 ["vehicle.common.no_vehicles"] = "Nessun veicolo trovato",
+["vehicle.common.nebula_unavailable"] = "Nebula SDK non disponibile, funzionalità disattivata",
 ["vehicle.common.progress"] = "%d/%d",
 ["vehicle.common.resolve_list_failed"] = "Impossibile risolvere l'elenco veicoli",
 ["vehicle.common.no_zero_region"] = "Nessuna regione zero trovata",
+
+-- Risk levels (card badges; tap a badge for details)
+["risk.title"] = "Livello di Rischio",
+["risk.very_low"] = "MOLTO BASSO",
+["risk.low"] = "BASSO",
+["risk.medium"] = "MEDIO",
+["risk.high"] = "RISCHIOSO",
+["risk.very_high"] = "PERICOLOSO",
+["risk.very_low.info"] = "Modifica solo locale. Non può essere vista dal server di gioco e viene rimossa semplicemente riavviando il gioco.",
+["risk.low.info"] = "Modifica a basso rischio. Sicura lato server nel gioco normale, ma evita di abbinarla a statistiche chiaramente impossibili.",
+["risk.medium.info"] = "Visibile dal server. Altri giocatori o server di gioco possono vedere i dati modificati, quindi mantieni valori plausibili.",
+["risk.high.info"] = "Scrive dati che il server di gioco può vedere e validare. Usa prima un account usa e getta e mantieni valori realistici.",
+["risk.very_high.info"] = "Modifica aggressiva. Il server di gioco controlla attivamente questi dati e può segnalare o shadow-bannare l'account.",
+
+-- Global search
+["search.hint"] = "Cerca funzionalità…",
+["search.results"] = "%d risultato/i",
+["search.no_results"] = "Nessuna funzionalità corrisponde alla tua ricerca",
+["search.tab_missing"] = "Quella scheda non è più disponibile",
+
+-- Console tab (filters / details)
+["console.filter_all"] = "TUTTI",
+["console.filter_logs"] = "LOG (%d)",
+["console.filter_crashes"] = "CRASH (%d)",
+["console.empty_filtered"] = "Niente in questo filtro",
+["console.copied_one"] = "Copiato",
+["console.copy"] = "Copia",
+["console.details_title"] = "Crash: %s",
+
+["common.nebula_unavailable"] = "Nebula non è pronto, prova a riavviare lo script",
+
+["player.zoom.applied"] = "Intervallo camera impostato a %s-%s",
+["player.zoom.failed"] = "Impossibile impostare l'intervallo camera",
+["player.gravity.applied"] = "Gravità impostata: X %s, Y %s",
+
+["vehicle.show_hidden.title"] = "Mostra Veicoli Nascosti",
+["vehicle.show_hidden.desc"] = "Rivela i veicoli che il gioco tiene nascosti nel garage",
+["vehicle.show_hidden.applied"] = "Veicoli nascosti rivelati",
+["vehicle.show_hidden.reverted"] = "Visibilità veicoli ripristinata",
+["vehicle.show_hidden.failed"] = "Impossibile cambiare la visibilità dei veicoli",
+
+["cups.adjust_countdown.failed"] = "Impossibile impostare il conto alla rovescia",
+["cups.unlimited_tasks.enabled"] = "Attività illimitate attive: %d attività pronte da richiedere",
+["cups.unlimited_tasks.disabled"] = "%d attività ripristinate",
+["cups.unlimited_tasks.failed"] = "Scrittura attività fallita",
+
+["tabs.status"] = "STATO",
+["status.section_nebula"] = "Nebula",
+["status.section_process"] = "Processo di Gioco",
+["status.section_memory"] = "Memoria",
+["status.nebula_version.title"] = "Versione Nebula",
+["status.nebula_version.desc"] = "Rilascio SDK incorporato",
+["status.nebula_metadata.title"] = "Versione metadati",
+["status.nebula_metadata.desc"] = "Mappa delle strutture di gioco in uso",
+["status.nebula_save_probe.title"] = "Canale salvataggio",
+["status.nebula_save_probe.desc"] = "Sonda lettura/scrittura PlayerInfo",
+["status.nebula_gamedata_probe.title"] = "Canale GameData",
+["status.nebula_gamedata_probe.desc"] = "Sonda lettura/scrittura GameData",
+["status.process_package.title"] = "Pacchetto",
+["status.process_package.desc"] = "Nome pacchetto dell'app di destinazione",
+["status.process_version.title"] = "Versione gioco",
+["status.process_version.desc"] = "Versione app installata",
+["status.process_version_code.title"] = "Codice versione",
+["status.process_version_code.desc"] = "Codice versione app installata",
+["status.process_name.title"] = "Processo",
+["status.process_name.desc"] = "Nome processo di destinazione",
+["status.process_arch.title"] = "Architettura",
+["status.process_arch.desc"] = "Bitness processo di destinazione",
+["status.clear_memory.done"] = "Memoria di sessione cancellata",
+
+["console.capped"] = "Visualizzazione degli ultimi %d di %d voci di log",
 
 }
