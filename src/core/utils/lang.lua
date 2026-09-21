@@ -31,6 +31,7 @@ local AVAILABLE = {
     { code = "zh-CN", name = "简体中文" },
     { code = "hi",    name = "हिन्दी" },
     { code = "it",    name = "Italiano" },
+    { code = "fa",    name = "فارسی" },
     { code = "tr",    name = "Türkçe" },
     { code = "ar",    name = "العربية" },
     { code = "bn",    name = "বাংলা" },
@@ -42,7 +43,7 @@ local AVAILABLE = {
     { code = "es",    name = "Español" },
     { code = "id",    name = "Bahasa Indonesia" },
     { code = "ru",    name = "Русский" },
-    { code = "th",    name = "Thai" },
+    { code = "th",    name = "ไทย" },
 }
 
 -- ── Safe, non-fatal module loader ────────────────────────────────────────────
