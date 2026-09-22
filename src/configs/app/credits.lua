@@ -36,9 +36,6 @@ return {
 - Українська: AMR (Discord: amrgg)
 - Türkçe: AMR (Discord: amrgg)
 - Português (Brasil): AMR (Discord: amrgg)
-- हिन्दी (Hindi): AMR (Discord: amrgg)
-- Italiano (Italian): AMR (Discord: amrgg)
-- فارسی (Persian): AMR (Discord: amrgg)
 - 简体中文 (Simplified Chinese): Lan9118 (Discord: lan9118)
 ]],
 
@@ -50,10 +47,6 @@ return {
 - Erik (Discord: eomthix)
 - Sr Romero
 - Profinoobru
-- No Fear
-- Rei
-- donuts
-- dxzzy
 ]],
 
 -- ── Special thanks ────────────────────────────────────────────────────────
