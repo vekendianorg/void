@@ -10,15 +10,16 @@
 -- We'll update the remaining ones as soon as we get them.
 
 -- Nothing changed from 1.73.3, only file created. We'll update which are not working.
+-- Few are being updated.
 
 return {
     aobs = {
         fakeVip = {
-            {scan = "h 12 C0 00 55 48 89 E5 41 56 53", offset = 3, patch = "h B0 01 C3", unpatch = "h 55 48 89"},
+            {scan = "h 51 C1 00 55 48 89 E5 41 56 53", offset = 3, patch = "h B0 01 C3", unpatch = "h 55 48 89"},
         },
 
         fakeUnlock = {
-            {scan = "h 92 C0 00 55 48 89 E5 41 57 41 56 41 55 41 54", offset = 3, patch = "h B8 01 00 00 00 C3", unpatch = "h 55 48 89 E5 41 57"},
+            {scan = "h 28 E3 00 55 48 89 E5 41 57 41", offset = 3, patch = "h B8 01 00 00 00 C3", unpatch = "h 55 48 89 E5 41 57"},
         },
 
         autoDetach = {
