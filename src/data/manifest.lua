@@ -75,8 +75,9 @@ return {
     ["x86_64"] = {
         chain = {
             { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
+            { version = "1.74.2", file = "data/x86_64/1.74.2.lua", full = true },
             -- Example future entries:
-            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
+            -- { version = "1.74.3", file = "data/x86_64/1.74.3.lua" },
         },
     },
 
