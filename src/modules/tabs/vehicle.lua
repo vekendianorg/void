@@ -203,7 +203,7 @@ return function(container)
         done()
     end)
 
-    addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
+    --[[addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
     function(done)
         ops.maxVehicles(
             function(i, total) showToast(t("common.progress", i, total), true) end,
@@ -212,6 +212,23 @@ return function(container)
                     showToast(t("max_vehicles.no_vehicles"))
                 elseif status == "all_maxed" then
                     showToast(t("max_vehicles.applied", stats.written, stats.upgrades, stats.vehicles))
+                else
+                    showToast(t("max_vehicles.failed"))
+                end
+            end)
+        done()
+    end)
+    ]]
+
+    addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
+    function(done)
+        ops.maxVehicles(
+            function(i, total) showToast(t("common.progress", i, total), true) end,
+            function(status)
+                if status == "no_vehicles" then
+                    showToast(t("max_vehicles.no_vehicles"))
+                elseif status == "all_maxed" then
+                    showToast(t("max_vehicles.all_maxed"))
                 else
                     showToast(t("max_vehicles.failed"))
                 end
@@ -229,7 +246,7 @@ return function(container)
         done()
     end)
 
-    addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
+    --[[addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
     function(done)
         ops.maxParts(
             function(i, total) showToast(t("common.progress", i, total), true) end,
@@ -243,7 +260,24 @@ return function(container)
                 end
             end)
         done()
+    end)]]
+
+addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
+    function(done)
+        ops.maxParts(
+            function(i, total) showToast(t("common.progress", i, total), true) end,
+            function(status)
+                if status == "no_vehicles" then
+                    showToast(t("max_parts.no_vehicles"))
+                elseif status == "all_maxed" then
+                    showToast(t("max_parts.all_maxed"))
+                else
+                    showToast(t("max_parts.failed"))
+                end
+            end)
+        done()
     end)
+
 
     -- ── Per-slot parts editor (shared by both tuning editors) ─────────────
     -- One row per filled slot plus an "Add a part" row. Tapping a row opens a

@@ -20,18 +20,22 @@ function M.freeChest(state, cb)
         else
             LOG.dbg(TAG, "No cache — scanning memory")
             gg.clearResults()
-            gg.setRanges(8)
-            gg.searchNumber("h CE CC 4C 3F AF 47 E1 3E FA 7E AA 3E 5B B1 BF 3C CD CC CC 3D", 1)
-            gg.refineNumber("h CD CC CC 3D", 1)
+            gg.setRanges(gg.REGION_C_DATA)
+            gg.searchNumber("0.1;625", gg.TYPE_FLOAT)
+            gg.refineNumber("0.1", gg.TYPE_FLOAT)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            storage:save_session("free_chest", results)
+            if #results > 0 then
+                storage:save_session("free_chest", results)
+            else
+                LOG.warn(TAG, "Search found 0 results. Cache skipped.")
+            end
         end
-
+        
         if state then
-            gg.editAll("0", 1)
+            gg.editAll("0", gg.TYPE_FLOAT)
         else
-            gg.editAll("h CD CC CC 3D", 1)
+            gg.editAll("0.1", gg.TYPE_FLOAT)
         end
 
         gg.clearResults()

@@ -1,4 +1,4 @@
--- Packed by bundle.py  •  2026-09-22 23:02:14
+-- Packed by bundle.py  •  2026-09-26 07:58:06
 
 -- Do not edit — regenerate with:  python bundle.py
 
@@ -550,6 +550,9 @@ return {
 - Українська: AMR (Discord: amrgg)
 - Türkçe: AMR (Discord: amrgg)
 - Português (Brasil): AMR (Discord: amrgg)
+- हिन्दी (Hindi): AMR (Discord: amrgg)
+- Italiano (Italian): AMR (Discord: amrgg)
+- فارسی (Persian): AMR (Discord: amrgg)
 - 简体中文 (Simplified Chinese): Lan9118 (Discord: lan9118)
 ]],
 
@@ -44193,8 +44196,9 @@ return {
     ["x86_64"] = {
         chain = {
             { version = "1.73.3", file = "data/x86_64/1.73.3.lua", full = true },
+            { version = "1.74.2", file = "data/x86_64/1.74.2.lua", full = true },
             -- Example future entries:
-            -- { version = "1.73.5", file = "data/x86_64/1.73.5.lua" },
+            -- { version = "1.74.3", file = "data/x86_64/1.74.3.lua" },
         },
     },
 
@@ -44358,15 +44362,16 @@ __vfs['data/x86_64/1.74.2.lua'] = function(...)
 -- We'll update the remaining ones as soon as we get them.
 
 -- Nothing changed from 1.73.3, only file created. We'll update which are not working.
+-- Few are being updated.
 
 return {
     aobs = {
         fakeVip = {
-            {scan = "h 12 C0 00 55 48 89 E5 41 56 53", offset = 3, patch = "h B0 01 C3", unpatch = "h 55 48 89"},
+            {scan = "h 51 C1 00 55 48 89 E5 41 56 53", offset = 3, patch = "h B0 01 C3", unpatch = "h 55 48 89"},
         },
 
         fakeUnlock = {
-            {scan = "h 92 C0 00 55 48 89 E5 41 57 41 56 41 55 41 54", offset = 3, patch = "h B8 01 00 00 00 C3", unpatch = "h 55 48 89 E5 41 57"},
+            {scan = "h 28 E3 00 55 48 89 E5 41 57 41", offset = 3, patch = "h B8 01 00 00 00 C3", unpatch = "h 55 48 89 E5 41 57"},
         },
 
         autoDetach = {
@@ -119448,18 +119453,22 @@ function M.freeChest(state, cb)
         else
             LOG.dbg(TAG, "No cache — scanning memory")
             gg.clearResults()
-            gg.setRanges(8)
-            gg.searchNumber("h CE CC 4C 3F AF 47 E1 3E FA 7E AA 3E 5B B1 BF 3C CD CC CC 3D", 1)
-            gg.refineNumber("h CD CC CC 3D", 1)
+            gg.setRanges(gg.REGION_C_DATA)
+            gg.searchNumber("0.1;625", gg.TYPE_FLOAT)
+            gg.refineNumber("0.1", gg.TYPE_FLOAT)
             local results = gg.getResults(gg.getResultsCount())
             LOG.info(TAG, "Scan results: " .. tostring(#results))
-            storage:save_session("free_chest", results)
+            if #results > 0 then
+                storage:save_session("free_chest", results)
+            else
+                LOG.warn(TAG, "Search found 0 results. Cache skipped.")
+            end
         end
-
+        
         if state then
-            gg.editAll("0", 1)
+            gg.editAll("0", gg.TYPE_FLOAT)
         else
-            gg.editAll("h CD CC CC 3D", 1)
+            gg.editAll("0.1", gg.TYPE_FLOAT)
         end
 
         gg.clearResults()
@@ -119825,7 +119834,7 @@ local function findZeroRegion(size)
         if region.state == "A" and not alloc.isDangerous(region) then
             local reads = {}
             for addr = region.start, region.start + size * 4, 4 do
-                table.insert(reads, { address = addr, flags = 4 })
+                table.insert(reads, {address = addr, flags = 4})
             end
 
             local values = gg.getValues(reads)
@@ -119850,7 +119859,7 @@ end
 local function resolveVehicleList()
     local cached = storage:load_session("vehicle_list_deep")
     if cached and #cached > 0 then
-        local check = gg.getValues({{ address = cached[1].deepPtrAddr, flags = 32 }})
+        local check = gg.getValues({{address = cached[1].deepPtrAddr, flags = 32}})
         if check and check[1] and check[1].value ~= 0 then
             LOG.dbg("VehicleList", "Cache hit: " .. tostring(#cached) .. " vehicles")
             return cached
@@ -119881,21 +119890,20 @@ local function resolveVehicleList()
 
     for anchorIdx, anchor in ipairs(anchorResults) do
         local pattern = gg.getValues({
-            { address = anchor.address - 0x20, flags = 4 },
-            { address = anchor.address - 0x8,  flags = 4 }
+            {address = anchor.address - 0x20, flags = 4},
+            {address = anchor.address - 0x8, flags = 4}
         })
-    
+
         if pattern and pattern[1] and pattern[2]
             and pattern[1].value == 0x65656A08
             and pattern[2].value == 0x403147AE then
-    
             gg.clearResults()
             gg.searchNumber(pattern[1].address, 32)
             gg.setVisible(false)
-    
+
             local tempResults = gg.getResults(gg.getResultsCount())
             gg.clearResults()
-    
+
             if tempResults and #tempResults > bestCount then
                 bestCount = #tempResults
                 refResults = tempResults
@@ -119904,12 +119912,12 @@ local function resolveVehicleList()
             LOG.dbg("VehicleList", string.format("anchor[%d] pattern mismatch", anchorIdx))
         end
     end
-    
+
     if not refResults or #refResults == 0 then
         LOG.warn("VehicleList", "No refs found.")
         return nil
     end
-    
+
     -- Collect raw vehiclePtrs — sequential (unavoidable, unknown count per ref)
     local written = {}
     local rawPtrs = {}
@@ -119945,7 +119953,7 @@ local function resolveVehicleList()
     -- Batch read all deepPtrs — 1 getValues
     local deepReads = {}
     for _, vehiclePtr in ipairs(rawPtrs) do
-        table.insert(deepReads, { address = vehiclePtr + 0x550, flags = 32 })
+        table.insert(deepReads, {address = vehiclePtr + 0x550, flags = 32})
     end
     local deepPtrs = gg.getValues(deepReads)
 
@@ -119974,10 +119982,10 @@ local function resolveVehicleList()
     -- Batch verify all — 1 getValues
     local verifyReads = {}
     for _, v in ipairs(validPtrs) do
-        table.insert(verifyReads, { address = v.deepPtr + 0x0, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0x4, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0x8, flags = 4 })
-        table.insert(verifyReads, { address = v.deepPtr + 0xC, flags = 4 })
+        table.insert(verifyReads, {address = v.deepPtr + 0x0, flags = 4})
+        table.insert(verifyReads, {address = v.deepPtr + 0x4, flags = 4})
+        table.insert(verifyReads, {address = v.deepPtr + 0x8, flags = 4})
+        table.insert(verifyReads, {address = v.deepPtr + 0xC, flags = 4})
     end
     local verifyResults = gg.getValues(verifyReads)
 
@@ -119996,20 +120004,20 @@ local function resolveVehicleList()
         local v3 = verifyResults[base + 3]
 
         if v0 and v1 and v2 and v3
-        and v0.value == 0
-        and v1.value == 18
-        and v2.value == 53 then
+            and v0.value == 0
+            and v1.value == 18
+            and v2.value == 53 then
             table.insert(vehicles, {
                 vehiclePtr  = v.vehiclePtr,
                 deepPtrAddr = v.deepPtrAddr,
             })
         else
             LOG.dbg("VehicleList", string.format("vehiclePtr=0x%X failed verify: %d %d %d %d",
-                v.vehiclePtr,
-                v0 and v0.value or -1,
-                v1 and v1.value or -1,
-                v2 and v2.value or -1,
-                v3 and v3.value or -1))
+                                                 v.vehiclePtr,
+                                                 v0 and v0.value or -1,
+                                                 v1 and v1.value or -1,
+                                                 v2 and v2.value or -1,
+                                                 v3 and v3.value or -1))
         end
     end
 
@@ -120027,7 +120035,7 @@ local function forEachVehicle(vehicles, cb)
     -- Batch read all deepPtrs — 1 getValues
     local reads = {}
     for _, v in ipairs(vehicles) do
-        table.insert(reads, { address = v.deepPtrAddr, flags = 32 })
+        table.insert(reads, {address = v.deepPtrAddr, flags = 32})
     end
     local deepPtrs = gg.getValues(reads)
     if not deepPtrs then
@@ -120050,9 +120058,9 @@ end
 
 -- ── Nebula helpers (PlayerInfo dotted paths) ───────────────────────────────
 
-local MAX_VEHICLES = 300   -- sanity caps for array walks
-local MAX_PARTS    = 200
-local MAX_PRESETS  = 50
+local MAX_VEHICLES = 300 -- sanity caps for array walks
+local MAX_PARTS = 200
+local MAX_PRESETS = 50
 
 local function nebulaReady()
     return (Nebula and Nebula.PlayerInfo and Nebula.VERSION) and true or false
@@ -120099,7 +120107,7 @@ function M.partsSlot(slot, cb)
 
         -- Validate cache
         if cached and #cached > 0 then
-            local check = gg.getValues({{ address = cached[1], flags = 32 }})
+            local check = gg.getValues({{address = cached[1], flags = 32}})
             if not check or not check[1] or check[1].value == 0 then
                 LOG.warn(TAG, "Cache stale — re-resolving")
                 cached = nil
@@ -120123,7 +120131,7 @@ function M.partsSlot(slot, cb)
         -- Read all deepPtrs in one call
         local reads = {}
         for _, deepPtrAddr in ipairs(cached) do
-            table.insert(reads, { address = deepPtrAddr, flags = 32 })
+            table.insert(reads, {address = deepPtrAddr, flags = 32})
         end
         local deepPtrs = gg.getValues(reads)
 
@@ -120137,9 +120145,9 @@ function M.partsSlot(slot, cb)
         for _, dp in ipairs(deepPtrs) do
             if dp and dp.value ~= 0 then
                 local deepPtrAddr = dp.address
-                table.insert(edits, { address = deepPtrAddr + 0x0,  flags = 32, value = slotStart })
-                table.insert(edits, { address = deepPtrAddr + 0x8,  flags = 32, value = slotEnd })
-                table.insert(edits, { address = deepPtrAddr + 0x10, flags = 32, value = slotEnd })
+                table.insert(edits, {address = deepPtrAddr + 0x0, flags = 32, value = slotStart})
+                table.insert(edits, {address = deepPtrAddr + 0x8, flags = 32, value = slotEnd})
+                table.insert(edits, {address = deepPtrAddr + 0x10, flags = 32, value = slotEnd})
             end
         end
 
@@ -120167,7 +120175,7 @@ function M.getPartGroups()
     local data = tuningData()
     local tp = (data and data.tuningParts) or {}
 
-    local skip = { ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true }
+    local skip = {ECHO = true, ["COIN MAGNET"] = true, ["FUEL MAGNET"] = true}
 
     local groupMap = {}
     local groupOrder = {}
@@ -120182,7 +120190,7 @@ function M.getPartGroups()
                 local stat = e.stat
                 if type(stat) == "table" and stat["from"] ~= nil then
                     local statLabel = (type(e.name) == "table" and e.name.value) or "STAT"
-                    statList[#statList + 1] = { label = statLabel, from = stat["from"], to = stat["to"] }
+                    statList[#statList + 1] = {label = statLabel, from = stat["from"], to = stat["to"]}
                 end
             end
 
@@ -120192,10 +120200,12 @@ function M.getPartGroups()
                 -- Only add if not already covered by a named DURATION effectStat
                 local already = false
                 for _, s in ipairs(statList) do
-                    if s.label == "DURATION" then already = true; break end
+                    if s.label == "DURATION" then
+                        already = true; break
+                    end
                 end
                 if not already then
-                    statList[#statList + 1] = { label = "DURATION", from = ed["from"], to = ed["to"] }
+                    statList[#statList + 1] = {label = "DURATION", from = ed["from"], to = ed["to"]}
                 end
             end
 
@@ -120204,7 +120214,7 @@ function M.getPartGroups()
                 for _, e in ipairs(part.effects or {}) do
                     local amt = e.amount
                     if type(amt) == "table" and amt["from"] ~= nil then
-                        statList[#statList + 1] = { label = e.type or "STAT", from = amt["from"], to = amt["to"] }
+                        statList[#statList + 1] = {label = e.type or "STAT", from = amt["from"], to = amt["to"]}
                     end
                 end
             end
@@ -120214,7 +120224,7 @@ function M.getPartGroups()
                     groupMap[label] = {}
                     table.insert(groupOrder, label)
                 end
-                table.insert(groupMap[label], { key = key, statList = statList })
+                table.insert(groupMap[label], {key = key, statList = statList})
             end
         end
     end
@@ -120232,11 +120242,11 @@ end
 --   reset     — if true, restore the original level flag and clear cache
 -- status: "not_found" | "reset" | "applied"
 function M.applyPartsModifier(params, cb)
-    local variants   = params.variants
-    local chosenStat = params.chosenStat   -- { label, from, to }
-    local cacheKey   = params.cacheKey
-    local editValue  = params.editValue
-    local reset      = params.reset
+    local variants = params.variants
+    local chosenStat = params.chosenStat -- { label, from, to }
+    local cacheKey = params.cacheKey
+    local editValue = params.editValue
+    local reset = params.reset
 
     scheduler:add(function(finishTask)
         local TAG = "PartsModifier"
@@ -120244,7 +120254,7 @@ function M.applyPartsModifier(params, cb)
 
         if not cache then
             LOG.dbg(TAG, string.format("Scanning for %s [%.4g–%.4g]",
-                chosenStat.label, chosenStat.from, chosenStat.to))
+                                       chosenStat.label, chosenStat.from, chosenStat.to))
 
             local toEdit = {}
 
@@ -120256,9 +120266,9 @@ function M.applyPartsModifier(params, cb)
 
             for _, v in ipairs(refs) do
                 local vals = gg.getValues({
-                    { address = v.address + 0x8,  flags = 4  },
-                    { address = v.address + 0xC,  flags = 16 },
-                    { address = v.address + 0x10, flags = 16 },
+                    {address = v.address + 0x8, flags = 4},
+                    {address = v.address + 0xC, flags = 16},
+                    {address = v.address + 0x10, flags = 16},
                 })
                 if vals and vals[1].value == 0x40000000 then
                     local from, to = vals[2].value, vals[3].value
@@ -120286,8 +120296,11 @@ function M.applyPartsModifier(params, cb)
 
         local edits = {}
         for _, addr in ipairs(cache) do
-            table.insert(edits, { address = addr, flags = 16,
-                value = reset and 0x40000000 or editValue })
+            table.insert(edits, {
+                address = addr,
+                flags = 16,
+                value = reset and 0x40000000 or editValue
+            })
         end
         gg.setValues(edits)
         gg.clearResults()
@@ -120320,8 +120333,8 @@ function M.setFuel(params, cb)
             gg.loadResults(cache)
             local base = gg.getResults(1)[1].address
             gg.setValues({
-                {address = base + 4,  flags = 4, value = cast.arm64(0x1E22C000)},
-                {address = base + 8,  flags = 4, value = cast.arm64(0x1E22C021)},
+                {address = base + 4, flags = 4, value = cast.arm64(0x1E22C000)},
+                {address = base + 8, flags = 4, value = cast.arm64(0x1E22C021)},
                 {address = base + 12, flags = 4, value = cast.arm64(0x1F488400)},
                 {address = base + 16, flags = 4, value = cast.arm64(0x1E624000)},
             })
@@ -120337,9 +120350,9 @@ function M.setFuel(params, cb)
         end
 
         local b = string.pack("<f", val)
-        local lo = string.unpack("<H", b:sub(1,2))
-        local hi = string.unpack("<H", b:sub(3,4))
-        local NOP  = 0xD503201F
+        local lo = string.unpack("<H", b:sub(1, 2))
+        local hi = string.unpack("<H", b:sub(3, 4))
+        local NOP = 0xD503201F
         local movz = 0x52800000 | (lo << 5) | 8
         local movk = 0x72A00000 | (hi << 5) | 8
         local fmov = 0x1E270100
@@ -120363,8 +120376,8 @@ function M.setFuel(params, cb)
 
         local base = gg.getResults(1)[1].address
         gg.setValues({
-            {address = base + 4,  flags = 4, value = cast.arm64(movz)},
-            {address = base + 8,  flags = 4, value = cast.arm64(movk)},
+            {address = base + 4, flags = 4, value = cast.arm64(movz)},
+            {address = base + 8, flags = 4, value = cast.arm64(movk)},
             {address = base + 12, flags = 4, value = cast.arm64(fmov)},
             {address = base + 16, flags = 4, value = cast.arm64(NOP)},
         })
@@ -120393,9 +120406,9 @@ function M.unlockVehicles(cb)
         -- FIX: capture the count (was discarded; the tab referenced an
         -- undefined `successCount`).
         local successCount = forEachVehicle(vehiclePtrs, function(vehiclePtr, deepPtr, deepPtrAddr)
-            table.insert(edits, { address = vehiclePtr + 0x110, flags = 4, value = 1 })
+            table.insert(edits, {address = vehiclePtr + 0x110, flags = 4, value = 1})
             for off = 0x114, 0x14C, 4 do
-                table.insert(edits, { address = vehiclePtr + off, flags = 4, value = 0 })
+                table.insert(edits, {address = vehiclePtr + off, flags = 4, value = 0})
             end
         end)
         if #edits > 0 then gg.setValues(edits) end
@@ -120406,6 +120419,7 @@ function M.unlockVehicles(cb)
     end)
 end
 
+--[[
 -- ── Max vehicles ──────────────────────────────────────────────
 
 -- Set level = maxLevel = 19 on every upgrade of every vehicle (same write
@@ -120477,7 +120491,88 @@ function M.maxVehicles(onProgress, cb)
         finishTask(); cb("all_maxed", stats)
     end)
 end
+]]
 
+-- Max all vehicle upgrades. onProgress(i, total) optional.
+-- status: "no_vehicles" | "all_maxed" | "failed"
+-- Batched: pointer reads are collapsed into a few gg.getValues calls instead of
+-- one per vehicle/slot. Same write set as the original sequential version.
+function M.maxVehicles(onProgress, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "MaxVehicles"
+        LOG.info(TAG, "Module activated.")
+
+        local vehicleListPtr = gg.getValues({{address = BaseGameStatus + 0xB8, flags = 32}})[1].value
+        local totalVehicles = gg.getValues({{address = BaseGameStatus + 0xC0, flags = 4}})[1].value
+
+        if not vehicleListPtr or vehicleListPtr == 0 then
+            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+            finishTask(); cb("no_vehicles"); return
+        end
+        totalVehicles = totalVehicles or 0
+        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+
+        -- Batch 1: all vehicle pointers in one read.
+        local reads = {}
+        for i = 0, totalVehicles - 1 do
+            reads[#reads + 1] = {address = vehicleListPtr + i * 8, flags = 32}
+        end
+        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
+        local vehicles = {}
+        for _, v in ipairs(vPtrs) do
+            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
+        end
+
+        -- Batch 2: namePtr (+0x18) and upgradeListPtr (+0x20) per vehicle.
+        local meta = {}
+        for _, vp in ipairs(vehicles) do
+            meta[#meta + 1] = {address = vp + 0x18, flags = 32}
+            meta[#meta + 1] = {address = vp + 0x20, flags = 32}
+        end
+        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
+
+        -- Resolve slot count per vehicle (needs the name) and collect all
+        -- upgrade-slot pointer addresses for a single batched read.
+        local upReads = {}
+        local n = #vehicles
+        local step = math.max(1, math.floor(n / 12))
+        for k, vp in ipairs(vehicles) do
+            local namePtr = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
+            local upgradeListPtr = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
+            local vehicleName = (namePtr and namePtr ~= 0) and readString(namePtr + 1) or "unknown"
+            local upgradeSlots = vehicleName:find("lowrider") and 5 or 4
+            if upgradeListPtr and upgradeListPtr ~= 0 then
+                for j = 0, upgradeSlots - 1 do
+                    upReads[#upReads + 1] = {address = upgradeListPtr + j * 8, flags = 32}
+                end
+            end
+            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
+        end
+
+        -- Batch 3: all upgrade pointers, then build the edit list.
+        local upPtrs = (#upReads > 0 and gg.getValues(upReads)) or {}
+        local upgradeList = {}
+        for _, p in ipairs(upPtrs) do
+            if p.value and p.value ~= 0 then
+                upgradeList[#upgradeList + 1] = {address = p.value + 0x20, flags = 4, value = 19}
+                upgradeList[#upgradeList + 1] = {address = p.value + 0x24, flags = 4, value = 19}
+            end
+        end
+
+        if #upgradeList > 0 then
+            gg.setValues(upgradeList)
+            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
+            finishTask(); cb("all_maxed"); return
+        else
+            LOG.warn(TAG, "upgradeList is empty.")
+            finishTask(); cb("failed"); return
+        end
+    end)
+end
+
+
+
+--[[
 -- ── Max parts ──────────────────────────────────────────────────
 
 -- Set level = maxLevel on every owned part of every vehicle, entirely via
@@ -120513,7 +120608,7 @@ function M.maxParts(onProgress, cb)
         -- Pass 2: per vehicle, one array read for the whole parts list,
         -- then a level write only where level < maxLevel.
         local partsTotal, partsDone = 0, 0
-        local stats = { vehicles = #vehicles, parts = 0, written = 0 }
+        local stats = {vehicles = #vehicles, parts = 0, written = 0}
 
         for _, vi in ipairs(vehicles) do
             local arr, err = pget("gameStatus.vehicleStatus[" .. vi .. "].tuningParts")
@@ -120525,11 +120620,11 @@ function M.maxParts(onProgress, cb)
                 for j = 1, n do
                     local p = arr[j]
                     if p and p.id then
-                        local level    = tonumber(p.level) or 0
+                        local level = tonumber(p.level) or 0
                         local maxLevel = tonumber(p.maxLevel) or 0
                         if maxLevel > 0 and level < maxLevel then
                             local ok, wErr = pset("gameStatus.vehicleStatus[" .. vi
-                                .. "].tuningParts[" .. j .. "].level", maxLevel)
+                                                  .. "].tuningParts[" .. j .. "].level", maxLevel)
                             if ok then stats.written = stats.written + 1 end
                             if wErr then LOG.warn(TAG, "part level write failed: " .. tostring(wErr)) end
                         end
@@ -120542,10 +120637,167 @@ function M.maxParts(onProgress, cb)
 
         stats.parts = partsTotal
         LOG.info(TAG, string.format("Max parts done: %d vehicles, %d parts, %d written",
-            stats.vehicles, stats.parts, stats.written))
+                                    stats.vehicles, stats.parts, stats.written))
         finishTask(); cb("all_maxed", stats)
     end)
 end
+]]
+
+
+-- ── Tuning-parts config (decoded once, shared) ───────────────────────────────
+
+-- Part max upgrade level is derived from each part's rarity, sourced from
+-- configs/tuning_parts.lua — replacing the old hardcoded name→level map.
+local RARITY_CAP = {
+    common    = 15,
+    rare      = 10,
+    epic      = 7,
+    legendary = 4,
+    mythic    = 3,
+}
+
+-- Parts whose in-memory name suffix doesn't match any tuning_parts key.
+-- Checked as plain suffix patterns against the full in-memory name
+-- (e.g. "jeep_start_boost" ends with "start_boost" -> cap 10).
+-- Format: { suffix, cap }
+local PART_SUFFIX_OVERRIDES = {
+    { "start_boost", 10 },  -- stored as <vehicle>_start_boost; tuning_parts key is perfect_start_boost (rare->10)
+    { "_jump",       10 },  -- stored as <vehicle>_jump (truncated from jump_boost); rare->10
+}
+
+-- Lazily-built map: tuning-part key → max level (by rarity).
+local _partCaps
+local function partCaps()
+    if _partCaps then return _partCaps end
+    _partCaps = {}
+    local data = tuningData()
+    if not data or type(data.tuningParts) ~= "table" then
+        LOG.warn("MaxParts", "tuning_parts.lua unavailable — part caps fall back to default")
+        return _partCaps
+    end
+    for key, part in pairs(data.tuningParts) do
+        local cap = type(part) == "table" and part.rarity and RARITY_CAP[part.rarity]
+        if cap then _partCaps[key] = cap end
+    end
+    return _partCaps
+end
+
+-- Resolve a part's max level from its name via the rarity-derived caps.
+-- Priority: suffix overrides -> longest tuning_parts suffix match -> fallback 3.
+local function partMaxLevel(partName)
+    -- 1. Suffix overrides for parts whose in-memory name doesn't match any
+    --    tuning_parts key (e.g. "jeep_start_boost", "jeep_jump").
+    for _, entry in ipairs(PART_SUFFIX_OVERRIDES) do
+        local suffix, cap = entry[1], entry[2]
+        if partName:find(suffix .. "$") then
+            return cap
+        end
+    end
+    -- 2. Longest suffix match against tuning_parts keys.
+    local maxLevel, bestLen = 3, 0
+    for key, lvl in pairs(partCaps()) do
+        if #key > bestLen and partName:find(key .. "$") then
+            maxLevel = lvl
+            bestLen  = #key
+        end
+    end
+    if maxLevel == 3 and bestLen == 0 then
+        LOG.dbg("MaxParts", "No cap found for part: " .. tostring(partName) .. " -- using fallback 3")
+    end
+    return maxLevel
+end
+
+-- Max all parts for all vehicles. onProgress(i, total) optional.
+-- status: "no_vehicles" | "all_maxed" | "failed"
+-- Batched: vehicle pointers, each vehicle's parts-list header, and each
+-- vehicle's part-pointer array are read in bulk. The (conditional, multi-level)
+-- part-name lookup stays sequential — identical to the original.
+function M.maxParts(onProgress, cb)
+    scheduler:add(function(finishTask)
+        local TAG = "MaxParts"
+        LOG.info(TAG, "Module activated.")
+
+        local vehicleListPtr = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
+        local totalVehicles  = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+
+        if not vehicleListPtr or vehicleListPtr == 0 then
+            LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
+            finishTask(); cb("no_vehicles"); return
+        end
+        totalVehicles = totalVehicles or 0
+        LOG.dbg(TAG, "Total vehicles: " .. tostring(totalVehicles))
+
+        -- Batch 1: all vehicle pointers.
+        local reads = {}
+        for i = 0, totalVehicles - 1 do
+            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
+        end
+        local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
+        local vehicles = {}
+        for _, v in ipairs(vPtrs) do
+            if v.value and v.value ~= 0 then vehicles[#vehicles + 1] = v.value end
+        end
+
+        -- Batch 2: partsListPtr (+0x58) and totalParts (+0x60) per vehicle.
+        local meta = {}
+        for _, vp in ipairs(vehicles) do
+            meta[#meta + 1] = { address = vp + 0x58, flags = 32 }
+            meta[#meta + 1] = { address = vp + 0x60, flags = 4 }
+        end
+        local metaVals = (#meta > 0 and gg.getValues(meta)) or {}
+
+        local upgradeList = {}
+        local n = #vehicles
+        local step = math.max(1, math.floor((n > 0 and n or 1) / 12))
+        for k, vp in ipairs(vehicles) do
+            local partsListPtr = metaVals[(k - 1) * 2 + 1] and metaVals[(k - 1) * 2 + 1].value
+            local totalParts   = metaVals[(k - 1) * 2 + 2] and metaVals[(k - 1) * 2 + 2].value
+
+            if partsListPtr and partsListPtr ~= 0 and totalParts and totalParts > 0 then
+                -- Batch this vehicle's part pointers in one read.
+                local pReads = {}
+                for j = 0, totalParts - 1 do
+                    pReads[#pReads + 1] = { address = partsListPtr + j * 8, flags = 32 }
+                end
+                local partPtrs = gg.getValues(pReads) or {}
+
+                for _, pp in ipairs(partPtrs) do
+                    local partPtr = pp.value
+                    if partPtr and partPtr ~= 0 then
+                        local namePtr  = gg.getValues({{ address = partPtr + 0x18, flags = 32 }})[1].value
+                        local partName = "unknown"
+
+                        if namePtr and namePtr ~= 0 then
+                            local header = gg.getValues({{ address = namePtr, flags = 4 }})[1].value
+                            if header == 49 then
+                                local namePtr2 = gg.getValues({{ address = namePtr + 0x10, flags = 32 }})[1].value
+                                partName = namePtr2 ~= 0 and readString(namePtr2) or "unknown"
+                            else
+                                partName = readString(namePtr + 1)
+                            end
+                        end
+
+                        local maxLevel = partMaxLevel(partName)
+                        LOG.dbg(TAG, string.format("  part=%s → maxLevel=%d", partName, maxLevel))
+                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x20, flags = 4, value = maxLevel }
+                        upgradeList[#upgradeList + 1] = { address = partPtr + 0x34, flags = 4, value = maxLevel }
+                    end
+                end
+            end
+            if onProgress and (k % step == 0 or k == n) then onProgress(k, n) end
+        end
+
+        if #upgradeList > 0 then
+            gg.setValues(upgradeList)
+            LOG.info(TAG, "Done. Total writes: " .. tostring(#upgradeList))
+            finishTask(); cb("all_maxed"); return
+        else
+            LOG.warn(TAG, "upgradeList is empty.")
+            finishTask(); cb("failed"); return
+        end
+    end)
+end
+
 
 -- Max mastery for all vehicles. onProgress(i, total) optional.
 -- status: "failed" | "all_maxed"
@@ -120558,8 +120810,8 @@ function M.maxMastery(onProgress, cb)
         LOG.info(TAG, "Module activated.")
 
         local masteryTimestamp = os.time(os.date("!*t"))
-        local vehicleListPtr   = gg.getValues({{ address = BaseGameStatus + 0xB8, flags = 32 }})[1].value
-        local totalVehicles    = gg.getValues({{ address = BaseGameStatus + 0xC0, flags = 4  }})[1].value
+        local vehicleListPtr = gg.getValues({{address = BaseGameStatus + 0xB8, flags = 32}})[1].value
+        local totalVehicles = gg.getValues({{address = BaseGameStatus + 0xC0, flags = 4}})[1].value
 
         if not vehicleListPtr or vehicleListPtr == 0 then
             LOG.fatal(TAG, "vehicleListPtr is nil or 0.")
@@ -120576,7 +120828,7 @@ function M.maxMastery(onProgress, cb)
         -- Batch 1: all vehicle pointers.
         local reads = {}
         for i = 0, totalVehicles - 1 do
-            reads[#reads + 1] = { address = vehicleListPtr + i * 8, flags = 32 }
+            reads[#reads + 1] = {address = vehicleListPtr + i * 8, flags = 32}
         end
         local vPtrs = (#reads > 0 and gg.getValues(reads)) or {}
         local vehicles = {}
@@ -120587,34 +120839,34 @@ function M.maxMastery(onProgress, cb)
         -- Batch 2: masteryPtr (+0x120) per vehicle.
         local mReads = {}
         for _, vp in ipairs(vehicles) do
-            mReads[#mReads + 1] = { address = vp + 0x120, flags = 32 }
+            mReads[#mReads + 1] = {address = vp + 0x120, flags = 32}
         end
         local mVals = (#mReads > 0 and gg.getValues(mReads)) or {}
 
         -- Vehicles that actually have a mastery object, plus a batched read of
         -- their 4 CA pointers each.
-        local active  = {}
+        local active = {}
         local caReads = {}
         for k, vp in ipairs(vehicles) do
             local masteryPtr = mVals[k] and mVals[k].value
             if masteryPtr and masteryPtr ~= 0 then
-                active[#active + 1] = { vehiclePtr = vp, masteryPtr = masteryPtr }
+                active[#active + 1] = {vehiclePtr = vp, masteryPtr = masteryPtr}
                 for j = 0, 3 do
-                    caReads[#caReads + 1] = { address = masteryPtr + j * 8, flags = 32 }
+                    caReads[#caReads + 1] = {address = masteryPtr + j * 8, flags = 32}
                 end
             end
         end
         local caVals = (#caReads > 0 and gg.getValues(caReads)) or {}
 
         -- Build all writes; flush once at the end.
-        local writes       = {}
+        local writes = {}
         local successCount = 0
-        local skipCount    = #vehicles - #active
-        local n    = #active
+        local skipCount = #vehicles - #active
+        local n = #active
         local step = math.max(1, math.floor((n > 0 and n or 1) / 12))
         for a = 1, n do
             local entry = active[a]
-            local base  = (a - 1) * 4
+            local base = (a - 1) * 4
             local validPtrs = {}
             for j = 1, 4 do
                 local p = caVals[base + j]
@@ -120625,13 +120877,13 @@ function M.maxMastery(onProgress, cb)
                 skipCount = skipCount + 1
             else
                 for _, p in ipairs(validPtrs) do
-                    writes[#writes + 1] = { address = p + 0x18, flags = 4, value = 65793 }
-                    writes[#writes + 1] = { address = p + 0x1C, flags = 4, value = masteryTimestamp }
+                    writes[#writes + 1] = {address = p + 0x18, flags = 4, value = 65793}
+                    writes[#writes + 1] = {address = p + 0x1C, flags = 4, value = masteryTimestamp}
                 end
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x120, flags = 32, value = entry.masteryPtr }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x128, flags = 4,  value = 4 }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x12C, flags = 4,  value = 4 }
-                writes[#writes + 1] = { address = entry.vehiclePtr + 0x130, flags = 4,  value = 4 }
+                writes[#writes + 1] = {address = entry.vehiclePtr + 0x120, flags = 32, value = entry.masteryPtr}
+                writes[#writes + 1] = {address = entry.vehiclePtr + 0x128, flags = 4, value = 4}
+                writes[#writes + 1] = {address = entry.vehiclePtr + 0x12C, flags = 4, value = 4}
+                writes[#writes + 1] = {address = entry.vehiclePtr + 0x130, flags = 4, value = 4}
                 successCount = successCount + 1
             end
             if onProgress and (a % step == 0 or a == n) then onProgress(a, n) end
@@ -120691,7 +120943,7 @@ function M.listVehicles(cb)
                 end
                 break
             end
-            list[#list + 1] = { index = i, id = tostring(id) }
+            list[#list + 1] = {index = i, id = tostring(id)}
         end
 
         if #list == 0 then
@@ -120788,9 +121040,9 @@ function M.setEquipped(vIdx, ids, cb)
         local mirrored = false
         local selIdx, selErr = pget("gameStatus.vehicleStatus[" .. vIdx .. "].selectedPresetIndex")
         if not selErr and selIdx ~= nil and tonumber(selIdx)
-           and selIdx >= 0 and selIdx < MAX_PRESETS then
+            and selIdx >= 0 and selIdx < MAX_PRESETS then
             local mOk, mErr = pset("gameStatus.vehicleStatus[" .. vIdx
-                .. "].tuningPartPresets[" .. (selIdx + 1) .. "].equippedParts", ids)
+                                   .. "].tuningPartPresets[" .. (selIdx + 1) .. "].equippedParts", ids)
             if mOk then
                 mirrored = true
             else
@@ -120799,7 +121051,7 @@ function M.setEquipped(vIdx, ids, cb)
         end
 
         LOG.info(TAG, string.format("Equipped set: %d parts (preset mirror: %s)",
-            #ids, tostring(mirrored)))
+                                    #ids, tostring(mirrored)))
         finishTask(); cb("applied", #ids, mirrored)
     end)
 end
@@ -120844,7 +121096,7 @@ function M.listPresets(vIdx, cb)
                     parts[#parts + 1] = tostring(arr[i])
                 end
             end
-            presets[#presets + 1] = { index = p, parts = parts }
+            presets[#presets + 1] = {index = p, parts = parts}
         end
 
         if #presets == 0 then
@@ -120862,12 +121114,12 @@ function M.setPresetParts(vIdx, pIdx, ids, cb)
             finishTask(); cb("failed", "nebula_unavailable"); return
         end
         if type(ids) ~= "table" or #ids == 0 or #ids > MAX_PARTS
-           or tonumber(pIdx) == nil or pIdx < 1 or pIdx > MAX_PRESETS then
+            or tonumber(pIdx) == nil or pIdx < 1 or pIdx > MAX_PRESETS then
             finishTask(); cb("invalid"); return
         end
 
         local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx
-            .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
+                             .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
         if not ok then
             LOG.error(TAG, "preset write failed: " .. tostring(err))
             finishTask(); cb("failed", tostring(err)); return
@@ -120901,7 +121153,7 @@ function M.saveEquippedToPreset(vIdx, pIdx, cb)
         end
 
         local ok, wErr = pset("gameStatus.vehicleStatus[" .. vIdx
-            .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
+                              .. "].tuningPartPresets[" .. pIdx .. "].equippedParts", ids)
         if not ok then
             LOG.error(TAG, "preset write failed: " .. tostring(wErr))
             finishTask(); cb("failed", tostring(wErr)); return
@@ -120932,7 +121184,6 @@ function M.setSelectedPreset(vIdx, pIdx, cb)
         finishTask(); cb("applied")
     end)
 end
-
 
 -- Append one empty preset by rewriting the whole tuningPartPresets array:
 -- existing entries pass through untouched, the new entry is an empty
@@ -120970,10 +121221,10 @@ function M.addPreset(vIdx, cb)
         -- their structs are left untouched; the new entry is an empty preset.
         local values = {}
         for i = 1, n do values[i] = {} end
-        values[n + 1] = { equippedParts = {} }
+        values[n + 1] = {equippedParts = {}}
 
         local ok, err = pset("gameStatus.vehicleStatus[" .. vIdx
-            .. "].tuningPartPresets", values)
+                             .. "].tuningPartPresets", values)
         if not ok then
             LOG.error(TAG, "add preset failed: " .. tostring(err))
             finishTask(); cb("failed", tostring(err)); return
@@ -123959,7 +124210,7 @@ return function(container)
         done()
     end)
 
-    addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
+    --[[addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
     function(done)
         ops.maxVehicles(
             function(i, total) showToast(t("common.progress", i, total), true) end,
@@ -123968,6 +124219,23 @@ return function(container)
                     showToast(t("max_vehicles.no_vehicles"))
                 elseif status == "all_maxed" then
                     showToast(t("max_vehicles.applied", stats.written, stats.upgrades, stats.vehicles))
+                else
+                    showToast(t("max_vehicles.failed"))
+                end
+            end)
+        done()
+    end)
+    ]]
+
+    addModule(container, "max_vehicles", t("max_vehicles.title"), t("max_vehicles.desc"), "button", nil,
+    function(done)
+        ops.maxVehicles(
+            function(i, total) showToast(t("common.progress", i, total), true) end,
+            function(status)
+                if status == "no_vehicles" then
+                    showToast(t("max_vehicles.no_vehicles"))
+                elseif status == "all_maxed" then
+                    showToast(t("max_vehicles.all_maxed"))
                 else
                     showToast(t("max_vehicles.failed"))
                 end
@@ -123985,7 +124253,7 @@ return function(container)
         done()
     end)
 
-    addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
+    --[[addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
     function(done)
         ops.maxParts(
             function(i, total) showToast(t("common.progress", i, total), true) end,
@@ -123999,7 +124267,24 @@ return function(container)
                 end
             end)
         done()
+    end)]]
+
+addModule(container, "max_parts", t("max_parts.title"), t("max_parts.desc"), "button", nil,
+    function(done)
+        ops.maxParts(
+            function(i, total) showToast(t("common.progress", i, total), true) end,
+            function(status)
+                if status == "no_vehicles" then
+                    showToast(t("max_parts.no_vehicles"))
+                elseif status == "all_maxed" then
+                    showToast(t("max_parts.all_maxed"))
+                else
+                    showToast(t("max_parts.failed"))
+                end
+            end)
+        done()
     end)
+
 
     -- ── Per-slot parts editor (shared by both tuning editors) ─────────────
     -- One row per filled slot plus an "Add a part" row. Tapping a row opens a
